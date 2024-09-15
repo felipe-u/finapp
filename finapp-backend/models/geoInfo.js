@@ -20,10 +20,11 @@ const geoInfoSchema = new Schema({
   location: {
     type: {
       type: String,
+      enum: ["Point"],
       default: "Point",
     },
     coordinates: {
-      type: [Number],
+      type: [Number], // [long, lat]
       required: true,
     },
   },
