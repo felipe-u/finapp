@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
-const fundingStatusSchema = new Schema({
+const financingStatusSchema = new Schema({
   installments: [
     {
       type: Schema.Types.ObjectId,
@@ -13,9 +13,13 @@ const fundingStatusSchema = new Schema({
     type: Number,
     required: true,
   },
-  product: {
-    type: String,
+  initialInstallment: {
+    type: Number,
     required: true,
+  },
+  product: {
+    type: Schema.Types.ObjectId,
+    ref: "Product",
   },
   totalPrice: {
     type: Number,
@@ -23,4 +27,4 @@ const fundingStatusSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model("FundingStatus", fundingStatusSchema);
+module.exports = mongoose.model("FinancingStatus", financingStatusSchema);
