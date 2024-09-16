@@ -45,10 +45,12 @@ const commercialInfoSchema = new Schema({
     type: Number,
     required: true,
   },
-  financingStatus: {
-    type: Schema.Types.ObjectId,
-    ref: "FinancingStatus",
-  },
+  financingStatus: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "FinancingStatus",
+    },
+  ],
   references: [
     {
       type: Schema.Types.ObjectId,
