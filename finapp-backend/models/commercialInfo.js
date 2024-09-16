@@ -11,6 +11,15 @@ const commercialInfoSchema = new Schema({
   coDebtor: {
     type: Schema.Types.ObjectId,
     ref: "Client",
+    required: function () {
+      return this.clientType === "debtor";
+    },
+    validate: {
+      validator: function (value) {
+        return !(this.clientType === "co-debtor" && value);
+      },
+      message: "Un codeudor no puede tener otro codeudor",
+    },
   },
   jobOccupation: {
     type: String,
@@ -46,6 +55,13 @@ const commercialInfoSchema = new Schema({
       ref: "Reference",
     },
   ],
+});
+
+commercialInfoSchema.pre("save", function (next) {
+  if (this.clientType === "co-debtor" && this.coDebtor) {
+    return next(new Error("Un codeudor no puede tener otro codeudor"));
+  }
+  next();
 });
 
 module.exports = mongoose.model("CommercialInfo", commercialInfoSchema);
