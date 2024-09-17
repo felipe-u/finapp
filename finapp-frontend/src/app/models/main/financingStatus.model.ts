@@ -1,5 +1,5 @@
+import { Product } from "../secundary/product.model";
 import { Installment } from "./installment.model";
-import { Product } from "./product.model";
 
 export class FinancingStatus {
     constructor(
