@@ -3,6 +3,7 @@ export class PersonalInfo {
         public _id: string,
         public phone: string,
         public address: string,
-        public birthDate: Date
+        public birthDate: Date,
+        public photo?: string,
     ) { }
 }

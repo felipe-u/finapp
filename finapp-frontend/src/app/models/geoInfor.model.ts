@@ -1,3 +1,6 @@
+import { Address } from "./address.model";
+import { Location } from "./location.model";
+
 export class GeoInfo {
     constructor(
         public _id: string,
@@ -5,21 +8,6 @@ export class GeoInfo {
         public location: Location,
         public googleMapsUrl: string,
         public images: string[]
-    ) { }
-}
-
-export class Address {
-    constructor(
-        public country: string,
-        public department: string,
-        public city: string
-    ) { }
-}
-
-export class Location {
-    constructor(
-        public type = 'Point',
-        public coordinates: [number, number]
     ) { }
 }
 
