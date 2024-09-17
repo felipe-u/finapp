@@ -5,18 +5,18 @@ const Schema = mongoose.Schema;
 const commercialInfoSchema = new Schema({
   clientType: {
     type: String,
-    enum: ["debtor", "co-debtor"],
+    enum: ["deudor", "codeudor"],
     required: true,
   },
   coDebtor: {
     type: Schema.Types.ObjectId,
     ref: "Client",
     required: function () {
-      return this.clientType === "debtor";
+      return this.clientType === "deudor";
     },
     validate: {
       validator: function (value) {
-        return !(this.clientType === "co-debtor" && value);
+        return !(this.clientType === "codeudor" && value);
       },
       message: "Un codeudor no puede tener otro codeudor",
     },
@@ -60,7 +60,7 @@ const commercialInfoSchema = new Schema({
 });
 
 commercialInfoSchema.pre("save", function (next) {
-  if (this.clientType === "co-debtor" && this.coDebtor) {
+  if (this.clientType === "codeuddor" && this.coDebtor) {
     return next(new Error("Un codeudor no puede tener otro codeudor"));
   }
   next();
