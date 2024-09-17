@@ -1,5 +1,5 @@
-import { Address } from "./address.model";
-import { Location } from "./location.model";
+import { Address } from "../secundary/address.model";
+import { Location } from "../secundary/location.model";
 
 export class GeoInfo {
     constructor(
