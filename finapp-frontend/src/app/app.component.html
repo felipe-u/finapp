@@ -1,4 +1,8 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
+<button (click)="onTest()">Test</button>
+
+<button (click)="show()">show User Info</button>
+
+<!-- <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <label for="name">Name</label>
   <input type="text" name="name" id="name" formControlName="name">
   <br>
@@ -15,4 +19,4 @@
   @for (user of users(); track user) {
     <li>{{ user.name }} - {{ user.email }}</li>
   }
-</ul>
+</ul> -->
