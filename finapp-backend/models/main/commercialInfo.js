@@ -11,15 +11,16 @@ const commercialInfoSchema = new Schema({
   coDebtor: {
     type: Schema.Types.ObjectId,
     ref: "Client",
-    required: function () {
-      return this.clientType === "deudor";
-    },
-    validate: {
-      validator: function (value) {
-        return !(this.clientType === "codeudor" && value);
+    validate: [
+      {
+        validator: isRequiredIfClientIsDebtor,
+        message: "Es necesario un codeudor para el deudor",
       },
-      message: "Un codeudor no puede tener otro codeudor",
-    },
+      {
+        validator: shouldBeEmptyForCoDebtor,
+        message: "Un codeudor no puede tener otro codeudor",
+      },
+    ],
   },
   jobOccupation: {
     type: String,
@@ -49,6 +50,16 @@ const commercialInfoSchema = new Schema({
     {
       type: Schema.Types.ObjectId,
       ref: "FinancingStatus",
+      validate: [
+        {
+          validator: isRequiredIfClientIsDebtor,
+          message: "Es necesario un estado de financiacion para el deudor",
+        },
+        {
+          validator: shouldBeEmptyForCoDebtor,
+          message: "Un codeudor no puede tener estados de financiacion",
+        },
+      ],
     },
   ],
   references: [
@@ -58,6 +69,20 @@ const commercialInfoSchema = new Schema({
     },
   ],
 });
+
+function isRequiredIfClientIsDebtor(value) {
+  if (this.clientType === "deudor") {
+    return value != null && value !== "";
+  }
+  return true;
+}
+
+function shouldBeEmptyForCoDebtor(value) {
+  if (this.clientType === "codeudor") {
+    return value == null || value === "";
+  }
+  return true;
+}
 
 commercialInfoSchema.pre("save", function (next) {
   if (this.clientType === "codeuddor" && this.coDebtor) {
