@@ -3,6 +3,11 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const installmentSchema = new Schema({
+  // Numero de cuota
+  installmentNumber: {
+    type: Number,
+    required: true
+  },
   // Vencimiento de la cuota
   dueDate: {
     type: Date,

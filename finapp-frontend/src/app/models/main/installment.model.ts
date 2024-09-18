@@ -1,6 +1,8 @@
 export class Installment {
     constructor(
         public _id: string,
+        // Numero de cuota
+        public installmentNumber: number,
         // Vencimiento de la cuota
         public dueDate: Date,
         // Capital

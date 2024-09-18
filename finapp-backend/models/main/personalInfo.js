@@ -11,9 +11,6 @@ const personalInfoSchema = new Schema({
     type: String,
     required: true,
   },
-  address: {
-    type: String,
-  },
   birthDate: {
     type: Date,
   },

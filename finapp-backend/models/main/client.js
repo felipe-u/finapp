@@ -37,6 +37,10 @@ const clientSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "CommercialInfo",
   },
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
 });
 
 // método para obtener el nombre completo del tipo de identificación
