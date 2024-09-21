@@ -46,22 +46,21 @@ const commercialInfoSchema = new Schema({
     type: Number,
     required: true,
   },
-  financingStatus: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "FinancingStatus",
-      validate: [
-        {
-          validator: isRequiredIfClientIsDebtor,
-          message: "Es necesario un estado de financiacion para el deudor",
-        },
-        {
-          validator: shouldBeEmptyForCoDebtor,
-          message: "Un codeudor no puede tener estados de financiacion",
-        },
-      ],
-    },
-  ],
+  financing: {
+    type: Schema.Types.ObjectId,
+    ref: "Financing",
+    validate: [
+      {
+        validator: isRequiredIfClientIsDebtor,
+        message: "Es necesario un estado de financiacion para el deudor",
+      },
+      {
+        validator: shouldBeEmptyForCoDebtor,
+        message: "Un codeudor no puede tener estados de financiacion",
+      },
+    ],
+  },
+
   references: [
     {
       type: Schema.Types.ObjectId,

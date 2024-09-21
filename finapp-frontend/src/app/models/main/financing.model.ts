@@ -1,7 +1,7 @@
 import { Product } from "../secundary/product.model";
 import { Installment } from "./installment.model";
 
-export class FinancingStatus {
+export class Financing {
     constructor(
         public _id: string,
         public installments: Installment[],
@@ -9,5 +9,6 @@ export class FinancingStatus {
         public initialInstallment: Number,
         public product: Product,
         public totalPrice: number,
+        public status: "al_dia" | "en_mora" | "completada" | "cancelada" | "congelada"
     ) { }
 }

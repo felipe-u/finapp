@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
-const financingStatusSchema = new Schema({
+const financingSchema = new Schema({
   installments: [
     {
       type: Schema.Types.ObjectId,
@@ -25,6 +25,11 @@ const financingStatusSchema = new Schema({
     type: Number,
     required: true,
   },
+  status: {
+    type: String,
+    enum: ["al_dia", "en_mora", "completada", "cancelada", "congelada"],
+    required: true,
+  },
 });
 
-module.exports = mongoose.model("FinancingStatus", financingStatusSchema);
+module.exports = mongoose.model("Financing", financingSchema);

@@ -1,6 +1,6 @@
 import { Reference } from "../secundary/reference.model";
 import { Client } from "./client.model";
-import { FinancingStatus } from "./financingStatus.model";
+import { Financing } from "./financing.model";
 
 export class CommercialInfo {
     constructor(
@@ -13,7 +13,7 @@ export class CommercialInfo {
         public income: number,
         public additionalIncome: number,
         public expenses: number,
-        public financingStatus: FinancingStatus[],
+        public financing: Financing,
         public references: Reference[]
     ) { }
 }

@@ -23,6 +23,10 @@ const addressSchema = new Schema({
     type: String,
     required: true,
   },
+  streetAddress: {
+    type: String,
+    required: true,
+  },
   additionalInfo: {
     type: String,
   },
