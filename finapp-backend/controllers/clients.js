@@ -3,7 +3,7 @@ const PersonalInfo = require("../models/main/personalInfo");
 const GeoInfo = require("../models/main/geoInfo");
 const Address = require("../models/secundary/address");
 const CommercialInfo = require("../models/main/commercialInfo");
-const FinancingStatus = require("../models/main/financingStatus");
+const Financing = require("../models/main/financing");
 const Installment = require("../models/main/installment");
 const Product = require("../models/secundary/product");
 const Reference = require("../models/secundary/reference");
@@ -28,6 +28,7 @@ exports.createClient = async (req, res, next) => {
       city: "Rionegro",
       neighbourhood: "Porvenir",
       sector: "Segunda etapa",
+      streetAddress: "Calle 41 # 61 F - 50",
     });
     const savedCoDebtorAddress = await coDebtorAddress.save();
 
@@ -78,6 +79,7 @@ exports.createClient = async (req, res, next) => {
       city: "Rionegro",
       neighbourhood: "Porvenir",
       sector: "Primera etapa",
+      streetAddress: "Calle 41 # 61 F - 50",
     });
     const savedClientAddress = await clientAddress.save();
 
@@ -129,14 +131,15 @@ exports.createClient = async (req, res, next) => {
     });
     const savedClientProduct = await clientProduct.save();
 
-    const clientFinancingStatus = new FinancingStatus({
+    const clientFinancing = new Financing({
       installments: [savedInstallment1, savedInstallment2],
       installmentsQuantity: 2,
       initialInstallment: 5000000,
       product: savedClientProduct,
       totalPrice: 80000000,
+      status: "al_dia",
     });
-    const savedClientFinancingStatus = await clientFinancingStatus.save();
+    const savedClientFinancing = await clientFinancing.save();
 
     const reference1Address = new Address({
       country: "Colombia",
@@ -144,6 +147,7 @@ exports.createClient = async (req, res, next) => {
       city: "Rionegro",
       neighbourhood: "Porvenir",
       sector: "Tercera etapa",
+      streetAddress: "Calle 41 # 61 F - 50",
     });
     const savedReference1Address = await reference1Address.save();
 
@@ -161,6 +165,7 @@ exports.createClient = async (req, res, next) => {
       city: "Rionegro",
       neighbourhood: "Porvenir",
       sector: "Tercera etapa",
+      streetAddress: "Calle 41 # 61 F - 50",
     });
     const savedReference2Address = await reference2Address.save();
 
@@ -181,7 +186,7 @@ exports.createClient = async (req, res, next) => {
       income: 5000000,
       additionalIncome: 0,
       expenses: 2000000,
-      financingStatus: [savedClientFinancingStatus],
+      financing: savedClientFinancing,
       references: [savedClientReference1, savedClientReference2],
     });
     const savedClientCommercialInfo = await clientCommercialInfo.save();
@@ -198,7 +203,7 @@ exports.createClient = async (req, res, next) => {
       user: req.user,
     });
     const savedNewClient = await newClient.save();
-    
+
     const theUser = req.user;
     theUser.clients = [savedNewClient];
     theUser.save();
