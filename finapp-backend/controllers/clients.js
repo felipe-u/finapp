@@ -137,7 +137,7 @@ exports.createClient = async (req, res, next) => {
       initialInstallment: 5000000,
       product: savedClientProduct,
       totalPrice: 80000000,
-      status: "al_dia",
+      status: "AL_DIA",
     });
     const savedClientFinancing = await clientFinancing.save();
 
