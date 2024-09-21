@@ -9,6 +9,6 @@ export class Financing {
         public initialInstallment: Number,
         public product: Product,
         public totalPrice: number,
-        public status: "al_dia" | "en_mora" | "completada" | "cancelada" | "congelada"
+        public status: string
     ) { }
 }

@@ -2,6 +2,14 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
+const statusEnum = {
+  AL_DIA: "Al dia",
+  EN_MORA: "En mora",
+  COMPL: "Completada",
+  PREJU: "En cobro prejuridico",
+  JURID: "En cobro juridico",
+};
+
 const financingSchema = new Schema({
   installments: [
     {
@@ -27,7 +35,7 @@ const financingSchema = new Schema({
   },
   status: {
     type: String,
-    enum: ["al_dia", "en_mora", "completada", "cancelada", "congelada"],
+    enum: Object.keys(statusEnum),
     required: true,
   },
 });
