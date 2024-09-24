@@ -1,6 +1,6 @@
-import { Reference } from "../secundary/reference.model";
 import { Client } from "./client.model";
 import { Financing } from "./financing.model";
+import { Reference } from "./reference.model";
 
 export class CommercialInfo {
     constructor(
