@@ -1,12 +1,12 @@
-const Client = require("../models/main/client");
-const PersonalInfo = require("../models/main/personalInfo");
-const GeoInfo = require("../models/main/geoInfo");
-const Address = require("../models/secundary/address");
-const CommercialInfo = require("../models/main/commercialInfo");
-const Financing = require("../models/main/financing");
-const Installment = require("../models/main/installment");
-const Product = require("../models/secundary/product");
-const Reference = require("../models/secundary/reference");
+const Client = require("../models/client");
+const PersonalInfo = require("../models/personalInfo");
+const GeoInfo = require("../models/geoInfo");
+const Address = require("../models/address");
+const CommercialInfo = require("../models/commercialInfo");
+const Financing = require("../models/financing");
+const Installment = require("../models/installment");
+const Product = require("../models/product");
+const Reference = require("../models/reference");
 
 const mongoDB = require("mongodb");
 
