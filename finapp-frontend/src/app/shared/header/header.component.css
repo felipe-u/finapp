@@ -1,0 +1,94 @@
+.container {
+  border: 1px solid black;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  position: relative;
+  height: 70px;
+  padding: 0 20px;
+}
+
+.logo {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.logo img {
+  height: 60px;
+  object-fit: contain;
+}
+
+.user {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.user img {
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid black;
+  transition: 0.3s ease;
+}
+
+.user img:hover {
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.185);
+}
+
+.sidepanel {
+  height: 235px;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 71px;
+  right: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 10px;
+  transition: 0.5s;
+  border-bottom-left-radius: 10px;
+}
+
+.sidepanel a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidepanel a:hover {
+  color: #f1f1f1;
+}
+
+.sidepanel-container {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 250px;
+  color: #f1f1f1;
+}
+
+.sidepanel-container img {
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid black;
+  background-color: #f1f1f1;
+}
+
+.sidepanel-container .closebtn {
+  display: flex;
+  justify-content: flex-end;
+}
+
+@media (max-width: 768px) {
+  .logo img {
+    height: 50px;
+  }
+  .user img {
+    height: 30px;
+  }
+}

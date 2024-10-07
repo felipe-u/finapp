@@ -1,0 +1,23 @@
+.container {
+  display: flex;
+  width: 100%;
+  margin-top: 15px;
+}
+
+.container nav {
+  margin: 0 auto;
+  font-size: 1.5em;
+}
+
+.container nav a {
+    background-color: lightgray;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: black;
+    transition: 0.3s ease;
+}
+
+.container nav a:hover {
+    background-color: #df3c30;
+    color: white;
+}

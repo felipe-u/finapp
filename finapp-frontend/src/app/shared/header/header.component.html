@@ -1,1 +1,20 @@
-<p>header works!</p>
+<div class="container">
+    <div class="logo">
+        <img src="assets/imgs/logo.png" alt="FinAliado logo">
+    </div>
+    <div class="sidepanel" #sidepanel>
+        <div class="sidepanel-container">
+            <img src="assets/imgs/user.png" alt="User">
+            <p>Juan Perez</p>
+            <a href="#" class="closebtn" (click)="closeSidePanel()">&times;</a>
+        </div>
+        <hr>
+        <a href="#">Profile</a>
+        <a href="#">Settings</a>
+        <hr>
+        <a href="#">Sign out</a>
+    </div>
+    <div class="user">
+        <img src="assets/imgs/user.png" alt="User" (click)="openSidePanel()">
+    </div>
+</div>
