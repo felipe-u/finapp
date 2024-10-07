@@ -1,6 +1,8 @@
 <div class="container">
     <div class="logo">
-        <img src="assets/imgs/logo.png" alt="FinAliado logo">
+        <a routerLink="/">
+            <img src="assets/imgs/logo.png" alt="FinAliado logo">
+        </a>
     </div>
     <div class="sidepanel" #sidepanel>
         <div class="sidepanel-container">
@@ -9,8 +11,8 @@
             <a href="#" class="closebtn" (click)="closeSidePanel()">&times;</a>
         </div>
         <hr>
-        <a href="#">Profile</a>
-        <a href="#">Settings</a>
+        <a routerLink="/account/profile">Profile</a>
+        <a routerLink="/account/settings">Settings</a>
         <hr>
         <a href="#">Sign out</a>
     </div>
