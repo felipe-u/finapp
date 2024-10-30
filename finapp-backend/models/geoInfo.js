@@ -21,7 +21,7 @@ const geoInfoSchema = new Schema({
   googleMapsUrl: {
     type: String,
   },
-  images: [String],
+  propertyImages: [String],
 });
 
 module.exports = mongoose.model("GeoInfo", geoInfoSchema);

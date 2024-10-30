@@ -2,7 +2,11 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
-const productSchema = new Schema({
+const motorcycleSchema = new Schema({
+  licensePlate: {
+    type: String,
+    required: true,
+  },
   brand: {
     type: String,
     required: true,
@@ -11,9 +15,6 @@ const productSchema = new Schema({
     type: String,
     required: true,
   },
-  licensePlate: {
-    type: String,
-  },
 });
 
-module.exports = mongoose.model("Product", productSchema);
+module.exports = mongoose.model("Motorcycle", motorcycleSchema);

@@ -16,17 +16,38 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  role: {
+  phone: {
     type: String,
-    enum: ["admin", "gestor", "auxiliar"],
     required: true,
   },
-  clients: [
+  role: {
+    type: String,
+    enum: ["admin", "manager", "assistant"],
+    required: true,
+  },
+});
+
+const User = mongoose.model("User", userSchema);
+
+const adminSchema = new Schema({});
+const Admin = User.discriminator("Admin", adminSchema);
+
+const managerSchema = new Schema({
+  debtors: [
     {
       type: Schema.Types.ObjectId,
-      ref: "Client",
+      ref: "Debtor",
     },
   ],
 });
+const Manager = User.discriminator("Manager", managerSchema);
 
-module.exports = mongoose.model("User", userSchema);
+const assistantSchema = new Schema({});
+const Assistant = User.discriminator("Assistant", assistantSchema);
+
+module.exports = {
+  User,
+  Admin,
+  Manager,
+  Assistant,
+};

@@ -21,7 +21,6 @@ const addressSchema = new Schema({
   },
   sector: {
     type: String,
-    required: true,
   },
   streetAddress: {
     type: String,

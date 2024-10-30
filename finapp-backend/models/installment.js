@@ -6,7 +6,7 @@ const installmentSchema = new Schema({
   // Numero de cuota
   installmentNumber: {
     type: Number,
-    required: true
+    required: true,
   },
   // Vencimiento de la cuota
   dueDate: {
@@ -28,14 +28,9 @@ const installmentSchema = new Schema({
     type: Number,
     required: true,
   },
-  // Interes causado
-  accruedInterest: {
-    type: Number,
-    required: true,
-  },
-  // Devolucion
-  refund: {
-    type: Number,
+  // Cuota pagada?
+  installmentPaid: {
+    type: Boolean,
     required: true,
   },
   // Valor cuota
@@ -53,13 +48,13 @@ const installmentSchema = new Schema({
     type: Number,
     required: true,
   },
-  // Total de intereses
-  totalInterest: {
+  // Interes por mora
+  lateInterests: {
     type: Number,
     required: true,
   },
   // Total de la cuota
-  totalInstallment: {
+  totalInstallmentValue: {
     type: Number,
     required: true,
   },

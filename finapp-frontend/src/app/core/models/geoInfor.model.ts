@@ -7,7 +7,7 @@ export class GeoInfo {
         public address: Address,
         public location: Location,
         public googleMapsUrl: string,
-        public images: string[]
+        public propertyImages: string[]
     ) { }
 }
 

@@ -11,18 +11,16 @@ export class Installment {
         public interest: number,
         // Valor aval
         public guaranteeValue: number,
-        // Interes causado
-        public accruedInterest: number,
-        // Devolucion
-        public refund: number,
+        // Cuota pagada?
+        public installmentPaid: boolean,
         // Valor cuota
         public installmentValue: number,
         // Valor debe
         public outstandingValue: number,
         // Dias vencidos
         public overdueDays: number,
-        // Total de intereses
-        public totalInterest: number,
+        // Interes por mora
+        public lateInterests: number,
         // Total de la cuota
         public totalInstallment: number
     ) { }
