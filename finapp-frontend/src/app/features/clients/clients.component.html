@@ -1,1 +1,39 @@
-<p>clients works!</p>
+<div class="search-container">
+    <div class="filter-dropdown">
+        <button class="dropbtn">Filter by Financing Status</button>
+        <div class="dropdown-content">
+            <form>
+                @for (option of options; track option.name) {
+                <input type="checkbox" checked />
+                <label>{{option.name}}</label>
+                <br><br>
+                }
+                <div class="filterbtn-container">
+                    <button type="button" class="primaryBtn">Filter</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="search-bar">
+        <input type="text" name="search" id="search">
+        <button type="button" class="primaryBtn">Search</button>
+    </div>
+</div>
+<br>
+<div class="clients-container">
+    <table class="clients-table">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Status</th>
+        </tr>
+        @for (client of clients; track client.idNumber) {
+        <tr (click)="openClientProfile(client.idNumber)">
+            <td>{{ client.idNumber }}</td>
+            <td>{{ client.name }}</td>
+            <td>{{ client.status }}</td>
+        </tr>
+        }
+
+    </table>
+</div>
