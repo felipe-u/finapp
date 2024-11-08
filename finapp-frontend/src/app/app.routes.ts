@@ -8,6 +8,8 @@ import { AccountLayoutComponent } from "./layouts/account-layout/account-layout.
 import { AccountComponent } from "./features/account/account.component";
 import { SettingsComponent } from "./features/account/settings/settings.component";
 import { SupportComponent } from "./features/support/support.component";
+import { routes as ClientRoutes } from "./features/clients/clients.routes";
+import { ClientComponent } from "./features/clients/client/client.component";
 
 export const routes: Routes = [
     {
@@ -22,7 +24,12 @@ export const routes: Routes = [
             {
                 path: 'clients',
                 component: ClientsComponent,
-                title: 'FinApp | Clients'
+                title: 'FinApp | Clients',
+            },
+            {
+                path: 'clients/:clientId',
+                component: ClientComponent,
+                children: ClientRoutes
             },
             {
                 path: 'reports',
