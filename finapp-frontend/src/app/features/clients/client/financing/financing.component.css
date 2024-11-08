@@ -1,0 +1,62 @@
+.motorcycle-container {
+  display: flex;
+  width: 100%;
+  margin-top: 45px;
+  overflow-x: auto;
+}
+
+.motorcycle-container table {
+  margin: 0 auto;
+  border-collapse: collapse;
+  border: 1px solid gray;
+  text-align: center;
+}
+
+.motorcycle-container tr {
+  border: 1px solid gray;
+}
+
+.motorcycle-container th {
+  background-color: lightgrey;
+  border: 1px solid grey;
+  padding: 5px 7px;
+}
+
+.motorcycle-container td {
+  padding: 5px 7px;
+}
+
+.darker-td {
+  background-color: lightgray;
+}
+
+.financing-container {
+  display: flex;
+  margin-top: 45px;
+  width: 100%;
+  overflow-x: auto;
+}
+
+.financing-container table {
+  margin: 0 auto;
+  border-collapse: collapse;
+  border: 1px solid gray;
+  text-align: center;
+}
+
+.financing-container tr:nth-child(even) {
+  background-color: lightgray;
+}
+
+.financing-container th {
+  background-color: gray;
+  color: white;
+  padding: 5px 10px;
+  width: 100px;
+  min-width: 100px;
+}
+
+.financing-container td {
+  padding: 5px 10px;
+  width: 100px;
+}
