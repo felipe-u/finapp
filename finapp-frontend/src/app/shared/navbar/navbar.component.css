@@ -18,6 +18,6 @@
 }
 
 .container nav a:hover {
-    background-color: #df3c30;
+    background-color: var(--primaryDark6);
     color: white;
 }

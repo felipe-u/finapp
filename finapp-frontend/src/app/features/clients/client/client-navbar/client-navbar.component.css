@@ -1,0 +1,16 @@
+.buttons-container {
+  display: grid;
+  width: 100%;
+}
+
+.first-buttons-row {
+  margin: 50px auto 5px auto;
+}
+
+.last-buttons-row {
+  margin: 0 auto;
+}
+
+.sameSizeBtn {
+  min-width: 150px;
+}

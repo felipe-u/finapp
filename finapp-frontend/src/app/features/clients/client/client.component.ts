@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
+import { ClientNavbarComponent } from "./client-navbar/client-navbar.component";
 
 
 @Component({
   selector: 'app-client',
   standalone: true,
-  imports: [RouterOutlet, RouterLink],
+  imports: [RouterOutlet, ClientNavbarComponent],
   templateUrl: './client.component.html',
   styleUrl: './client.component.css'
 })
