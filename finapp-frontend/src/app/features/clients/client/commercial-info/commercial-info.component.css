@@ -1,0 +1,47 @@
+.container {
+  display: grid;
+}
+
+table {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+th {
+  padding: 5px 20px;
+  background-color: #ffd1cd;
+}
+
+td {
+  padding: 10px 20px;
+}
+
+.info-container {
+  margin: 60px auto 10px auto;
+  font-size: 1.1em;
+}
+
+.info-container th {
+  text-align: left;
+}
+
+.info-container td {
+  min-width: 150px;
+}
+
+.ref-container {
+  margin: 30px auto 10px auto;
+  font-size: 1.1em;
+}
+
+.ref-container h3 {
+  text-align: center;
+}
+
+.ref-container th {
+  border: 1px solid black;
+}
+
+.button-container {
+  margin: 30px auto;
+}

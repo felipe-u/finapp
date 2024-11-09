@@ -1,0 +1,33 @@
+.container {
+  display: grid;
+}
+
+.map-container {
+  width: 400px;
+  height: 300px;
+  border: 1px solid black;
+  margin: 60px auto 20px auto;
+}
+
+.map-container img {
+  width: 400px;
+  height: 300px;
+  object-fit: cover;
+}
+
+.house-container {
+  width: 300px;
+  height: 225px;
+  border: 1px solid black;
+  margin: 20px auto;
+}
+
+.address-container {
+  margin: 10px auto;
+  text-align: center;
+  font-size: 1.2em;
+}
+
+.button-container {
+  margin: 30px auto;
+}

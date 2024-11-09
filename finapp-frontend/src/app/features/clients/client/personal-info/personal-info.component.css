@@ -1,0 +1,26 @@
+.container {
+  display: grid;
+}
+
+.img-container {
+  margin: 60px auto 30px auto;
+  border: 1px solid black;
+  width: 200px;
+  height: 200px;
+  border-radius: 100px;
+}
+
+.img-container img {
+  width: 200px;
+  object-fit: contain;
+}
+
+.info-container {
+  margin: 0 auto;
+  text-align: center;
+  font-size: 1.2em;
+}
+
+.button-container {
+  margin: 30px auto;
+}
