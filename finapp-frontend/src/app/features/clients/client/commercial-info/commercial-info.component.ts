@@ -8,5 +8,9 @@ import { Component } from '@angular/core';
   styleUrl: './commercial-info.component.css'
 })
 export class CommercialInfoComponent {
+  editMode = false;
 
+  changeEditMode() {
+    this.editMode = !this.editMode
+  }
 }

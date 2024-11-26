@@ -24,3 +24,21 @@
 .button-container {
   margin: 30px auto;
 }
+
+.editMode img:hover {
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.485);
+  border-radius: 100px;
+}
+
+.form-container {
+  display: grid;
+  margin-top: 10px;
+}
+
+.form-container input{
+  width: 300px;
+  margin: 20px auto;
+  font-size: 1.1em;
+  text-align: center;
+}

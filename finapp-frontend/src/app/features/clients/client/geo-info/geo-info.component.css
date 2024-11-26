@@ -7,6 +7,7 @@
   height: 300px;
   border: 1px solid black;
   margin: 60px auto 20px auto;
+  position: relative;
 }
 
 .map-container img {
@@ -30,4 +31,54 @@
 
 .button-container {
   margin: 30px auto;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: 0.3s ease;
+  background-color: black;
+}
+
+.editMode .text {
+  color: white;
+  font-size: 40px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.editMode .map-container:hover .overlay {
+  opacity: 0.5;
+}
+
+.form-container {
+  display: grid;
+  margin-top: 10px;
+}
+
+.form-container input, 
+.form-container select,
+.form-container textarea {
+  width: 300px;
+  margin: 20px auto;
+  font-size: 1em;
+  text-align: center;
+  /* background-color: white;
+  border: 1px solid black; */
+}
+
+.form-container textarea {
+  resize: none;
+  text-align: start;
 }

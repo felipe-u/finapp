@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
 :root {
+  /*Dark*/
   --primaryDark1: #ff4537;
   --primaryDark2: #df3c30;
   --primaryDark3: #bf3429;
@@ -9,6 +10,9 @@
   --primaryDark6: #601a15;
   --primaryDark7: #40110e;
   --primaryDark8: #200907;
+
+  /*Light*/
+  --primaryLight9: #ffe8e63c;
 }
 
 body {
@@ -38,8 +42,7 @@ body {
 }
 
 .editBtn {
-  background-color: var(--primaryDark3);
-  background-color: white;
+  background-color: var(--primaryLight9);
   border: 1px solid black;
   color: black;
 }
@@ -55,4 +58,14 @@ body {
   border-bottom: 1px solid black;
   border-top: 1px solid black;
   width: fit-content;
+}
+
+.client-container {
+  /* border: 1px solid black; */
+  min-width: 432px;
+  width: 600px;
+  margin: 40px auto 0 auto;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  background-color: var(--primaryLight9);
 }

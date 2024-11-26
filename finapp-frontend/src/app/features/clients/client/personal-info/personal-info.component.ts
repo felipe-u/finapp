@@ -8,5 +8,9 @@ import { Component } from '@angular/core';
   styleUrl: './personal-info.component.css'
 })
 export class PersonalInfoComponent {
+  editMode = false;
 
+  changeEditMode() {
+    this.editMode = !this.editMode
+  }
 }

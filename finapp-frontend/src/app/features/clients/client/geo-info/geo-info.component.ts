@@ -8,5 +8,9 @@ import { Component } from '@angular/core';
   styleUrl: './geo-info.component.css'
 })
 export class GeoInfoComponent {
+  editMode = false;
 
+  changeEditMode() {
+    this.editMode = !this.editMode
+  }
 }

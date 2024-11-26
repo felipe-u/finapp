@@ -1,8 +1,11 @@
-<div class="container">
+@if (!editMode) {
+<div class="container client-container">
     <div class="cod-container">
-
+        <p>Codeudor/a</p>
+        <button class="primaryBtn">Melissa Botero</button>
     </div>
     <div class="info-container">
+        <h3 class="container-title">Información general</h3>
         <table>
             <tr>
                 <th>Ocupación</th>
@@ -75,6 +78,173 @@
         </table>
     </div>
     <div class="button-container">
-        <button class="primaryBtn editBtn">Editar</button>
+        <button class="primaryBtn editBtn" (click)="changeEditMode()">Editar</button>
     </div>
 </div>
+} @else {
+<div class="container editMode client-container">
+    <div class="cod-container">
+        <p>Codeudor/a</p>
+        <button class="primaryBtn">Melissa Botero</button>
+    </div>
+    <div class="info-container">
+        <h3 class="container-title">Información general</h3>
+        <div class="info-edit">
+            <form>
+                <div class="form-container">
+                    <label for="ocupacion">Ocupación</label>
+                    <input type="text" name="ocupacion" id="ocupacion" value="Vendedor">
+                </div>
+                <div class="form-container">
+                    <label for="empresa">Empresa</label>
+                    <input type="text" name="empresa" id="empresa" value="Homecenter">
+                </div>
+                <div class="form-container">
+                    <label for="antiguedad">Antigüedad (años)</label>
+                    <input type="number" name="antiguedad" id="antiguedad" value="3">
+                </div>
+                <div class="form-container">
+                    <label for="ingresos">Ingresos</label>
+                    <input type="text" name="ingresos" id="ingresos" value="2000000">
+                </div>
+                <div class="form-container">
+                    <label for="ingresos-ad">Ingresos Adicionales</label>
+                    <input type="text" name="ingresos-ad" id="ingresos-ad" value="500000">
+                </div>
+                <div class="form-container">
+                    <label for="egresos">Egresos</label>
+                    <input type="text" name="egresos" id="egresos" value="1000000">
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="ref-container">
+        <h3 class="container-title">Referencias</h3>
+        <table>
+            <tr>
+                <th colspan="3" style="background-color: lightgray;">Familiares</th>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" name="ref1-nombre" id="ref1-nombre" value="Pedro Vélez">
+                </td>
+                <td>
+                    <select name="ref1-relacion" id="ref1-relacion">
+                        <option value="pad">Padre</option>
+                        <option value="mad">Madre</option>
+                        <option value="cyg">Cónyuge</option>
+                        <option value="her" selected>Hermano/a</option>
+                        <option value="pri">Primo/a</option>
+                        <option value="tio">Tío/a</option>
+                        <option value="abu">Abuelo/a</option>
+                        <option value="nie">Nieto/a</option>
+                        <option value="otf">Otro</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="text" name="ref1-telefono" id="ref1-telefono" value="312155777">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" name="ref2-nombre" id="ref2-nombre" value="María Martinez">
+                </td>
+                <td>
+                    <select name="ref2-relacion" id="ref2-relacion">
+                        <option value="pad">Padre</option>
+                        <option value="mad" selected>Madre</option>
+                        <option value="cyg">Cónyuge</option>
+                        <option value="her">Hermano/a</option>
+                        <option value="pri">Primo/a</option>
+                        <option value="tio">Tío/a</option>
+                        <option value="abu">Abuelo/a</option>
+                        <option value="nie">Nieto/a</option>
+                        <option value="otf">Otro</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="text" name="ref2-telefono" id="ref2-telefono" value="312155777">
+                </td>
+            </tr>
+            <tr>
+                <th colspan="3" style="background-color: lightgray;">Personales</th>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" name="ref3-nombre" id="ref3-nombre" value="Camilo Duarte">
+                </td>
+                <td>
+                    <select name="ref3-relacion" id="ref3-relacion">
+                        <option value="ami">Amigo/a</option>
+                        <option value="con">Conocido/a</option>
+                        <option value="com">Comp. de trabajo</option>
+                        <option value="vec" selected>Vecino/a</option>
+                        <option value="otp">Otro</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="text" name="ref3-telefono" id="ref3-telefono" value="302545656">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" name="ref4-nombre" id="ref4-nombre" value="Juan García">
+                </td>
+                <td>
+                    <select name="ref4-relacion" id="ref4-relacion">
+                        <option value="ami" selected>Amigo/a</option>
+                        <option value="con">Conocido/a</option>
+                        <option value="com">Comp. de trabajo</option>
+                        <option value="vec">Vecino/a</option>
+                        <option value="otp">Otro</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="text" name="ref4-telefono" id="ref4-telefono" value="302545998">
+                </td>
+            </tr>
+            <tr>
+                <th colspan="3" style="background-color: lightgray;">Comerciales</th>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" name="ref5-nombre" id="ref5-nombre" value="Cooperativa Palo Alto">
+                </td>
+                <td>
+                    <select name="ref5-relacion" id="ref5-relacion">
+                        <option value="cli">Cliente</option>
+                        <option value="pro">Proveedor</option>
+                        <option value="soc">Socio</option>
+                        <option value="enf" selected>Entidad Financiera</option>
+                        <option value="otc">Otro</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="text" name="ref5-telefono" id="ref5-telefono" value="310665650">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" name="ref6-nombre" id="ref6-nombre" value="Banco MAR">
+                </td>
+                <td>
+                    <select name="ref6-relacion" id="ref6-relacion">
+                        <option value="cli">Cliente</option>
+                        <option value="pro">Proveedor</option>
+                        <option value="soc">Socio</option>
+                        <option value="enf" selected>Entidad Financiera</option>
+                        <option value="otc">Otro</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="text" name="ref6-telefono" id="ref6-telefono" value="310121212">
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="button-container">
+        <button class="primaryBtn editBtn">Guardar</button>
+        <button class="primaryBtn editBtn" (click)="changeEditMode()">Cancelar</button>
+    </div>
+</div>
+}

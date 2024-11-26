@@ -1,4 +1,5 @@
-<div class="container">
+@if (!editMode) {
+<div class="container client-container">
     <div class="img-container">
         <img src="assets/imgs/user.png" alt="User Image">
     </div>
@@ -9,6 +10,35 @@
         <p>Fecha de nacimiento: 23 de Noviembre de 1990</p>
     </div>
     <div class="button-container">
-        <button class="primaryBtn editBtn">Editar</button>
+        <button class="primaryBtn editBtn" (click)="changeEditMode()">Editar</button>
     </div>
 </div>
+} @else {
+<div class="container client-container">
+    <div class="img-container editMode">
+        <img src="assets/imgs/user.png" alt="User Image">
+    </div>
+    <div class="info-container">
+        <div class="form-container">
+            <label for="client-id">Id</label>
+            <input type="text" name="client-id" value="1036584">
+        </div>
+        <div class="form-container">
+            <label for="client-email">Correo</label>
+            <input type="text" name="client-email" value="samuel@mail.com">
+        </div>
+        <div class="form-container">
+            <label for="client-phone">Teléfono</label>
+            <input type="text" name="client-phone" value="3127751311">
+        </div>
+        <div class="form-container">
+            <label for="client-birthdate">Fecha de nacimiento</label>
+            <input type="date" name="client-birthdate" value="1990-11-23">
+        </div>
+    </div>
+    <div class="button-container">
+        <button class="primaryBtn editBtn">Guardar</button>
+        <button class="primaryBtn editBtn" (click)="changeEditMode()">Cancelar</button>
+    </div>
+</div>
+}

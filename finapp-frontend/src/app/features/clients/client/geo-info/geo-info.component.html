@@ -1,4 +1,5 @@
-<div class="container">
+@if (!editMode) {
+<div class="container client-container">
     <div class="map-container">
         <img src="assets/imgs/map.png" alt="Google Map">
     </div>
@@ -9,10 +10,69 @@
         <h3 class="container-title">Dirección</h3>
         <p>Calle 41 # 65 - 52</p>
         <p>Barrio: Miraflores</p>
+        <!-- si no hay nada no se pone  [@if] -->
         <p>Sector:</p>
+        <p>Municipio: Barranquilla</p>
         <p>Información adicional:</p>
     </div>
     <div class="button-container">
-        <button class="primaryBtn editBtn">Editar</button>
+        <button class="primaryBtn editBtn" (click)="changeEditMode()">Editar</button>
     </div>
 </div>
+} @else {
+<div class="container editMode client-container">
+    <div class="map-container">
+        <img src="assets/imgs/map.png" alt="Google Map">
+        <div class="overlay">
+            <div class="text">Editar</div>
+        </div>
+    </div>
+    <div class="house-container">
+
+    </div>
+    <div class="address-container">
+        <h3 class="container-title">Dirección</h3>
+        <div class="form-container">
+            <label for="direccion">Dirección de la vivienda</label>
+            <input type="text" name="direccion" id="direccion" value="Calle 41 # 65 - 52">
+        </div>
+        <div class="form-container">
+            <label for="barrio">Barrio</label>
+            <input type="text" name="barrio" id="barrio" value="Miraflores">
+        </div>
+        <div class="form-container">
+            <label for="sector">Sector</label>
+            <input type="text" name="sector" id="sector">
+        </div>
+        <div class="form-container">
+            <label for="departamento">Departamento</label>
+            <select name="departamento" id="departamento">
+                <option value="antioquia">Antioquia</option>
+                <option value="atlantico" selected>Atlántico</option>
+                <option value="bogota-dc">Bogotá, D.C</option>
+                <option value="bolivar">Bolívar</option>
+            </select>
+        </div>
+        <div class="form-container">
+            <label for="municipio">Municipio</label>
+            <select name="municipio" id="municipio">
+                <option value="barranquilla">Barranquilla</option>
+                <option value="alapa">Galapa</option>
+                <option value="malambo">malambo</option>
+                <option value="puerto-colombia">Puerto Colombia</option>
+                <option value="soledad">Soledad</option>
+                <option value="candelaria">Candelaria</option>
+                <option value="luruaco">Luruaco</option>
+            </select>
+        </div>
+        <div class="form-container">
+            <label for="info-adicional">Información adicional</label>
+            <textarea name="info-adicional" id="info-adicional" rows="4"></textarea>
+        </div>
+    </div>
+    <div class="button-container">
+        <button class="primaryBtn editBtn">Guardar</button>
+        <button class="primaryBtn editBtn" (click)="changeEditMode()">Cancelar</button>
+    </div>
+</div>
+}
