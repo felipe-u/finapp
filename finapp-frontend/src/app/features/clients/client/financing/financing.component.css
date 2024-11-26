@@ -60,3 +60,16 @@
   padding: 5px 10px;
   width: 100px;
 }
+
+.info-container {
+  display: grid;
+  margin-bottom: 45px;
+}
+
+.motorcycle-info-table {
+  width: 500px;
+}
+
+.motorcycle-info-table th {
+  width: 33.33%;
+}
