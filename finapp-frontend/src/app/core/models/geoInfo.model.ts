@@ -1,13 +1,17 @@
-import { Address } from "./address.model";
 import { Location } from "./location.model";
 
 export class GeoInfo {
     constructor(
         public _id: string,
-        public address: Address,
+        public address: string,
+        public city: string,
+        public department: string,
+        public neighbourhood: string,
         public location: Location,
         public googleMapsUrl: string,
-        public propertyImages: string[]
+        public propertyImages: string[],
+        public sector?: string,
+        public additionalInfo?: string,
     ) { }
 }
 

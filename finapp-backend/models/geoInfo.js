@@ -4,8 +4,26 @@ const Schema = mongoose.Schema;
 
 const geoInfoSchema = new Schema({
   address: {
-    type: Schema.Types.ObjectId,
-    ref: "Address",
+    type: String,
+    required: true,
+  },
+  city: {
+    type: String,
+    required: true,
+  },
+  department: {
+    type: String,
+    required: true,
+  },
+  neighbourhood: {
+    type: String,
+    required: true,
+  },
+  sector: {
+    type: String,
+  },
+  additionalInfo: {
+    type: String,
   },
   location: {
     type: {

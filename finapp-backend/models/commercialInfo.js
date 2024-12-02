@@ -27,12 +27,6 @@ const commercialInfoSchema = new Schema({
     type: Number,
     required: true,
   },
-  references: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Reference",
-    },
-  ],
 });
 
 module.exports = mongoose.model("CommercialInfo", commercialInfoSchema);

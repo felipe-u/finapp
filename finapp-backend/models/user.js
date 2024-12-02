@@ -7,6 +7,11 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  role: {
+    type: String,
+    enum: ["admin", "manager", "assistant"],
+    required: true,
+  },
   email: {
     type: String,
     required: true,
@@ -20,11 +25,6 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  role: {
-    type: String,
-    enum: ["admin", "manager", "assistant"],
-    required: true,
-  },
 });
 
 const User = mongoose.model("User", userSchema);
@@ -33,10 +33,10 @@ const adminSchema = new Schema({});
 const Admin = User.discriminator("Admin", adminSchema);
 
 const managerSchema = new Schema({
-  debtors: [
+  clients: [
     {
       type: Schema.Types.ObjectId,
-      ref: "Debtor",
+      ref: "Client",
     },
   ],
 });

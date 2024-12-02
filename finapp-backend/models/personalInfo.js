@@ -16,6 +16,7 @@ const personalInfoSchema = new Schema({
   },
   birthDate: {
     type: Date,
+    required: true
   },
 });
 

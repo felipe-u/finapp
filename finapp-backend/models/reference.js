@@ -69,7 +69,7 @@ const referenceSchema = new Schema({
     required: true,
   },
   relationship: {
-    type: Schema.Types.ObjectId,
+    type: String,
     enum: Object.keys(relationshipType),
     validate: {
       validator: function (value) {
