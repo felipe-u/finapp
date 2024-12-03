@@ -56,7 +56,6 @@ const referenceSchema = new Schema({
     number: {
       type: String,
       required: true,
-      unique: true,
     },
   },
   referenceType: {
