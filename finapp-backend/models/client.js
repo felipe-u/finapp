@@ -65,12 +65,7 @@ const debtorSchema = new Schema({
 
 const Debtor = Client.discriminator("Debtor", debtorSchema);
 
-const codebtorSchema = new Schema({
-  debtor: {
-    type: Schema.Types.ObjectId,
-    ref: "Debtor",
-  },
-});
+const codebtorSchema = new Schema({});
 
 const Codebtor = Client.discriminator("Codebtor", codebtorSchema);
 
