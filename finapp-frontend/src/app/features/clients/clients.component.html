@@ -27,13 +27,14 @@
             <th>Name</th>
             <th>Status</th>
         </tr>
-        @for (client of clients; track client.idNumber) {
-        <tr (click)="openClientProfile(client.idNumber)">
-            <td>{{ client.idNumber }}</td>
-            <td>{{ client.name }}</td>
-            <td>{{ client.status }}</td>
+        @for (debtor of debtors(); track debtor._id) {
+        <tr (click)="openClientProfile(debtor._id)">
+            <td>{{ debtor.identification.number }}</td>
+            <td>{{ debtor.name }}</td>
+            <td>{{ debtor.financing.status }}</td>
         </tr>
         }
 
     </table>
 </div>
+<button (click)="showDebtors()">Show Debtors</button>

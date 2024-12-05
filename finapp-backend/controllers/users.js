@@ -1,4 +1,4 @@
-const User = require("../models/main/user");
+const User = require("../models/user");
 
 const mongoDB = require("mongodb");
 

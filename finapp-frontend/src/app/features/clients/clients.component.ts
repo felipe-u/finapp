@@ -1,5 +1,6 @@
-import { Component, inject } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { Router } from '@angular/router';
+import { ClientsService } from '../../core/services/clients.service';
 
 @Component({
   selector: 'app-clients',
@@ -8,13 +9,29 @@ import { Router } from '@angular/router';
   templateUrl: './clients.component.html',
   styleUrl: './clients.component.css'
 })
-export class ClientsComponent {
+export class ClientsComponent implements OnInit {
   private router = inject(Router);
+  private clientsService = inject(ClientsService);
+  private destroyRef = inject(DestroyRef);
+  debtors = signal<any>([]);
 
-  clients = [
-    { idNumber: '001', name: 'Andres Deudor', status: 'Al día' },
-    { idNumber: '002', name: 'Carla Deudora', status: 'En mora' }
-  ]
+  ngOnInit(): void {
+    const subscription = this.clientsService.getAllDebtorsList().subscribe({
+      next: (debtors) => {
+        this.debtors.set(debtors)
+      },
+      error: (error: Error) => {
+        console.error(error.message);
+      }
+    })
+    this.destroyRef.onDestroy(() => {
+      subscription.unsubscribe();
+    })
+  }
+
+  showDebtors() {
+    console.log(this.debtors());
+  }
 
   options = [
     { key: 'AD', name: 'Al dia', selected: true },
