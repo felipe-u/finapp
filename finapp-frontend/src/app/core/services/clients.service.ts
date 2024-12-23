@@ -17,11 +17,14 @@ export class ClientsService {
         )
     }
 
+    getDebtorsBySearchTerm(searchTerm: string) {
+        return this.fetchDebtors(this.url + 'debtors-list/' + searchTerm);
+    }
+
     private fetchDebtors(url: string) {
         return this.httpClient.get<any>(url).pipe(
             map((resData) => resData.debtors)
         )
     }
-
 
 }

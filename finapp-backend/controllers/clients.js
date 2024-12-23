@@ -523,8 +523,8 @@ exports.getClients = (req, res, next) => {
   });
 };
 
-exports.getDebtorsList = (req, res, next) => {
-  Client.find({ role: "debtor" }, "name identification.number financing")
+const getDebtors = (query, res) => {
+  Debtor.find(query, "name identification.number financing")
     .populate({
       path: "financing",
       select: "status",
@@ -541,10 +541,14 @@ exports.getDebtorsList = (req, res, next) => {
     });
 };
 
-exports.findClientById = (req, res, next) => {
-  Debtor.findById(req.params.clientId).then((client) => {
-    res.status(200).json(client);
-  });
+exports.getDebtorsList = (req, res, next) => {
+  getDebtors({ role: "debtor" }, res);
 };
 
-exports.findClientByName = (req, res, next) => {};
+exports.getDebtorsListBySearchTerm = (req, res, next) => {
+  const searchTerm = req.params.searchTerm;
+  const query = isNaN(searchTerm)
+    ? { name: { $regex: searchTerm, $options: "i" } }
+    : { "identification.number": searchTerm };
+  getDebtors(query, res);
+};

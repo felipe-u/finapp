@@ -15,8 +15,8 @@
         </div>
     </div>
     <div class="search-bar">
-        <input type="text" name="search" id="search">
-        <button type="button" class="primaryBtn">Search</button>
+        <input type="text" name="search" id="search" [(ngModel)]="searchTerm">
+        <button type="button" class="primaryBtn" (click)="searchClient()">Search</button>
     </div>
 </div>
 <br>

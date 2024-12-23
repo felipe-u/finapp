@@ -10,8 +10,6 @@ router.post("/test", clientsController.createClient);
 
 router.get("/debtors-list", clientsController.getDebtorsList);
 
-router.get("/clients/:clientId", clientsController.findClientById);
-
-router.get("/clients/:clientName", clientsController.findClientByName);
+router.get("/debtors-list/:searchTerm", clientsController.getDebtorsListBySearchTerm);
 
 module.exports = router;
