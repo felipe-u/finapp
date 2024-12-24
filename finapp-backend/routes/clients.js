@@ -12,4 +12,6 @@ router.get("/debtors-list", clientsController.getDebtorsList);
 
 router.get("/debtors-list/:searchTerm", clientsController.getDebtorsListBySearchTerm);
 
+router.get("/debtors-list/statuses/:status", clientsController.getDebtorsListByStatuses);
+
 module.exports = router;

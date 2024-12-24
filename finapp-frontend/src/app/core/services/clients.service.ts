@@ -21,6 +21,10 @@ export class ClientsService {
         return this.fetchDebtors(this.url + 'debtors-list/' + searchTerm);
     }
 
+    getDebtorsByStatuses(statuses: string[]) {
+        return this.fetchDebtors(this.url + 'debtors-list/statuses/' + statuses.join(','));
+    }
+
     private fetchDebtors(url: string) {
         return this.httpClient.get<any>(url).pipe(
             map((resData) => resData.debtors)

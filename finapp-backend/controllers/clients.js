@@ -552,3 +552,16 @@ exports.getDebtorsListBySearchTerm = (req, res, next) => {
     : { "identification.number": searchTerm };
   getDebtors(query, res);
 };
+
+exports.getDebtorsListByStatuses = (req, res, next) => {
+  const statuses = req.params.status.split(",");
+  Financing.find({ status: { $in: statuses } })
+    .then((financings) => {
+      const financingIds = financings.map((financing) => financing._id);
+      getDebtors({ financing: { $in: financingIds } }, res);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).json({ error: "Error fetching financings" });
+    });
+};

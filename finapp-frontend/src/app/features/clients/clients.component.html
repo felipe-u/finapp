@@ -2,14 +2,14 @@
     <div class="filter-dropdown">
         <button class="dropbtn">Filter by Financing Status</button>
         <div class="dropdown-content">
-            <form>
-                @for (option of options; track option.name) {
-                <input type="checkbox" checked class="custom-checkbox"/>
+            <form  [formGroup]="filterForm" (ngSubmit)="filterByStatuses()">
+                @for (option of options; track option.key) {
+                <input type="checkbox" class="custom-checkbox" [formControlName]="option.key"/>
                 <label>{{option.name}}</label>
                 <br><br>
                 }
                 <div class="filterbtn-container">
-                    <button type="button" class="primaryBtn">Filter</button>
+                    <button type="submit" class="primaryBtn">Filter</button>
                 </div>
             </form>
         </div>
@@ -37,4 +37,3 @@
 
     </table>
 </div>
-<button (click)="showDebtors()">Show Debtors</button>

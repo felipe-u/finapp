@@ -1,12 +1,13 @@
 import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { ClientsService } from '../../core/services/clients.service';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { query } from '@angular/animations';
 
 @Component({
   selector: 'app-clients',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, ReactiveFormsModule],
   templateUrl: './clients.component.html',
   styleUrl: './clients.component.css'
 })
@@ -16,6 +17,13 @@ export class ClientsComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
   debtors = signal<any>([]);
   searchTerm = '';
+  filterForm = new FormGroup({
+    AD: new FormControl(true),
+    EM: new FormControl(true),
+    CT: new FormControl(true),
+    CP: new FormControl(true),
+    CJ: new FormControl(true),
+  })
 
   ngOnInit(): void {
     const subscription = this.clientsService.getAllDebtorsList().subscribe({
@@ -31,17 +39,25 @@ export class ClientsComponent implements OnInit {
     })
   }
 
-  showDebtors() {
-    console.log(this.debtors());
-  }
-
   options = [
     { key: 'AD', name: 'Al dia', selected: true },
-    { key: 'EM', name: 'En mora', selected: false },
-    { key: 'CT', name: 'Completada', selected: false },
-    { key: 'CP', name: 'En cobro prejurídico', selected: false },
-    { key: 'CJ', name: 'En cobro jurídico', selected: false },
-  ]
+    { key: 'EM', name: 'En mora', selected: true },
+    { key: 'CT', name: 'Completada', selected: true },
+    { key: 'CP', name: 'En cobro prejurídico', selected: true },
+    { key: 'CJ', name: 'En cobro jurídico', selected: true },
+  ];
+
+  filterByStatuses() {
+    const selectedStatuses = Object.keys(this.filterForm.value).filter(key => this.filterForm.value[key]);
+    this.clientsService.getDebtorsByStatuses(selectedStatuses).subscribe({
+      next: (debtors) => {
+        this.debtors.set(debtors);
+      },
+      error: (error: Error) => {
+        console.error(error.message);
+      }
+    });
+  }
 
   openClientProfile(clientId: string) {
     this.router.navigate(['clients', clientId]);
