@@ -17,6 +17,13 @@ export class ClientsComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
   debtors = signal<any>([]);
   searchTerm = '';
+  options = [
+    { key: 'AD', name: 'Al dia', selected: true },
+    { key: 'EM', name: 'En mora', selected: true },
+    { key: 'CT', name: 'Completada', selected: true },
+    { key: 'CP', name: 'En cobro prejurídico', selected: true },
+    { key: 'CJ', name: 'En cobro jurídico', selected: true },
+  ];
   filterForm = new FormGroup({
     AD: new FormControl(true),
     EM: new FormControl(true),
@@ -38,14 +45,6 @@ export class ClientsComponent implements OnInit {
       subscription.unsubscribe();
     })
   }
-
-  options = [
-    { key: 'AD', name: 'Al dia', selected: true },
-    { key: 'EM', name: 'En mora', selected: true },
-    { key: 'CT', name: 'Completada', selected: true },
-    { key: 'CP', name: 'En cobro prejurídico', selected: true },
-    { key: 'CJ', name: 'En cobro jurídico', selected: true },
-  ];
 
   filterByStatuses() {
     const selectedStatuses = Object.keys(this.filterForm.value).filter(key => this.filterForm.value[key]);

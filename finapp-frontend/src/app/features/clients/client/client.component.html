@@ -1,5 +1,9 @@
+@if(client() === undefined) {
+
+} @else {
 <div class="name-container">
-    <h3>Andres Deudor</h3>
+    <h3>{{ client().name }}</h3>
 </div>
 <router-outlet />
 <app-client-navbar />
+}

@@ -523,6 +523,27 @@ exports.getClients = (req, res, next) => {
   });
 };
 
+exports.getClient = (req, res, next) => {
+  Client.findById(req.params.clientId).then((client) => {
+    res.status(200).json({ client });
+  });
+};
+
+exports.getClientFinancing = (req, res, next) => {
+  Client.findById(req.params.clientId, "financing")
+    .populate({
+      path: "financing",
+      populate: [{ path: "motorcycle" }, { path: "installments" }],
+    })
+    .then((client) => {
+      res.status(200).json({ financing: client.financing });
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).json({ error: "Error fetching financing" });
+    });
+};
+
 const getDebtors = (query, res) => {
   Debtor.find(query, "name identification.number financing")
     .populate({
