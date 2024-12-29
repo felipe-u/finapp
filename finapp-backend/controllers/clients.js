@@ -544,6 +544,52 @@ exports.getClientFinancing = (req, res, next) => {
     });
 };
 
+exports.getClientPersonalInfo = (req, res, next) => {
+  Client.findById(
+    req.params.clientId,
+    "identification.idType identification.number personalInfo"
+  )
+    .populate("personalInfo")
+    .then((client) => {
+      res.status(200).json({
+        identification: client.identification,
+        personalInfo: client.personalInfo,
+      });
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).json({ error: "Error fetching personal info" });
+    });
+};
+
+exports.getClientGeoInfo = (req, res, next) => {
+  Client.findById(req.params.clientId, "geoInfo")
+    .populate("geoInfo")
+    .then((client) => {
+      res.status(200).json({ geoInfo: client.geoInfo });
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).json({ error: "Error fetching geo info" });
+    });
+};
+
+exports.getClientCommercialInfo = (req, res, next) => {
+  Client.findById(req.params.clientId, "references commercialInfo")
+    .populate("references")
+    .populate("commercialInfo")
+    .then((client) => {
+      res.status(200).json({
+        references: client.references,
+        commercialInfo: client.commercialInfo,
+      });
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).json({ error: "Error fetching commercial info" });
+    });
+};
+
 const getDebtors = (query, res) => {
   Debtor.find(query, "name identification.number financing")
     .populate({

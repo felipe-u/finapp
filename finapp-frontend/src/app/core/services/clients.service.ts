@@ -39,23 +39,27 @@ export class ClientsService {
         console.log("Recuperando financiamiento del cliente: ", this.client()._id);
         return this.httpClient.get<any>(this.url + 'clients/' + this.client()._id + '/financing')
             .pipe(
-                map((resData) => resData.financing));
+                map((resData) => resData.financing)
+            );
 
     }
 
     getClientPersonalInfo() {
         console.log("Recuperando información personal del cliente: ", this.client()._id);
-        // return this.httpClient.get<any>(this.url + 'clients/' + this.client()._id + '/personal-info');
+        return this.httpClient.get<any>(this.url + 'clients/' + this.client()._id + '/personalInfo')
     }
 
     getClientGeographicInfo() {
         console.log("Recuperando información geográfica del cliente: ", this.client()._id);
-        // return this.httpClient.get<any>(this.url + 'clients/' + this.client()._id + '/geographic-info');
+        return this.httpClient.get<any>(this.url + 'clients/' + this.client()._id + '/geoInfo')
+            .pipe(
+                map((resData) => resData.geoInfo)
+            );
     }
 
     getClientCommercialInfo() {
         console.log("Recuperando información comercial del cliente: ", this.client()._id);
-        // return this.httpClient.get<any>(this.url + 'clients/' + this.client()._id + '/commercial-info');
+        return this.httpClient.get<any>(this.url + 'clients/' + this.client()._id + '/commercialInfo')
     }
 
     getDebtorsBySearchTerm(searchTerm: string) {

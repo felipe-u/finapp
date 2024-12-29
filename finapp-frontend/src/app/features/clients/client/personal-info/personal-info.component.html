@@ -1,13 +1,16 @@
+@if (personalInfo()=== undefined) {
+
+} @else {
 @if (!editMode) {
 <div class="container client-container">
     <div class="img-container">
         <img src="assets/imgs/user.png" alt="User Image">
     </div>
     <div class="info-container">
-        <p>Id: 1036584 - CC</p>
-        <p>Correo: samuel&#64;mail.com</p>
-        <p>Teléfono: 3127751311</p>
-        <p>Fecha de nacimiento: 23 de Noviembre de 1990</p>
+        <p>ID: {{personalInfo().identification.number}} - {{personalInfo().identification.idType}}</p>
+        <p>Correo: {{personalInfo().personalInfo.email}}</p>
+        <p>Teléfono: {{personalInfo().personalInfo.phone}}</p>
+        <p>Fecha de nacimiento: {{personalInfo().personalInfo.birthDate}}</p>
     </div>
     <div class="button-container">
         <button class="primaryBtn editBtn" (click)="changeEditMode()">Editar</button>
@@ -41,4 +44,5 @@
         <button class="primaryBtn editBtn" (click)="changeEditMode()">Cancelar</button>
     </div>
 </div>
+}
 }

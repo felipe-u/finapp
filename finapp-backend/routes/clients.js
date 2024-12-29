@@ -10,6 +10,12 @@ router.get("/clients/:clientId", clientsController.getClient);
 
 router.get("/clients/:clientId/financing", clientsController.getClientFinancing);
 
+router.get("/clients/:clientId/personalInfo", clientsController.getClientPersonalInfo);
+
+router.get("/clients/:clientId/geoInfo", clientsController.getClientGeoInfo);
+
+router.get("/clients/:clientId/commercialInfo", clientsController.getClientCommercialInfo);
+
 router.get("/debtors-list", clientsController.getDebtorsList);
 
 router.get("/debtors-list/:searchTerm", clientsController.getDebtorsListBySearchTerm);

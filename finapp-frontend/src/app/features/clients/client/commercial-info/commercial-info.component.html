@@ -1,3 +1,6 @@
+@if (commercialInfo() === undefined) {
+
+} @else {
 @if (!editMode) {
 <div class="container client-container">
     <div class="cod-container">
@@ -9,27 +12,27 @@
         <table>
             <tr>
                 <th>Ocupación</th>
-                <td>Vendedor</td>
+                <td>{{commercialInfo().commercialInfo.jobOccupation}}</td>
             </tr>
             <tr>
                 <th>Empresa</th>
-                <td>Homecenter</td>
+                <td>{{ commercialInfo().commercialInfo.company }}</td>
             </tr>
             <tr id="tr-bar">
                 <th>Antigüedad</th>
-                <td>3 años</td>
+                <td>{{ commercialInfo().commercialInfo.laborSenority}}</td>
             </tr>
             <tr>
                 <th>Ingresos</th>
-                <td>$ 2.000.000</td>
+                <td>$ {{ commercialInfo().commercialInfo.income }}</td>
             </tr>
             <tr>
                 <th>Ingresos adicionales</th>
-                <td>$ 500.000</td>
+                <td>$ {{ commercialInfo().commercialInfo.additionalIncome }}</td>
             </tr>
             <tr>
                 <th>Egresos</th>
-                <td>$ 1.000.000</td>
+                <td>$ {{ commercialInfo().commercialInfo.expenses }}</td>
             </tr>
         </table>
     </div>
@@ -39,42 +42,33 @@
             <tr>
                 <th colspan="3">Familiares</th>
             </tr>
-            <tr>
-                <td>Pedro Vélez</td>
-                <td>Hermano</td>
-                <td>312155777</td>
-            </tr>
-            <tr>
-                <td>María Martinez</td>
-                <td>Madre</td>
-                <td>312155777</td>
-            </tr>
+            @for (ref of famReferences(); track ref._id) {
+                <tr>
+                    <td>{{ ref.name }}</td>
+                    <td>{{ ref.relationship }}</td>
+                    <td>{{ ref.phone }}</td>
+                </tr>
+            }
             <tr>
                 <th colspan="3">Personales</th>
             </tr>
-            <tr>
-                <td>Camilo Duarte</td>
-                <td>Vecino</td>
-                <td>302545656</td>
-            </tr>
-            <tr>
-                <td>Juan García</td>
-                <td>Amigo</td>
-                <td>302545998</td>
-            </tr>
+            @for (ref of perReferences(); track ref._id) {
+                <tr>
+                    <td>{{ ref.name }}</td>
+                    <td>{{ ref.relationship }}</td>
+                    <td>{{ ref.phone }}</td>
+                </tr>
+            }
             <tr>
                 <th colspan="3">Comerciales</th>
             </tr>
-            <tr>
-                <td>Cooperativa Palo Alto</td>
-                <td>Entidad Financiera</td>
-                <td>310665650</td>
-            </tr>
-            <tr>
-                <td>Banco MAR</td>
-                <td>Entidad Financiera</td>
-                <td>310121212</td>
-            </tr>
+            @for (ref of comReferences(); track ref._id) {
+                <tr>
+                    <td>{{ ref.name }}</td>
+                    <td>{{ ref.relationship }}</td>
+                    <td>{{ ref.phone }}</td>
+                </tr>
+            }
         </table>
     </div>
     <div class="button-container">
@@ -247,4 +241,5 @@
         <button class="primaryBtn editBtn" (click)="changeEditMode()">Cancelar</button>
     </div>
 </div>
+}
 }

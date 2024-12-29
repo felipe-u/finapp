@@ -19,7 +19,6 @@ export class FinancingComponent implements OnInit {
     this.clientsService.getClientFinancing().subscribe({
       next: (financing) => {
         this.financing.set(financing);
-        console.log(this.financing());
       },
       error: (error: Error) => {
         console.error(error.message);
