@@ -590,6 +590,17 @@ exports.getClientCommercialInfo = (req, res, next) => {
     });
 };
 
+exports.getClientName = (req, res, next) => {
+  Client.findById(req.params.clientId, "name")
+    .then((client) => {
+      res.status(200).json({ name: client.name });
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).json({ error: "Error fetching name" });
+    });
+};
+
 const getDebtors = (query, res) => {
   Debtor.find(query, "name identification.number financing")
     .populate({

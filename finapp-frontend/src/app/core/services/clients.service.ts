@@ -8,6 +8,8 @@ export class ClientsService {
     private clients = signal<any>([]);
     private client = signal<any | undefined>(undefined);
     private debtors = signal<any>([]);
+    private codebtorId = signal<string | undefined>(undefined);
+    private debtorId = signal<string | undefined>(undefined);
     url = 'http://localhost:3000/';
 
     getAllDebtorsList() {
@@ -35,6 +37,22 @@ export class ClientsService {
         return this.client;
     }
 
+    setDebtorId(debtorId: string) {
+        this.debtorId.set(debtorId);
+    }
+
+    getDebtorId() {
+        return this.debtorId;
+    }
+
+    setCodebtorId(codebtorId: string) {
+        this.codebtorId.set(codebtorId);
+    }
+
+    getCodebtorId() {
+        return this.codebtorId;
+    }
+
     getClientFinancing() {
         console.log("Recuperando financiamiento del cliente: ", this.client()._id);
         return this.httpClient.get<any>(this.url + 'clients/' + this.client()._id + '/financing')
@@ -60,6 +78,21 @@ export class ClientsService {
     getClientCommercialInfo() {
         console.log("Recuperando información comercial del cliente: ", this.client()._id);
         return this.httpClient.get<any>(this.url + 'clients/' + this.client()._id + '/commercialInfo')
+    }
+
+    getDebtorName() {
+        return this.getClientName(this.debtorId());
+    }
+
+    getCodebtorName() {
+        return this.getClientName(this.codebtorId());
+    }
+
+    getClientName(clientId: string) {
+        return this.httpClient.get<any>(this.url + 'clients/' + clientId + '/name')
+            .pipe(
+                map((resData) => resData.name)
+            );
     }
 
     getDebtorsBySearchTerm(searchTerm: string) {

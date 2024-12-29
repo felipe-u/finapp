@@ -16,6 +16,8 @@ router.get("/clients/:clientId/geoInfo", clientsController.getClientGeoInfo);
 
 router.get("/clients/:clientId/commercialInfo", clientsController.getClientCommercialInfo);
 
+router.get("/clients/:clientId/name", clientsController.getClientName);
+
 router.get("/debtors-list", clientsController.getDebtorsList);
 
 router.get("/debtors-list/:searchTerm", clientsController.getDebtorsListBySearchTerm);
