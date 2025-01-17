@@ -5,7 +5,16 @@
 @if (!editMode) {
 <div class="container client-container">
     <div class="map-container">
-        <img src="assets/imgs/map.png" alt="Google Map">
+        <google-map 
+            mapId="7fb4bf864840c5cf"
+            height="100%"
+            width="100%"
+            [zoom]="zoom()"
+            [center]="center()"
+        >
+        <map-advanced-marker [position]="{lat: 10.9845951, lng: -74.8179751}"/>
+        </google-map>
+        
     </div>
     <div class="house-container">
 
