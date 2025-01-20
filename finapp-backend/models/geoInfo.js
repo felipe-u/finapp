@@ -25,16 +25,13 @@ const geoInfoSchema = new Schema({
   additionalInfo: {
     type: String,
   },
-  location: {
-    type: {
-      type: String,
-      enum: ["Point"],
-      default: "Point",
-    },
-    coordinates: {
-      type: [Number], // [long, lat]
-      required: true,
-    },
+  latitude: {
+    type: Number,
+    required: true
+  },
+  longitude: {
+    type: Number,
+    required: true
   },
   googleMapsUrl: {
     type: String,
