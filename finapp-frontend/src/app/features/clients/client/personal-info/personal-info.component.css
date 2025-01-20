@@ -31,12 +31,12 @@
   border-radius: 100px;
 }
 
-.form-container {
+.input-container {
   display: grid;
   margin-top: 10px;
 }
 
-.form-container input{
+.input-container input{
   width: 300px;
   margin: 20px auto;
   font-size: 1.1em;

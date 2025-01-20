@@ -562,6 +562,36 @@ exports.getClientPersonalInfo = (req, res, next) => {
     });
 };
 
+exports.editClientPersonalInfo = (req, res, next) => {
+  const updatedIdNumber = req.body.newIdNumber;
+  const updatedEmail = req.body.newPersonalInfo.email;
+  const updatedPhone = req.body.newPersonalInfo.phone;
+  const updatedBirthDate = req.body.newPersonalInfo.birthDate;
+  const updatedPhoto = req.body.newPersonalInfo.photo;
+
+  Client.findById(req.params.clientId)
+    .populate("personalInfo")
+    .then((client) => {
+      if (!client) {
+        return res.status(404).json({ message: "Client not found" });
+      }
+      client.identification.number = updatedIdNumber;
+      client.personalInfo.email = updatedEmail;
+      client.personalInfo.phone = updatedPhone;
+      client.personalInfo.birthDate = updatedBirthDate;
+      client.personalInfo.photo = updatedPhoto;
+
+      return client.personalInfo.save().then(() => client.save());
+    })
+    .then(() => {
+      res.status(200).json({ message: "Client personal info updated" });
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).json({ error: "Error updating personal info" });
+    });
+};
+
 exports.getClientGeoInfo = (req, res, next) => {
   Client.findById(req.params.clientId, "geoInfo")
     .populate("geoInfo")

@@ -7,13 +7,13 @@
         <img src="assets/imgs/user.png" alt="User Image">
     </div>
     <div class="info-container">
-        <p>ID: {{personalInfo().identification.number}} - {{personalInfo().identification.idType}}</p>
-        <p>Correo: {{personalInfo().personalInfo.email}}</p>
-        <p>Teléfono: {{personalInfo().personalInfo.phone}}</p>
-        <p>Fecha de nacimiento: {{personalInfo().personalInfo.birthDate}}</p>
+        <p>ID: {{client().identification.number}} - {{client().identification.idType}}</p>
+        <p>Correo: {{personalInfo().email}}</p>
+        <p>Teléfono: {{personalInfo().phone}}</p>
+        <p>Fecha de nacimiento: {{personalInfo().birthDate}}</p>
     </div>
     <div class="button-container">
-        <button class="primaryBtn editBtn" (click)="changeEditMode()">Editar</button>
+        <button class="primaryBtn editBtn" (click)="prepopulateForm()">Editar</button>
     </div>
 </div>
 } @else {
@@ -21,28 +21,28 @@
     <div class="img-container editMode">
         <img src="assets/imgs/user.png" alt="User Image">
     </div>
-    <div class="info-container">
-        <div class="form-container">
-            <label for="client-id">Id</label>
-            <input type="text" name="client-id" value="1036584">
+    <form class="info-container" [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="input-container">
+            <label for="idNumber">Id</label>
+            <input type="text" name="idNumber" formControlName="idNumber">
         </div>
-        <div class="form-container">
-            <label for="client-email">Correo</label>
-            <input type="text" name="client-email" value="samuel@mail.com">
+        <div class="input-container">
+            <label for="email">Correo</label>
+            <input type="text" name="email" formControlName="email">
         </div>
-        <div class="form-container">
-            <label for="client-phone">Teléfono</label>
-            <input type="text" name="client-phone" value="3127751311">
+        <div class="input-container">
+            <label for="phone">Teléfono</label>
+            <input type="text" name="phone" formControlName="phone">
         </div>
-        <div class="form-container">
-            <label for="client-birthdate">Fecha de nacimiento</label>
-            <input type="date" name="client-birthdate" value="1990-11-23">
+        <div class="input-container">
+            <label for="birthDate">Fecha de nacimiento</label>
+            <input type="date" name="birthDate" formControlName="birthDate">
         </div>
-    </div>
-    <div class="button-container">
-        <button class="primaryBtn editBtn">Guardar</button>
-        <button class="primaryBtn editBtn" (click)="changeEditMode()">Cancelar</button>
-    </div>
+        <div class="button-container">
+            <button type="submit" class="primaryBtn editBtn">Guardar</button>
+            <button type="button" class="primaryBtn editBtn" (click)="changeEditMode()">Cancelar</button>
+        </div>
+    </form>
 </div>
 }
 }

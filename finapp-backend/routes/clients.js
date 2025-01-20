@@ -12,6 +12,8 @@ router.get("/clients/:clientId/financing", clientsController.getClientFinancing)
 
 router.get("/clients/:clientId/personalInfo", clientsController.getClientPersonalInfo);
 
+router.post("/clients/:clientId/personalInfo/edit", clientsController.editClientPersonalInfo);
+
 router.get("/clients/:clientId/geoInfo", clientsController.getClientGeoInfo);
 
 router.get("/clients/:clientId/commercialInfo", clientsController.getClientCommercialInfo);
