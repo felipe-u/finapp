@@ -14,7 +14,6 @@ export class GeoInfoComponent {
   private clientsService = inject(ClientsService);
   client = signal<any | undefined>(undefined);
   geoInfo = signal<GeoInfo>(undefined);
-  location = signal<any>(undefined);
   center = signal<google.maps.LatLngLiteral>({ lat: 10.9845951, lng: -74.8179751 });
   zoom = signal(12);
   editMode = false;
@@ -24,6 +23,7 @@ export class GeoInfoComponent {
     this.clientsService.getClientGeographicInfo().subscribe({
       next: (geoInfo) => {
         this.geoInfo.set(geoInfo);
+        this.center.set({ lat: geoInfo.latitude, lng: geoInfo.longitude })
         console.log(geoInfo)
       },
       error: (error: Error) => {

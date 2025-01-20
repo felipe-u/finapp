@@ -12,7 +12,7 @@
             [zoom]="zoom()"
             [center]="center()"
         >
-        <map-advanced-marker [position]="{lat: 10.9845951, lng: -74.8179751}"/>
+        <map-advanced-marker [position]="{lat: geoInfo().latitude, lng: geoInfo().longitude}"/>
         </google-map>
         
     </div>
