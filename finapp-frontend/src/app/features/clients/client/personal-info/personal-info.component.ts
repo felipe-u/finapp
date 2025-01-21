@@ -37,6 +37,8 @@ export class PersonalInfoComponent {
     this.clientsService.getClientPersonalInfo().subscribe({
       next: (personalInfo) => {
         this.personalInfo.set(personalInfo);
+        const birthDate = this.getDateWithoutTimezoneOffset(personalInfo.birthDate);
+        this.personalInfo().birthDate = birthDate;
         console.log(personalInfo);
       },
       error: (error: Error) => {
@@ -44,7 +46,7 @@ export class PersonalInfoComponent {
       }
     });
   }
-  
+
   prepopulateForm() {
     this.changeEditMode();
     this.form.patchValue({
@@ -54,7 +56,7 @@ export class PersonalInfoComponent {
       birthDate: new Date(this.personalInfo().birthDate).toISOString().split('T')[0]
     })
   }
-  
+
   changeEditMode() {
     this.editMode = !this.editMode;
   }
@@ -65,11 +67,26 @@ export class PersonalInfoComponent {
       const newEmail = this.form.value.email;
       const newPhone = this.form.value.phone;
       const newBirthDate = this.form.value.birthDate;
-      const newPersonalInfo = new PersonalInfo(this.personalInfo()._id, newEmail, newPhone, new Date(newBirthDate), '');
+      const newBirthDateWithoutTimezoneOffset = this.getDateWithoutTimezoneOffset(newBirthDate);
+
+      const newPersonalInfo = new PersonalInfo(
+        this.personalInfo()._id,
+        newEmail,
+        newPhone,
+        newBirthDateWithoutTimezoneOffset,
+        ''
+      );
+
       this.clientsService.editPersonalInfo(newPersonalInfo, newIdNumber).subscribe();
       this.personalInfo.set(newPersonalInfo);
       this.client().identification.number = newIdNumber;
       this.changeEditMode();
     }
+  }
+
+  getDateWithoutTimezoneOffset(incomingDate: string) {
+    var date = new Date(incomingDate);
+    var dateWithoutTimezoneOffset = date.getTimezoneOffset() * 60000;
+    return new Date(date.getTime() + dateWithoutTimezoneOffset)
   }
 }
