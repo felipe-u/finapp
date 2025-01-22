@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { map, tap } from 'rxjs';
 import { PersonalInfo } from '../models/personalInfo.model';
+import { GeoInfo } from '../models/geoInfo.model';
 
 @Injectable({ providedIn: 'root' })
 export class ClientsService {
@@ -74,7 +75,7 @@ export class ClientsService {
     editPersonalInfo(updatedPersonalInfo: PersonalInfo, updatedIdNumber: string) {
         console.log("Editando información del cliente: ", this.client()._id);
         return this.httpClient.post(
-            this.url + 'clients/' + this.client()._id + '/personalInfo/edit', 
+            this.url + 'clients/' + this.client()._id + '/personalInfo/edit',
             { newIdNumber: updatedIdNumber, newPersonalInfo: updatedPersonalInfo }
         )
 
@@ -86,6 +87,14 @@ export class ClientsService {
             .pipe(
                 map((resData) => resData.geoInfo)
             );
+    }
+
+
+    editGeoInfo(updatedGeoInfo: GeoInfo) {
+        console.log("Editando información geográfica del cliente: ", this.client()._id);
+        return this.httpClient.post(
+            this.url + 'clients/' + this.client()._id + '/geoInfo/edit', updatedGeoInfo
+        )
     }
 
     getClientCommercialInfo() {

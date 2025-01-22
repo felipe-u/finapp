@@ -545,16 +545,10 @@ exports.getClientFinancing = (req, res, next) => {
 };
 
 exports.getClientPersonalInfo = (req, res, next) => {
-  Client.findById(
-    req.params.clientId,
-    "identification.idType identification.number personalInfo"
-  )
+  Client.findById(req.params.clientId, "personalInfo")
     .populate("personalInfo")
     .then((client) => {
-      res.status(200).json({
-        identification: client.identification,
-        personalInfo: client.personalInfo,
-      });
+      res.status(200).json({ personalInfo: client.personalInfo });
     })
     .catch((err) => {
       console.error(err);
@@ -601,6 +595,42 @@ exports.getClientGeoInfo = (req, res, next) => {
     .catch((err) => {
       console.error(err);
       res.status(500).json({ error: "Error fetching geo info" });
+    });
+};
+
+exports.editClientGeoInfo = (req, res, next) => {
+  const updatedAddress = req.body.address;
+  const updatedCity = req.body.city;
+  const updatedDepartment = req.body.department;
+  const updatedNeighbourhood = req.body.neighbourhood;
+  const updatedLatitude = req.body.latitude;
+  const updatedLongitude = req.body.longitude;
+  const updatedGoogleMapsUrl = req.body.googleMapsUrl;
+  const updatedPropertyImages = req.body.propertyImages;
+
+  Client.findById(req.params.clientId)
+    .populate("geoInfo")
+    .then((client) => {
+      if (!client) {
+        return res.status(404).json({ message: "Client not found" });
+      }
+      client.geoInfo.address = updatedAddress;
+      client.geoInfo.city = updatedCity;
+      client.geoInfo.department = updatedDepartment;
+      client.geoInfo.neighbourhood = updatedNeighbourhood;
+      client.geoInfo.latitude = updatedLatitude;
+      client.geoInfo.longitude = updatedLongitude;
+      client.geoInfo.googleMapsUrl = updatedGoogleMapsUrl;
+      client.geoInfo.propertyImages = updatedPropertyImages;
+
+      return client.geoInfo.save().then(() => client.save());
+    })
+    .then(() => {
+      res.status(200).json({ message: "Client geo info updated" });
+    })
+    .catch((err) => {
+      console.error(err.message);
+      res.status(500).json({ error: "Error updating geo info" });
     });
 };
 

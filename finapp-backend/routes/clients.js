@@ -16,6 +16,8 @@ router.post("/clients/:clientId/personalInfo/edit", clientsController.editClient
 
 router.get("/clients/:clientId/geoInfo", clientsController.getClientGeoInfo);
 
+router.post("/clients/:clientId/geoInfo/edit", clientsController.editClientGeoInfo);
+
 router.get("/clients/:clientId/commercialInfo", clientsController.getClientCommercialInfo);
 
 router.get("/clients/:clientId/name", clientsController.getClientName);

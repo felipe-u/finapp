@@ -5,16 +5,10 @@
 @if (!editMode) {
 <div class="container client-container">
     <div class="map-container">
-        <google-map 
-            mapId="7fb4bf864840c5cf"
-            height="100%"
-            width="100%"
-            [zoom]="zoom()"
-            [center]="center()"
-        >
-        <map-advanced-marker [position]="{lat: geoInfo().latitude, lng: geoInfo().longitude}"/>
+        <google-map mapId="7fb4bf864840c5cf" height="100%" width="100%" [zoom]="zoom()" [center]="center()">
+            <map-advanced-marker [position]="{lat: geoInfo().latitude, lng: geoInfo().longitude}" />
         </google-map>
-        
+
     </div>
     <div class="house-container">
 
@@ -22,14 +16,14 @@
     <div class="address-container">
         <h3 class="container-title">Dirección</h3>
         <p>{{geoInfo().address}}</p>
-        <p>Barrio: {{geoInfo().neighbourhood}}</p>
+        <p>Barrio: {{ geoInfo().neighbourhood }}</p>
         <!-- si no hay nada no se pone  [@if] -->
-        <p>Sector:</p>
-        <p>Municipio: {{geoInfo().city}}</p>
-        <p>Información adicional:</p>
+        <p>Sector: {{ geoInfo().sector }}</p>
+        <p>Municipio: {{ geoInfo().city }}</p>
+        <p>Información adicional: {{ geoInfo().additionalInfo }}</p>        
     </div>
     <div class="button-container">
-        <button class="primaryBtn editBtn" (click)="changeEditMode()">Editar</button>
+        <button class="primaryBtn editBtn" (click)="prepolutaForm()">Editar</button>
     </div>
 </div>
 } @else {
@@ -43,50 +37,47 @@
     <div class="house-container">
 
     </div>
-    <div class="address-container">
+    <form class="address-container" [formGroup]="form" (ngSubmit)="onSubmit()">
         <h3 class="container-title">Dirección</h3>
+        <input type="text" name="latitude" id="latitude" formControlName="latitude" hidden>
+        <input type="text" name="longitude" id="longitude" formControlName="longitude" hidden>
         <div class="form-container">
-            <label for="direccion">Dirección de la vivienda</label>
-            <input type="text" name="direccion" id="direccion" value="Calle 41 # 65 - 52">
+            <label for="address">Dirección de la vivienda</label>
+            <input type="text" name="address" id="address" formControlName="address">
         </div>
         <div class="form-container">
-            <label for="barrio">Barrio</label>
-            <input type="text" name="barrio" id="barrio" value="Miraflores">
+            <label for="neighbourhood">Barrio</label>
+            <input type="text" name="neighbourhood" id="neighbourhood" formControlName="neighbourhood">
         </div>
         <div class="form-container">
             <label for="sector">Sector</label>
-            <input type="text" name="sector" id="sector">
+            <input type="text" name="sector" id="sector" formControlName="sector">
         </div>
         <div class="form-container">
-            <label for="departamento">Departamento</label>
-            <select name="departamento" id="departamento">
-                <option value="antioquia">Antioquia</option>
-                <option value="atlantico" selected>Atlántico</option>
-                <option value="bogota-dc">Bogotá, D.C</option>
-                <option value="bolivar">Bolívar</option>
+            <label for="department">Departamento</label>
+            <select name="department" id="department" formControlName="department">
+                @for (dep of departments; track dep) {
+                    <option [value]="dep.departamento">{{ dep.departamento }}</option>
+                }
             </select>
         </div>
         <div class="form-container">
             <label for="municipio">Municipio</label>
-            <select name="municipio" id="municipio">
-                <option value="barranquilla">Barranquilla</option>
-                <option value="alapa">Galapa</option>
-                <option value="malambo">malambo</option>
-                <option value="puerto-colombia">Puerto Colombia</option>
-                <option value="soledad">Soledad</option>
-                <option value="candelaria">Candelaria</option>
-                <option value="luruaco">Luruaco</option>
+            <select name="municipio" id="municipio" formControlName="city">
+                @for (city of cities; track city) {
+                    <option [value]="city">{{ city }}</option>
+                }
             </select>
         </div>
         <div class="form-container">
-            <label for="info-adicional">Información adicional</label>
-            <textarea name="info-adicional" id="info-adicional" rows="4"></textarea>
+            <label for="additionalInfo">Información adicional</label>
+            <textarea name="additionalInfo" id="additionalInfo" rows="4" formControlName="additionalInfo"></textarea>
         </div>
-    </div>
-    <div class="button-container">
-        <button class="primaryBtn editBtn">Guardar</button>
-        <button class="primaryBtn editBtn" (click)="changeEditMode()">Cancelar</button>
-    </div>
+        <div class="button-container">
+            <button type="submit" class="primaryBtn editBtn">Guardar</button>
+            <button type="button" class="primaryBtn editBtn" (click)="changeEditMode()">Cancelar</button>
+        </div>
+    </form>
 </div>
 }
 }
