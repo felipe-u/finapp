@@ -19,6 +19,7 @@ export class GeoInfoComponent {
   geoInfo = signal<GeoInfo>(undefined);
   center = signal<google.maps.LatLngLiteral>({ lat: 10.9845951, lng: -74.8179751 });
   zoom = signal(12);
+  advancedMarkerOptions: google.maps.marker.AdvancedMarkerElementOptions = { gmpDraggable: true };
   editMode = false;
   departments;
   cities;
@@ -96,6 +97,13 @@ export class GeoInfoComponent {
       neighbourhood: this.geoInfo().neighbourhood,
       sector: this.geoInfo().sector,
       additionalInfo: this.geoInfo().additionalInfo
+    })
+  }
+
+  updateLocation(event: google.maps.MapMouseEvent) {
+    this.form.patchValue({
+      latitude: event.latLng.lat(),
+      longitude: event.latLng.lng()
     })
   }
 

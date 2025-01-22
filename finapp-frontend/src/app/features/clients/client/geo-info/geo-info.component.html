@@ -20,19 +20,19 @@
         <!-- si no hay nada no se pone  [@if] -->
         <p>Sector: {{ geoInfo().sector }}</p>
         <p>Municipio: {{ geoInfo().city }}</p>
-        <p>Información adicional: {{ geoInfo().additionalInfo }}</p>        
+        <p>Información adicional: {{ geoInfo().additionalInfo }}</p>
     </div>
     <div class="button-container">
         <button class="primaryBtn editBtn" (click)="prepolutaForm()">Editar</button>
     </div>
 </div>
 } @else {
-<div class="container editMode client-container">
+<div class="container client-container">
     <div class="map-container">
-        <img src="assets/imgs/map.png" alt="Google Map">
-        <div class="overlay">
-            <div class="text">Editar</div>
-        </div>
+        <google-map mapId="7fb4bf864840c5cf" height="100%" width="100%" [zoom]="zoom()" [center]="center()">
+            <map-advanced-marker [position]="{lat: geoInfo().latitude, lng: geoInfo().longitude}"
+                [options]="advancedMarkerOptions" (mapDragend)="updateLocation($event)" />
+        </google-map>
     </div>
     <div class="house-container">
 
@@ -57,7 +57,7 @@
             <label for="department">Departamento</label>
             <select name="department" id="department" formControlName="department">
                 @for (dep of departments; track dep) {
-                    <option [value]="dep.departamento">{{ dep.departamento }}</option>
+                <option [value]="dep.departamento">{{ dep.departamento }}</option>
                 }
             </select>
         </div>
@@ -65,7 +65,7 @@
             <label for="municipio">Municipio</label>
             <select name="municipio" id="municipio" formControlName="city">
                 @for (city of cities; track city) {
-                    <option [value]="city">{{ city }}</option>
+                <option [value]="city">{{ city }}</option>
                 }
             </select>
         </div>
