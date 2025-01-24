@@ -5,7 +5,7 @@
 <div class="container client-container">
     <div class="cod-container">
         @if (client().codebtor) {
-        <p>Codeudor</p>
+        <p>Codeudor/a</p>
         <button class="primaryBtn" (click)="openCodebtorProfile()">{{ coDebtorName() }}</button>
         } @else {
         <p>Deudor/a</p>
@@ -17,27 +17,27 @@
         <table>
             <tr>
                 <th>Ocupación</th>
-                <td>{{commercialInfo().commercialInfo.jobOccupation}}</td>
+                <td>{{commercialInfo().jobOccupation}}</td>
             </tr>
             <tr>
                 <th>Empresa</th>
-                <td>{{ commercialInfo().commercialInfo.company }}</td>
+                <td>{{ commercialInfo().company }}</td>
             </tr>
             <tr id="tr-bar">
                 <th>Antigüedad</th>
-                <td>{{ commercialInfo().commercialInfo.laborSenority}}</td>
+                <td>{{ commercialInfo().laborSenority}}</td>
             </tr>
             <tr>
                 <th>Ingresos</th>
-                <td>$ {{ commercialInfo().commercialInfo.income }}</td>
+                <td>$ {{ commercialInfo().income }}</td>
             </tr>
             <tr>
                 <th>Ingresos adicionales</th>
-                <td>$ {{ commercialInfo().commercialInfo.additionalIncome }}</td>
+                <td>$ {{ commercialInfo().additionalIncome }}</td>
             </tr>
             <tr>
                 <th>Egresos</th>
-                <td>$ {{ commercialInfo().commercialInfo.expenses }}</td>
+                <td>$ {{ commercialInfo().expenses }}</td>
             </tr>
         </table>
     </div>
@@ -77,174 +77,173 @@
         </table>
     </div>
     <div class="button-container">
-        <button class="primaryBtn editBtn" (click)="changeEditMode()">Editar</button>
+        <button class="primaryBtn editBtn" (click)="prepopulateForm()">Editar</button>
     </div>
 </div>
 } @else {
-<div class="container editMode client-container">
-    <div class="cod-container">
-        <p>Codeudor/a</p>
-        <button class="primaryBtn">Melissa Botero</button>
-    </div>
+<form class="container editMode client-container" [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="info-container">
         <h3 class="container-title">Información general</h3>
         <div class="info-edit">
-            <form>
+            <fieldset formGroupName="commercialInfo">
                 <div class="form-container">
                     <label for="ocupacion">Ocupación</label>
-                    <input type="text" name="ocupacion" id="ocupacion" value="Vendedor">
+                    <input type="text" name="ocupacion" id="ocupacion" formControlName="jobOccupation" />
                 </div>
                 <div class="form-container">
                     <label for="empresa">Empresa</label>
-                    <input type="text" name="empresa" id="empresa" value="Homecenter">
+                    <input type="text" name="empresa" id="empresa" formControlName="company" />
                 </div>
                 <div class="form-container">
                     <label for="antiguedad">Antigüedad (años)</label>
-                    <input type="number" name="antiguedad" id="antiguedad" value="3">
+                    <input type="number" name="antiguedad" id="antiguedad" formControlName="laborSenority" />
                 </div>
                 <div class="form-container">
                     <label for="ingresos">Ingresos</label>
-                    <input type="text" name="ingresos" id="ingresos" value="2000000">
+                    <input type="text" name="ingresos" id="ingresos" formControlName="income" />
                 </div>
                 <div class="form-container">
                     <label for="ingresos-ad">Ingresos Adicionales</label>
-                    <input type="text" name="ingresos-ad" id="ingresos-ad" value="500000">
+                    <input type="text" name="ingresos-ad" id="ingresos-ad" formControlName="additionalIncome" />
                 </div>
                 <div class="form-container">
                     <label for="egresos">Egresos</label>
-                    <input type="text" name="egresos" id="egresos" value="1000000">
+                    <input type="text" name="egresos" id="egresos" formControlName="expenses" />
                 </div>
-            </form>
+            </fieldset>
         </div>
     </div>
     <div class="ref-container">
-        <h3 class="container-title">Referencias</h3>
-        <table>
-            <tr>
-                <th colspan="3" style="background-color: lightgray;">Familiares</th>
-            </tr>
-            <tr>
-                <td>
-                    <input type="text" name="ref1-nombre" id="ref1-nombre" value="Pedro Vélez">
-                </td>
-                <td>
-                    <select name="ref1-relacion" id="ref1-relacion">
-                        <option value="pad">Padre</option>
-                        <option value="mad">Madre</option>
-                        <option value="cyg">Cónyuge</option>
-                        <option value="her" selected>Hermano/a</option>
-                        <option value="pri">Primo/a</option>
-                        <option value="tio">Tío/a</option>
-                        <option value="abu">Abuelo/a</option>
-                        <option value="nie">Nieto/a</option>
-                        <option value="otf">Otro</option>
-                    </select>
-                </td>
-                <td>
-                    <input type="text" name="ref1-telefono" id="ref1-telefono" value="312155777">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="text" name="ref2-nombre" id="ref2-nombre" value="María Martinez">
-                </td>
-                <td>
-                    <select name="ref2-relacion" id="ref2-relacion">
-                        <option value="pad">Padre</option>
-                        <option value="mad" selected>Madre</option>
-                        <option value="cyg">Cónyuge</option>
-                        <option value="her">Hermano/a</option>
-                        <option value="pri">Primo/a</option>
-                        <option value="tio">Tío/a</option>
-                        <option value="abu">Abuelo/a</option>
-                        <option value="nie">Nieto/a</option>
-                        <option value="otf">Otro</option>
-                    </select>
-                </td>
-                <td>
-                    <input type="text" name="ref2-telefono" id="ref2-telefono" value="312155777">
-                </td>
-            </tr>
-            <tr>
-                <th colspan="3" style="background-color: lightgray;">Personales</th>
-            </tr>
-            <tr>
-                <td>
-                    <input type="text" name="ref3-nombre" id="ref3-nombre" value="Camilo Duarte">
-                </td>
-                <td>
-                    <select name="ref3-relacion" id="ref3-relacion">
-                        <option value="ami">Amigo/a</option>
-                        <option value="con">Conocido/a</option>
-                        <option value="com">Comp. de trabajo</option>
-                        <option value="vec" selected>Vecino/a</option>
-                        <option value="otp">Otro</option>
-                    </select>
-                </td>
-                <td>
-                    <input type="text" name="ref3-telefono" id="ref3-telefono" value="302545656">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="text" name="ref4-nombre" id="ref4-nombre" value="Juan García">
-                </td>
-                <td>
-                    <select name="ref4-relacion" id="ref4-relacion">
-                        <option value="ami" selected>Amigo/a</option>
-                        <option value="con">Conocido/a</option>
-                        <option value="com">Comp. de trabajo</option>
-                        <option value="vec">Vecino/a</option>
-                        <option value="otp">Otro</option>
-                    </select>
-                </td>
-                <td>
-                    <input type="text" name="ref4-telefono" id="ref4-telefono" value="302545998">
-                </td>
-            </tr>
-            <tr>
-                <th colspan="3" style="background-color: lightgray;">Comerciales</th>
-            </tr>
-            <tr>
-                <td>
-                    <input type="text" name="ref5-nombre" id="ref5-nombre" value="Cooperativa Palo Alto">
-                </td>
-                <td>
-                    <select name="ref5-relacion" id="ref5-relacion">
-                        <option value="cli">Cliente</option>
-                        <option value="pro">Proveedor</option>
-                        <option value="soc">Socio</option>
-                        <option value="enf" selected>Entidad Financiera</option>
-                        <option value="otc">Otro</option>
-                    </select>
-                </td>
-                <td>
-                    <input type="text" name="ref5-telefono" id="ref5-telefono" value="310665650">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="text" name="ref6-nombre" id="ref6-nombre" value="Banco MAR">
-                </td>
-                <td>
-                    <select name="ref6-relacion" id="ref6-relacion">
-                        <option value="cli">Cliente</option>
-                        <option value="pro">Proveedor</option>
-                        <option value="soc">Socio</option>
-                        <option value="enf" selected>Entidad Financiera</option>
-                        <option value="otc">Otro</option>
-                    </select>
-                </td>
-                <td>
-                    <input type="text" name="ref6-telefono" id="ref6-telefono" value="310121212">
-                </td>
-            </tr>
-        </table>
+        <div formGroupName="references">
+            <h3 class="container-title">Referencias</h3>
+            <table>
+                <tr>
+                    <th colspan="3" style="background-color: lightgray;">Familiares</th>
+                </tr>
+                <tr formGroupName="famRef1">
+                    <td>
+                        <input type="text" name="ref1-nombre" id="ref1-nombre" formControlName="name">
+                    </td>
+                    <td>
+                        <select name="ref1-relacion" id="ref1-relacion" formControlName="relationship">
+                            <option value="PAD">Padre</option>
+                            <option value="MAD">Madre</option>
+                            <option value="CYG">Cónyuge</option>
+                            <option value="HER">Hermano/a</option>
+                            <option value="PRI">Primo/a</option>
+                            <option value="TIO">Tío/a</option>
+                            <option value="ABU">Abuelo/a</option>
+                            <option value="NIE">Nieto/a</option>
+                            <option value="OTF">Otro</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" name="ref1-telefono" id="ref1-telefono" formControlName="phone">
+                    </td>
+                </tr>
+                <tr formGroupName="famRef2">
+                    <td>
+                        <input type="text" name="ref2-nombre" id="ref2-nombre" formControlName="name">
+                    </td>
+                    <td>
+                        <select name="ref2-relacion" id="ref2-relacion" formControlName="relationship">
+                            <option value="PAD">Padre</option>
+                            <option value="MAD">Madre</option>
+                            <option value="CYG">Cónyuge</option>
+                            <option value="HER">Hermano/a</option>
+                            <option value="PRI">Primo/a</option>
+                            <option value="TIO">Tío/a</option>
+                            <option value="ABU">Abuelo/a</option>
+                            <option value="NIE">Nieto/a</option>
+                            <option value="OTF">Otro</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" name="ref2-telefono" id="ref2-telefono" formControlName="phone">
+                    </td>
+                </tr>
+                <tr>
+                    <th colspan="3" style="background-color: lightgray;">Personales</th>
+                </tr>
+                <tr formGroupName="perRef1">
+                    <td>
+                        <input type="text" name="ref3-nombre" id="ref3-nombre" formControlName="name">
+                    </td>
+                    <td>
+                        <select name="ref3-relacion" id="ref3-relacion" formControlName="relationship">
+                            <option value="AMI">Amigo/a</option>
+                            <option value="CON">Conocido/a</option>
+                            <option value="COM">Comp. de trabajo</option>
+                            <option value="VEC" selected>Vecino/a</option>
+                            <option value="OTP">Otro</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" name="ref3-telefono" id="ref3-telefono" formControlName="phone">
+                    </td>
+                </tr>
+                <tr formGroupName="perRef2">
+                    <td>
+                        <input type="text" name="ref4-nombre" id="ref4-nombre" formControlName="name">
+                    </td>
+                    <td>
+                        <select name="ref4-relacion" id="ref4-relacion" formControlName="relationship">
+                            <option value="AMI" selected>Amigo/a</option>
+                            <option value="CON">Conocido/a</option>
+                            <option value="COM">Comp. de trabajo</option>
+                            <option value="VEC">Vecino/a</option>
+                            <option value="OTP">Otro</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" name="ref4-telefono" id="ref4-telefono" formControlName="phone">
+                    </td>
+                </tr>
+                <tr>
+                    <th colspan="3" style="background-color: lightgray;">Comerciales</th>
+                </tr>
+                <tr formGroupName="comRef1">
+                    <td>
+                        <input type="text" name="ref5-nombre" id="ref5-nombre" formControlName="name">
+                    </td>
+                    <td>
+                        <select name="ref5-relacion" id="ref5-relacion" formControlName="relationship">
+                            <option value="CLI">Cliente</option>
+                            <option value="PRO">Proveedor</option>
+                            <option value="SOC">Socio</option>
+                            <option value="ENF" selected>Entidad Financiera</option>
+                            <option value="OTC">Otro</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" name="ref5-telefono" id="ref5-telefono" formControlName="phone">
+                    </td>
+                </tr>
+                <tr formGroupName="comRef2">
+                    <td>
+                        <input type="text" name="ref6-nombre" id="ref6-nombre" formControlName="name">
+                    </td>
+                    <td>
+                        <select name="ref6-relacion" id="ref6-relacion" formControlName="relationship">
+                            <option value="CLI">Cliente</option>
+                            <option value="PRO">Proveedor</option>
+                            <option value="SOC">Socio</option>
+                            <option value="ENF" selected>Entidad Financiera</option>
+                            <option value="OTC">Otro</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" name="ref6-telefono" id="ref6-telefono" formControlName="phone">
+                    </td>
+                </tr>
+            </table>
+        </div>
+
     </div>
     <div class="button-container">
-        <button class="primaryBtn editBtn">Guardar</button>
-        <button class="primaryBtn editBtn" (click)="changeEditMode()">Cancelar</button>
+        <button type="submit" class="primaryBtn editBtn">Guardar</button>
+        <button type="button" class="primaryBtn editBtn" (click)="changeEditMode()">Cancelar</button>
     </div>
-</div>
+</form>
 }
 }

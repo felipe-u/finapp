@@ -3,6 +3,8 @@ import { inject, Injectable, signal } from '@angular/core';
 import { map, tap } from 'rxjs';
 import { PersonalInfo } from '../models/personalInfo.model';
 import { GeoInfo } from '../models/geoInfo.model';
+import { CommercialInfo } from '../models/commercialInfo.model';
+import { Reference } from '../models/reference.model';
 
 @Injectable({ providedIn: 'root' })
 export class ClientsService {
@@ -100,6 +102,14 @@ export class ClientsService {
     getClientCommercialInfo() {
         console.log("Recuperando información comercial del cliente: ", this.client()._id);
         return this.httpClient.get<any>(this.url + 'clients/' + this.client()._id + '/commercialInfo')
+    }
+
+    editCommercialInfo(updatedCommercialInfo: CommercialInfo, updatedReferences: Reference[]) {
+        console.log("Editando información comercial del cliente: ", this.client()._id);
+        return this.httpClient.post(
+            this.url + 'clients/' + this.client()._id + '/commercialInfo/edit',
+            { newCommercialInfo: updatedCommercialInfo, newReferences: updatedReferences }
+        )
     }
 
     getDebtorName() {

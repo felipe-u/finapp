@@ -650,6 +650,50 @@ exports.getClientCommercialInfo = (req, res, next) => {
     });
 };
 
+exports.editClientCommercialInfo = (req, res, next) => {
+  const updatedJobOccupation = req.body.newCommercialInfo.jobOccupation;
+  const updatedCompany = req.body.newCommercialInfo.company;
+  const updatedLaborSenority = req.body.newCommercialInfo.laborSenority;
+  const updatedIncome = req.body.newCommercialInfo.income;
+  const updatedAdditionalIncome = req.body.newCommercialInfo.additionalIncome;
+  const updatedExpenses = req.body.newCommercialInfo.expenses;
+  const updatedReferences = req.body.newReferences;
+  Client.findById(req.params.clientId)
+    .populate("commercialInfo references")
+    .then(async (client) => {
+      if (!client) {
+        return res.status(404).json({ message: "Client not found" });
+      }
+      client.commercialInfo.jobOccupation = updatedJobOccupation;
+      client.commercialInfo.company = updatedCompany;
+      client.commercialInfo.laborSenority = updatedLaborSenority;
+      client.commercialInfo.income = updatedIncome;
+      client.commercialInfo.additionalIncome = updatedAdditionalIncome;
+      client.commercialInfo.expenses = updatedExpenses;
+
+      for (const updatedReference of updatedReferences) {
+        const reference = await Reference.findById(updatedReference._id);
+        if (reference) {
+          reference.name = updatedReference.name;
+          reference.identification.idType = 'CC';
+          reference.identification.number = '111';
+          reference.referenceType = updatedReference.referenceType;
+          reference.phone = updatedReference.phone;
+          reference.relationship = updatedReference.relationship;
+          await reference.save();
+        }
+      }
+
+      await client.commercialInfo.save();
+      await client.save();
+      res.status(200).json({ message: "Client commercial info updated" });
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).json({ error: "Error updating commercial info" });
+    });
+}
+
 exports.getClientName = (req, res, next) => {
   Client.findById(req.params.clientId, "name")
     .then((client) => {
