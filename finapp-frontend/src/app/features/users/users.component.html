@@ -1,0 +1,30 @@
+<div class="search-container">
+    <div class="filter-options">
+        Auxiliar - Gestor
+    </div>
+    <div class="search-bar">
+        <input type="text" name="search" id="search" [(ngModel)]="searchTerm">
+        <button type="button" class="primaryBtn">Search</button>
+    </div>
+</div>
+<br>
+<div class="users-container">
+    <table class="users-table">
+        <tr>
+            <th>Name</th>
+            <th>Role</th>
+        </tr>
+        @for (manager of managers(); track manager) {
+            <tr>
+                <td>{{ manager.name }}</td>
+                <td>{{ manager.role }}</td>
+            </tr>
+        }
+        @for (assistant of assistants(); track assistant) {
+            <tr>
+                <td>{{ assistant.name }}</td>
+                <td>{{ assistant.role }}</td>
+            </tr>
+        }
+    </table>
+</div>

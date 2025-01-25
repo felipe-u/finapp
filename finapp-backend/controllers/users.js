@@ -1,11 +1,17 @@
-const User = require("../models/user");
+const { Client } = require("../models/client");
+const { User, Admin, Manager, Assistant } = require("../models/user");
 
 const mongoDB = require("mongodb");
 
-exports.getUsers = (req, res, next) => {
-  User.find().then((users) => {
-    res.status(200).json({ users: users });
-  });
+exports.getAllUsers = async (req, res, next) => {
+  try {
+    const managers = await Manager.find();
+    const assistants = await Assistant.find();
+    res.status(200).json({ managers, assistants });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
+  }
 };
 
 exports.createUser = (req, res, next) => {
@@ -15,7 +21,7 @@ exports.createUser = (req, res, next) => {
   newUser
     .save()
     .then(() => {
-      console.log('user created');
+      console.log("user created");
       return res.status(201).json({ message: "User created successfully!" });
     })
     .catch((err) => {

@@ -10,6 +10,7 @@ import { SettingsComponent } from "./features/account/settings/settings.componen
 import { SupportComponent } from "./features/support/support.component";
 import { routes as ClientRoutes } from "./features/clients/clients.routes";
 import { ClientComponent } from "./features/clients/client/client.component";
+import { UsersComponent } from "./features/users/users.component";
 
 export const routes: Routes = [
     {
@@ -30,6 +31,11 @@ export const routes: Routes = [
                 path: 'clients/:clientId',
                 component: ClientComponent,
                 children: ClientRoutes
+            },
+            {
+                path: 'users',
+                component: UsersComponent,
+                title: 'FinApp | Users'
             },
             {
                 path: 'reports',

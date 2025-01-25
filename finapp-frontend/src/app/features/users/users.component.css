@@ -1,0 +1,57 @@
+.users-container {
+  display: flex;
+}
+
+.users-table {
+  margin: 0 auto;
+  width: 40%;
+  border-collapse: collapse;
+  border: 1px solid rgb(88, 88, 88);
+}
+
+.users-table th {
+  background-color: rgb(172, 172, 172);
+  color: black;
+  font-size: 1.1em;
+  cursor: default;
+}
+
+.users-table th,
+.users-table td {
+  padding: 8px;
+  text-align: left;
+}
+
+.users-container tr {
+  transition: 0.3s ease;
+}
+
+.users-container tr:hover {
+  background-color: #ffd1cd;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.users-table th:nth-child(1),
+.users-table td:nth-child(1) {
+  width: 70%;
+}
+
+.users-table th:nth-child(2),
+.users-table td:nth-child(2) {
+  width: 30%;
+}
+
+.search-container {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.search-bar input {
+  height: 27px;
+  max-height: 27px;
+  font-size: 1em;
+  max-width: 156px;
+  text-align: center;
+}
