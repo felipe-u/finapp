@@ -12,7 +12,7 @@ import { routes as ClientRoutes } from "./features/clients/clients.routes";
 import { ClientComponent } from "./features/clients/client/client.component";
 import { UsersComponent } from "./features/users/users.component";
 import { UserComponent } from "./features/users/user/user.component";
-import { routes as UsersRoutes } from "./features/users/users.routes";
+import { DebtorsListComponent } from "./features/users/user/debtors-list/debtors-list.component";
 
 export const routes: Routes = [
     {
@@ -42,7 +42,12 @@ export const routes: Routes = [
             {
                 path: 'users/:userId',
                 component: UserComponent,
-                children: UsersRoutes
+                title: 'FinApp | User',
+            },
+            {
+                path: 'users/:userId/debtors-list',
+                component: DebtorsListComponent,
+                title: 'FinApp | Debtors List'
             },
             {
                 path: 'reports',
