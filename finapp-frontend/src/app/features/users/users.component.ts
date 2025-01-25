@@ -1,6 +1,7 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { UsersService } from '../../core/services/users.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-users',
@@ -10,6 +11,7 @@ import { UsersService } from '../../core/services/users.service';
   styleUrl: './users.component.css'
 })
 export class UsersComponent implements OnInit {
+  private router = inject(Router);
   private usersService = inject(UsersService);
   searchTerm = '';
   managers = signal<any>([]);
@@ -25,5 +27,9 @@ export class UsersComponent implements OnInit {
         console.error(error.message);
       }
     });
+  }
+
+  openUserProfile(userId: string) {
+    this.router.navigate(['users', userId]);
   }
 }

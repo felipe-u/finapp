@@ -14,17 +14,11 @@
             <th>Name</th>
             <th>Role</th>
         </tr>
-        @for (manager of managers(); track manager) {
-            <tr>
-                <td>{{ manager.name }}</td>
-                <td>{{ manager.role }}</td>
-            </tr>
-        }
-        @for (assistant of assistants(); track assistant) {
-            <tr>
-                <td>{{ assistant.name }}</td>
-                <td>{{ assistant.role }}</td>
-            </tr>
+        @for (user of managers().concat(assistants()); track user._id) {
+        <tr (click)="openUserProfile(user._id)">
+            <td>{{ user.name }}</td>
+            <td>{{ user.role }}</td>
+        </tr>
         }
     </table>
 </div>
