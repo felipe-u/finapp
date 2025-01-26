@@ -1,1 +1,41 @@
-<p>user works!</p>
+@if (user() === undefined) {
+
+} @else {
+<div class="name-container">
+    <h3>{{ user().name }}</h3>
+</div>
+@if (!editMode) {
+<div class="container user-container">
+    <div class="img-container">
+        <img src="assets/imgs/user.png" alt="User Image">
+    </div>
+    <div class="info-container">
+        <p>Rol: {{ user().role }}</p>
+        <p>Correo: {{ user().email }}</p>
+        <p>Teléfono: {{ user().phone }}</p>
+    </div>
+    <div class="button-container">
+        <button class="primaryBtn editBtn firstBtn">Editar</button>
+        @if (user().role === 'manager') {
+            <button class="primaryBtn">Deudores asignados</button>
+        }
+    </div>
+</div>
+} @else {
+<div class="container user-container">
+    <div class="img-container editMode">
+        <img src="assets/imgs/user.png" alt="User Image">
+    </div>
+    <form class="info-container">
+        <div class="input-container">
+            <label for="email">Correo</label>
+            <input type="text" name="email">
+        </div>
+        <div class="input-container">
+            <label for="email">Correo</label>
+            <input type="text" name="email">
+        </div>
+    </form>
+</div>
+}
+}

@@ -60,7 +60,7 @@ body {
   width: fit-content;
 }
 
-.client-container {
+.client-container, .user-container {
   /* border: 1px solid black; */
   min-width: 432px;
   width: 600px;

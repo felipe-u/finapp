@@ -14,6 +14,20 @@ exports.getAllUsers = async (req, res, next) => {
   }
 };
 
+exports.getUser = async (req, res, next) => {
+  const userId = req.params.userId;
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    res.status(200).json({ user });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
+  }
+};
+
 exports.createUser = (req, res, next) => {
   const name = req.body.name;
   const email = req.body.email;
