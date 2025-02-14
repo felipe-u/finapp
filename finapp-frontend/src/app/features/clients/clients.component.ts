@@ -17,6 +17,8 @@ export class ClientsComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
   debtors = signal<any>([]);
   searchTerm = '';
+  manager1Id = '6794464a9dee93ae6c147476';
+  manager2Id = '6794464a9dee93ae6c147478';
   options = [
     { key: 'AD', name: 'Al dia', selected: true },
     { key: 'EM', name: 'En mora', selected: true },
@@ -33,7 +35,8 @@ export class ClientsComponent implements OnInit {
   })
 
   ngOnInit(): void {
-    const subscription = this.clientsService.getAllDebtorsList().subscribe({
+    this.clientsService.setManagerId(this.manager2Id);
+    const subscription = this.clientsService.getDebtorsList().subscribe({
       next: (debtors) => {
         this.debtors.set(debtors)
       },
@@ -58,9 +61,6 @@ export class ClientsComponent implements OnInit {
     });
   }
 
-  openClientProfile(clientId: string) {
-    this.router.navigate(['clients', clientId]);
-  }
 
   searchClient() {
     const searchTerm = this.searchTerm;
@@ -88,5 +88,9 @@ export class ClientsComponent implements OnInit {
     } else {
       console.log('El término de búsqueda no contiene ni letras ni números.');
     }
+  }
+
+  openClientProfile(clientId: string) {
+    this.router.navigate(['clients', clientId]);
   }
 }

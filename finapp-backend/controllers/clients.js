@@ -705,8 +705,43 @@ exports.getClientName = (req, res, next) => {
     });
 };
 
-const getDebtors = (query, res) => {
+exports.getDebtorsListByManager = (req, res, next) => {
+  if (req.query.searchTerm) {
+    exports.getDebtorsListBySearchTerm(req, res, next);
+  } else if (req.query.filter) {
+    console.log("Filtering...");
+    exports.getDebtorsListByStatuses(req, res, next);
+  } else {
+    getDebtors({}, res, req.params.managerId);
+  }
+};
+
+exports.getDebtorsListBySearchTerm = (req, res, next) => {
+  const searchTerm = req.query.searchTerm;
+  const managerId = req.params.managerId;
+  const query = isNaN(searchTerm)
+    ? { name: { $regex: searchTerm, $options: "i" } }
+    : { "identification.number": searchTerm };
+  getDebtors(query, res, managerId);
+};
+
+exports.getDebtorsListByStatuses = (req, res, next) => {
+  const statuses = req.query.filter.split(",");
+  const managerId = req.params.managerId;
+  Financing.find({ status: { $in: statuses } })
+    .then((financings) => {
+      const financingIds = financings.map((financing) => financing._id);
+      getDebtors({ financing: { $in: financingIds } }, res, managerId);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).json({ error: "Error fetching financings" });
+    });
+};
+
+const getDebtors = (query, res, managerId) => {
   Debtor.find(query, "name identification.number financing")
+    .where({ manager: managerId })
     .populate({
       path: "financing",
       select: "status",
@@ -720,30 +755,5 @@ const getDebtors = (query, res) => {
     .catch((err) => {
       console.error(err);
       res.status(500).json({ error: "Error fetching debtors" });
-    });
-};
-
-exports.getDebtorsList = (req, res, next) => {
-  getDebtors({ role: "debtor" }, res);
-};
-
-exports.getDebtorsListBySearchTerm = (req, res, next) => {
-  const searchTerm = req.params.searchTerm;
-  const query = isNaN(searchTerm)
-    ? { name: { $regex: searchTerm, $options: "i" } }
-    : { "identification.number": searchTerm };
-  getDebtors(query, res);
-};
-
-exports.getDebtorsListByStatuses = (req, res, next) => {
-  const statuses = req.params.status.split(",");
-  Financing.find({ status: { $in: statuses } })
-    .then((financings) => {
-      const financingIds = financings.map((financing) => financing._id);
-      getDebtors({ financing: { $in: financingIds } }, res);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).json({ error: "Error fetching financings" });
     });
 };

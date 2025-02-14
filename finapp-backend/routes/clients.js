@@ -24,10 +24,6 @@ router.post("/clients/:clientId/commercialInfo/edit", clientsController.editClie
 
 router.get("/clients/:clientId/name", clientsController.getClientName);
 
-router.get("/debtors-list", clientsController.getDebtorsList);
-
-router.get("/debtors-list/:searchTerm", clientsController.getDebtorsListBySearchTerm);
-
-router.get("/debtors-list/statuses/:status", clientsController.getDebtorsListByStatuses);
+router.get("/debtors-list/:managerId", clientsController.getDebtorsListByManager);
 
 module.exports = router;

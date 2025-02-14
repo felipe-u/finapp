@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { map, tap } from 'rxjs';
 import { PersonalInfo } from '../models/personalInfo.model';
@@ -14,14 +14,25 @@ export class ClientsService {
     private debtors = signal<any>([]);
     private codebtorId = signal<string | undefined>(undefined);
     private debtorId = signal<string | undefined>(undefined);
+    private managerId = signal<string | undefined>(undefined);
     url = 'http://localhost:3000/';
 
-    getAllDebtorsList() {
-        return this.fetchDebtors(this.url + 'debtors-list').pipe(
+    getDebtorsList() {
+        return this.fetchDebtors().pipe(
             tap({
                 next: (debtors) => this.debtors.set(debtors)
             })
         )
+    }
+
+    getDebtorsBySearchTerm(searchTerm: string) {
+        const params = new HttpParams().set('searchTerm', searchTerm);
+        return this.fetchDebtors(params);
+    }
+
+    getDebtorsByStatuses(statuses: string[]) {
+        const params = new HttpParams().set('filter', statuses.join(','));
+        return this.fetchDebtors(params);
     }
 
     findById(clientId: string) {
@@ -33,28 +44,36 @@ export class ClientsService {
         );
     }
 
-    setClient(client: any) {
-        this.client.set(client);
-    }
-
     getClient() {
         return this.client;
     }
 
-    setDebtorId(debtorId: string) {
-        this.debtorId.set(debtorId);
+    setClient(client: any) {
+        this.client.set(client);
     }
 
     getDebtorId() {
         return this.debtorId;
     }
 
-    setCodebtorId(codebtorId: string) {
-        this.codebtorId.set(codebtorId);
+    setDebtorId(debtorId: string) {
+        this.debtorId.set(debtorId);
     }
 
     getCodebtorId() {
         return this.codebtorId;
+    }
+
+    setCodebtorId(codebtorId: string) {
+        this.codebtorId.set(codebtorId);
+    }
+
+    getManagerId() {
+        return this.managerId;
+    }
+
+    setManagerId(managerId: string) {
+        this.managerId.set(managerId);
     }
 
     getClientFinancing() {
@@ -127,18 +146,11 @@ export class ClientsService {
             );
     }
 
-    getDebtorsBySearchTerm(searchTerm: string) {
-        return this.fetchDebtors(this.url + 'debtors-list/' + searchTerm);
-    }
-
-    getDebtorsByStatuses(statuses: string[]) {
-        return this.fetchDebtors(this.url + 'debtors-list/statuses/' + statuses.join(','));
-    }
-
-    private fetchDebtors(url: string) {
-        return this.httpClient.get<any>(url).pipe(
+    private fetchDebtors(params?: HttpParams) {
+        const _url = this.url + 'debtors-list/' + this.managerId();
+        return this.httpClient.get<any>(_url, { params }).pipe(
             map((resData) => resData.debtors)
-        )
+        );
     }
 
 }

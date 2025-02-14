@@ -21,7 +21,7 @@
   text-align: left;
 }
 
-.clients-container tr {
+.clients-table tr {
   transition: 0.3s ease;
 }
 
