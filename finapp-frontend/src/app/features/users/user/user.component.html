@@ -17,7 +17,7 @@
     <div class="button-container">
         <button class="primaryBtn editBtn firstBtn">Editar</button>
         @if (user().role === 'manager') {
-            <button class="primaryBtn">Deudores asignados</button>
+            <button class="primaryBtn" routerLink="debtors-list">Deudores asignados</button>
         }
     </div>
 </div>

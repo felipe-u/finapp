@@ -1,0 +1,58 @@
+.container {
+  display: block;
+}
+
+.debtors-table {
+  margin: 75px auto 0 auto;
+  width: 380px;
+  border-collapse: collapse;
+  border: 1px solid rgb(88, 88, 88);
+}
+
+.debtors-table tr {
+  border: 1px solid black;
+}
+
+.debtors-table th {
+  background-color: rgb(172, 172, 172);
+  color: black;
+  font-size: 1.1em;
+}
+
+.debtors-table th,
+.debtors-table td {
+  padding: 8px;
+  text-align: left;
+}
+
+.debtors-table tr {
+  transition: 0.3s ease;
+}
+
+.debtors-table th:nth-child(1),
+.debtors-table td:nth-child(1) {
+  width: 30%;
+}
+
+.debtors-table th:nth-child(2),
+.debtors-table td:nth-child(2) {
+  width: 50%;
+}
+
+.debtors-table th:nth-child(3),
+.debtors-table td:nth-child(3) {
+  width: 20%;
+  /* border: 1px solid blue; */
+}
+
+.btn-container {
+  display: flex;
+  width: 100%;
+}
+
+.btn-container button {
+  margin: 0 auto;
+  width: 380px;
+  height: 35px;
+  border-radius: 0 0 10px 10px;
+}

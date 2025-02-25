@@ -1,1 +1,40 @@
-<p>debtors-list works!</p>
+@if (isModalOpen) {
+<app-debtors-modal (close)="closeDebtorsModal()" />
+}
+<div class="container">
+    <table class="debtors-table">
+        @if (managingDebtors) {
+        <tr>
+            <td><button (click)="openDebtorsModal()">➕</button></td>
+        </tr>
+        }@else {
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Status</th>
+        </tr>
+        }
+        @for (user of testUsers; track user) {
+        <tr>
+            <td>{{ user.idNumber }}</td>
+            <td>{{ user.name }}</td>
+            @if (managingDebtors) {
+            <button>➖</button>
+            } @else {
+            <td>{{ user.status }}</td>
+            }
+        </tr>
+        }
+        <tr>
+            <td></td>
+        </tr>
+    </table>
+    <div class="btn-container">
+        @if (managingDebtors) {
+        <button class="secondaryBtn" (click)="cancelManage()">Cancelar</button>
+
+        } @else {
+        <button class="secondaryBtn" (click)="manageDebtors()">Asignar / Remover deudores</button>
+        }
+    </div>
+</div>
