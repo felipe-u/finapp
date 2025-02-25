@@ -4,6 +4,7 @@ import { GeoInfo } from "./geoInfo.model";
 import { Identification } from "./identification.model";
 import { PersonalInfo } from "./personalInfo.model";
 import { Reference } from "./reference.model";
+import { Manager } from "./user.model";
 
 export class Client {
     constructor(
@@ -30,7 +31,8 @@ export class Debtor extends Client {
         commercialInfo: CommercialInfo,
         financing: Financing,
         references: Reference[],
-        public codebtor: Codebtor
+        public codebtor: Codebtor,
+        public manager: Manager,
     ) {
         super(_id, name, role, identification,
             personalInfo, geoInfo, commercialInfo,

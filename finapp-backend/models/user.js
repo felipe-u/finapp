@@ -32,14 +32,7 @@ const User = mongoose.model("User", userSchema);
 const adminSchema = new Schema({});
 const Admin = User.discriminator("Admin", adminSchema);
 
-const managerSchema = new Schema({
-  clients: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Client",
-    },
-  ],
-});
+const managerSchema = new Schema({});
 const Manager = User.discriminator("Manager", managerSchema);
 
 const assistantSchema = new Schema({});

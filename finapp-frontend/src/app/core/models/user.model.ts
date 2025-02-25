@@ -32,7 +32,6 @@ export class Manager extends User {
         email: string,
         password: string,
         phone: string,
-        public clients: Client[]
     ) {
         super(_id, name, role, password, phone, email);
     }
