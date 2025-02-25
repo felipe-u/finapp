@@ -1,0 +1,79 @@
+<div class="backdrop" (click)="onCancel()"></div>
+<dialog open>
+    @if (!showingDebtorsWithoutAssignment && !showingSearchBar) {
+    <div class="container">
+        <h1>Asignar deudor</h1>
+        <div class="buttons-container">
+            <button class="tertiaryBtn" (click)="showSearchBar()">Buscar deudor</button>
+            <button class="tertiaryBtn" (click)="showDebtorWithoutAssignent()">Deudores sin asignación</button><br>
+        </div>
+    </div>
+    }
+    @if (showingSearchBar) {
+    <div class="search-container">
+        <h2>Buscar deudor</h2>
+        <div class="search-bar">
+            <input type="text" name="search" id="search">
+            <button type="button" class="primaryBtn">Search</button>
+        </div>
+        <div class="debtors-container">
+            <table class="debtors-table">
+                <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Asignado a</th>
+                    <th>Acción</th>
+                </tr>
+                <tr>
+                    <td>1036584</td>
+                    <td>Juan Pérez</td>
+                    <td>Carlos Valencia</td>
+                    <td><button class="secondaryBtn">Reasignar</button></td>
+                </tr>
+                <tr>
+                    <td>14972472</td>
+                    <td>Burger Express</td>
+                    <td>Nadie</td>
+                    <td><button class="secondaryBtn">Asignar</button></td>
+                </tr>
+            </table>
+            <div class="btn-container">
+                <button class="primaryBtn editBtn" (click)="goToMenu()">Atrás</button>
+            </div>
+        </div>
+    </div>
+    }
+    @if (showingDebtorsWithoutAssignment) {
+    <h2 style="margin-bottom: 40px;">Deudores sin asignación</h2>
+    <div class="debtors-container">
+        <div class="debtors-no-found-container">
+            <p>En este momento todos los deudores están asignados.</p>
+        </div>
+        <table class="debtors-table" hidden>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Acción</th>
+            </tr>
+            <tr>
+                <td>11123021211</td>
+                <td>Juan Pérez</td>
+                <td><button class="secondaryBtn">Asignar</button></td>
+            </tr>
+            <tr>
+                <td>11123041</td>
+                <td>Marcos Valencia</td>
+                <td><button class="secondaryBtn">Asignar</button></td>
+            </tr>
+        </table>
+        <div class="btn-container">
+            <button class="primaryBtn editBtn" (click)="goToMenu()">Atrás</button>
+        </div>
+    </div>
+    }
+
+
+    <div class="cancel-btn-container">
+        <button class="secondaryBtn" (click)="onCancel()">✖️</button>
+    </div>
+</dialog>

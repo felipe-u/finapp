@@ -1,0 +1,128 @@
+.backdrop {
+  background-color: rgba(0, 0, 0, 0.9);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+h2 {
+  text-align: center;
+}
+
+.container {
+  display: grid;
+  width: 100%;
+  text-align: center;
+}
+
+dialog {
+  width: 490px;
+  min-height: 300px;
+}
+
+.cancel-btn-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.cancel-btn-container button {
+  width: 40px;
+  padding-top: 0;
+  padding-right: 0;
+  background: none;
+}
+
+.search-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0px auto 50px auto;
+  position: relative;
+  width: 100%;
+}
+
+.search-bar input {
+  height: 27px;
+  max-height: 27px;
+  font-size: 1em;
+  max-width: 156px;
+  text-align: center;
+}
+
+.debtors-table {
+  margin: 0 auto 90px auto;
+  width: 470px;
+  border-collapse: collapse;
+  border: 1px solid rgb(88, 88, 88);
+}
+
+.debtors-table tr {
+  border: 1px solid black;
+}
+
+.debtors-table th {
+  background-color: rgb(172, 172, 172);
+  color: black;
+}
+
+.debtors-table th,
+.debtors-table td {
+  padding: 8px;
+  text-align: center;
+}
+
+.debtors-table td {
+  padding: 0 8px;
+}
+
+.debtors-table th:nth-child(1),
+.debtors-table td:nth-child(1) {
+  width: 10%;
+}
+
+.debtors-table th:nth-child(2),
+.debtors-table td:nth-child(2) {
+  width: 40%;
+}
+
+.debtors-table th:nth-child(3),
+.debtors-table td:nth-child(3) {
+  width: 40%;
+}
+
+.debtors-table th:nth-child(4),
+.debtors-table td:nth-child(4) {
+  width: 10%;
+}
+
+.debtors-table button {
+  font-size: 0.65em;
+}
+
+.btn-container {
+  display: flex;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  right: 0;
+  margin: 40px auto 20px auto;
+}
+
+.btn-container button {
+  margin: 10px auto;
+}
+
+.debtors-no-found-container {
+  text-align: center;
+  font-size: 1.2em;
+}
