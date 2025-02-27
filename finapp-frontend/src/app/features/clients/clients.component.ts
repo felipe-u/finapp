@@ -17,7 +17,9 @@ export class ClientsComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
   debtors = signal<any>([]);
   searchTerm = '';
+  // ID gestor - Juan Perez
   manager1Id = '6794464a9dee93ae6c147476';
+  // ID gestor Carlos Valencia
   manager2Id = '6794464a9dee93ae6c147478';
   options = [
     { key: 'AD', name: 'Al dia', selected: true },

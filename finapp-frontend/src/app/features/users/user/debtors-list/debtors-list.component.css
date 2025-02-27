@@ -25,6 +25,12 @@
   text-align: left;
 }
 
+#modal-btn-th {
+  background: none;
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
 .debtors-table tr {
   transition: 0.3s ease;
 }
@@ -42,7 +48,55 @@
 .debtors-table th:nth-child(3),
 .debtors-table td:nth-child(3) {
   width: 20%;
-  /* border: 1px solid blue; */
+}
+
+#final-row {
+  height: 18px;
+}
+
+#delete-btn-td {
+  padding-top: 5.8px;
+  padding-bottom: 5.8px;
+}
+
+.table-btn {
+  background: none;
+  border: 1px solid grey;
+  cursor: pointer;
+  padding: 1px;
+  border-radius: 3px;
+}
+
+.add-btn {
+  background-color: lightgray;
+}
+
+.delete-btn {
+  background-color: rgb(252, 153, 153);
+}
+
+.add-span,
+.delete-span {
+  color: transparent;
+  text-shadow: 0 0 0 white;
+  font-size: 1.1em;
+  width: 100%;
+  transition: 0.3s ease;
+}
+
+.add-btn:hover {
+  background-color: lightgray;
+  transition: 0.3s ease;
+}
+
+.delete-btn:hover {
+  background-color: rgb(252, 153, 153);
+  transition: 0.3s ease;
+}
+
+.add-btn:hover .add-span,
+.delete-btn:hover .delete-span {
+  text-shadow: 0 0 0  rgb(80, 80, 80);
 }
 
 .btn-container {

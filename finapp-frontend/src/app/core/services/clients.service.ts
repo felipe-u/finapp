@@ -146,6 +146,32 @@ export class ClientsService {
             );
     }
 
+    assignDebtorToManager(debtorId: string) {
+        return this.httpClient.post(this.url + 'assign-debtor', {
+            clientId: debtorId,
+            managerId: this.managerId()
+        })
+    }
+
+    removeDebtorFromManager(debtorId: string) {
+        return this.httpClient.post(
+            this.url + 'remove-debtor/', { clientId: debtorId }
+        );
+    }
+
+    getAllDebtorsBySearchTerm(searchTerm: string) {
+        const params = new HttpParams().set('searchTerm', searchTerm);
+        return this.httpClient.get<any>(this.url + 'all-debtors', { params }).pipe(
+            map((resData) => resData.debtors)
+        )
+    }
+
+    getDebtorsWithoutAssignment() {
+        return this.httpClient.get<any>(this.url + 'debtors-list-no-assignment').pipe(
+            map((resData) => resData.debtors)
+        );
+    }
+
     private fetchDebtors(params?: HttpParams) {
         const _url = this.url + 'debtors-list/' + this.managerId();
         return this.httpClient.get<any>(_url, { params }).pipe(

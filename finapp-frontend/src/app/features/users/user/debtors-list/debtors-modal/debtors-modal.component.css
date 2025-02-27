@@ -126,3 +126,14 @@ dialog {
   text-align: center;
   font-size: 1.2em;
 }
+
+.primarySpan {
+  display: inline-block;
+  font-size: small;
+  font-weight: bolder;
+  color: #601a15;
+  border: 3px solid #601a15;
+  border-radius: 50px;
+  padding: 4px;
+  margin: 10px;
+}

@@ -692,7 +692,7 @@ exports.editClientCommercialInfo = (req, res, next) => {
       console.error(err);
       res.status(500).json({ error: "Error updating commercial info" });
     });
-}
+};
 
 exports.getClientName = (req, res, next) => {
   Client.findById(req.params.clientId, "name")
@@ -737,6 +737,57 @@ exports.getDebtorsListByStatuses = (req, res, next) => {
       console.error(err);
       res.status(500).json({ error: "Error fetching financings" });
     });
+};
+
+exports.getAllDebtors = (req, res, next) => {
+  const searchTerm = req.query.searchTerm;
+  const query = isNaN(searchTerm)
+    ? { name: { $regex: searchTerm, $options: "i" } }
+    : { "identification.number": searchTerm };
+  Debtor.find(query, "name identification.number manager")
+    .populate({
+      path: "manager",
+      select: "name",
+    })
+    .then((debtors) => {
+      res.status(200).json({ debtors: debtors });
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).json({ error: "Error fetching debtors" });
+    });
+};
+
+exports.assigndDebtorToManager = (req, res, next) => {
+  const debtorId = req.body.clientId;
+  const managerId = req.body.managerId;
+  Debtor.findById(debtorId).then((debtor) => {
+    if (!debtor) {
+      return res.status(404).json({ message: "Debtor not found" });
+    }
+    debtor.manager = managerId;
+    debtor.save().then(() => {
+      res.status(200).json({ message: "Debtor added to manager" });
+    });
+  });
+};
+
+exports.removeDebtorFromManager = (req, res, next) => {
+  const debtorId = req.body.clientId;
+  console.log(debtorId);
+  Debtor.findById(debtorId).then((debtor) => {
+    if (!debtor) {
+      return res.status(404).json({ message: "Debtor not found" });
+    }
+    debtor.manager = null;
+    debtor.save().then(() => {
+      res.status(200).json({ message: "Debtor removed from manager" });
+    });
+  });
+};
+
+exports.getDebtorsListWithoutAssignment = (req, res, next) => {
+  getDebtors({}, res, null);
 };
 
 const getDebtors = (query, res, managerId) => {

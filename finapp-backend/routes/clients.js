@@ -26,4 +26,15 @@ router.get("/clients/:clientId/name", clientsController.getClientName);
 
 router.get("/debtors-list/:managerId", clientsController.getDebtorsListByManager);
 
+router.get("/all-debtors", clientsController.getAllDebtors);
+
+router.post("/assign-debtor", clientsController.assigndDebtorToManager)
+
+router.post("/remove-debtor", clientsController.removeDebtorFromManager);
+
+router.get("/debtors-list-no-assignment", clientsController.getDebtorsListWithoutAssignment);
+
 module.exports = router;
+
+
+// http://localhost:3000/remove-debtor/674e58afa89ecbad4df6b793

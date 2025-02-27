@@ -5,7 +5,7 @@
         <h1>Asignar deudor</h1>
         <div class="buttons-container">
             <button class="tertiaryBtn" (click)="showSearchBar()">Buscar deudor</button>
-            <button class="tertiaryBtn" (click)="showDebtorWithoutAssignent()">Deudores sin asignación</button><br>
+            <button class="tertiaryBtn" (click)="showDebtorsWithoutAssignent()">Deudores sin asignación</button><br>
         </div>
     </div>
     }
@@ -13,10 +13,11 @@
     <div class="search-container">
         <h2>Buscar deudor</h2>
         <div class="search-bar">
-            <input type="text" name="search" id="search">
-            <button type="button" class="primaryBtn">Search</button>
+            <input type="text" name="search" id="search" [(ngModel)]="searchTerm">
+            <button type="button" class="primaryBtn" (click)="searchClient()">Search</button>
         </div>
         <div class="debtors-container">
+            @if (showingDebtorsFound) {
             <table class="debtors-table">
                 <tr>
                     <th>Id</th>
@@ -24,19 +25,25 @@
                     <th>Asignado a</th>
                     <th>Acción</th>
                 </tr>
+                @for (debtor of debtorsFound(); track debtor._id) {
                 <tr>
-                    <td>1036584</td>
-                    <td>Juan Pérez</td>
-                    <td>Carlos Valencia</td>
-                    <td><button class="secondaryBtn">Reasignar</button></td>
-                </tr>
-                <tr>
-                    <td>14972472</td>
-                    <td>Burger Express</td>
+                    <td>{{ debtor.identification.number }}</td>
+                    <td>{{ debtor.name }}</td>
+                    @if (debtor.manager === null) {
                     <td>Nadie</td>
-                    <td><button class="secondaryBtn">Asignar</button></td>
+                    <td><button class="secondaryBtn" (click)="onAddToManager(debtor._id, 'asignar')">Asignar</button></td>
+                    } @else {
+                    <td>{{ debtor.manager.name }}</td>
+                    @if (debtor.manager._id === managerId ){
+                    <td><span class="primarySpan">Ya asignado</span></td>
+                    } @else {
+                    <td><button class="secondaryBtn" (click)="onAddToManager(debtor._id, 'reasignar')">Reasignar</button></td>
+                    }
+                    }
                 </tr>
+                }
             </table>
+            }
             <div class="btn-container">
                 <button class="primaryBtn editBtn" (click)="goToMenu()">Atrás</button>
             </div>
@@ -46,26 +53,27 @@
     @if (showingDebtorsWithoutAssignment) {
     <h2 style="margin-bottom: 40px;">Deudores sin asignación</h2>
     <div class="debtors-container">
-        <div class="debtors-no-found-container">
-            <p>En este momento todos los deudores están asignados.</p>
-        </div>
-        <table class="debtors-table" hidden>
+        @if (debtorsWithoutAssignment().length > 0) {
+        <table class="debtors-table">
             <tr>
                 <th>Id</th>
                 <th>Nombre</th>
                 <th>Acción</th>
             </tr>
+            @for (debtor of debtorsWithoutAssignment(); track debtor._id) {
             <tr>
-                <td>11123021211</td>
-                <td>Juan Pérez</td>
-                <td><button class="secondaryBtn">Asignar</button></td>
+                <td>{{ debtor.identification.number }}</td>
+                <td>{{ debtor.name }}</td>
+                <td><button class="secondaryBtn" (click)="onAddToManager(debtor._id, 'asignar')">Asignar</button></td>
             </tr>
-            <tr>
-                <td>11123041</td>
-                <td>Marcos Valencia</td>
-                <td><button class="secondaryBtn">Asignar</button></td>
-            </tr>
+            }
         </table>
+        } @else {
+        <div class="debtors-no-found-container">
+            <p>En este momento todos los deudores están asignados.</p>
+        </div>
+        }
+
         <div class="btn-container">
             <button class="primaryBtn editBtn" (click)="goToMenu()">Atrás</button>
         </div>

@@ -1,11 +1,15 @@
 @if (isModalOpen) {
-<app-debtors-modal (close)="closeDebtorsModal()" />
+<app-debtors-modal (close)="closeDebtorsModal()" (updateDebtors)="updateDebtorsList()" [managerId]="managerId()"/>
 }
 <div class="container">
     <table class="debtors-table">
         @if (managingDebtors) {
         <tr>
-            <td><button (click)="openDebtorsModal()">➕</button></td>
+            <th id="modal-btn-th">
+                <button class="table-btn add-btn" (click)="openDebtorsModal()">
+                    <span class="add-span">➕</span>
+                </button>
+            </th>
         </tr>
         }@else {
         <tr>
@@ -14,19 +18,23 @@
             <th>Status</th>
         </tr>
         }
-        @for (user of testUsers; track user) {
+        @for (debtor of debtors(); track debtor._id) {
         <tr>
-            <td>{{ user.idNumber }}</td>
-            <td>{{ user.name }}</td>
+            <td>{{ debtor.identification.number }}</td>
+            <td>{{ debtor.name }}</td>
             @if (managingDebtors) {
-            <button>➖</button>
+            <td id="delete-btn-td">
+                <button class="table-btn delete-btn" (click)="onRemoveDebtor(debtor._id)">
+                    <span class="delete-span">➖</span>
+                </button>
+            </td>
             } @else {
-            <td>{{ user.status }}</td>
+            <td>{{ debtor.financing.status }}</td>
             }
         </tr>
         }
-        <tr>
-            <td></td>
+        <tr id="final-row">
+            <td> </td>
         </tr>
     </table>
     <div class="btn-container">
