@@ -4,10 +4,29 @@ const { User, Admin, Manager, Assistant } = require("../models/user");
 const mongoDB = require("mongodb");
 
 exports.getAllUsers = async (req, res, next) => {
+  if (req.query.searchTerm) {
+    exports.getUsersBySearchTerm(req, res, next);
+  } else {
+    try {
+      const managers = await Manager.find();
+      const assistants = await Assistant.find();
+      res.status(200).json({ managers, assistants });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: "Server error" });
+    }
+  }
+};
+
+exports.getUsersBySearchTerm = async (req, res, next) => {
+  const searchTerm = req.query.searchTerm;
+  const query = { name: { $regex: searchTerm, $options: "i" } };
   try {
-    const managers = await Manager.find();
-    const assistants = await Assistant.find();
-    res.status(200).json({ managers, assistants });
+    Manager.find(query).then((managers) => {
+      Assistant.find(query).then((assistants) => {
+        res.status(200).json({ managers, assistants });
+      });
+    });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Server error" });
@@ -15,7 +34,7 @@ exports.getAllUsers = async (req, res, next) => {
 };
 
 exports.getUser = async (req, res, next) => {
-  const userId = req.params.userId;
+  const userId = req.query.userId;
   try {
     const user = await User.findById(userId);
     if (!user) {

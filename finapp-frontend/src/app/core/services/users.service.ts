@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { map } from 'rxjs';
 
@@ -8,11 +8,12 @@ export class UsersService {
     url = 'http://localhost:3000/';
 
     getAllUsers() {
-        return this.httpClient.get<any>(this.url + 'users')
+        return this.httpClient.get<any>(this.url + 'users/all')
     }
 
     findById(userId: string) {
-        return this.httpClient.get<any>(this.url + 'users/' + userId)
+        const params = new HttpParams().set('userId', userId);
+        return this.httpClient.get<any>(this.url + 'users/', { params: params})
             .pipe(
                 map((resData) => resData.user)
             )
@@ -22,6 +23,12 @@ export class UsersService {
         return this.httpClient.put<any>(
             this.url + 'user-update',
             { userId: userId, email: newEmail, phone: newPhone }
+        )
+    }
+
+    getUsersBySearchTerm(searchTerm: string) {
+        const params = new HttpParams().set('searchTerm', searchTerm);
+        return this.httpClient.get<any>(this.url + 'users/all', { params: params }
         )
     }
 }

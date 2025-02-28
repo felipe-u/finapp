@@ -32,4 +32,19 @@ export class UsersComponent implements OnInit {
   openUserProfile(userId: string) {
     this.router.navigate(['users', userId]);
   }
+
+  searchUser() {
+    const searchTerm = this.searchTerm;
+    if (searchTerm !== '') {
+      this.usersService.getUsersBySearchTerm(searchTerm).subscribe({
+        next: (users) => {
+          this.managers.set(users.managers);
+          this.assistants.set(users.assistants);
+        },
+        error: (error: Error) => {
+          console.error(error.message);
+        }
+      });
+    }
+  }
 }
