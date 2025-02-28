@@ -1,6 +1,7 @@
 <div class="search-container">
     <div class="filter-options">
-        Auxiliar - Gestor
+        <button class="filter-btn" [class.active]="managerBtnSelected()" (click)="filterByManagers()">Gestores</button>
+        <button class="filter-btn" [class.active]="assistantBtnSelected()" (click)="filterByAssistants()">Auxiliares</button>
     </div>
     <div class="search-bar">
         <input type="text" name="search" id="search" [(ngModel)]="searchTerm">
@@ -14,7 +15,7 @@
             <th>Name</th>
             <th>Role</th>
         </tr>
-        @for (user of managers().concat(assistants()); track user._id) {
+        @for (user of filteredUsers(); track user._id) {
         <tr (click)="openUserProfile(user._id)">
             <td>{{ user.name }}</td>
             <td>{{ user.role }}</td>

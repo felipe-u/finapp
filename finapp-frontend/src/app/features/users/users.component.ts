@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { UsersService } from '../../core/services/users.service';
 import { Router } from '@angular/router';
@@ -16,6 +16,8 @@ export class UsersComponent implements OnInit {
   searchTerm = '';
   managers = signal<any>([]);
   assistants = signal<any>([]);
+  managerBtnSelected = signal(false);
+  assistantBtnSelected = signal(false);
 
   ngOnInit() {
     this.usersService.getAllUsers().subscribe({
@@ -29,13 +31,33 @@ export class UsersComponent implements OnInit {
     });
   }
 
+  filterByManagers() {
+    this.managerBtnSelected.set(!this.managerBtnSelected());
+  }
+
+  filterByAssistants() {
+    this.assistantBtnSelected.set(!this.assistantBtnSelected());
+  }
+
+  filteredUsers = computed(() => {
+    const managers = this.managerBtnSelected() ? this.managers() : [];
+    const assistants = this.assistantBtnSelected() ? this.assistants() : [];
+    return managers.length || assistants.length
+      ? [...managers, ...assistants]
+      : [...this.managers(), ...this.assistants()];
+  })
+
+
   openUserProfile(userId: string) {
     this.router.navigate(['users', userId]);
   }
 
   searchUser() {
+    const hasLetters = /[a-zA-Z]/.test(this.searchTerm);
     const searchTerm = this.searchTerm;
-    if (searchTerm !== '') {
+    if (searchTerm !== '' && hasLetters) {
+      this.managerBtnSelected.set(false);
+      this.assistantBtnSelected.set(false);
       this.usersService.getUsersBySearchTerm(searchTerm).subscribe({
         next: (users) => {
           this.managers.set(users.managers);
@@ -45,6 +67,8 @@ export class UsersComponent implements OnInit {
           console.error(error.message);
         }
       });
+    } else {
+      console.log('Término de búsqueda inválido.');
     }
   }
 }

@@ -1,3 +1,21 @@
+.filter-btn {
+  margin: 0 5px;
+  font-size: 1em;
+  height: 30px;
+  background: none;
+  border: 2px solid #601a15;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+  background-color: #601a15;
+  color: white;
+  transition: 0.3s ease;
+}
+
 .users-container {
   display: flex;
 }
