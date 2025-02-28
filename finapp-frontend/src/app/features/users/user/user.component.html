@@ -14,10 +14,10 @@
         <p>Correo: {{ user().email }}</p>
         <p>Teléfono: {{ user().phone }}</p>
     </div>
-    <div class="button-container">
-        <button class="primaryBtn editBtn firstBtn">Editar</button>
+    <div class="button-container" style="display: grid;">
+        <button class="primaryBtn editBtn firstBtn" (click)="prepopulateForm()">Editar</button>
         @if (user().role === 'manager') {
-            <button class="primaryBtn" routerLink="debtors-list">Deudores asignados</button>
+        <button class="primaryBtn largeBtn" routerLink="debtors-list">Deudores asignados</button>
         }
     </div>
 </div>
@@ -26,14 +26,18 @@
     <div class="img-container editMode">
         <img src="assets/imgs/user.png" alt="User Image">
     </div>
-    <form class="info-container">
+    <form class="info-container" [formGroup]="form" (ngSubmit)="onSubmit()">
         <div class="input-container">
             <label for="email">Correo</label>
-            <input type="text" name="email">
+            <input type="text" name="email" formControlName="email">
         </div>
         <div class="input-container">
-            <label for="email">Correo</label>
-            <input type="text" name="email">
+            <label for="phone">Teléfono</label>
+            <input type="text" name="phone" formControlName="phone">
+        </div>
+        <div class="button-container">
+            <button type="submit" class="primaryBtn editBtn">Guardar</button>
+            <button type="button" class="primaryBtn editBtn" (click)="changeEditMode()">Cancelar</button>
         </div>
     </form>
 </div>

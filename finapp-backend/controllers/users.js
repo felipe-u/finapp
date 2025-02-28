@@ -1,4 +1,4 @@
-const { Client } = require("../models/client");
+const { Client, Debtor } = require("../models/client");
 const { User, Admin, Manager, Assistant } = require("../models/user");
 
 const mongoDB = require("mongodb");
@@ -42,4 +42,27 @@ exports.createUser = (req, res, next) => {
       console.log(err);
       res.status(500).json({ messag: "Server error" });
     });
+};
+
+exports.updateUser = (req, res, next) => {
+  const userId = req.body.userId;
+  const email = req.body.email;
+  const phone = req.body.phone;
+  User.findById(userId).then((user) => {
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    user.email = email;
+    user.phone = phone;
+    user
+      .save()
+      .then(() => {
+        console.log("user updated");
+        return res.status(200).json({ message: "User updated successfully!" });
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json({ message: "Server error" });
+      });
+  });
 };

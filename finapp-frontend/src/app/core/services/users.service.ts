@@ -17,4 +17,11 @@ export class UsersService {
                 map((resData) => resData.user)
             )
     }
+
+    updateUserInfo(userId: string, newEmail: string, newPhone: string) {
+        return this.httpClient.put<any>(
+            this.url + 'user-update',
+            { userId: userId, email: newEmail, phone: newPhone }
+        )
+    }
 }

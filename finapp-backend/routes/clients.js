@@ -35,6 +35,3 @@ router.post("/remove-debtor", clientsController.removeDebtorFromManager);
 router.get("/debtors-list-no-assignment", clientsController.getDebtorsListWithoutAssignment);
 
 module.exports = router;
-
-
-// http://localhost:3000/remove-debtor/674e58afa89ecbad4df6b793

@@ -15,7 +15,7 @@ export class DebtorsListComponent implements OnInit {
   private activatedRoute = inject(ActivatedRoute);
   managerId = signal<string>('');
   debtors = signal<any>([]);
-  managingDebtors = true;
+  managingDebtors = false;
   isModalOpen = false;
 
   ngOnInit(): void {
