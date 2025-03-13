@@ -14,6 +14,7 @@ import { UsersComponent } from "./features/users/users.component";
 import { UserComponent } from "./features/users/user/user.component";
 import { DebtorsListComponent } from "./features/users/user/debtors-list/debtors-list.component";
 import { routes as AuthRoutes } from "./shared/auth/auth.routes";
+import { authGuard } from "./shared/auth/auth.guard";
 
 export const routes: Routes = [
     {
@@ -28,8 +29,8 @@ export const routes: Routes = [
     },
     {
         path: '',
-        // authGuard
         component: MainLayoutComponent,
+        canActivate: [authGuard],
         children: [
             {
                 path: 'home',
@@ -76,6 +77,7 @@ export const routes: Routes = [
     {
         path: 'account',
         component: AccountLayoutComponent,
+        canActivate: [authGuard],
         children: [
             {
                 path: 'profile',
