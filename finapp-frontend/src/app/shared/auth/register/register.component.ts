@@ -39,6 +39,8 @@ export class RegisterComponent {
   onSubmit() {
     const { name, role, email, phone, password } = this.form.value;
     const newUser = new User('', name, role as 'admin' | 'manager' | 'assistant', email, password, phone)
-    this.authService.register(newUser);
+    this.authService.register(newUser).subscribe((res) => {
+      this.router.navigateByUrl('home');
+    });
   }
 }

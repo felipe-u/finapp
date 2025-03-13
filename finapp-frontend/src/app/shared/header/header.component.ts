@@ -1,5 +1,6 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, ViewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -9,6 +10,8 @@ import { RouterLink } from '@angular/router';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
+  private authService = inject(AuthService);
+  
   @ViewChild('sidepanel', { static: false }) sidepanel: ElementRef;
 
   openSidePanel() {
@@ -17,5 +20,9 @@ export class HeaderComponent {
 
   closeSidePanel() {
     this.sidepanel.nativeElement.setAttribute('style', 'width: 0px');
+  }
+
+  onLogout() {
+    this.authService.logout();
   }
 }

@@ -10,7 +10,7 @@ export class AuthService {
     private router = inject(Router);
     private token = signal<string | null>(localStorage.getItem('ACCESS_TOKEN'));
     private tokenExpirationTimer: any;
-    SERVER_URL: string = 'http:localhost:3000';
+    SERVER_URL: string = 'http://localhost:3000';
 
     isAuthenticated = computed(() => {
         const token = this.token();

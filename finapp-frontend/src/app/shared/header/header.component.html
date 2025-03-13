@@ -14,7 +14,7 @@
         <a routerLink="/account/profile">Profile</a>
         <a routerLink="/account/settings">Settings</a>
         <hr>
-        <a href="#">Sign out</a>
+        <a (click)="onLogout()">Logout</a>
     </div>
     <div class="user">
         <img src="assets/imgs/user.png" alt="User" (click)="openSidePanel()">
