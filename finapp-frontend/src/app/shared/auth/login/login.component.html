@@ -1,19 +1,25 @@
 <div class="container">
-    <h1>Login</h1>
-    <div class="form-container">
+    <div class="user-container form-container">
         <form>
-            <div class="input-container">
-                <input type="text" id="email" name="email" placeholder="Email">
+            <div class="logo">
+                <img src="assets/imgs/finaliado.png" alt="FinAliado logo">
             </div>
             <div class="input-container">
-                <input type="password" id="password" name="password" placeholder="00000">
+                <label for="email">Email</label><br>
+                <input type="text" id="email" name="email">
             </div>
-            <div class="rem-container">
-                <p><a>Forget password?</a></p>
+            <div class="input-container">
+                <label for="password">Password</label><br>
+                <input type="password" id="password" name="password">
             </div>
             <div class="btn-container">
-                <button>Login</button>
-                <p><a>Sign up</a></p>
+                <button class="primaryBtn" style="width: 150px;">Login</button>
+            </div>
+            <div class="rem-container">
+                <p><a>Forgot password?</a></p>
+            </div>
+            <div class="a-container">
+                <p>Doesn't have an account? <a routerLink="/auth/register">Sign up</a></p>
             </div>
         </form>
     </div>
