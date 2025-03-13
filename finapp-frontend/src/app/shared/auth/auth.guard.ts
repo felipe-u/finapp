@@ -13,3 +13,14 @@ export const authGuard: CanActivateFn = () => {
         return false;
     }
 }
+
+export const authRedirectGuard: CanActivateFn = () => {
+    const authService = inject(AuthService);
+    const router = inject(Router);
+
+    if (authService.isAuthenticated()) {
+        router.navigateByUrl('/home');
+        return false;
+    }
+    return true;
+}

@@ -14,12 +14,12 @@ import { UsersComponent } from "./features/users/users.component";
 import { UserComponent } from "./features/users/user/user.component";
 import { DebtorsListComponent } from "./features/users/user/debtors-list/debtors-list.component";
 import { routes as AuthRoutes } from "./shared/auth/auth.routes";
-import { authGuard } from "./shared/auth/auth.guard";
+import { authGuard, authRedirectGuard } from "./shared/auth/auth.guard";
 
 export const routes: Routes = [
     {
         path: 'auth',
-        // authRedirectGuard
+        canActivate: [authRedirectGuard],
         children: AuthRoutes
     },
     {
