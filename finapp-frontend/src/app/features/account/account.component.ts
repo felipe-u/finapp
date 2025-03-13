@@ -16,6 +16,6 @@ export class AccountComponent {
   }
 
   goBack() {
-    this.router.navigate(['']);
+    this.router.navigate(['/home']);
   }
 }

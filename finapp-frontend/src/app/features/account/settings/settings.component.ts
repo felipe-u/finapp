@@ -16,6 +16,6 @@ export class SettingsComponent {
   }
 
   goBack() {
-    this.router.navigate(['']);
+    this.router.navigate(['/home']);
   }
 }

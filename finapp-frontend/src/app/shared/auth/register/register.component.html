@@ -1,14 +1,14 @@
 <div class="container">
     <div class="user-container form-container">
-        <form>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
             <h1>Register</h1>
             <div class="input-container">
                 <label for="name">Name</label><br>
-                <input type="text" id="name" name="name">
+                <input type="text" id="name" name="name" formControlName="name">
             </div><br>
             <div class="input-container">
                 <label for="role">Role</label><br>
-                <select name="role" id="role">
+                <select name="role" id="role" formControlName="role">
                     <option value="" hidden></option>
                     <option value="admin" hidden>Admin</option>
                     <option value="manager">Manager</option>
@@ -17,19 +17,19 @@
             </div><br>
             <div class="input-container">
                 <label for="email">Email</label><br>
-                <input type="text" id="email" name="email">
+                <input type="text" id="email" name="email" formControlName="email">
             </div>
             <div class="input-container">
                 <label for="phone">Phone</label><br>
-                <input type="text" id="phone" name="phone">
+                <input type="text" id="phone" name="phone" formControlName="phone">
             </div>
             <div class="input-container">
                 <label for="password">Password</label><br>
-                <input type="password" id="password" name="password">
+                <input type="password" id="password" name="password" formControlName="password">
             </div>
             <div class="input-container">
                 <label for="confirm-password">Confirm password</label><br>
-                <input type="password" id="confirm-password" name="confirm-password">
+                <input type="password" id="confirmPassword" name="confirmPassword" formControlName="confirmPassword">
             </div>
             <div class="btn-container">
                 <button class="primaryBtn" style="width: 150px;">Sign up</button>

@@ -1,19 +1,19 @@
 <div class="container">
     <div class="user-container form-container">
-        <form>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
             <div class="logo">
                 <img src="assets/imgs/finaliado.png" alt="FinAliado logo">
             </div>
             <div class="input-container">
                 <label for="email">Email</label><br>
-                <input type="text" id="email" name="email">
+                <input type="text" id="email" name="email" formControlName="email">
             </div>
             <div class="input-container">
                 <label for="password">Password</label><br>
-                <input type="password" id="password" name="password">
+                <input type="password" id="password" name="password" formControlName="password">
             </div>
             <div class="btn-container">
-                <button class="primaryBtn" style="width: 150px;">Login</button>
+                <button type="submit" class="primaryBtn" style="width: 150px;">Login</button>
             </div>
             <div class="rem-container">
                 <p><a>Forgot password?</a></p>

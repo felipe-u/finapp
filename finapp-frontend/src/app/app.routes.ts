@@ -23,11 +23,16 @@ export const routes: Routes = [
     },
     {
         path: '',
+        pathMatch: 'full',
+        redirectTo: '/home'
+    },
+    {
+        path: '',
         // authGuard
         component: MainLayoutComponent,
         children: [
             {
-                path: '',
+                path: 'home',
                 component: HomeComponent,
                 title: 'FinApp | Home'
             },
