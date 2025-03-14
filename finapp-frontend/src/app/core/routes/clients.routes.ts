@@ -1,9 +1,8 @@
 import { Routes } from "@angular/router";
-import { ClientComponent } from "./client/client.component";
-import { FinancingComponent } from "./client/financing/financing.component";
-import { PersonalInfoComponent } from "./client/personal-info/personal-info.component";
-import { GeoInfoComponent } from "./client/geo-info/geo-info.component";
-import { CommercialInfoComponent } from "./client/commercial-info/commercial-info.component";
+import { FinancingComponent } from "../../features/clients/client/financing/financing.component";
+import { PersonalInfoComponent } from "../../features/clients/client/personal-info/personal-info.component";
+import { GeoInfoComponent } from "../../features/clients/client/geo-info/geo-info.component";
+import { CommercialInfoComponent } from "../../features/clients/client/commercial-info/commercial-info.component";
 
 export const routes: Routes = [
     {

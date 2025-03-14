@@ -1,21 +1,21 @@
 import { Routes } from "@angular/router";
-import { HomeComponent } from "./features/home/home.component";
-import { ClientsComponent } from "./features/clients/clients.component";
-import { ReportsComponent } from "./features/reports/reports.component";
-import { NotFoundComponent } from "./shared/not-found/not-found.component";
-import { MainLayoutComponent } from "./layouts/main-layout/main-layout.component";
-import { AccountLayoutComponent } from "./layouts/account-layout/account-layout.component";
-import { AccountComponent } from "./features/account/account.component";
-import { SettingsComponent } from "./features/account/settings/settings.component";
-import { SupportComponent } from "./features/support/support.component";
-import { routes as ClientRoutes } from "./features/clients/clients.routes";
-import { ClientComponent } from "./features/clients/client/client.component";
-import { UsersComponent } from "./features/users/users.component";
-import { UserComponent } from "./features/users/user/user.component";
-import { DebtorsListComponent } from "./features/users/user/debtors-list/debtors-list.component";
-import { routes as AuthRoutes } from "./shared/auth/auth.routes";
-import { authGuard, authRedirectGuard } from "./core/guards/auth.guard";
-import { RoleGuard } from "./core/guards/role.guard";
+import { HomeComponent } from "../../features/home/home.component";
+import { ClientsComponent } from "../../features/clients/clients.component";
+import { ReportsComponent } from "../../features/reports/reports.component";
+import { NotFoundComponent } from "../../shared/not-found/not-found.component";
+import { MainLayoutComponent } from "../../layouts/main-layout/main-layout.component";
+import { AccountLayoutComponent } from "../../layouts/account-layout/account-layout.component";
+import { AccountComponent } from "../../features/account/account.component";
+import { SettingsComponent } from "../../features/account/settings/settings.component";
+import { SupportComponent } from "../../features/support/support.component";
+import { ClientComponent } from "../../features/clients/client/client.component";
+import { UsersComponent } from "../../features/users/users.component";
+import { UserComponent } from "../../features/users/user/user.component";
+import { DebtorsListComponent } from "../../features/users/user/debtors-list/debtors-list.component";
+import { routes as ClientRoutes } from "./clients.routes";
+import { routes as AuthRoutes } from "./auth.routes";
+import { authGuard, authRedirectGuard } from "../guards/auth.guard";
+import { RoleGuard } from "../guards/role.guard";
 
 export const routes: Routes = [
     {
@@ -48,8 +48,6 @@ export const routes: Routes = [
             {
                 path: 'clients/:clientId',
                 component: ClientComponent,
-                canActivate: [RoleGuard],
-                data: { expectedRole: 'manager' },
                 children: ClientRoutes
             },
             {
