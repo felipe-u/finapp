@@ -1,8 +1,19 @@
 <div class="container">
     <nav>
-        <a routerLink="/clients">Clients</a>
+        <a routerLink="/home">Home</a>
+        @if (userRole() === 'manager') {
+        }
+        @switch (userRole()) {
+        @case ('admin') {
         <a routerLink="/users">Users</a>
+        }
+        @case ('manager') {
+        <a routerLink="/clients">Clients</a>
+        }
+        @case ('assistant') {
         <a routerLink="/reports">Reports</a>
+        }
+        }
         <a routerLink="/support">Support</a>
     </nav>
 </div>

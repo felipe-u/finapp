@@ -5,7 +5,25 @@ import { map } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class UsersService {
     private httpClient = inject(HttpClient);
+    private userId = signal<string | null>(null);
+    private userRole = signal<string | null>(null);
     url = 'http://localhost:3000/';
+
+    getUserId() {
+        return this.userId;
+    }
+
+    setUserId(userId: string) {
+        this.userId.set(userId);
+    }
+
+    getUserRole() {
+        return this.userRole;
+    }
+
+    setUserRole(userRole: string) {
+        this.userRole.set(userRole);
+    }
 
     getAllUsers() {
         return this.httpClient.get<any>(this.url + 'users/all')
@@ -13,7 +31,7 @@ export class UsersService {
 
     findById(userId: string) {
         const params = new HttpParams().set('userId', userId);
-        return this.httpClient.get<any>(this.url + 'users/', { params: params})
+        return this.httpClient.get<any>(this.url + 'users/', { params: params })
             .pipe(
                 map((resData) => resData.user)
             )

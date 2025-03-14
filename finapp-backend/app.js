@@ -20,18 +20,6 @@ app.use((req, res, next) => {
   next();
 });
 
-// TEST
-app.use((req, res, next) => {
-  User.findById("66ea38cff2459af7c523f493")
-    .then((user) => {
-      req.user = user;
-      next();
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
-
 app.use(usersRoutes);
 app.use(clientsRoutes);
 app.use(authRoutes);
@@ -41,18 +29,6 @@ mongoose
     "mongodb+srv://felipeuv:js2NUZuqo7uTON9J@cluster0.zcixe.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
   )
   .then(() => {
-    User.findOne().then((user) => {
-      if (!user) {
-        const user = new User({
-          name: "Test",
-          email: "test@mail.com",
-          password: "test",
-          role: "gestor",
-          clients: [],
-        });
-        user.save();
-      }
-    });
     app.listen(3000, () => {
       console.log("Server is running on port 3000");
     });

@@ -68,8 +68,7 @@ exports.register = (req, res, next) => {
 exports.login = (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
-  console.log("Email: " + email + " - Passw: " + password);
-
+  
   User.findOne({ email: email }).then((user) => {
     if (!user) {
       return res.status(404).json({ error: "User not found" });

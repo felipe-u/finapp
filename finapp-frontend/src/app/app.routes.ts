@@ -14,7 +14,8 @@ import { UsersComponent } from "./features/users/users.component";
 import { UserComponent } from "./features/users/user/user.component";
 import { DebtorsListComponent } from "./features/users/user/debtors-list/debtors-list.component";
 import { routes as AuthRoutes } from "./shared/auth/auth.routes";
-import { authGuard, authRedirectGuard } from "./shared/auth/auth.guard";
+import { authGuard, authRedirectGuard } from "./core/guards/auth.guard";
+import { RoleGuard } from "./core/guards/role.guard";
 
 export const routes: Routes = [
     {
@@ -40,31 +41,43 @@ export const routes: Routes = [
             {
                 path: 'clients',
                 component: ClientsComponent,
+                canActivate: [RoleGuard],
+                data: { expectedRole: 'manager' },
                 title: 'FinApp | Clients',
             },
             {
                 path: 'clients/:clientId',
                 component: ClientComponent,
+                canActivate: [RoleGuard],
+                data: { expectedRole: 'manager' },
                 children: ClientRoutes
             },
             {
                 path: 'users',
                 component: UsersComponent,
+                canActivate: [RoleGuard],
+                data: { expectedRole: 'admin' },
                 title: 'FinApp | Users'
             },
             {
                 path: 'users/:userId',
                 component: UserComponent,
+                canActivate: [RoleGuard],
+                data: { expectedRole: 'admin' },
                 title: 'FinApp | User',
             },
             {
                 path: 'users/:userId/debtors-list',
                 component: DebtorsListComponent,
+                canActivate: [RoleGuard],
+                data: { expectedRole: 'admin' },
                 title: 'FinApp | Debtors List'
             },
             {
                 path: 'reports',
                 component: ReportsComponent,
+                canActivate: [RoleGuard],
+                data: { expectedRole: 'assistant' },
                 title: 'FinApp | Reports'
             },
             {
