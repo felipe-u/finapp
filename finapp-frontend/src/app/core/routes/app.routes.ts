@@ -12,6 +12,7 @@ import { ClientComponent } from "../../features/clients/client/client.component"
 import { UsersComponent } from "../../features/users/users.component";
 import { UserComponent } from "../../features/users/user/user.component";
 import { DebtorsListComponent } from "../../features/users/user/debtors-list/debtors-list.component";
+import { ForbiddenComponent } from "../../shared/forbidden/forbidden.component";
 import { routes as ClientRoutes } from "./clients.routes";
 import { routes as AuthRoutes } from "./auth.routes";
 import { authGuard, authRedirectGuard } from "../guards/auth.guard";
@@ -101,6 +102,11 @@ export const routes: Routes = [
                 title: 'Settings'
             }
         ]
+    },
+    {
+        path: 'forbidden',
+        component: ForbiddenComponent,
+        title: '403 | Forbidden'
     },
     {
         path: '**',

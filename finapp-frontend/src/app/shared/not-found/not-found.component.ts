@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 export class NotFoundComponent {
   private router = inject(Router);
 
-  goBack() {
-    this.router.navigate(['']);
+  goHome() {
+    this.router.navigate(['home']);
   }
 }
