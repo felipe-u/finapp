@@ -40,7 +40,7 @@
 .sidepanel {
   height: 235px;
   width: 0;
-  position: fixed;
+  position: absolute;
   z-index: 1;
   top: 71px;
   right: 0;

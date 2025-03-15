@@ -17,6 +17,7 @@ import { routes as ClientRoutes } from "./clients.routes";
 import { routes as AuthRoutes } from "./auth.routes";
 import { authGuard, authRedirectGuard } from "../guards/auth.guard";
 import { RoleGuard } from "../guards/role.guard";
+import { ProfileComponent } from "../../features/account/profile/profile.component";
 
 export const routes: Routes = [
     {
@@ -92,15 +93,22 @@ export const routes: Routes = [
         canActivate: [authGuard],
         children: [
             {
-                path: 'profile',
+                path: ':userId',
                 component: AccountComponent,
-                title: 'Profile'
+                title: 'Account Settings',
+                children: [
+                    {
+                        path: 'profile',
+                        component: ProfileComponent,
+                        title: 'Profile'
+                    },
+                    {
+                        path: 'settings',
+                        component: SettingsComponent,
+                        title: 'Settings'
+                    }
+                ]
             },
-            {
-                path: 'settings',
-                component: SettingsComponent,
-                title: 'Settings'
-            }
         ]
     },
     {

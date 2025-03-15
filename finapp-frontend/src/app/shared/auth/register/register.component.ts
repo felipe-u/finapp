@@ -29,7 +29,7 @@ export class RegisterComponent {
       validators: [Validators.required]
     }),
     password: new FormControl('', {
-      validators: [Validators.required, Validators.minLength(6)]
+      validators: [Validators.required]
     }),
     confirmPassword: new FormControl('', {
       validators: [Validators.required]

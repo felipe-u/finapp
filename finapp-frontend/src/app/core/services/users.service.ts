@@ -6,6 +6,7 @@ import { map } from 'rxjs';
 export class UsersService {
     private httpClient = inject(HttpClient);
     private userId = signal<string | null>(null);
+    private userName = signal<string | null>(null);
     private userRole = signal<string | null>(null);
     url = 'http://localhost:3000/';
 
@@ -15,6 +16,14 @@ export class UsersService {
 
     setUserId(userId: string) {
         this.userId.set(userId);
+    }
+
+    getUserName() {
+        return this.userName;
+    }
+
+    setUserName(userName: string) {
+        this.userName.set(userName);
     }
 
     getUserRole() {

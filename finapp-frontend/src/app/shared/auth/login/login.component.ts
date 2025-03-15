@@ -35,6 +35,8 @@ export class LoginComponent {
       }
       this.usersService.setUserId(res.user._id);
       this.usersService.setUserRole(res.user.role);
+      this.usersService.setUserName(res.user.name);
+
       this.router.navigateByUrl('/home');
     })
   }

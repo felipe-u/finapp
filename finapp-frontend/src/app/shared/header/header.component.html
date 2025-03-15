@@ -1,22 +1,24 @@
-<div class="container">
+<div class="container" [style]="{'background-color': isInAccountSettings ? 'rgba(0,0,0,0.8)' : ''}">
     <div class="logo">
         <a routerLink="/home">
             <img src="assets/imgs/logo.png" alt="FinAliado logo">
         </a>
     </div>
+    @if (!isInAccountSettings) {
     <div class="sidepanel" #sidepanel>
         <div class="sidepanel-container">
             <img src="assets/imgs/user.png" alt="User">
-            <p>Juan Perez</p>
+            <p>{{ userName() }}</p>
             <a class="closebtn" (click)="closeSidePanel()">&times;</a>
         </div>
         <hr>
-        <a routerLink="/account/profile">Profile</a>
-        <a routerLink="/account/settings">Settings</a>
+        <a (click)="goToProfile()">Profile</a>
+        <a (click)="goToSettings()">Settings</a>
         <hr>
         <a (click)="onLogout()">Logout</a>
     </div>
     <div class="user">
         <img src="assets/imgs/user.png" alt="User" (click)="openSidePanel()">
     </div>
+    }
 </div>

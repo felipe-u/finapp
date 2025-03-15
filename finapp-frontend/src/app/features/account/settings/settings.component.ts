@@ -1,10 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { HeaderComponent } from "../../../shared/header/header.component";
 
 @Component({
   selector: 'app-settings',
   standalone: true,
-  imports: [],
+  imports: [HeaderComponent],
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.css'
 })

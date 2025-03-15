@@ -1,5 +1,19 @@
-<h1>Profile</h1>
-<h2>Working on it</h2>
-<button (click)="goToSettings()">Settings</button>
-<hr>
-<button (click)="goBack()">Go back</button>
+<div class="header-container">
+    <app-header [isInAccountSettings]="true"></app-header>
+</div>
+<div class="container">
+    <aside>
+        <div class="profile-container">
+            <h1>{{ userName() }}</h1>
+            <h2>{{ userRole() }}</h2>
+        </div>
+        <div class="a-container">
+            <a (click)="goToProfile()">Profile</a><br>
+            <a (click)="goToSettings()">Settings</a>
+            <a (click)="goBack()">Go back</a>
+        </div>
+    </aside>
+    <main>
+        <router-outlet />
+    </main>
+</div>
