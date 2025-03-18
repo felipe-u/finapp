@@ -5,3 +5,9 @@
   color: #9f2b22;
   font-size: 0.7em;
 }
+
+.container {
+  width: 100%;
+  height: 500px;
+  background-color: rgba(0, 0, 0, 0.8);
+}
