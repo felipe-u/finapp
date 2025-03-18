@@ -1,8 +1,10 @@
 .content-container {
-    margin-top: 25px;
-    min-height: 58.2vh;
+  margin-top: 25px;
+  min-height: 58.2vh;
 }
 
 .footer-container {
-    bottom: 0;
+  position: static;
+  width: 100%;
+  bottom: 0;
 }

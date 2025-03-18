@@ -1,3 +1,47 @@
+@if (isModalOpen) {
+<app-password-modal (close)="closePasswordModal()" [userId]="user()._id" />
+}
 <div class="title-container">
     <h1>Profile</h1>
 </div>
+@if (user() === undefined) {
+
+} @else {
+@if(!editMode) {
+<div class="container">
+    <div class="img-container">
+        <img src="assets/imgs/user.png" alt="User Image">
+    </div>
+    <div class="info-container">
+        <p>Email: {{ user().email }}</p>
+        <p>Phone: {{ user().phone }}</p>
+    </div>
+    <div class="btn-container">
+        <button class="primaryBtn editBtn" (click)="onPrepopulateForm()">Edit</button>
+    </div>
+</div>
+} @else {
+<div class="container">
+    <div class="img-container editMode">
+        <img src="assets/imgs/user.png" alt="User Image">
+    </div>
+    <form class="info-container" [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="input-container">
+            <label for="email">Email</label>
+            <input type="text" name="email" formControlName="email">
+        </div>
+        <div class="input-container">
+            <label for="phone">Phone</label>
+            <input type="text" name="phone" formControlName="phone">
+        </div>
+        <div class="password-btn-container">
+            <button class="primaryBtn largeBtn" type="button" (click)="onChangePassword()">Change password</button>
+        </div>
+        <div class="btn-container">
+            <button type="submit" class="primaryBtn editBtn">Save</button>
+            <button type="button" class="primaryBtn editBtn" (click)="changeEditMode()">Cancel</button>
+        </div>
+    </form>
+</div>
+}
+}

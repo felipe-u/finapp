@@ -44,10 +44,17 @@
 .container main {
   border: 1px solid black;
   width: 60%;
-  height: 400px;
+  height: fit-content;
   border-radius: 5px;
+  min-height: 500px;
 }
 
 .btn-container {
   border: 1px solid green;
+}
+
+.footer-container {
+  position: static;
+  width: 100%;
+  bottom: 0;
 }

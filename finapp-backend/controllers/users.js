@@ -1,5 +1,5 @@
-const { Client, Debtor } = require("../models/client");
-const { User, Admin, Manager, Assistant } = require("../models/user");
+const { User, Manager, Assistant } = require("../models/user");
+const bcrypt = require("bcryptjs");
 
 const mongoDB = require("mongodb");
 
@@ -84,4 +84,52 @@ exports.updateUser = (req, res, next) => {
         res.status(500).json({ message: "Server error" });
       });
   });
+};
+
+exports.checkPassword = async (req, res, next) => {
+  const userId = req.body.userId;
+  const oldPassword = req.body.oldPassword;
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    const isMatch = await bcrypt.compare(oldPassword, user.password);
+    if (!isMatch) {
+      return res.json(false);
+    }
+    return res.json(true);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
+  }
+};
+
+exports.changePassword = (req, res, next) => {
+  const userId = req.body.userId;
+  const newPassword = req.body.newPassword;
+  User.findById(userId)
+    .then((user) => {
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+      const hashedPassword = bcrypt.hashSync(newPassword);
+      user.password = hashedPassword;
+      user
+        .save()
+        .then(() => {
+          console.log("password updated");
+          return res
+            .status(200)
+            .json({ message: "Password changed successfully" });
+        })
+        .catch((err) => {
+          console.log(err);
+          res.status(500).json({ message: "Server error" });
+        });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ message: "Server error" });
+    });
 };

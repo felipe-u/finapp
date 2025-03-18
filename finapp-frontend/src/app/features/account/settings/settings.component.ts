@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { HeaderComponent } from "../../../shared/header/header.component";
 
@@ -11,6 +11,7 @@ import { HeaderComponent } from "../../../shared/header/header.component";
 })
 export class SettingsComponent {
   private router = inject(Router);
+  @Input() userId: string;
 
   goToProfile() {
     this.router.navigate(['account', 'profile']);

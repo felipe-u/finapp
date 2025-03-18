@@ -2,11 +2,12 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from "../../shared/header/header.component";
 import { UsersService } from '../../core/services/users.service';
+import { FooterComponent } from "../../shared/footer/footer.component";
 
 @Component({
   selector: 'app-account',
   standalone: true,
-  imports: [HeaderComponent, RouterOutlet],
+  imports: [HeaderComponent, RouterOutlet, FooterComponent],
   templateUrl: './account.component.html',
   styleUrl: './account.component.css'
 })

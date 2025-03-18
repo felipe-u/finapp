@@ -58,4 +58,14 @@ export class UsersService {
         return this.httpClient.get<any>(this.url + 'users/all', { params: params }
         )
     }
+
+    checkUserPassword(userId: string, oldPassword: string) {
+        return this.httpClient.post<any>(this.url + 'check-password',
+            { userId, oldPassword })
+    }
+
+    changePassword(userId: string, newPassword: string) {
+        return this.httpClient.post<any>(this.url + 'change-password',
+            { userId, newPassword })
+    }
 }

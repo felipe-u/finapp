@@ -4,4 +4,54 @@
   background-color: rgba(0, 0, 0, 0.8);
   color: #9f2b22;
   font-size: 0.7em;
+  width: 100%;
+}
+
+.container {
+  display: grid;
+}
+
+.img-container {
+  margin: 60px auto 30px auto;
+  border: 1px solid black;
+  width: 200px;
+  height: 200px;
+  border-radius: 100px;
+}
+
+.img-container img {
+  width: 200px;
+  object-fit: contain;
+}
+
+.info-container {
+  margin: 0 auto;
+  text-align: center;
+  font-size: 1.2em;
+}
+
+.btn-container {
+  margin: 30px auto;
+}
+
+.editMode img:hover {
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.485);
+  border-radius: 100px;
+}
+
+.input-container {
+  display: grid;
+  margin-top: 10px;
+}
+
+.input-container input {
+  width: 300px;
+  margin: 20px auto;
+  font-size: 1.1em;
+  text-align: center;
+}
+
+.password-btn-container {
+  margin-top: 20px;
 }
