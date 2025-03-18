@@ -3,6 +3,8 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router, RouterLink } from '@angular/router';
 import { User } from '../../../core/models/user.model';
 import { AuthService } from '../../../core/services/auth.service';
+import { ClientsService } from '../../../core/services/clients.service';
+import { UsersService } from '../../../core/services/users.service';
 
 @Component({
   selector: 'app-register',
@@ -13,6 +15,8 @@ import { AuthService } from '../../../core/services/auth.service';
 })
 export class RegisterComponent {
   private authService = inject(AuthService);
+  private clientsService = inject(ClientsService);
+  private usersService = inject(UsersService);
   private router = inject(Router);
 
   form = new FormGroup({
@@ -40,6 +44,13 @@ export class RegisterComponent {
     const { name, role, email, phone, password } = this.form.value;
     const newUser = new User('', name, role as 'admin' | 'manager' | 'assistant', email, password, phone)
     this.authService.register(newUser).subscribe((res) => {
+      if (res.user.role === 'manager') {
+        this.clientsService.setManagerId(res.user._id);
+      }
+      this.usersService.setUserId(res.user._id);
+      this.usersService.setUserRole(res.user.role);
+      this.usersService.setUserName(res.user.name);
+
       this.router.navigateByUrl('home');
     });
   }
