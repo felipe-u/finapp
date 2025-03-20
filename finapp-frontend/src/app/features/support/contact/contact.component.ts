@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Email, EmailService } from '../../../core/services/email.service';
 import { UsersService } from '../../../core/services/users.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-contact',
@@ -13,6 +14,7 @@ import { UsersService } from '../../../core/services/users.service';
 export class ContactComponent {
   private emailService = inject(EmailService);
   private usersService = inject(UsersService);
+  private router = inject(Router);
 
   form = new FormGroup({
     subject: new FormControl('', {
@@ -37,5 +39,9 @@ export class ContactComponent {
         alert('Error sending email');
       }
     });
+  }
+
+  goBack() {
+    this.router.navigateByUrl('support');
   }
 }
