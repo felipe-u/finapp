@@ -1,0 +1,28 @@
+<div class="container">
+    <aside>
+        <div class="support-container">
+            <h1>Technical Support</h1>
+            <hr>
+            <p><strong>Phone:</strong><br>3127751316</p>
+            <p><strong>Email:</strong><br>soporte.finapp&#64;gmail.com</p>
+        </div>
+    </aside>
+    <main>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="input-container subject-input">
+                <label for="subject">Subject</label>
+                <input type="text" name="subject" id="subject" formControlName="subject">
+            </div>
+            <div class="input-container message-input">
+                <label for="message">Message</label>
+                <textarea name="message" id="message" formControlName="message"></textarea>
+            </div>
+            <div class="btn-container">
+                <button type="submit" class="primaryBtn mediumBtn">Send</button>
+            </div>
+        </form>
+    </main>
+</div>
+<div class="btn-container" style="margin: 50px auto 0 auto">
+    <button class="secondaryBtn mediumBtn">Go Back</button>
+</div>

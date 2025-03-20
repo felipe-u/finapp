@@ -8,6 +8,7 @@ export class UsersService {
     private userId = signal<string | null>(null);
     private userName = signal<string | null>(null);
     private userRole = signal<string | null>(null);
+    private userEmail = signal<string | null>(null);
     url = 'http://localhost:3000/';
 
     getUserId() {
@@ -32,6 +33,14 @@ export class UsersService {
 
     setUserRole(userRole: string) {
         this.userRole.set(userRole);
+    }
+
+    getUserEmail() {
+        return this.userEmail;
+    }
+
+    setUserEmail(userEmail: string) {
+        this.userEmail.set(userEmail);
     }
 
     getAllUsers() {

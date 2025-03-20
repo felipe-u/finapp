@@ -18,6 +18,7 @@ import { routes as AuthRoutes } from "./auth.routes";
 import { authGuard, authRedirectGuard } from "../guards/auth.guard";
 import { RoleGuard } from "../guards/role.guard";
 import { ProfileComponent } from "../../features/account/profile/profile.component";
+import { ContactComponent } from "../../features/support/contact/contact.component";
 
 export const routes: Routes = [
     {
@@ -83,6 +84,11 @@ export const routes: Routes = [
             {
                 path: 'support',
                 component: SupportComponent,
+                title: 'FinApp | Support'
+            },
+            {
+                path: 'support/contact',
+                component: ContactComponent,
                 title: 'FinApp | Support'
             }
         ]

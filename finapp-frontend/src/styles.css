@@ -103,6 +103,10 @@ body {
   width: 300px;
 }
 
+.mediumBtn {
+  width: 144px;
+}
+
 .editBtn {
   background-color: var(--primaryLight9);
   border: 1px solid black;

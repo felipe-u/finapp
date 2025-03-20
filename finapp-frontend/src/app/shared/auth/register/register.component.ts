@@ -50,6 +50,7 @@ export class RegisterComponent {
       this.usersService.setUserId(res.user._id);
       this.usersService.setUserRole(res.user.role);
       this.usersService.setUserName(res.user.name);
+      this.usersService.setUserEmail(res.user.email);
 
       this.router.navigateByUrl('home');
     });

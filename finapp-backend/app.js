@@ -5,6 +5,8 @@ const bodyParser = require("body-parser");
 const usersRoutes = require("./routes/users");
 const clientsRoutes = require("./routes/clients");
 const authRoutes = require("./routes/auth");
+const emailRoutes = require("./routes/email");
+
 const { User, Admin, Manager, Assistant } = require("./models/user");
 
 const app = express();
@@ -23,6 +25,7 @@ app.use((req, res, next) => {
 app.use(usersRoutes);
 app.use(clientsRoutes);
 app.use(authRoutes);
+app.use(emailRoutes);
 
 mongoose
   .connect(
