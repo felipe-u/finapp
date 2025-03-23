@@ -1,6 +1,7 @@
 import { Component, EventEmitter, inject, Input, OnInit, Output, signal } from '@angular/core';
 import { ClientsService } from '../../../core/services/clients.service';
 import { PdfService } from '../../../core/services/pdf.service';
+import { XlsxService } from '../../../core/services/xlsx.service';
 
 @Component({
   selector: 'app-report-modal',
@@ -12,6 +13,7 @@ import { PdfService } from '../../../core/services/pdf.service';
 export class ReportModalComponent implements OnInit {
   private clientsService = inject(ClientsService);
   private pdfService = inject(PdfService);
+  private xlsxService = inject(XlsxService);
   @Output() close = new EventEmitter<void>();
   @Input() reportType: string;
   @Input() daysGap: string;
@@ -30,11 +32,14 @@ export class ReportModalComponent implements OnInit {
         this.loadingData = false;
       }
     })
-    console.log('daysGap', this.daysGap);
   }
 
   generatePDF() {
     this.pdfService.generatePDF(this.debtorsInfo());
+  }
+
+  generateExcel() {
+    this.xlsxService.exportToExcel(this.debtorsInfo());
   }
 
   closeModal() {

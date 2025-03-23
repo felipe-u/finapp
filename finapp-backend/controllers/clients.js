@@ -818,7 +818,7 @@ exports.getDebtorsForDelinquencyReport = async (req, res, next) => {
           overdueInstallments = debtor.financing.installments
             .filter(
               (installment) =>
-                installment.overdueDays >= 10 && installment.overdueDays < 60
+                installment.overdueDays >= 30 && installment.overdueDays < 60
             )
             .sort((a, b) => b.dueDate - a.dueDate);
         } else if (days === "60") {
