@@ -1,0 +1,67 @@
+.backdrop {
+  background-color: rgba(0, 0, 0, 0.9);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.dialog-container dialog {
+  width: 80%;
+  max-width: fit-content;
+  min-width: 500px;
+  min-height: 400px;
+  max-height: 700px;
+  top: 10%;
+  overflow: auto;
+}
+
+.container {
+  text-align: center;
+}
+
+.container h2 {
+  text-decoration: underline;
+}
+
+.clients-container {
+  display: flex;
+}
+
+.clients-table {
+  margin: 0 auto;
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid rgb(88, 88, 88);
+}
+
+.clients-container table th,
+.clients-container table td {
+  padding: 8px;
+  font-size: 0.8em;
+  border: 1px solid grey;
+}
+
+.clients-container table th {
+  background-color: rgb(172, 172, 172);
+  color: black;
+  font-size: 0.9em;
+}
+
+.btn-container {
+  display: flex;
+  position: relative;
+  width: 95%;
+  justify-content: center;
+  margin: 100px auto 30px auto;
+}
+
+.no-debtors-container {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.no-debtors-container p {
+  font-size: 1.2em;
+}

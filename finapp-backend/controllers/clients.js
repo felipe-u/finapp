@@ -790,6 +790,76 @@ exports.getDebtorsListWithoutAssignment = (req, res, next) => {
   getDebtors({}, res, null);
 };
 
+exports.getDebtorsForReport = (req, res, next) => {
+  if (req.query.reportType === "delinquency-report") {
+    exports.getDebtorsForDelinquencyReport(req, res, next);
+  } else {
+    res.status(400).json({ error: "Invalid report type" });
+  }
+};
+
+exports.getDebtorsForDelinquencyReport = async (req, res, next) => {
+  try {
+    const { days } = req.query;
+    const debtors = await Debtor.find({})
+      .populate({
+        path: "financing",
+        populate: {
+          path: "installments",
+          model: "Installment",
+        },
+      })
+      .populate("manager", "name");
+
+    const result = debtors
+      .map((debtor) => {
+        let overdueInstallments;
+        if (days === "30") {
+          overdueInstallments = debtor.financing.installments
+            .filter(
+              (installment) =>
+                installment.overdueDays >= 10 && installment.overdueDays < 60
+            )
+            .sort((a, b) => b.dueDate - a.dueDate);
+        } else if (days === "60") {
+          overdueInstallments = debtor.financing.installments
+            .filter(
+              (installment) =>
+                installment.overdueDays >= 60 && installment.overdueDays < 90
+            )
+            .sort((a, b) => b.dueDate - a.dueDate);
+        } else if (days === "90") {
+          overdueInstallments = debtor.financing.installments
+            .filter((installment) => installment.overdueDays >= 90)
+            .sort((a, b) => b.dueDate - a.dueDate);
+        } else {
+          return null;
+        }
+
+        if (overdueInstallments.length > 0) {
+          const lastOverdueInstallment = overdueInstallments[0];
+          return {
+            debtorId: debtor.identification.number,
+            debtorName: debtor.name,
+            installmentValue: lastOverdueInstallment.installmentValue,
+            overdueDays: lastOverdueInstallment.overdueDays,
+            lateInterests: lastOverdueInstallment.lateInterests,
+            totalInstallmentValue: lastOverdueInstallment.totalInstallmentValue,
+            financingStatus: statusEnum[debtor.financing.status],
+            manager: debtor.manager ? debtor.manager.name : "None",
+          };
+        }
+        return null;
+      })
+      .filter((debtor) => debtor !== null);
+
+    res.status(200).json(result);
+  } catch (err) {
+    console.error("Error fetching debtors:", err);
+    res.status(500).json({ error: "Error fetching debtors" });
+  }
+};
+
 const getDebtors = (query, res, managerId) => {
   Debtor.find(query, "name identification.number financing")
     .where({ manager: managerId })

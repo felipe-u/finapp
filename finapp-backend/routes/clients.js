@@ -34,4 +34,6 @@ router.post("/remove-debtor", clientsController.removeDebtorFromManager);
 
 router.get("/debtors-list-no-assignment", clientsController.getDebtorsListWithoutAssignment);
 
+router.get("/debtors-list-report", clientsController.getDebtorsForReport);
+
 module.exports = router;

@@ -172,6 +172,11 @@ export class ClientsService {
         );
     }
 
+    getDebtorsForReport(reportType: string, days: string) {
+        const params = new HttpParams().set('reportType', reportType).append('days', days);
+        return this.httpClient.get<any>(this.url + 'debtors-list-report', { params })
+    }
+
     private fetchDebtors(params?: HttpParams) {
         const _url = this.url + 'debtors-list/' + this.managerId();
         return this.httpClient.get<any>(_url, { params }).pipe(

@@ -74,11 +74,6 @@ const codebtorSchema = new Schema({});
 
 const Codebtor = Client.discriminator("Codebtor", codebtorSchema);
 
-// método para obtener el nombre completo del tipo de identificación
-// clientSchema.statics.getTipoIdentificacionCompleto = function(sigla) {
-//   return tipoIdentificacionEnum[sigla];
-// };
-
 module.exports = {
   Client,
   Debtor,

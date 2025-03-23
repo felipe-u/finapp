@@ -1,0 +1,148 @@
+<div class="backdrop" (click)="closeModal()"></div>
+<div class="dialog-container">
+    <dialog open>
+        @if (loadingData) {
+        <p>Loading...</p>
+        } @else if (debtorsInfo().length > 0){
+        <div class="container">
+            <div class="info-container">
+                <h2>Report</h2>
+                <p>Type: Delinquency report</p>
+                <p>Gap: {{daysGap}} days</p>
+            </div>
+            <div class="clients-container">
+                <table class="clients-table">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Valor de la cuota</th>
+                            <th>Overdue days</th>
+                            <th>Interés mora</th>
+                            <th>Total a pagar</th>
+                            <th>State</th>
+                            <th>Manager</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (info of debtorsInfo(); track debtor) {
+                        <tr>
+                            <td>{{ info.debtorId }}</td>
+                            <td>{{ info.debtorName }}</td>
+                            <td>{{ info.installmentValue }}</td>
+                            <td>{{ info.overdueDays }}</td>
+                            <td>{{ info.lateInterests }}</td>
+                            <td>{{ info.totalInstallmentValue }}</td>
+                            <td>{{ info.financingStatus }}</td>
+                            <td>{{ info.manager }}</td>
+                        </tr>
+                        }
+                        <!-- <tr>
+                            <td> info.debtorId </td>
+                            <td> info.debtorName </td>
+                            <td> info.installmentValue </td>
+                            <td> info.overdueDays </td>
+                            <td> info.lateInterests </td>
+                            <td> info.totalInstallmentValue </td>
+                            <td> info.financingStatus </td>
+                            <td> info.manager </td>
+                        </tr>
+                        <tr>
+                            <td> info.debtorId </td>
+                            <td> info.debtorName </td>
+                            <td> info.installmentValue </td>
+                            <td> info.overdueDays </td>
+                            <td> info.lateInterests </td>
+                            <td> info.totalInstallmentValue </td>
+                            <td> info.financingStatus </td>
+                            <td> info.manager </td>
+                        </tr>
+                        <tr>
+                            <td> info.debtorId </td>
+                            <td> info.debtorName </td>
+                            <td> info.installmentValue </td>
+                            <td> info.overdueDays </td>
+                            <td> info.lateInterests </td>
+                            <td> info.totalInstallmentValue </td>
+                            <td> info.financingStatus </td>
+                            <td> info.manager </td>
+                        </tr>
+                        <tr>
+                            <td> info.debtorId </td>
+                            <td> info.debtorName </td>
+                            <td> info.installmentValue </td>
+                            <td> info.overdueDays </td>
+                            <td> info.lateInterests </td>
+                            <td> info.totalInstallmentValue </td>
+                            <td> info.financingStatus </td>
+                            <td> info.manager </td>
+                        </tr>
+                        <tr>
+                            <td> info.debtorId </td>
+                            <td> info.debtorName </td>
+                            <td> info.installmentValue </td>
+                            <td> info.overdueDays </td>
+                            <td> info.lateInterests </td>
+                            <td> info.totalInstallmentValue </td>
+                            <td> info.financingStatus </td>
+                            <td> info.manager </td>
+                        </tr>
+                        <tr>
+                            <td> info.debtorId </td>
+                            <td> info.debtorName </td>
+                            <td> info.installmentValue </td>
+                            <td> info.overdueDays </td>
+                            <td> info.lateInterests </td>
+                            <td> info.totalInstallmentValue </td>
+                            <td> info.financingStatus </td>
+                            <td> info.manager </td>
+                        </tr>
+                        <tr>
+                            <td> info.debtorId </td>
+                            <td> info.debtorName </td>
+                            <td> info.installmentValue </td>
+                            <td> info.overdueDays </td>
+                            <td> info.lateInterests </td>
+                            <td> info.totalInstallmentValue </td>
+                            <td> info.financingStatus </td>
+                            <td> info.manager </td>
+                        </tr>
+                        <tr>
+                            <td> info.debtorId </td>
+                            <td> info.debtorName </td>
+                            <td> info.installmentValue </td>
+                            <td> info.overdueDays </td>
+                            <td> info.lateInterests </td>
+                            <td> info.totalInstallmentValue </td>
+                            <td> info.financingStatus </td>
+                            <td> info.manager </td>
+                        </tr>
+                        <tr>
+                            <td> info.debtorId </td>
+                            <td> info.debtorName </td>
+                            <td> info.installmentValue </td>
+                            <td> info.overdueDays </td>
+                            <td> info.lateInterests </td>
+                            <td> info.totalInstallmentValue </td>
+                            <td> info.financingStatus </td>
+                            <td> info.manager </td>
+                        </tr> -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="btn-container">
+            <button class="primaryBtn">Generate PDF</button>
+            <button class="primaryBtn">Generate Excel</button>
+        </div>
+        }
+        @else {
+        <div class="no-debtors-container">
+            <p>No debtors found within {{ daysGap }} overdue days.</p>
+            <div class="btn-container">
+                <button class="primaryBtn" (click)="closeModal()">Close</button>
+            </div>
+        </div>
+        }
+    </dialog>
+</div>
