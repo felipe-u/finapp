@@ -4,7 +4,7 @@
 @if (!editMode) {
 <div class="container client-container">
     <div class="img-container">
-        <img src="assets/imgs/user.png" alt="User Image">
+        <img [src]="personalInfo().photo === '' ? 'assets/imgs/user.png' : personalInfo().photo" alt="User Image">
     </div>
     <div class="info-container">
         <p>ID: {{client().identification.number}} - {{client().identification.idType}}</p>
@@ -17,9 +17,14 @@
     </div>
 </div>
 } @else {
+@if (isModalOpen) {
+<app-profile-picture-modal (close)="closeProfilePictureModal()"  (newImageUrl)="updateClientPhoto($event)" [clientId]="client()._id"
+    [personalInfoId]="personalInfo()._id" [actualImageUrl]="personalInfo().photo"/>
+}
 <div class="container client-container">
-    <div class="img-container editMode">
-        <img src="assets/imgs/user.png" alt="User Image">
+    <div class="img-container editMode" (click)="openProfilePictureModal()">
+        <img [src]="personalInfo().photo === '' ? 'assets/imgs/user.png' : personalInfo().photo" alt="User Image">
+        <p class="editText">Edit</p>
     </div>
     <form class="info-container" [formGroup]="form" (ngSubmit)="onSubmit()">
         <div class="input-container">

@@ -2,22 +2,25 @@ import { Component, inject, signal } from '@angular/core';
 import { ClientsService } from '../../../../core/services/clients.service';
 import { PersonalInfo } from '../../../../core/models/personalInfo.model';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ImagesService } from '../../../../core/services/images.service';
+import { ProfilePictureModalComponent } from "./profile-picture-modal/profile-picture-modal.component";
 
 @Component({
   selector: 'app-personal-info',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, ProfilePictureModalComponent],
   templateUrl: './personal-info.component.html',
   styleUrl: './personal-info.component.css'
 })
 export class PersonalInfoComponent {
   private clientsService = inject(ClientsService);
+  private imagesService = inject(ImagesService);
   client = signal<any | undefined>(undefined);
   personalInfo = signal<PersonalInfo>(undefined)
   editMode = false;
+  isModalOpen = false;
 
   form = new FormGroup({
-    //photo
     idNumber: new FormControl('', {
       validators: [Validators.required]
     }),
@@ -74,7 +77,7 @@ export class PersonalInfoComponent {
         newEmail,
         newPhone,
         newBirthDateWithoutTimezoneOffset,
-        ''
+        this.personalInfo().photo
       );
 
       this.clientsService.editPersonalInfo(newPersonalInfo, newIdNumber).subscribe();
@@ -82,6 +85,18 @@ export class PersonalInfoComponent {
       this.client().identification.number = newIdNumber;
       this.changeEditMode();
     }
+  }
+
+  openProfilePictureModal() {
+    this.isModalOpen = true;
+  }
+
+  closeProfilePictureModal() {
+    this.isModalOpen = false;
+  }
+
+  updateClientPhoto(newImageUrl: string) {
+    this.personalInfo().photo = newImageUrl;
   }
 
   getDateWithoutTimezoneOffset(incomingDate: string) {

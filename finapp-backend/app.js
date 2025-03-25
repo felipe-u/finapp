@@ -6,6 +6,7 @@ const usersRoutes = require("./routes/users");
 const clientsRoutes = require("./routes/clients");
 const authRoutes = require("./routes/auth");
 const emailRoutes = require("./routes/email");
+const imagesRoutes = require("./routes/images");
 
 const { User, Admin, Manager, Assistant } = require("./models/user");
 
@@ -22,10 +23,13 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use("/uploads", express.static("uploads"));
+
 app.use(usersRoutes);
 app.use(clientsRoutes);
 app.use(authRoutes);
 app.use(emailRoutes);
+app.use(imagesRoutes);
 
 mongoose
   .connect(

@@ -1,0 +1,22 @@
+<div class="backdrop" (click)="closeModal()"></div>
+<div class="dialog-container">
+    <dialog open>
+        <div class="container">
+            <p>Upload an image</p>
+            <div class="input-container">
+                <label for="fileInput" class="fileInputLabel secondaryBtn">Browse</label>
+                <input type="file" id="fileInput" class="fileInput" style="display: none;"
+                    (change)="onFileSelected($event)">
+            </div>
+            @if (selectedFile) {
+            <div class="img-container">
+                <img [src]="this.selectedFile ? imageUrl : 'assets/imgs/user.png'" alt="Image preview">
+            </div>
+            }
+            <div class="btn-container">
+                <button class="primaryBtn editBtn" (click)="uploadImage()" [disabled]="!selectedFile">Update</button>
+                <button class="primaryBtn editBtn" (click)="onCancel()">Cancel</button>
+            </div>
+        </div>
+    </dialog>
+</div>
