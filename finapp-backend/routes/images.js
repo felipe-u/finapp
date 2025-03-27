@@ -10,4 +10,6 @@ router.put("/imgs/clients", upload.single("image"), imagesController.updateClien
 
 router.delete("/delete-image", imagesController.deleteImage);
 
+router.post("/delete-images", imagesController.deleteImages)
+
 module.exports = router;

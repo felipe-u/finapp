@@ -16,11 +16,19 @@
   object-fit: cover;
 }
 
-.house-container {
-  width: 300px;
-  height: 225px;
-  border: 1px solid black;
+.property-container {
   margin: 20px auto;
+}
+
+.property-container h3 {
+  font-size: 1.4em;
+}
+
+.house-container {
+  width: 400px;
+  height: max-content;
+  border: 1px solid black;
+  margin: 0 auto 20px auto;
 }
 
 .address-container {
@@ -38,15 +46,13 @@
   margin-top: 10px;
 }
 
-.form-container input, 
+.form-container input,
 .form-container select,
 .form-container textarea {
   width: 300px;
   margin: 20px auto;
   font-size: 1em;
   text-align: center;
-  /* background-color: white;
-  border: 1px solid black; */
 }
 
 .form-container textarea {

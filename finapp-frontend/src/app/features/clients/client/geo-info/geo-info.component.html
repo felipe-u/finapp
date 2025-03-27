@@ -10,8 +10,11 @@
         </google-map>
 
     </div>
-    <div class="house-container">
-
+    <div class="property-container">
+        <h3 class="container-title">Property Images</h3>
+        <div class="house-container">
+            <app-property-images [editMode]="false" [propertyImagesUrl]="geoInfo().propertyImages" />
+        </div>
     </div>
     <div class="address-container">
         <h3 class="container-title">Dirección</h3>
@@ -34,8 +37,11 @@
                 [options]="advancedMarkerOptions" (mapDragend)="updateLocation($event)" />
         </google-map>
     </div>
-    <div class="house-container">
-
+    <div class="property-container">
+        <h3 class="container-title">Property Images</h3>
+        <div class="house-container">
+            <app-property-images [editMode]="true" [propertyImagesUrl]="geoInfo().propertyImages" />
+        </div>
     </div>
     <form class="address-container" [formGroup]="form" (ngSubmit)="onSubmit()">
         <h3 class="container-title">Dirección</h3>
@@ -75,7 +81,7 @@
         </div>
         <div class="button-container">
             <button type="submit" class="primaryBtn editBtn">Guardar</button>
-            <button type="button" class="primaryBtn editBtn" (click)="changeEditMode()">Cancelar</button>
+            <button type="button" class="primaryBtn editBtn" (click)="cancel()">Cancelar</button>
         </div>
     </form>
 </div>

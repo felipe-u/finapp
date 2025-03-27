@@ -36,4 +36,14 @@ export class ImagesService {
         return this.httpClient.delete(`${this.API_URL}/delete-image?imageUrl=${encodeURIComponent(this.tempImageUrl)}`);
     }
 
+    deleteImages(images: string[]) {
+        return this.httpClient.post(`${this.API_URL}/delete-images`, { images }).pipe(
+            tap(() => {
+                if (this.tempImageUrl && images.includes(this.tempImageUrl)) {
+                    this.tempImageUrl = null;
+                }
+            })
+        )
+    }
+
 }

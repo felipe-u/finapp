@@ -1,20 +1,22 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, ViewChild } from '@angular/core';
 import { ClientsService } from '../../../../core/services/clients.service';
 import { GeoInfo } from '../../../../core/models/geoInfo.model';
 import { GoogleMap, MapAdvancedMarker } from '@angular/google-maps';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LocationService } from '../../../../core/services/location.service';
+import { PropertyImagesComponent } from "./property-images/property-images.component";
 
 @Component({
   selector: 'app-geo-info',
   standalone: true,
-  imports: [GoogleMap, MapAdvancedMarker, ReactiveFormsModule],
+  imports: [GoogleMap, MapAdvancedMarker, ReactiveFormsModule, PropertyImagesComponent],
   templateUrl: './geo-info.component.html',
   styleUrl: './geo-info.component.css'
 })
 export class GeoInfoComponent {
   private clientsService = inject(ClientsService);
   private locationService = inject(LocationService);
+  @ViewChild(PropertyImagesComponent) propertyImagesComponent!: PropertyImagesComponent;
   client = signal<any | undefined>(undefined);
   geoInfo = signal<GeoInfo>(undefined);
   center = signal<google.maps.LatLngLiteral>({ lat: 10.9845951, lng: -74.8179751 });
@@ -117,7 +119,7 @@ export class GeoInfoComponent {
         const newLatitude = this.form.value.latitude;
         const newLongitude = this.form.value.longitude;
         const newGoogleMapsUrl = '';
-        const newPropertyImages = [];
+        const newPropertyImages = this.propertyImagesComponent.onUpdate();
         const newSector = this.form.value.sector;
         const newAdditionalInfo = this.form.value.additionalInfo;
 
@@ -138,13 +140,17 @@ export class GeoInfoComponent {
         this.clientsService.editGeoInfo(newGeoInfo).subscribe();
         this.geoInfo.set(newGeoInfo);
         this.changeEditMode();
+        this.propertyImagesComponent.resetArrays();
       }
     }
   }
 
-  changeEditMode() {
-    this.editMode = !this.editMode
+  cancel() {
+    this.propertyImagesComponent.onCancel();
+    this.changeEditMode();
   }
 
-
+  changeEditMode() {
+    this.editMode = !this.editMode;
+  }
 }

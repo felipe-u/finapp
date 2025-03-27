@@ -1,0 +1,169 @@
+* {
+  box-sizing: border-box;
+}
+
+.body {
+  margin: 0;
+}
+
+/* EditMode = false */
+
+.mySlides {
+  display: none;
+}
+
+img {
+  vertical-align: middle;
+}
+
+.slideshow-container {
+  max-width: 1000px;
+  position: relative;
+  margin: auto;
+}
+
+.prev,
+.next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -22px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+.prev:hover,
+.next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+.fade {
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fallback {
+  text-align: center;
+}
+
+.fallback img {
+  max-width: 50%;
+  height: auto;
+  opacity: 0.8;
+}
+
+@media only screen and (max-width: 300px) {
+  .prev,
+  .next,
+  .text {
+    font-size: 11px;
+  }
+}
+
+/* EditMode = true */
+
+.row {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  padding: 0 4px;
+}
+
+.column {
+  position: relative;
+  -ms-flex: 50%;
+  flex: 50%;
+  max-width: 50%;
+  padding: 0 4px;
+  justify-content: center;
+}
+
+.img-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.img-container:hover .deleteText {
+  display: block;
+}
+
+.column img {
+  display: block;
+  margin-top: 8px;
+  width: 100%;
+  opacity: 1;
+  transition: 0.3s ease;
+}
+
+.column img:hover,
+.column:hover img {
+  filter: brightness(0.4);
+  cursor: pointer;
+  opacity: 0.3;
+  transition: 0.3s ease;
+  border: 1px solid grey;
+}
+
+.deleteText {
+  position: absolute;
+  font-size: 2.5em;
+  color: whitesmoke;
+  display: none;
+  -webkit-text-stroke: 1px black;
+  font-weight: bolder;
+  width: fit-content;
+  cursor: pointer;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.column img:hover + .deleteText,
+.column:hover .deleteText {
+  display: block;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 600px) {
+  .column {
+    -ms-flex: 100%;
+    flex: 100%;
+    max-width: 100%;
+  }
+}
+
+.btn-container {
+  display: flex;
+  margin: 27px 0;
+  justify-content: center;
+}

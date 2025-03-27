@@ -1,0 +1,51 @@
+@if (editMode) {
+<div class="responsive-body">
+    <div class="row">
+        <div class="column">
+            @for (imageUrl of propertyImagesUrlColumn1; track image) {
+            <div class="img-container" (click)="onDeleteFile(imageUrl)">
+                <img [src]="imageUrl" alt="A house" style="width: 100%;">
+                <p class="deleteText">🗑</p>
+            </div>
+            }
+        </div>
+        <div class="column">
+            @for (imageUrl of propertyImagesUrlColumn2; track image) {
+            <div class="img-container" (click)="onDeleteFile(imageUrl)">
+                <img [src]="imageUrl" alt="A house" style="width: 100%;">
+                <p class="deleteText">🗑</p>
+            </div>
+            }
+        </div>
+    </div>
+    <div class="btn-container">
+        <div class="input-container">
+            <label for="fileInput" class="fileInputLabel secondaryBtn">
+                Upload an image
+            </label>
+            <input type="file" id="fileInput" class="fileInput" style="display: none;"
+                (change)="onFileSelected($event)">
+        </div>
+    </div>
+</div>
+} @else {
+<div class="body">
+    <div class="slideshow-container">
+
+        <div #fallback class="fallback" style="display: none;">
+            <img src="assets/imgs/house0.png" alt="Fallback house" style="width: 100%;">
+        </div>
+
+        @for (imageUrl of propertyImagesUrl; track imageUrl) {
+        <div class="mySlides fade">
+            <div class="numbertext">{{ slideIndex }} / {{propertyImagesUrl.length}}</div>
+            <img [src]="imageUrl" alt="A house" style="width: 100%;">
+        </div>
+        }
+        @if (propertyImagesUrl.length > 0) {
+        <a class="prev" (click)="plusSlides(-1)">❮</a>
+        <a class="next" (click)="plusSlides(1)">❯</a>
+        }
+    </div>
+</div>
+}

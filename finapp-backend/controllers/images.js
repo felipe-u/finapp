@@ -53,3 +53,38 @@ exports.deleteImage = (req, res, next) => {
     res.status(200).json({ message: "Image deleted successfully" });
   });
 };
+
+exports.deleteImages = (req, res, next) => {
+  const imageUrls = req.body.images;
+
+  if (!imageUrls || !Array.isArray(imageUrls) || imageUrls.length === 0) {
+    return res.status(400).json({ message: "No valid image URLs provided" });
+  }
+
+  let errors = [];
+
+  imageUrls.forEach((imageUrl) => {
+    const imageName = path.basename(imageUrl);
+    const imagePath = path.join(__dirname, "..", "uploads", imageName);
+
+    fs.access(imagePath, fs.constants.F_OK, (err) => {
+      if (err) {
+        errors.push(`Image not found: ${imageUrl}`);
+      } else {
+        fs.unlink(imagePath, (err) => {
+          if (err) {
+            error.push(`Failed to delete: ${imageUrl}`);
+          }
+        });
+      }
+    });
+  });
+
+  if (errors.length > 0) {
+    return res
+      .status(500)
+      .json({ message: "Some images could not be deleted", errors });
+  }
+
+  res.status(200).json({ message: "Images deleted successfully" });
+};
