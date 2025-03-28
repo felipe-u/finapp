@@ -6,7 +6,9 @@ const router = express.Router();
 
 router.post("/upload", upload.single("image"), imagesController.uploadImage);
 
-router.put("/imgs/clients", upload.single("image"), imagesController.updateClientPhoto);
+router.put("/imgs/personal-info", upload.single("image"), imagesController.updateClientPhoto);
+
+router.put("/imgs/user", upload.single("image"), imagesController.updateUserPhoto);
 
 router.delete("/delete-image", imagesController.deleteImage);
 

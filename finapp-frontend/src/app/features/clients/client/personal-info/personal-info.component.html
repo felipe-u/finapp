@@ -18,8 +18,8 @@
 </div>
 } @else {
 @if (isModalOpen) {
-<app-profile-picture-modal (close)="closeProfilePictureModal()"  (newImageUrl)="updateClientPhoto($event)" [clientId]="client()._id"
-    [personalInfoId]="personalInfo()._id" [actualImageUrl]="personalInfo().photo"/>
+<app-profile-picture-modal (close)="closeProfilePictureModal()" (newImageUrl)="updateClientPhoto($event)"
+    [model]="'personal-info'" [modelId]="personalInfo()._id" [actualImageUrl]="personalInfo().photo" />
 }
 <div class="container client-container">
     <div class="img-container editMode" (click)="openProfilePictureModal()">

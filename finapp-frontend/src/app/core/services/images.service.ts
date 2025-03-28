@@ -19,12 +19,12 @@ export class ImagesService {
         );
     }
 
-    updateClientImage(personalInfoId: string) {
+    updateImage(model: string, modelId: string) {
         if (!this.tempImageUrl) {
             console.error('No image to upload');
             return;
-        };
-        return this.httpClient.put(`${this.API_URL}/imgs/clients`, { personalInfoId: personalInfoId, imageUrl: this.tempImageUrl })
+        }
+        return this.httpClient.put(`${this.API_URL}/imgs/${model}`, { modelId: modelId, imageUrl: this.tempImageUrl })
     }
 
     deleteImage(imageUrl: string) {

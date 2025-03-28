@@ -7,6 +7,10 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  photo: {
+    type: String,
+    default: "",
+  },
   role: {
     type: String,
     enum: ["admin", "manager", "assistant"],

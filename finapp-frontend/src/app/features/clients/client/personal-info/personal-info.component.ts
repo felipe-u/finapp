@@ -3,7 +3,7 @@ import { ClientsService } from '../../../../core/services/clients.service';
 import { PersonalInfo } from '../../../../core/models/personalInfo.model';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ImagesService } from '../../../../core/services/images.service';
-import { ProfilePictureModalComponent } from "./profile-picture-modal/profile-picture-modal.component";
+import { ProfilePictureModalComponent } from "../../../../shared/profile-picture-modal/profile-picture-modal.component";
 
 @Component({
   selector: 'app-personal-info',
@@ -14,7 +14,6 @@ import { ProfilePictureModalComponent } from "./profile-picture-modal/profile-pi
 })
 export class PersonalInfoComponent {
   private clientsService = inject(ClientsService);
-  private imagesService = inject(ImagesService);
   client = signal<any | undefined>(undefined);
   personalInfo = signal<PersonalInfo>(undefined)
   editMode = false;

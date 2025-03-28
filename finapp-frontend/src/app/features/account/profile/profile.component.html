@@ -1,4 +1,4 @@
-@if (isModalOpen) {
+@if (isPasswordModalOpen) {
 <app-password-modal (close)="closePasswordModal()" [userId]="user()._id" />
 }
 <div class="title-container">
@@ -10,7 +10,7 @@
 @if(!editMode) {
 <div class="container">
     <div class="img-container">
-        <img src="assets/imgs/user.png" alt="User Image">
+        <img [src]="user().photo === '' ? 'assets/imgs/user.png' : user().photo" alt="User Image">
     </div>
     <div class="info-container">
         <p>Email: {{ user().email }}</p>
@@ -21,9 +21,14 @@
     </div>
 </div>
 } @else {
+@if (isProfilePictureModalOpen) {
+<app-profile-picture-modal (close)="closeProfilePictureModal()" (newImageUrl)="updateUserPhoto($event)" [model]="'user'"
+    [modelId]="user()._id" [actualImageUrl]="user().photo" />
+}
 <div class="container">
-    <div class="img-container editMode">
-        <img src="assets/imgs/user.png" alt="User Image">
+    <div class="img-container editMode" (click)="openProfilePictureModal()">
+        <img [src]="user().photo === '' ? 'assets/imgs/user.png' : user().photo" alt="User Image">
+        <p class="editText">Edit</p>
     </div>
     <form class="info-container" [formGroup]="form" (ngSubmit)="onSubmit()">
         <div class="input-container">

@@ -8,6 +8,7 @@ export class User {
         public email: string,
         public password: string,
         public phone: string,
+        public photo?: string,
     ) { }
 }
 
@@ -19,8 +20,9 @@ export class Admin extends User {
         email: string,
         password: string,
         phone: string,
+        photo?: string,
     ) {
-        super(_id, name, role, password, phone, email);
+        super(_id, name, role, password, phone, email, photo);
     }
 }
 
@@ -32,8 +34,9 @@ export class Manager extends User {
         email: string,
         password: string,
         phone: string,
+        photo?: string,
     ) {
-        super(_id, name, role, password, phone, email);
+        super(_id, name, role, password, phone, email, photo);
     }
 }
 

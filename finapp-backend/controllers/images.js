@@ -1,4 +1,5 @@
 const PersonalInfo = require("../models/personalInfo");
+const { User } = require("../models/user");
 const fs = require("fs");
 const path = require("path");
 
@@ -11,13 +12,33 @@ exports.uploadImage = (req, res, next) => {
 };
 
 exports.updateClientPhoto = (req, res, next) => {
-  const { personalInfoId, imageUrl } = req.body;
-  PersonalInfo.findById(personalInfoId).then((personalInfo) => {
+  const { modelId, imageUrl } = req.body;
+  PersonalInfo.findById(modelId).then((personalInfo) => {
     if (!personalInfo) {
       return res.status(404).json({ message: "Personal Info not found" });
     }
     personalInfo.photo = imageUrl;
     personalInfo
+      .save()
+      .then(() => {
+        console.log("Photo updated");
+        return res.status(200).json({ message: "Photo updated successfully" });
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json({ message: "Server error" });
+      });
+  });
+};
+
+exports.updateUserPhoto = (req, res, next) => {
+  const { modelId, imageUrl } = req.body;
+  User.findById(modelId).then((user) => {
+    if (!user) {
+      return res.status(400).json({ message: "User not found" });
+    }
+    user.photo = imageUrl;
+    user
       .save()
       .then(() => {
         console.log("Photo updated");

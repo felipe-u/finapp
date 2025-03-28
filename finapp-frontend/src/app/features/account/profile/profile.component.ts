@@ -4,11 +4,12 @@ import { ActivatedRoute } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { User } from '../../../core/models/user.model';
 import { PasswordModalComponent } from "./password-modal/password-modal.component";
+import { ProfilePictureModalComponent } from "../../../shared/profile-picture-modal/profile-picture-modal.component";
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [ReactiveFormsModule, PasswordModalComponent],
+  imports: [ReactiveFormsModule, PasswordModalComponent, ProfilePictureModalComponent],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
@@ -17,10 +18,10 @@ export class ProfileComponent implements OnInit {
   private activatedRoute = inject(ActivatedRoute);
   user = signal<any | undefined>(undefined);
   editMode = false;
-  isModalOpen = false;
+  isPasswordModalOpen = false;
+  isProfilePictureModalOpen = false;
 
   form = new FormGroup({
-    //photo
     email: new FormControl('', {
       validators: [Validators.required, Validators.email]
     }),
@@ -62,6 +63,7 @@ export class ProfileComponent implements OnInit {
         newEmail,
         this.user().password,
         newPhone,
+        this.user().photo
 
       );
       this.usersService.updateUserInfo(this.user()._id, newEmail, newPhone).subscribe({
@@ -77,11 +79,23 @@ export class ProfileComponent implements OnInit {
   }
 
   onChangePassword() {
-    this.isModalOpen = true;
+    this.isPasswordModalOpen = true;
   }
 
   closePasswordModal() {
-    this.isModalOpen = false;
+    this.isPasswordModalOpen = false;
+  }
+
+  openProfilePictureModal() {
+    this.isProfilePictureModalOpen = true;
+  }
+
+  closeProfilePictureModal() {
+    this.isProfilePictureModalOpen = false;
+  }
+
+  updateUserPhoto(newImageUrl: string) {
+    this.user().photo = newImageUrl;
   }
 
   changeEditMode() {

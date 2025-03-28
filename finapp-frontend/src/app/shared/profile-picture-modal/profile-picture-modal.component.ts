@@ -1,5 +1,5 @@
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
-import { ImagesService } from '../../../../../core/services/images.service';
+import { ImagesService } from '../../core/services/images.service';
 
 @Component({
   selector: 'app-profile-picture-modal',
@@ -12,8 +12,8 @@ export class ProfilePictureModalComponent {
   private imagesService = inject(ImagesService);
   @Output() close = new EventEmitter<void>();
   @Output() newImageUrl = new EventEmitter<string>();
-  @Input() clientId: string;
-  @Input() personalInfoId: string;
+  @Input() model: string;
+  @Input() modelId: string;
   @Input() actualImageUrl: string;
   selectedFile: File | null = null;
   imageUrl: string | null = null;
@@ -38,7 +38,7 @@ export class ProfilePictureModalComponent {
       alert('Please select a file');
       return;
     }
-    this.imagesService.updateClientImage(this.personalInfoId).subscribe({
+    this.imagesService.updateImage(this.model, this.modelId).subscribe({
       next: () => {
         if (this.actualImageUrl !== '') {
           this.deleteImage()

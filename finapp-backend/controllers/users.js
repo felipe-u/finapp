@@ -133,3 +133,17 @@ exports.changePassword = (req, res, next) => {
       res.status(500).json({ message: "Server error" });
     });
 };
+
+exports.updateFields = async (req, res, next) => {
+  try {
+    const result = await User.updateMany(
+      { photo: { $exists: false } },
+      { $set: { photo: "" } }
+    );
+    console.log("Users updated: result");
+    res.status(200).json({ message: "Users updated successfully", result });
+  } catch (error) {
+    console.error("Error updating user fields: ", error);
+    res.status(500).json({ message: "Internal Server error", error });
+  }
+};
