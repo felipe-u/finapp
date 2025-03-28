@@ -16,6 +16,7 @@ export class HeaderComponent implements OnInit {
   private router = inject(Router);
   userName = signal<string | null>(null);
   userId = signal<string | null>(null);
+  userPhoto = signal<string | null>(null);
 
   @ViewChild('sidepanel', { static: false }) sidepanel: ElementRef;
   @Input() isInAccountSettings: boolean;
@@ -23,8 +24,10 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     const userId = this.usersService.getUserId();
     const userName = this.usersService.getUserName();
+    const userPhoto = this.usersService.getUserPhoto();
     this.userId.set(userId());
     this.userName.set(userName());
+    this.userPhoto.set(userPhoto());
   }
 
   openSidePanel() {

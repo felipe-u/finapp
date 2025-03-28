@@ -84,6 +84,7 @@ exports.login = (req, res, next) => {
         _id: user._id,
         name: user.name,
         role: user.role,
+        photo: user.photo,
         email: user.email,
         phone: user.phone,
       };
