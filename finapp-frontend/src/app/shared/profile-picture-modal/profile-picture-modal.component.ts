@@ -1,5 +1,6 @@
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { ImagesService } from '../../core/services/images.service';
+import { UsersService } from '../../core/services/users.service';
 
 @Component({
   selector: 'app-profile-picture-modal',
@@ -10,6 +11,7 @@ import { ImagesService } from '../../core/services/images.service';
 })
 export class ProfilePictureModalComponent {
   private imagesService = inject(ImagesService);
+  private usersService = inject(UsersService);
   @Output() close = new EventEmitter<void>();
   @Output() newImageUrl = new EventEmitter<string>();
   @Input() model: string;
@@ -42,6 +44,9 @@ export class ProfilePictureModalComponent {
       next: () => {
         if (this.actualImageUrl !== '') {
           this.deleteImage()
+          if (this.model === 'user') {
+            this.usersService.setUserPhoto(this.imagesService.tempImageUrl);
+          }
         }
         console.log('Profile image updated successfully');
         this.closeModal();
