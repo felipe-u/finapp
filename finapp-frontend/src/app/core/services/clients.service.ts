@@ -17,6 +17,11 @@ export class ClientsService {
     private managerId = signal<string | undefined>(undefined);
     url = 'http://localhost:3000/';
 
+    constructor() {
+        const storedManagerId = localStorage.getItem('managerId');
+        if (storedManagerId) this.managerId.set(storedManagerId);
+    }
+
     getDebtorsList() {
         return this.fetchDebtors().pipe(
             tap({
@@ -74,6 +79,12 @@ export class ClientsService {
 
     setManagerId(managerId: string) {
         this.managerId.set(managerId);
+        localStorage.setItem('managerId', managerId);
+    }
+
+    cleanStorage() {
+        this.managerId.set(null);
+        localStorage.removeItem('managerId');
     }
 
     getClientFinancing() {

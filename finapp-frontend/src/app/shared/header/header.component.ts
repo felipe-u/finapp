@@ -2,6 +2,7 @@ import { Component, ElementRef, inject, Input, OnInit, signal, ViewChild } from 
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 import { UsersService } from '../../core/services/users.service';
+import { ClientsService } from '../../core/services/clients.service';
 
 @Component({
   selector: 'app-header',
@@ -13,6 +14,7 @@ import { UsersService } from '../../core/services/users.service';
 export class HeaderComponent implements OnInit {
   private authService = inject(AuthService);
   private usersService = inject(UsersService);
+  private clientsService = inject(ClientsService);
   private router = inject(Router);
   userName = signal<string | null>(null);
   userId = signal<string | null>(null);
@@ -47,6 +49,8 @@ export class HeaderComponent implements OnInit {
   }
 
   onLogout() {
+    this.usersService.cleanStorage();
+    this.clientsService.cleanStorage();
     this.authService.logout();
   }
 

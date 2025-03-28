@@ -12,12 +12,27 @@ export class UsersService {
     private userPhoto = signal<string | null>(null);
     url = 'http://localhost:3000/';
 
+    constructor() {
+        const storedUserId = localStorage.getItem('userId');
+        const storedUserName = localStorage.getItem('userName');
+        const storedUserRole = localStorage.getItem('userRole');
+        const storedUserEmail = localStorage.getItem('userEmail');
+        const storedUserPhoto = localStorage.getItem('userPhoto');
+
+        if (storedUserId) this.userId.set(storedUserId);
+        if (storedUserName) this.userName.set(storedUserName);
+        if (storedUserRole) this.userRole.set(storedUserRole);
+        if (storedUserEmail) this.userEmail.set(storedUserEmail);
+        if (storedUserPhoto) this.userPhoto.set(storedUserPhoto);
+    }
+
     getUserId() {
         return this.userId;
     }
 
     setUserId(userId: string) {
         this.userId.set(userId);
+        localStorage.setItem('userId', userId);
     }
 
     getUserName() {
@@ -26,6 +41,7 @@ export class UsersService {
 
     setUserName(userName: string) {
         this.userName.set(userName);
+        localStorage.setItem('userName', userName);
     }
 
     getUserRole() {
@@ -34,6 +50,7 @@ export class UsersService {
 
     setUserRole(userRole: string) {
         this.userRole.set(userRole);
+        localStorage.setItem('userRole', userRole);
     }
 
     getUserEmail() {
@@ -42,6 +59,7 @@ export class UsersService {
 
     setUserEmail(userEmail: string) {
         this.userEmail.set(userEmail);
+        localStorage.setItem('userEmail', userEmail);
     }
 
     getUserPhoto() {
@@ -50,6 +68,20 @@ export class UsersService {
 
     setUserPhoto(userPhoto: string) {
         this.userPhoto.set(userPhoto);
+        localStorage.setItem('userPhoto', userPhoto);
+    }
+
+    cleanStorage() {
+        this.userId.set(null);
+        this.userName.set(null);
+        this.userRole.set(null);
+        this.userEmail.set(null);
+        this.userPhoto.set(null);
+        localStorage.removeItem('userId');
+        localStorage.removeItem('userName');
+        localStorage.removeItem('userRole');
+        localStorage.removeItem('userEmail');
+        localStorage.removeItem('userPhoto');
     }
 
     getAllUsers() {
