@@ -1,6 +1,4 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, inject, OnInit } from '@angular/core';
-import { ClientsService } from '../../core/services/clients.service';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-home',

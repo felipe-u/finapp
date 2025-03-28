@@ -17,7 +17,7 @@
         <table>
             <tr>
                 <th>Ocupación</th>
-                <td>{{commercialInfo().jobOccupation}}</td>
+                <td>{{ commercialInfo().jobOccupation }}</td>
             </tr>
             <tr>
                 <th>Empresa</th>
@@ -25,19 +25,19 @@
             </tr>
             <tr id="tr-bar">
                 <th>Antigüedad</th>
-                <td>{{ commercialInfo().laborSenority}}</td>
+                <td>{{ commercialInfo().laborSenority }}</td>
             </tr>
             <tr>
                 <th>Ingresos</th>
-                <td>$ {{ commercialInfo().income }}</td>
+                <td>{{ commercialInfo().income | currency }}</td>
             </tr>
             <tr>
                 <th>Ingresos adicionales</th>
-                <td>$ {{ commercialInfo().additionalIncome }}</td>
+                <td>{{ commercialInfo().additionalIncome | currency }}</td>
             </tr>
             <tr>
                 <th>Egresos</th>
-                <td>$ {{ commercialInfo().expenses }}</td>
+                <td>{{ commercialInfo().expenses | currency }}</td>
             </tr>
         </table>
     </div>

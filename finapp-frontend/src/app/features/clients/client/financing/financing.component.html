@@ -12,12 +12,12 @@
             <th>Total a pagar</th>
         </tr>
         <tr>
-            <td>${{financing().initialInstallment}}</td>
-            <td>${{financing().financedAmount}}</td>
-            <td>{{financing().numberOfInstallments}}</td>
-            <td>{{financing().monthlyInterest}}%</td>
-            <td>{{financing().lateInterest}}%</td>
-            <td class="darker-td">${{financing().totalToPay}}</td>
+            <td>{{ financing().initialInstallment | currency:'':'symbol':'1.0-0' }}</td>
+            <td>{{ financing().financedAmount | currency:'':'symbol':'1.0-0' }}</td>
+            <td>{{ financing().numberOfInstallments }}</td>
+            <td>{{ financing().monthlyInterest }}%</td>
+            <td>{{ financing().lateInterest }}%</td>
+            <td class="darker-td">{{ financing().totalToPay | currency:'':'symbol':'1.0-0' }}</td>
         </tr>
     </table>
 </div>
@@ -38,17 +38,21 @@
         </tr>
         @for (inst of financing().installments; track inst._id) {
         <tr>
-            <td>{{inst.installmentNumber}}</td>
-            <td>{{inst.dueDate}}</td>
-            <td>${{inst.capital}}</td>
-            <td>${{inst.interests}}</td>
-            <td>${{inst.guaranteeValue}}</td>
-            <td>{{inst.installmentPaid}}</td>
-            <td>${{inst.installmentValue}}</td>
-            <td>${{inst.outstandingValue}}</td>
-            <td>{{inst.overdueDays}}</td>
-            <td>${{inst.lateInterests}}</td>
-            <td>${{inst.totalInstallmentValue}}</td>
+            <td>{{ inst.installmentNumber }}</td>
+            <td>{{ inst.dueDate | date:'yyyy-MM-dd' }}</td>
+            <td>{{ inst.capital | currency }}</td>
+            <td>{{ inst.interest | currency }}</td>
+            <td>{{ inst.guaranteeValue | currency }}</td>
+            @if (inst.installmentPaid) {
+            <td style="color: #1c7a2d;">Yes</td>
+            } @else {
+            <td style="color: #a71d2a;">No</td>
+            }
+            <td>{{ inst.installmentValue | currency }}</td>
+            <td>{{ inst.outstandingValue | currency }}</td>
+            <td>{{ inst.overdueDays }}</td>
+            <td>{{ inst.lateInterests | currency }}</td>
+            <td>{{ inst.totalInstallmentValue | currency }}</td>
         </tr>
         }
     </table>
@@ -63,9 +67,9 @@
             <th>Marca</th>
         </tr>
         <tr>
-            <td>{{financing().motorcycle.licensePlate}}</td>
-            <td>{{financing().motorcycle.model}}</td>
-            <td>{{financing().motorcycle.brand}}</td>
+            <td>{{ financing().motorcycle.licensePlate }}</td>
+            <td>{{ financing().motorcycle.model }}</td>
+            <td>{{ financing().motorcycle.brand }}</td>
         </tr>
     </table>
 </div>

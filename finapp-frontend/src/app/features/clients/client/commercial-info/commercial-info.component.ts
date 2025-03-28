@@ -5,11 +5,12 @@ import { Reference } from '../../../../core/models/reference.model';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ReferenceTypeEnum, RelationshipTypeEnum } from '../../../../core/models/enums';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-commercial-info',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CurrencyPipe],
   templateUrl: './commercial-info.component.html',
   styleUrl: './commercial-info.component.css'
 })

@@ -4,11 +4,12 @@ import { PersonalInfo } from '../../../../core/models/personalInfo.model';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ImagesService } from '../../../../core/services/images.service';
 import { ProfilePictureModalComponent } from "../../../../shared/profile-picture-modal/profile-picture-modal.component";
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-personal-info',
   standalone: true,
-  imports: [ReactiveFormsModule, ProfilePictureModalComponent],
+  imports: [ReactiveFormsModule, ProfilePictureModalComponent, DatePipe],
   templateUrl: './personal-info.component.html',
   styleUrl: './personal-info.component.css'
 })

@@ -7,10 +7,10 @@
         <img [src]="personalInfo().photo === '' ? 'assets/imgs/user.png' : personalInfo().photo" alt="User Image">
     </div>
     <div class="info-container">
-        <p>ID: {{client().identification.number}} - {{client().identification.idType}}</p>
-        <p>Correo: {{personalInfo().email}}</p>
-        <p>Teléfono: {{personalInfo().phone}}</p>
-        <p>Fecha de nacimiento: {{personalInfo().birthDate}}</p>
+        <p>ID: {{ client().identification.number }} - {{ client().identification.idType }}</p>
+        <p>Correo: {{ personalInfo().email }}</p>
+        <p>Teléfono: {{ personalInfo().phone }}</p>
+        <p>Fecha de nacimiento: {{ personalInfo().birthDate | date:'longDate' }}</p>
     </div>
     <div class="button-container">
         <button class="primaryBtn editBtn" (click)="prepopulateForm()">Editar</button>
