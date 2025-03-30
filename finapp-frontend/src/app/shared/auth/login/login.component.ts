@@ -39,7 +39,8 @@ export class LoginComponent {
       this.usersService.setUserName(res.user.name);
       this.usersService.setUserPhoto(res.user.photo);
       this.usersService.setUserEmail(res.user.email);
-
+      this.usersService.setUserLang(res.user.lang);
+      localStorage.setItem('lang', res.user.lang);
       this.router.navigateByUrl('/home');
     })
   }

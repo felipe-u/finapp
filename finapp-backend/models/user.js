@@ -29,6 +29,11 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  language: {
+    type: String,
+    enum: ["es", "en"],
+    default: "es"
+  }
 });
 
 const User = mongoose.model("User", userSchema);

@@ -1,15 +1,18 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { map } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class UsersService {
     private httpClient = inject(HttpClient);
+    private translate = inject(TranslateService);
     private userId = signal<string | null>(null);
     private userName = signal<string | null>(null);
     private userRole = signal<string | null>(null);
     private userEmail = signal<string | null>(null);
     private userPhoto = signal<string | null>(null);
+    private userLang = signal<string | null>(null);
     url = 'http://localhost:3000/';
 
     constructor() {
@@ -18,12 +21,17 @@ export class UsersService {
         const storedUserRole = localStorage.getItem('userRole');
         const storedUserEmail = localStorage.getItem('userEmail');
         const storedUserPhoto = localStorage.getItem('userPhoto');
+        const storedLang = localStorage.getItem('lang');
 
         if (storedUserId) this.userId.set(storedUserId);
         if (storedUserName) this.userName.set(storedUserName);
         if (storedUserRole) this.userRole.set(storedUserRole);
         if (storedUserEmail) this.userEmail.set(storedUserEmail);
         if (storedUserPhoto) this.userPhoto.set(storedUserPhoto);
+        if (storedLang) {
+            this.userLang.set(storedLang);
+            this.translate.use(storedLang);
+        }
     }
 
     getUserId() {
@@ -71,17 +79,29 @@ export class UsersService {
         localStorage.setItem('userPhoto', userPhoto);
     }
 
+    getUserLang() {
+        return this.userLang;
+    }
+
+    setUserLang(userLang: string) {
+        this.userLang.set(userLang);
+        localStorage.setItem('lang', userLang);
+        this.translate.use(userLang);
+    }
+
     cleanStorage() {
         this.userId.set(null);
         this.userName.set(null);
         this.userRole.set(null);
         this.userEmail.set(null);
         this.userPhoto.set(null);
+        this.userLang.set(null);
         localStorage.removeItem('userId');
         localStorage.removeItem('userName');
         localStorage.removeItem('userRole');
         localStorage.removeItem('userEmail');
         localStorage.removeItem('userPhoto');
+        localStorage.removeItem('lang');
     }
 
     getAllUsers() {
@@ -117,5 +137,10 @@ export class UsersService {
     changePassword(userId: string, newPassword: string) {
         return this.httpClient.post<any>(this.url + 'change-password',
             { userId, newPassword })
+    }
+
+    changeUserLang(userId: string, newLang: string) {
+        console.log("userId: " + userId);
+        return this.httpClient.post<any>(this.url + 'change-lang', { userId, newLang })
     }
 }

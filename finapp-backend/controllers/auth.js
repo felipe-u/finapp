@@ -87,6 +87,7 @@ exports.login = (req, res, next) => {
         photo: user.photo,
         email: user.email,
         phone: user.phone,
+        lang: user.language
       };
       const expiresIn = 24 * 60 * 60;
       const accessToken = jwt.sign({ id: user._id }, SECRET_KEY, {

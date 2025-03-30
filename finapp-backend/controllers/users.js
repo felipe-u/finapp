@@ -134,16 +134,44 @@ exports.changePassword = (req, res, next) => {
     });
 };
 
-exports.updateFields = async (req, res, next) => {
-  try {
-    const result = await User.updateMany(
-      { photo: { $exists: false } },
-      { $set: { photo: "" } }
-    );
-    console.log("Users updated: result");
-    res.status(200).json({ message: "Users updated successfully", result });
-  } catch (error) {
-    console.error("Error updating user fields: ", error);
-    res.status(500).json({ message: "Internal Server error", error });
-  }
-};
+exports.changeLang = (req, res, next) => {
+  const userId = req.body.userId;
+  const newLang = req.body.newLang;
+  User.findById(userId)
+    .then((user) => {
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+      user.language = newLang;
+      user
+        .save()
+        .then(() => {
+          console.log("Language updated");
+          return res
+            .status(200)
+            .json({ message: "Language changed successfully" });
+        })
+        .catch((err) => {
+          console.log(err);
+          res.status(500).json({ message: "Server error" });
+        });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ message: "Server error" });
+    });
+}
+
+// exports.updateFields = async (req, res, next) => {
+//   try {
+//     const result = await User.updateMany(
+//       { language: { $exists: false } },
+//       { $set: { language: "es" } }
+//     );
+//     console.log("Users updated: result");
+//     res.status(200).json({ message: "Users updated successfully", result });
+//   } catch (error) {
+//     console.error("Error updating user fields: ", error);
+//     res.status(500).json({ message: "Internal Server error", error });
+//   }
+// };

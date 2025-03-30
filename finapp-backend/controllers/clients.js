@@ -846,7 +846,7 @@ exports.getDebtorsForDelinquencyReport = async (req, res, next) => {
             lateInterests: lastOverdueInstallment.lateInterests,
             totalInstallmentValue: lastOverdueInstallment.totalInstallmentValue,
             financingStatus: statusEnum[debtor.financing.status],
-            manager: debtor.manager ? debtor.manager.name : "None",
+            manager: debtor.manager ? debtor.manager.name : "-",
           };
         }
         return null;

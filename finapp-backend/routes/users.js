@@ -16,6 +16,6 @@ router.post("/check-password", usersController.checkPassword);
 
 router.post("/change-password", usersController.changePassword);
 
-router.post("/user-field-update", usersController.updateFields);
+router.post("/change-lang", usersController.changeLang);
 
 module.exports = router;
