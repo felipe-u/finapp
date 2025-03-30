@@ -1,4 +1,6 @@
 import { Routes } from "@angular/router";
+import { RoleGuard } from "../guards/role.guard";
+import { authGuard, authRedirectGuard } from "../guards/auth.guard";
 import { HomeComponent } from "../../features/home/home.component";
 import { ClientsComponent } from "../../features/clients/clients.component";
 import { ReportsComponent } from "../../features/reports/reports.component";
@@ -13,12 +15,10 @@ import { UsersComponent } from "../../features/users/users.component";
 import { UserComponent } from "../../features/users/user/user.component";
 import { DebtorsListComponent } from "../../features/users/user/debtors-list/debtors-list.component";
 import { ForbiddenComponent } from "../../shared/forbidden/forbidden.component";
-import { routes as ClientRoutes } from "./clients.routes";
-import { routes as AuthRoutes } from "./auth.routes";
-import { authGuard, authRedirectGuard } from "../guards/auth.guard";
-import { RoleGuard } from "../guards/role.guard";
 import { ProfileComponent } from "../../features/account/profile/profile.component";
 import { ContactComponent } from "../../features/support/contact/contact.component";
+import { routes as ClientRoutes } from "./clients.routes";
+import { routes as AuthRoutes } from "./auth.routes";
 
 export const routes: Routes = [
     {

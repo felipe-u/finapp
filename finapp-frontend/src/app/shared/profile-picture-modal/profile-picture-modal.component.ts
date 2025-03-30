@@ -25,14 +25,15 @@ export class ProfilePictureModalComponent {
     const fileInput = event.target as HTMLInputElement;
     if (fileInput.files && fileInput.files.length > 0) {
       this.selectedFile = fileInput.files[0];
-      this.imagesService.uploadImage(this.selectedFile).subscribe({
-        next: (response) => {
-          this.imageUrl = response.imageUrl;
-        },
-        error: (err) => {
-          console.error(err.message);
-        }
-      })
+      this.imagesService.uploadImage(this.selectedFile)
+        .subscribe({
+          next: (response) => {
+            this.imageUrl = response.imageUrl;
+          },
+          error: (err) => {
+            console.error(err.message);
+          }
+        })
     }
   }
 
@@ -41,22 +42,23 @@ export class ProfilePictureModalComponent {
       alert('Please select a file');
       return;
     }
-    this.imagesService.updateImage(this.model, this.modelId).subscribe({
-      next: () => {
-        if (this.actualImageUrl !== '') {
-          this.deleteImage()
-          if (this.model === 'user') {
-            this.usersService.setUserPhoto(this.imagesService.tempImageUrl);
+    this.imagesService.updateImage(this.model, this.modelId)
+      .subscribe({
+        next: () => {
+          if (this.actualImageUrl !== '') {
+            this.deleteImage()
+            if (this.model === 'user') {
+              this.usersService.setUserPhoto(this.imagesService.tempImageUrl);
+            }
           }
+          console.log('Profile image updated successfully');
+          this.closeModal();
+          this.exportNewImageUrl();
+        },
+        error: (err) => {
+          console.error(err.message);
         }
-        console.log('Profile image updated successfully');
-        this.closeModal();
-        this.exportNewImageUrl();
-      },
-      error: (err) => {
-        console.error(err.message);
-      }
-    })
+      })
   }
 
   onCancel() {
@@ -76,14 +78,15 @@ export class ProfilePictureModalComponent {
 
   deleteImage() {
     if (this.actualImageUrl !== '') {
-      this.imagesService.deleteImage(this.actualImageUrl).subscribe({
-        next: () => {
-          console.log('Image deleted')
-        },
-        error: (err) => {
-          console.error(err.message);
-        }
-      })
+      this.imagesService.deleteImage(this.actualImageUrl)
+        .subscribe({
+          next: () => {
+            console.log('Image deleted')
+          },
+          error: (err) => {
+            console.error(err.message);
+          }
+        })
     }
   }
 

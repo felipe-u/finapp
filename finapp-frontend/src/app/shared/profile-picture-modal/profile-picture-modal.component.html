@@ -4,7 +4,9 @@
         <div class="container">
             <p>{{ 'BUTTONS.UPLOAD_IMG' | translate }}</p>
             <div class="input-container">
-                <label for="fileInput" class="fileInputLabel secondaryBtn">Browse</label>
+                <label for="fileInput" class="fileInputLabel secondaryBtn">
+                    Browse
+                </label>
                 <input type="file" id="fileInput" class="fileInput" style="display: none;"
                     (change)="onFileSelected($event)">
             </div>
@@ -14,9 +16,12 @@
             </div>
             }
             <div class="btn-container">
-                <button class="primaryBtn editBtn" (click)="uploadImage()" [disabled]="!selectedFile">{{
-                    'BUTTONS.UPDATE' | translate }}</button>
-                <button class="primaryBtn editBtn" (click)="onCancel()">{{ 'BUTTONS.CANCEL' | translate }}</button>
+                <button class="primaryBtn editBtn" (click)="uploadImage()" [disabled]="!selectedFile">
+                    {{ 'BUTTONS.UPDATE' | translate }}
+                </button>
+                <button class="primaryBtn editBtn" (click)="onCancel()">
+                    {{ 'BUTTONS.CANCEL' | translate }}
+                </button>
             </div>
         </div>
     </dialog>

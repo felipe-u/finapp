@@ -2,14 +2,18 @@ import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { ClientsService } from '../../core/services/clients.service';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { query } from '@angular/animations';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { EnumPipe } from '../../core/pipes/enum.pipe';
 
 @Component({
   selector: 'app-clients',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, TranslatePipe, EnumPipe],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    TranslatePipe,
+    EnumPipe
+  ],
   templateUrl: './clients.component.html',
   styleUrl: './clients.component.css'
 })
@@ -21,11 +25,31 @@ export class ClientsComponent implements OnInit {
   debtors = signal<any>([]);
   searchTerm = '';
   options = [
-    { key: 'AD', name: this.translate.instant('ENUMS.STATUS.AD'), selected: true},
-    { key: 'EM', name: this.translate.instant('ENUMS.STATUS.EM'), selected: true },
-    { key: 'CT', name: this.translate.instant('ENUMS.STATUS.CT'), selected: true },
-    { key: 'CP', name: this.translate.instant('ENUMS.STATUS.CP'), selected: true },
-    { key: 'CJ', name: this.translate.instant('ENUMS.STATUS.CJ'), selected: true },
+    {
+      key: 'AD',
+      name: this.translate.instant('ENUMS.STATUS.AD'),
+      selected: true
+    },
+    {
+      key: 'EM',
+      name: this.translate.instant('ENUMS.STATUS.EM'),
+      selected: true
+    },
+    {
+      key: 'CT',
+      name: this.translate.instant('ENUMS.STATUS.CT'),
+      selected: true
+    },
+    {
+      key: 'CP',
+      name: this.translate.instant('ENUMS.STATUS.CP'),
+      selected: true
+    },
+    {
+      key: 'CJ',
+      name: this.translate.instant('ENUMS.STATUS.CJ'),
+      selected: true
+    },
   ];
   filterForm = new FormGroup({
     AD: new FormControl(true),
@@ -36,30 +60,33 @@ export class ClientsComponent implements OnInit {
   })
 
   ngOnInit(): void {
-    const subscription = this.clientsService.getDebtorsList().subscribe({
-      next: (debtors) => {
-        this.debtors.set(debtors)
-        
-      },
-      error: (error: Error) => {
-        console.error(error.message);
-      }
-    })
+    const subscription = this.clientsService.getDebtorsList()
+      .subscribe({
+        next: (debtors) => {
+          this.debtors.set(debtors)
+
+        },
+        error: (error: Error) => {
+          console.error(error.message);
+        }
+      })
     this.destroyRef.onDestroy(() => {
       subscription.unsubscribe();
     })
   }
 
   filterByStatuses() {
-    const selectedStatuses = Object.keys(this.filterForm.value).filter(key => this.filterForm.value[key]);
-    this.clientsService.getDebtorsByStatuses(selectedStatuses).subscribe({
-      next: (debtors) => {
-        this.debtors.set(debtors);
-      },
-      error: (error: Error) => {
-        console.error(error.message);
-      }
-    });
+    const selectedStatuses = Object.keys(this.filterForm.value)
+      .filter(key => this.filterForm.value[key]);
+    this.clientsService.getDebtorsByStatuses(selectedStatuses)
+      .subscribe({
+        next: (debtors) => {
+          this.debtors.set(debtors);
+        },
+        error: (error: Error) => {
+          console.error(error.message);
+        }
+      });
   }
 
 

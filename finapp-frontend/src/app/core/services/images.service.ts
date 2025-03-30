@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { tap } from 'rxjs';
 
@@ -12,7 +12,9 @@ export class ImagesService {
         const formData = new FormData();
         formData.append('image', image);
         console.log('Uploading image...');
-        return this.httpClient.post<{ imageUrl: string }>(`${this.API_URL}/upload`, formData).pipe(
+        return this.httpClient.post<{ imageUrl: string }>(
+            `${this.API_URL}/upload`, formData
+        ).pipe(
             tap((response) => {
                 this.tempImageUrl = response.imageUrl;
             })
@@ -24,26 +26,34 @@ export class ImagesService {
             console.error('No image to upload');
             return;
         }
-        return this.httpClient.put(`${this.API_URL}/imgs/${model}`, { modelId: modelId, imageUrl: this.tempImageUrl })
+        return this.httpClient.put(
+            `${this.API_URL}/imgs/${model}`,
+            { modelId: modelId, imageUrl: this.tempImageUrl }
+        );
     }
 
     deleteImage(imageUrl: string) {
-        return this.httpClient.delete(`${this.API_URL}/delete-image?imageUrl=${encodeURIComponent(imageUrl)}`);
+        return this.httpClient.delete(
+            `${this.API_URL}/delete-image?imageUrl=${encodeURIComponent(imageUrl)}`
+        );
     }
 
     deleteTmpImage() {
         if (!this.tempImageUrl) return;
-        return this.httpClient.delete(`${this.API_URL}/delete-image?imageUrl=${encodeURIComponent(this.tempImageUrl)}`);
+        return this.httpClient.delete(
+            `${this.API_URL}/delete-image?imageUrl=${encodeURIComponent(this.tempImageUrl)}`
+        );
     }
 
     deleteImages(images: string[]) {
-        return this.httpClient.post(`${this.API_URL}/delete-images`, { images }).pipe(
+        return this.httpClient.post(
+            `${this.API_URL}/delete-images`, { images }
+        ).pipe(
             tap(() => {
                 if (this.tempImageUrl && images.includes(this.tempImageUrl)) {
                     this.tempImageUrl = null;
                 }
             })
-        )
+        );
     }
-
 }

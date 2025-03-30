@@ -6,14 +6,20 @@
     <div class="cod-container">
         @if (client().codebtor) {
         <p>{{ 'UI.CLIENTS.COM_INFO.CODEBTOR' | translate }}</p>
-        <button class="primaryBtn" (click)="openCodebtorProfile()">{{ coDebtorName() }}</button>
+        <button class="primaryBtn" (click)="openCodebtorProfile()">
+            {{ coDebtorName() }}
+        </button>
         } @else {
         <p>{{ 'UI.CLIENTS.COM_INFO.DEBTOR' | translate }}</p>
-        <button class="primaryBtn" (click)="openDebtorProfile()">{{ debtorName() }}</button>
+        <button class="primaryBtn" (click)="openDebtorProfile()">
+            {{ debtorName() }}
+        </button>
         }
     </div>
     <div class="info-container">
-        <h3 class="container-title">{{ 'UI.CLIENTS.COM_INFO.GEN_INFO' | translate }}</h3>
+        <h3 class="container-title">
+            {{ 'UI.CLIENTS.COM_INFO.GEN_INFO' | translate }}
+        </h3>
         <table>
             <tr>
                 <th>{{ 'UI.CLIENTS.COM_INFO.JOB_OCC' | translate }}</th>
@@ -42,7 +48,9 @@
         </table>
     </div>
     <div class="ref-container">
-        <h3 class="container-title">{{ 'UI.CLIENTS.COM_INFO.REFS' | translate }}</h3>
+        <h3 class="container-title">
+            {{ 'UI.CLIENTS.COM_INFO.REFS' | translate }}
+        </h3>
         <table>
             <tr>
                 <th colspan="3">{{ 'UI.CLIENTS.COM_INFO.FAM_REF' | translate }}</th>
@@ -77,37 +85,53 @@
         </table>
     </div>
     <div class="button-container">
-        <button class="primaryBtn editBtn" (click)="prepopulateForm()">{{ 'BUTTONS.EDIT' | translate }}</button>
+        <button class="primaryBtn editBtn" (click)="prepopulateForm()">
+            {{ 'BUTTONS.EDIT' | translate }}
+        </button>
     </div>
 </div>
 } @else {
 <form class="container editMode client-container" [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="info-container">
-        <h3 class="container-title">{{ 'UI.CLIENTS.COM_INFO.GEN_INFO' | translate }}</h3>
+        <h3 class="container-title">
+            {{ 'UI.CLIENTS.COM_INFO.GEN_INFO' | translate }}
+        </h3>
         <div class="info-edit">
             <fieldset formGroupName="commercialInfo">
                 <div class="form-container">
-                    <label for="ocupacion">{{ 'UI.CLIENTS.COM_INFO.JOB_OCC' | translate }}</label>
+                    <label for="ocupacion">
+                        {{ 'UI.CLIENTS.COM_INFO.JOB_OCC' | translate }}
+                    </label>
                     <input type="text" name="ocupacion" id="ocupacion" formControlName="jobOccupation" />
                 </div>
                 <div class="form-container">
-                    <label for="empresa">{{ 'UI.CLIENTS.COM_INFO.COMPANY' | translate }}</label>
+                    <label for="empresa">
+                        {{ 'UI.CLIENTS.COM_INFO.COMPANY' | translate }}
+                    </label>
                     <input type="text" name="empresa" id="empresa" formControlName="company" />
                 </div>
                 <div class="form-container">
-                    <label for="antiguedad">{{ 'UI.CLIENTS.COM_INFO.LAB_SEN' | translate }}</label>
+                    <label for="antiguedad">
+                        {{ 'UI.CLIENTS.COM_INFO.LAB_SEN' | translate }}
+                    </label>
                     <input type="number" name="antiguedad" id="antiguedad" formControlName="laborSenority" />
                 </div>
                 <div class="form-container">
-                    <label for="ingresos">{{ 'UI.CLIENTS.COM_INFO.INCOME' | translate }}</label>
+                    <label for="ingresos">
+                        {{ 'UI.CLIENTS.COM_INFO.INCOME' | translate }}
+                    </label>
                     <input type="text" name="ingresos" id="ingresos" formControlName="income" />
                 </div>
                 <div class="form-container">
-                    <label for="ingresos-ad">{{ 'UI.CLIENTS.COM_INFO.ADD_INCOME' | translate }}</label>
+                    <label for="ingresos-ad">
+                        {{ 'UI.CLIENTS.COM_INFO.ADD_INCOME' | translate }}
+                    </label>
                     <input type="text" name="ingresos-ad" id="ingresos-ad" formControlName="additionalIncome" />
                 </div>
                 <div class="form-container">
-                    <label for="egresos">{{ 'UI.CLIENTS.COM_INFO.EXPENSES' | translate }}</label>
+                    <label for="egresos">
+                        {{ 'UI.CLIENTS.COM_INFO.EXPENSES' | translate }}
+                    </label>
                     <input type="text" name="egresos" id="egresos" formControlName="expenses" />
                 </div>
             </fieldset>
@@ -115,10 +139,13 @@
     </div>
     <div class="ref-container">
         <div formGroupName="references">
-            <h3 class="container-title">{{ 'UI.CLIENTS.COM_INFO.REFS' | translate }}</h3>
+            <h3 class="container-title">
+                {{ 'UI.CLIENTS.COM_INFO.REFS' | translate }}
+            </h3>
             <table>
                 <tr>
-                    <th colspan="3" style="background-color: lightgray;">{{ 'UI.CLIENTS.COM_INFO.FAM_REF' | translate }}
+                    <th colspan="3" style="background-color: lightgray;">
+                        {{ 'UI.CLIENTS.COM_INFO.FAM_REF' | translate }}
                     </th>
                 </tr>
                 <tr formGroupName="famRef1">
@@ -127,15 +154,33 @@
                     </td>
                     <td>
                         <select name="ref1-relacion" id="ref1-relacion" formControlName="relationship">
-                            <option value="PAD">{{ 'ENUMS.RELATIONSHIP.PAD' | translate }}</option>
-                            <option value="MAD">{{ 'ENUMS.RELATIONSHIP.MAD' | translate }}</option>
-                            <option value="CYG">{{ 'ENUMS.RELATIONSHIP.CYG' | translate }}</option>
-                            <option value="HER">{{ 'ENUMS.RELATIONSHIP.HER' | translate }}</option>
-                            <option value="PRI">{{ 'ENUMS.RELATIONSHIP.PRI' | translate }}</option>
-                            <option value="TIO">{{ 'ENUMS.RELATIONSHIP.TIO' | translate }}</option>
-                            <option value="ABU">{{ 'ENUMS.RELATIONSHIP.ABU' | translate }}</option>
-                            <option value="NIE">{{ 'ENUMS.RELATIONSHIP.NIE' | translate }}</option>
-                            <option value="OTF">{{ 'ENUMS.RELATIONSHIP.OTF' | translate }}</option>
+                            <option value="PAD">
+                                {{ 'ENUMS.RELATIONSHIP.PAD' | translate }}
+                            </option>
+                            <option value="MAD">
+                                {{ 'ENUMS.RELATIONSHIP.MAD' | translate }}
+                            </option>
+                            <option value="CYG">
+                                {{ 'ENUMS.RELATIONSHIP.CYG' | translate }}
+                            </option>
+                            <option value="HER">
+                                {{ 'ENUMS.RELATIONSHIP.HER' | translate }}
+                            </option>
+                            <option value="PRI">
+                                {{ 'ENUMS.RELATIONSHIP.PRI' | translate }}
+                            </option>
+                            <option value="TIO">
+                                {{ 'ENUMS.RELATIONSHIP.TIO' | translate }}
+                            </option>
+                            <option value="ABU">
+                                {{ 'ENUMS.RELATIONSHIP.ABU' | translate }}
+                            </option>
+                            <option value="NIE">
+                                {{ 'ENUMS.RELATIONSHIP.NIE' | translate }}
+                            </option>
+                            <option value="OTF">
+                                {{ 'ENUMS.RELATIONSHIP.OTF' | translate }}
+                            </option>
                         </select>
                     </td>
                     <td>
@@ -148,15 +193,33 @@
                     </td>
                     <td>
                         <select name="ref2-relacion" id="ref2-relacion" formControlName="relationship">
-                            <option value="PAD">{{ 'ENUMS.RELATIONSHIP.PAD' | translate }}</option>
-                            <option value="MAD">{{ 'ENUMS.RELATIONSHIP.MAD' | translate }}</option>
-                            <option value="CYG">{{ 'ENUMS.RELATIONSHIP.CYG' | translate }}</option>
-                            <option value="HER">{{ 'ENUMS.RELATIONSHIP.HER' | translate }}</option>
-                            <option value="PRI">{{ 'ENUMS.RELATIONSHIP.PRI' | translate }}</option>
-                            <option value="TIO">{{ 'ENUMS.RELATIONSHIP.TIO' | translate }}</option>
-                            <option value="ABU">{{ 'ENUMS.RELATIONSHIP.ABU' | translate }}</option>
-                            <option value="NIE">{{ 'ENUMS.RELATIONSHIP.NIE' | translate }}</option>
-                            <option value="OTF">{{ 'ENUMS.RELATIONSHIP.OTF' | translate }}</option>
+                            <option value="PAD">
+                                {{ 'ENUMS.RELATIONSHIP.PAD' | translate }}
+                            </option>
+                            <option value="MAD">
+                                {{ 'ENUMS.RELATIONSHIP.MAD' | translate }}
+                            </option>
+                            <option value="CYG">
+                                {{ 'ENUMS.RELATIONSHIP.CYG' | translate }}
+                            </option>
+                            <option value="HER">
+                                {{ 'ENUMS.RELATIONSHIP.HER' | translate }}
+                            </option>
+                            <option value="PRI">
+                                {{ 'ENUMS.RELATIONSHIP.PRI' | translate }}
+                            </option>
+                            <option value="TIO">
+                                {{ 'ENUMS.RELATIONSHIP.TIO' | translate }}
+                            </option>
+                            <option value="ABU">
+                                {{ 'ENUMS.RELATIONSHIP.ABU' | translate }}
+                            </option>
+                            <option value="NIE">
+                                {{ 'ENUMS.RELATIONSHIP.NIE' | translate }}
+                            </option>
+                            <option value="OTF">
+                                {{ 'ENUMS.RELATIONSHIP.OTF' | translate }}
+                            </option>
                         </select>
                     </td>
                     <td>
@@ -164,7 +227,8 @@
                     </td>
                 </tr>
                 <tr>
-                    <th colspan="3" style="background-color: lightgray;">{{ 'UI.CLIENTS.COM_INFO.PER_REF' | translate }}
+                    <th colspan="3" style="background-color: lightgray;">
+                        {{ 'UI.CLIENTS.COM_INFO.PER_REF' | translate }}
                     </th>
                 </tr>
                 <tr formGroupName="perRef1">
@@ -173,11 +237,21 @@
                     </td>
                     <td>
                         <select name="ref3-relacion" id="ref3-relacion" formControlName="relationship">
-                            <option value="AMI">{{ 'ENUMS.RELATIONSHIP.AMI' | translate }}</option>
-                            <option value="CON">{{ 'ENUMS.RELATIONSHIP.CON' | translate }}</option>
-                            <option value="COM">{{ 'ENUMS.RELATIONSHIP.COM' | translate }}</option>
-                            <option value="VEC">{{ 'ENUMS.RELATIONSHIP.VEC' | translate }}</option>
-                            <option value="OTP">{{ 'ENUMS.RELATIONSHIP.OTP' | translate }}</option>
+                            <option value="AMI">
+                                {{ 'ENUMS.RELATIONSHIP.AMI' | translate }}
+                            </option>
+                            <option value="CON">
+                                {{ 'ENUMS.RELATIONSHIP.CON' | translate }}
+                            </option>
+                            <option value="COM">
+                                {{ 'ENUMS.RELATIONSHIP.COM' | translate }}
+                            </option>
+                            <option value="VEC">
+                                {{ 'ENUMS.RELATIONSHIP.VEC' | translate }}
+                            </option>
+                            <option value="OTP">
+                                {{ 'ENUMS.RELATIONSHIP.OTP' | translate }}
+                            </option>
                         </select>
                     </td>
                     <td>
@@ -190,11 +264,21 @@
                     </td>
                     <td>
                         <select name="ref4-relacion" id="ref4-relacion" formControlName="relationship">
-                            <option value="AMI">{{ 'ENUMS.RELATIONSHIP.AMI' | translate }}</option>
-                            <option value="CON">{{ 'ENUMS.RELATIONSHIP.CON' | translate }}</option>
-                            <option value="COM">{{ 'ENUMS.RELATIONSHIP.COM' | translate }}</option>
-                            <option value="VEC">{{ 'ENUMS.RELATIONSHIP.VEC' | translate }}</option>
-                            <option value="OTP">{{ 'ENUMS.RELATIONSHIP.OTP' | translate }}</option>
+                            <option value="AMI">
+                                {{ 'ENUMS.RELATIONSHIP.AMI' | translate }}
+                            </option>
+                            <option value="CON">
+                                {{ 'ENUMS.RELATIONSHIP.CON' | translate }}
+                            </option>
+                            <option value="COM">
+                                {{ 'ENUMS.RELATIONSHIP.COM' | translate }}
+                            </option>
+                            <option value="VEC">
+                                {{ 'ENUMS.RELATIONSHIP.VEC' | translate }}
+                            </option>
+                            <option value="OTP">
+                                {{ 'ENUMS.RELATIONSHIP.OTP' | translate }}
+                            </option>
                         </select>
                     </td>
                     <td>
@@ -202,7 +286,8 @@
                     </td>
                 </tr>
                 <tr>
-                    <th colspan="3" style="background-color: lightgray;">{{ 'UI.CLIENTS.COM_INFO.COM_REF' | translate }}
+                    <th colspan="3" style="background-color: lightgray;">
+                        {{ 'UI.CLIENTS.COM_INFO.COM_REF' | translate }}
                     </th>
                 </tr>
                 <tr formGroupName="comRef1">
@@ -211,11 +296,21 @@
                     </td>
                     <td>
                         <select name="ref5-relacion" id="ref5-relacion" formControlName="relationship">
-                            <option value="CLI">{{ 'ENUMS.RELATIONSHIP.CLI' | translate }}</option>
-                            <option value="PRO">{{ 'ENUMS.RELATIONSHIP.PRO' | translate }}</option>
-                            <option value="SOC">{{ 'ENUMS.RELATIONSHIP.SOC' | translate }}</option>
-                            <option value="ENF">{{ 'ENUMS.RELATIONSHIP.ENF' | translate }}</option>
-                            <option value="OTC">{{ 'ENUMS.RELATIONSHIP.OTC' | translate }}</option>
+                            <option value="CLI">
+                                {{ 'ENUMS.RELATIONSHIP.CLI' | translate }}
+                            </option>
+                            <option value="PRO">
+                                {{ 'ENUMS.RELATIONSHIP.PRO' | translate }}
+                            </option>
+                            <option value="SOC">
+                                {{ 'ENUMS.RELATIONSHIP.SOC' | translate }}
+                            </option>
+                            <option value="ENF">
+                                {{ 'ENUMS.RELATIONSHIP.ENF' | translate }}
+                            </option>
+                            <option value="OTC">
+                                {{ 'ENUMS.RELATIONSHIP.OTC' | translate }}
+                            </option>
                         </select>
                     </td>
                     <td>
@@ -228,11 +323,21 @@
                     </td>
                     <td>
                         <select name="ref6-relacion" id="ref6-relacion" formControlName="relationship">
-                            <option value="CLI">{{ 'ENUMS.RELATIONSHIP.CLI' | translate }}</option>
-                            <option value="PRO">{{ 'ENUMS.RELATIONSHIP.PRO' | translate }}</option>
-                            <option value="SOC">{{ 'ENUMS.RELATIONSHIP.SOC' | translate }}</option>
-                            <option value="ENF">{{ 'ENUMS.RELATIONSHIP.ENF' | translate }}</option>
-                            <option value="OTC">{{ 'ENUMS.RELATIONSHIP.OTC' | translate }}</option>
+                            <option value="CLI">
+                                {{ 'ENUMS.RELATIONSHIP.CLI' | translate }}
+                            </option>
+                            <option value="PRO">
+                                {{ 'ENUMS.RELATIONSHIP.PRO' | translate }}
+                            </option>
+                            <option value="SOC">
+                                {{ 'ENUMS.RELATIONSHIP.SOC' | translate }}
+                            </option>
+                            <option value="ENF">
+                                {{ 'ENUMS.RELATIONSHIP.ENF' | translate }}
+                            </option>
+                            <option value="OTC">
+                                {{ 'ENUMS.RELATIONSHIP.OTC' | translate }}
+                            </option>
                         </select>
                     </td>
                     <td>
@@ -244,9 +349,12 @@
 
     </div>
     <div class="button-container">
-        <button type="submit" class="primaryBtn editBtn">{{ 'BUTTONS.SAVE' | translate }}</button>
-        <button type="button" class="primaryBtn editBtn" (click)="changeEditMode()">{{ 'BUTTONS.CANCEL' | translate
-            }}</button>
+        <button type="submit" class="primaryBtn editBtn">
+            {{ 'BUTTONS.SAVE' | translate }}
+        </button>
+        <button type="button" class="primaryBtn editBtn" (click)="changeEditMode()">
+            {{ 'BUTTONS.CANCEL' | translate }}
+        </button>
     </div>
 </form>
 }

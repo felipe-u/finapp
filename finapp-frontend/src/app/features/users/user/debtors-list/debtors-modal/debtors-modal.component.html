@@ -4,9 +4,12 @@
     <div class="container">
         <h1>{{ 'UI.USERS.ASSIGN_DEBTOR' | translate }}</h1>
         <div class="buttons-container">
-            <button class="tertiaryBtn" (click)="showSearchBar()">{{ 'BUTTONS.SEARCH_DEBTOR' | translate }}</button>
-            <button class="tertiaryBtn" (click)="showDebtorsWithoutAssignent()">{{ 'BUTTONS.NO_ASS_DEBTORS' | translate
-                }}</button><br>
+            <button class="tertiaryBtn" (click)="showSearchBar()">
+                {{ 'BUTTONS.SEARCH_DEBTOR' | translate }}
+            </button>
+            <button class="tertiaryBtn" (click)="showDebtorsWithoutAssignent()">
+                {{ 'BUTTONS.NO_ASS_DEBTORS' | translate }}
+            </button><br>
         </div>
     </div>
     }
@@ -15,8 +18,9 @@
         <h2>{{ 'BUTTONS.SEARCH_DEBTOR' | translate }}</h2>
         <div class="search-bar">
             <input type="text" name="search" id="search" [(ngModel)]="searchTerm">
-            <button type="button" class="primaryBtn" (click)="searchClient()">{{ 'BUTTONS.SEARCH' | translate
-                }}</button>
+            <button type="button" class="primaryBtn" (click)="searchClient()">
+                {{ 'BUTTONS.SEARCH' | translate }}
+            </button>
         </div>
         <div class="debtors-container">
             @if (showingDebtorsFound) {
@@ -33,16 +37,20 @@
                     <td>{{ debtor.name }}</td>
                     @if (debtor.manager === null) {
                     <td>{{ 'UI.USERS.NONE' | translate }}</td>
-                    <td><button class="secondaryBtn" (click)="onAddToManager(debtor._id, 'asignar')">{{ 'BUTTONS.ASSIGN'
-                            | translate }}</button>
+                    <td><button class="secondaryBtn" (click)="onAddToManager(debtor._id, 'asignar')">
+                            {{ 'BUTTONS.ASSIGN' | translate }}
+                        </button>
                     </td>
                     } @else {
                     <td>{{ debtor.manager.name }}</td>
                     @if (debtor.manager._id === managerId ){
-                    <td><span class="primarySpan">{{ 'UI.USERS.ALREADY_ASSIGNED' | translate }}</span></td>
+                    <td><span class="primarySpan">
+                            {{ 'UI.USERS.ALREADY_ASSIGNED' | translate }}
+                        </span></td>
                     } @else {
-                    <td><button class="secondaryBtn" (click)="onAddToManager(debtor._id, 'reasignar')">{{
-                            'BUTTONS.REASSIGN' | translate }}</button>
+                    <td><button class="secondaryBtn" (click)="onAddToManager(debtor._id, 'reasignar')">
+                            {{ 'BUTTONS.REASSIGN' | translate }}
+                        </button>
                     </td>
                     }
                     }
@@ -51,7 +59,9 @@
             </table>
             }
             <div class="btn-container">
-                <button class="primaryBtn editBtn" (click)="goToMenu()">{{ 'BUTTONS.GO_BACK' | translate }}</button>
+                <button class="primaryBtn editBtn" (click)="goToMenu()">
+                    {{ 'BUTTONS.GO_BACK' | translate }}
+                </button>
             </div>
         </div>
     </div>
@@ -70,8 +80,9 @@
             <tr>
                 <td>{{ debtor.identification.number }}</td>
                 <td>{{ debtor.name }}</td>
-                <td><button class="secondaryBtn" (click)="onAddToManager(debtor._id, 'asignar')">{{ 'BUTTONS.ASSIGN' |
-                        translate }}</button></td>
+                <td><button class="secondaryBtn" (click)="onAddToManager(debtor._id, 'asignar')">
+                        {{ 'BUTTONS.ASSIGN' | translate }}
+                    </button></td>
             </tr>
             }
         </table>
@@ -80,14 +91,13 @@
             <p>{{ 'UI.USERS.ALL_DEBTORS_ASSIGNED' | translate }}</p>
         </div>
         }
-
         <div class="btn-container">
-            <button class="primaryBtn editBtn" (click)="goToMenu()">{{ 'BUTTONS.GO_BACK' | translate }}</button>
+            <button class="primaryBtn editBtn" (click)="goToMenu()">
+                {{ 'BUTTONS.GO_BACK' | translate }}
+            </button>
         </div>
     </div>
     }
-
-
     <div class="cancel-btn-container">
         <button class="secondaryBtn" (click)="onCancel()">✖️</button>
     </div>

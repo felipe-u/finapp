@@ -52,7 +52,9 @@ export class GeoInfoComponent {
     })
 
     this.form.get('department')?.valueChanges.subscribe(selectedDepartment => {
-      const selected = this.departments.find(d => d.departamento === selectedDepartment);
+      const selected = this.departments.find(
+        d => d.departamento === selectedDepartment
+      );
       this.cities = selected ? selected.ciudades : [];
       if (selectedDepartment !== this.geoInfo().department) {
         this.form.patchValue({ city: '' });

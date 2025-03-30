@@ -17,7 +17,9 @@
             <td>{{ financing().numberOfInstallments }}</td>
             <td>{{ financing().monthlyInterest }}%</td>
             <td>{{ financing().lateInterest }}%</td>
-            <td class="darker-td">{{ financing().totalToPay | currency:'':'symbol':'1.0-0' }}</td>
+            <td class="darker-td">
+                {{ financing().totalToPay | currency:'':'symbol':'1.0-0' }}
+            </td>
         </tr>
     </table>
 </div>
@@ -62,9 +64,6 @@
     <h3 class="container-title">{{ 'UI.CLIENTS.FINANCING.BIKE' | translate }}</h3>
     <table class="motorcycle-info-table">
         <tr>
-            <!-- <th>Placa</th>
-            <th>Linea</th>
-            <th>Marca</th> -->
             <th>{{ 'UI.CLIENTS.FINANCING.LIC_PLATE' | translate }}</th>
             <th>{{ 'UI.CLIENTS.FINANCING.MODEL' | translate }}</th>
             <th>{{ 'UI.CLIENTS.FINANCING.BRAND' | translate }}</th>

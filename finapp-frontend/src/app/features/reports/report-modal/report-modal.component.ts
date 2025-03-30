@@ -24,7 +24,9 @@ export class ReportModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadingData = true;
-    this.clientsService.getDebtorsForReport(this.reportType, this.daysGap).subscribe({
+    this.clientsService.getDebtorsForReport(
+      this.reportType, this.daysGap
+    ).subscribe({
       next: (result) => {
         this.debtorsInfo.set(result);
         this.loadingData = false;

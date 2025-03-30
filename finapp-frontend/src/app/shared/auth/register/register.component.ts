@@ -43,7 +43,15 @@ export class RegisterComponent {
 
   onSubmit() {
     const { name, role, email, phone, password } = this.form.value;
-    const newUser = new User('', name, role as 'admin' | 'manager' | 'assistant', email, password, phone, 'es');
+    const newUser = new User(
+      '',
+      name,
+      role as 'admin' | 'manager' | 'assistant',
+      email,
+      password,
+      phone,
+      'es'
+    );
     this.authService.register(newUser).subscribe((res) => {
       if (res.user.role === 'manager') {
         this.clientsService.setManagerId(res.user._id);

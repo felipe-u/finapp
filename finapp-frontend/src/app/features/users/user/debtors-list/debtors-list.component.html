@@ -39,9 +39,13 @@
     </table>
     <div class="btn-container">
         @if (managingDebtors) {
-        <button class="secondaryBtn" (click)="cancelManage()">{{ 'BUTTONS.CANCEL' | translate }}</button>
+        <button class="secondaryBtn" (click)="cancelManage()">
+            {{ 'BUTTONS.CANCEL' | translate }}
+        </button>
         } @else {
-        <button class="secondaryBtn" (click)="manageDebtors()">{{ 'BUTTONS.ASS_REM_DEBTORS' | translate }}</button>
+        <button class="secondaryBtn" (click)="manageDebtors()">
+            {{ 'BUTTONS.ASS_REM_DEBTORS' | translate }}
+        </button>
         }
     </div>
 </div>

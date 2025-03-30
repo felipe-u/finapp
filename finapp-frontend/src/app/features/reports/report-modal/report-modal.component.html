@@ -42,15 +42,21 @@
             </div>
         </div>
         <div class="btn-container">
-            <button class="primaryBtn" (click)="generatePDF()">{{ 'BUTTONS.GENERATE' | translate }} PDF</button>
-            <button class="primaryBtn" (click)="generateExcel()">{{ 'BUTTONS.GENERATE' | translate }} Excel</button>
+            <button class="primaryBtn" (click)="generatePDF()">
+                {{ 'BUTTONS.GENERATE' | translate }} PDF
+            </button>
+            <button class="primaryBtn" (click)="generateExcel()">
+                {{ 'BUTTONS.GENERATE' | translate }} Excel
+            </button>
         </div>
         }
         @else {
         <div class="no-debtors-container">
             <p>{{'UI.REPORTS.NO_DEBTORS' | translate:{days: daysGap} }}</p>
             <div class="btn-container">
-                <button class="primaryBtn" (click)="closeModal()">{{ 'BUTTONS.CLOSE' }}</button>
+                <button class="primaryBtn" (click)="closeModal()">
+                    {{ 'BUTTONS.CLOSE' }}
+                </button>
             </div>
         </div>
         }

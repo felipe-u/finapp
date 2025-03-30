@@ -13,7 +13,9 @@
         <p>{{ 'FIELDS.BIRTHDATE' | translate }}: {{ personalInfo().birthDate | date:'longDate' }}</p>
     </div>
     <div class="button-container">
-        <button class="primaryBtn editBtn" (click)="prepopulateForm()">{{ 'BUTTONS.EDIT' | translate }}</button>
+        <button class="primaryBtn editBtn" (click)="prepopulateForm()">
+            {{ 'BUTTONS.EDIT' | translate }}
+        </button>
     </div>
 </div>
 } @else {
@@ -24,7 +26,9 @@
 <div class="container client-container">
     <div class="img-container editMode" (click)="openProfilePictureModal()">
         <img [src]="personalInfo().photo === '' ? 'assets/imgs/user.png' : personalInfo().photo" alt="User Image">
-        <p class="editText">{{ 'BUTTONS.EDIT' | translate }}</p>
+        <p class="editText">
+            {{ 'BUTTONS.EDIT' | translate }}
+        </p>
     </div>
     <form class="info-container" [formGroup]="form" (ngSubmit)="onSubmit()">
         <div class="input-container">
@@ -44,8 +48,12 @@
             <input type="date" name="birthDate" formControlName="birthDate">
         </div>
         <div class="button-container">
-            <button type="submit" class="primaryBtn editBtn">{{ 'BUTTONS.SAVE' | translate }}</button>
-            <button type="button" class="primaryBtn editBtn" (click)="changeEditMode()">{{ 'BUTTONS.CANCEL' | translate }}</button>
+            <button type="submit" class="primaryBtn editBtn">
+                {{ 'BUTTONS.SAVE' | translate }}
+            </button>
+            <button type="button" class="primaryBtn editBtn" (click)="changeEditMode()">
+                {{ 'BUTTONS.CANCEL' | translate }}
+            </button>
         </div>
     </form>
 </div>

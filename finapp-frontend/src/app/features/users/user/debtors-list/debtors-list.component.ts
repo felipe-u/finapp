@@ -30,14 +30,15 @@ export class DebtorsListComponent implements OnInit {
 
   onRemoveDebtor(debtorId: string) {
     if (confirm('Are you sure you want to remove this debtor?')) {
-      this.clientsService.removeDebtorFromManager(debtorId).subscribe({
-        next: () => {
-          this.updateDebtorsList();
-        },
-        error: (error: Error) => {
-          console.error(error.message);
-        }
-      });
+      this.clientsService.removeDebtorFromManager(debtorId)
+        .subscribe({
+          next: () => {
+            this.updateDebtorsList();
+          },
+          error: (error: Error) => {
+            console.error(error.message);
+          }
+        });
     }
   }
 

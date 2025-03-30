@@ -9,6 +9,4 @@ import { TranslatePipe } from '@ngx-translate/core';
   templateUrl: './client-navbar.component.html',
   styleUrl: './client-navbar.component.css'
 })
-export class ClientNavbarComponent {
-
-}
+export class ClientNavbarComponent { }

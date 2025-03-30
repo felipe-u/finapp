@@ -87,14 +87,16 @@ export class PropertyImagesComponent implements OnChanges, AfterViewInit {
 
   onDeleteFile(imageUrl) {
     this.deletedPropertyImagesUrl.push(imageUrl);
-    this.tempPropertyImagesUrl = this.tempPropertyImagesUrl.filter(url => url !== imageUrl);
+    this.tempPropertyImagesUrl = this.tempPropertyImagesUrl
+      .filter(url => url !== imageUrl);
     this.fillColumns();
     this.showSlides(this.slideIndex);
   }
 
   onUpdate() {
     if (this.deletedPropertyImagesUrl.length > 0) {
-      this.imagesService.deleteImages(this.deletedPropertyImagesUrl).subscribe();
+      this.imagesService.deleteImages(this.deletedPropertyImagesUrl)
+        .subscribe();
     }
     return this.tempPropertyImagesUrl;
   }
@@ -102,7 +104,8 @@ export class PropertyImagesComponent implements OnChanges, AfterViewInit {
   onCancel() {
     this.tempPropertyImagesUrl = [...this.propertyImagesUrl];
     if (this.newPropertyImagesUrl.length > 0) {
-      this.imagesService.deleteImages(this.newPropertyImagesUrl).subscribe();
+      this.imagesService.deleteImages(this.newPropertyImagesUrl)
+        .subscribe();
     }
     this.resetArrays();
   }
@@ -112,9 +115,13 @@ export class PropertyImagesComponent implements OnChanges, AfterViewInit {
     this.propertyImagesUrlColumn2 = [];
     for (let i = 0; i < this.tempPropertyImagesUrl.length; i++) {
       if ((i % 2) === 0) {
-        this.propertyImagesUrlColumn1.push(this.tempPropertyImagesUrl[i]);
+        this.propertyImagesUrlColumn1.push(
+          this.tempPropertyImagesUrl[i]
+        );
       } else {
-        this.propertyImagesUrlColumn2.push(this.tempPropertyImagesUrl[i]);
+        this.propertyImagesUrlColumn2.push(
+          this.tempPropertyImagesUrl[i]
+        );
       }
     }
   }

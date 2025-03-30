@@ -13,13 +13,41 @@ export class XlsxService {
 
         worksheet.columns = [
             { header: 'Id', key: 'debtorId', width: 10 },
-            { header: this.translate.instant('FIELDS.NAME'), key: 'debtorName', width: 20 },
-            { header: this.translate.instant('UI.CLIENTS.FINANCING.INST_VALUE'), key: 'installmentValue', width: 20 },
-            { header: this.translate.instant('UI.CLIENTS.FINANCING.OVERDUE_DAYS'), key: 'overdueDays', width: 15 },
-            { header: this.translate.instant('UI.CLIENTS.FINANCING.LATE_INT'), key: 'lateInterests', width: 20 },
-            { header: this.translate.instant('UI.CLIENTS.FINANCING.TOTAL_VALUE'), key: 'totalInstallmentValue', width: 25 },
-            { header: this.translate.instant('FIELDS.STATUS'), key: 'financingStatus', width: 20 },
-            { header: this.translate.instant('FIELDS.MANAGER'), key: 'manager', width: 20 },
+            {
+                header: this.translate.instant('FIELDS.NAME'),
+                key: 'debtorName',
+                width: 20
+            },
+            {
+                header: this.translate.instant('UI.CLIENTS.FINANCING.INST_VALUE'),
+                key: 'installmentValue',
+                width: 20
+            },
+            {
+                header: this.translate.instant('UI.CLIENTS.FINANCING.OVERDUE_DAYS'),
+                key: 'overdueDays',
+                width: 15
+            },
+            {
+                header: this.translate.instant('UI.CLIENTS.FINANCING.LATE_INT'),
+                key: 'lateInterests',
+                width: 20
+            },
+            {
+                header: this.translate.instant('UI.CLIENTS.FINANCING.TOTAL_VALUE'),
+                key: 'totalInstallmentValue',
+                width: 25
+            },
+            {
+                header: this.translate.instant('FIELDS.STATUS'),
+                key: 'financingStatus',
+                width: 20
+            },
+            {
+                header: this.translate.instant('FIELDS.MANAGER'),
+                key: 'manager',
+                width: 20
+            },
         ];
 
         worksheet.getRow(1).eachCell((cell) => {
@@ -52,7 +80,8 @@ export class XlsxService {
         });
 
         const buffer = await workbook.xlsx.writeBuffer();
-        const data = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+        const data = new Blob([buffer],
+            { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
         const date = new Date();
         const formattedDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
         saveAs(data, `delinquency-report-${formattedDate}.xlsx`);

@@ -38,7 +38,9 @@
 
         @for (imageUrl of propertyImagesUrl; track imageUrl) {
         <div class="mySlides fade">
-            <div class="numbertext">{{ slideIndex }} / {{propertyImagesUrl.length}}</div>
+            <div class="numbertext">
+                {{ slideIndex }} / {{propertyImagesUrl.length}}
+            </div>
             <img [src]="imageUrl" alt="A house" style="width: 100%;">
         </div>
         }

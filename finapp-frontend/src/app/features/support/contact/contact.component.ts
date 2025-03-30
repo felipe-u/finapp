@@ -30,7 +30,9 @@ export class ContactComponent {
     const from = this.usersService.getUserEmail();
     const subject = this.form.value.subject;
     const body = this.form.value.message;
-    const email: Email = { from: from(), subject: subject, body: body };
+    const email: Email = {
+      from: from(), subject: subject, body: body
+    };
     this.emailService.sendEmail(email).subscribe({
       next: () => {
         this.form.reset();

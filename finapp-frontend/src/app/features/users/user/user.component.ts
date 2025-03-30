@@ -1,6 +1,6 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { UsersService } from '../../../core/services/users.service';
-import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { User } from '../../../core/models/user.model';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -76,7 +76,6 @@ export class UserComponent implements OnInit {
           console.error(error.message);
         }
       })
-
     }
   }
 }

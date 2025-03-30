@@ -1,6 +1,8 @@
 <div class="search-container">
     <div class="filter-dropdown">
-        <button class="dropbtn">{{ 'BUTTONS.FILTER_BY_STATUS' | translate }}</button>
+        <button class="dropbtn">
+            {{ 'BUTTONS.FILTER_BY_STATUS' | translate }}
+        </button>
         <div class="dropdown-content">
             <form [formGroup]="filterForm" (ngSubmit)="filterByStatuses()">
                 @for (option of options; track option.key) {
@@ -9,14 +11,18 @@
                 <br><br>
                 }
                 <div class="filterbtn-container">
-                    <button type="submit" class="primaryBtn">{{ 'BUTTONS.FILER' | translate }}</button>
+                    <button type="submit" class="primaryBtn">
+                        {{ 'BUTTONS.FILTER' | translate }}
+                    </button>
                 </div>
             </form>
         </div>
     </div>
     <div class="search-bar">
         <input type="text" name="search" id="search" [(ngModel)]="searchTerm">
-        <button type="button" class="primaryBtn" (click)="searchClient()">{{ 'BUTTONS.SEARCH' | translate }}</button>
+        <button type="button" class="primaryBtn" (click)="searchClient()">
+            {{ 'BUTTONS.SEARCH' | translate }}
+        </button>
     </div>
 </div>
 <br>
@@ -34,6 +40,5 @@
             <td>{{ debtor.financing.status | enum:'ENUMS.STATUS' }}</td>
         </tr>
         }
-
     </table>
 </div>

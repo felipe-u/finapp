@@ -39,5 +39,4 @@ export class ClientComponent implements OnInit, OnDestroy {
     this.clientsService.setCodebtorId(undefined);
     this.clientsService.setDebtorId(undefined);
   }
-
 }

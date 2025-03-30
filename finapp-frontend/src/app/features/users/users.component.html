@@ -1,13 +1,17 @@
 <div class="search-container">
     <div class="filter-options">
-        <button class="filter-btn" [class.active]="managerBtnSelected()" (click)="filterByManagers()">{{
-            'BUTTONS.MANAGERS' | translate }}</button>
-        <button class="filter-btn" [class.active]="assistantBtnSelected()" (click)="filterByAssistants()">{{
-            'BUTTONS.ASSISTANTS' | translate }}</button>
+        <button class="filter-btn" [class.active]="managerBtnSelected()" (click)="filterByManagers()">
+            {{ 'BUTTONS.MANAGERS' | translate }}
+        </button>
+        <button class="filter-btn" [class.active]="assistantBtnSelected()" (click)="filterByAssistants()">
+            {{ 'BUTTONS.ASSISTANTS' | translate }}
+        </button>
     </div>
     <div class="search-bar">
         <input type="text" name="search" id="search" [(ngModel)]="searchTerm">
-        <button type="button" class="primaryBtn" (click)="searchUser()">{{ 'BUTTONS.SEARCH' | translate }}</button>
+        <button type="button" class="primaryBtn" (click)="searchUser()">
+            {{ 'BUTTONS.SEARCH' | translate }}
+        </button>
     </div>
 </div>
 <br>

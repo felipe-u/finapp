@@ -2,7 +2,6 @@ import { Component, inject, signal } from '@angular/core';
 import { ClientsService } from '../../../../core/services/clients.service';
 import { PersonalInfo } from '../../../../core/models/personalInfo.model';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ImagesService } from '../../../../core/services/images.service';
 import { ProfilePictureModalComponent } from "../../../../shared/profile-picture-modal/profile-picture-modal.component";
 import { DatePipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -10,7 +9,12 @@ import { TranslatePipe } from '@ngx-translate/core';
 @Component({
   selector: 'app-personal-info',
   standalone: true,
-  imports: [ReactiveFormsModule, ProfilePictureModalComponent, DatePipe, TranslatePipe],
+  imports: [
+    ReactiveFormsModule,
+    ProfilePictureModalComponent,
+    DatePipe,
+    TranslatePipe
+  ],
   templateUrl: './personal-info.component.html',
   styleUrl: './personal-info.component.css'
 })
@@ -57,7 +61,9 @@ export class PersonalInfoComponent {
       idNumber: this.client().identification.number,
       email: this.personalInfo().email,
       phone: this.personalInfo().phone,
-      birthDate: new Date(this.personalInfo().birthDate).toISOString().split('T')[0]
+      birthDate: new Date(
+        this.personalInfo().birthDate
+      ).toISOString().split('T')[0]
     })
   }
 
@@ -81,7 +87,8 @@ export class PersonalInfoComponent {
         this.personalInfo().photo
       );
 
-      this.clientsService.editPersonalInfo(newPersonalInfo, newIdNumber).subscribe();
+      this.clientsService.editPersonalInfo(newPersonalInfo, newIdNumber)
+        .subscribe();
       this.personalInfo.set(newPersonalInfo);
       this.client().identification.number = newIdNumber;
       this.changeEditMode();

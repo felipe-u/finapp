@@ -13,7 +13,9 @@ export class EmailService {
     private SERVER_URL = "http://localhost:3000/";
 
     sendEmail(email: Email) {
-        return this.httpClient.post(this.SERVER_URL + 'send-email', { email })
+        return this.httpClient.post(
+            this.SERVER_URL + 'send-email', { email }
+        );
     }
 
 }

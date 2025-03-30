@@ -89,19 +89,21 @@ export class ClientsService {
 
     getClientFinancing() {
         console.log("Retrieving client financing: ", this.client()._id);
-        return this.httpClient.get<any>(this.url + 'clients/' + this.client()._id + '/financing')
-            .pipe(
-                map((resData) => resData.financing)
-            );
+        return this.httpClient.get<any>(
+            this.url + 'clients/' + this.client()._id + '/financing'
+        ).pipe(
+            map((resData) => resData.financing)
+        );
 
     }
 
     getClientPersonalInfo() {
         console.log("Retrieving client personal info: ", this.client()._id);
-        return this.httpClient.get<any>(this.url + 'clients/' + this.client()._id + '/personalInfo')
-            .pipe(
-                map((resData) => resData.personalInfo)
-            );
+        return this.httpClient.get<any>(
+            this.url + 'clients/' + this.client()._id + '/personalInfo'
+        ).pipe(
+            map((resData) => resData.personalInfo)
+        );
     }
 
     editPersonalInfo(updatedPersonalInfo: PersonalInfo, updatedIdNumber: string) {
@@ -109,16 +111,16 @@ export class ClientsService {
         return this.httpClient.post(
             this.url + 'clients/' + this.client()._id + '/personalInfo/edit',
             { newIdNumber: updatedIdNumber, newPersonalInfo: updatedPersonalInfo }
-        )
-
+        );
     }
 
     getClientGeographicInfo() {
         console.log("Retrieving client geographic info: ", this.client()._id);
-        return this.httpClient.get<any>(this.url + 'clients/' + this.client()._id + '/geoInfo')
-            .pipe(
-                map((resData) => resData.geoInfo)
-            );
+        return this.httpClient.get<any>(
+            this.url + 'clients/' + this.client()._id + '/geoInfo'
+        ).pipe(
+            map((resData) => resData.geoInfo)
+        );
     }
 
 
@@ -126,12 +128,14 @@ export class ClientsService {
         console.log("Editing client geographic info: ", this.client()._id);
         return this.httpClient.post(
             this.url + 'clients/' + this.client()._id + '/geoInfo/edit', updatedGeoInfo
-        )
+        );
     }
 
     getClientCommercialInfo() {
         console.log("Retrieving client commercial info: ", this.client()._id);
-        return this.httpClient.get<any>(this.url + 'clients/' + this.client()._id + '/commercialInfo')
+        return this.httpClient.get<any>(
+            this.url + 'clients/' + this.client()._id + '/commercialInfo'
+        );
     }
 
     editCommercialInfo(updatedCommercialInfo: CommercialInfo, updatedReferences: Reference[]) {
@@ -139,7 +143,7 @@ export class ClientsService {
         return this.httpClient.post(
             this.url + 'clients/' + this.client()._id + '/commercialInfo/edit',
             { newCommercialInfo: updatedCommercialInfo, newReferences: updatedReferences }
-        )
+        );
     }
 
     getDebtorName() {
@@ -161,7 +165,7 @@ export class ClientsService {
         return this.httpClient.post(this.url + 'assign-debtor', {
             clientId: debtorId,
             managerId: this.managerId()
-        })
+        });
     }
 
     removeDebtorFromManager(debtorId: string) {
@@ -174,7 +178,7 @@ export class ClientsService {
         const params = new HttpParams().set('searchTerm', searchTerm);
         return this.httpClient.get<any>(this.url + 'all-debtors', { params }).pipe(
             map((resData) => resData.debtors)
-        )
+        );
     }
 
     getDebtorsWithoutAssignment() {
@@ -184,8 +188,11 @@ export class ClientsService {
     }
 
     getDebtorsForReport(reportType: string, days: string) {
-        const params = new HttpParams().set('reportType', reportType).append('days', days);
-        return this.httpClient.get<any>(this.url + 'debtors-list-report', { params })
+        const params = new HttpParams()
+            .set('reportType', reportType).append('days', days);
+        return this.httpClient.get<any>(
+            this.url + 'debtors-list-report', { params }
+        );
     }
 
     private fetchDebtors(params?: HttpParams) {

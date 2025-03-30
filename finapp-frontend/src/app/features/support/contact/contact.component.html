@@ -18,11 +18,15 @@
                 <textarea name="message" id="message" formControlName="message"></textarea>
             </div>
             <div class="btn-container">
-                <button type="submit" class="primaryBtn mediumBtn">{{ 'BUTTONS.SEND' | translate }}</button>
+                <button type="submit" class="primaryBtn mediumBtn">
+                    {{ 'BUTTONS.SEND' | translate }}
+                </button>
             </div>
         </form>
     </main>
 </div>
 <div class="btn-container" style="margin: 50px auto 0 auto">
-    <button class="secondaryBtn mediumBtn" (click)="goBack()">{{ 'BUTTONS.GO_BACK' | translate }}</button>
+    <button class="secondaryBtn mediumBtn" (click)="goBack()">
+        {{ 'BUTTONS.GO_BACK' | translate }}
+    </button>
 </div>

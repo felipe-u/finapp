@@ -35,9 +35,18 @@ export class CommercialInfoComponent {
     this.clientsService.getClientCommercialInfo().subscribe({
       next: (commercialInfo) => {
         this.commercialInfo.set(commercialInfo.commercialInfo);
-        this.famReferences.set(commercialInfo.references.filter((reference) => reference.referenceType === 'FAM'));
-        this.perReferences.set(commercialInfo.references.filter((reference) => reference.referenceType === 'PER'));
-        this.comReferences.set(commercialInfo.references.filter((reference) => reference.referenceType === 'COM'));
+        this.famReferences.set(
+          commercialInfo.references.filter(
+            (reference) => reference.referenceType === 'FAM'
+          ));
+        this.perReferences.set(
+          commercialInfo.references.filter(
+            (reference) => reference.referenceType === 'PER'
+          ));
+        this.comReferences.set(
+          commercialInfo.references.filter(
+            (reference) => reference.referenceType === 'COM'
+          ));
         console.log(commercialInfo);
       },
       error: (error) => {
@@ -160,7 +169,8 @@ export class CommercialInfoComponent {
   prepopulateForm() {
     this.changeEditMode();
     console.log(this.famReferences());
-    const actualLaborSenority = this.extractYearValue(this.commercialInfo().laborSenority);
+    const actualLaborSenority = this.extractYearValue(
+      this.commercialInfo().laborSenority);
 
     this.form.patchValue({
       commercialInfo: {
@@ -210,7 +220,9 @@ export class CommercialInfoComponent {
     if (confirm("Confirmar cambios")) {
       const newJobOccupation = this.form.value.commercialInfo.jobOccupation;
       const newCompany = this.form.value.commercialInfo.company;
-      const newLaborSenority = this.buildJobOccupation(this.form.value.commercialInfo.laborSenority);
+      const newLaborSenority = this.buildJobOccupation(
+        this.form.value.commercialInfo.laborSenority
+      );
       const newIncome = this.form.value.commercialInfo.income;
       const newAdditionalIncome = this.form.value.commercialInfo.additionalIncome;
       const newExpenses = this.form.value.commercialInfo.expenses;
@@ -279,8 +291,17 @@ export class CommercialInfoComponent {
         this.form.value.references.comRef2.relationship as RelationshipTypeEnum
       );
 
-      const newReferences = [newFamRef1, newFamRef2, newPerRef1, newPerRef2, newComRef1, newComRef2];
-      this.clientsService.editCommercialInfo(newCommercialInfo, newReferences).subscribe();
+      const newReferences = [
+        newFamRef1,
+        newFamRef2,
+        newPerRef1,
+        newPerRef2,
+        newComRef1,
+        newComRef2
+      ];
+      this.clientsService.editCommercialInfo(
+        newCommercialInfo, newReferences
+      ).subscribe();
       this.commercialInfo.set(newCommercialInfo);
       this.famReferences.set([newFamRef1, newFamRef2]);
       this.perReferences.set([newPerRef1, newPerRef2]);

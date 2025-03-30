@@ -1,5 +1,3 @@
-import { Client } from "./client.model";
-
 export class User {
     constructor(
         public _id: string,

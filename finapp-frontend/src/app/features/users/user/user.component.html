@@ -15,11 +15,13 @@
         <p>{{ 'FIELDS.PHONE' | translate }}: {{ user().phone }}</p>
     </div>
     <div class="button-container" style="display: grid;">
-        <button class="primaryBtn editBtn firstBtn" (click)="prepopulateForm()">{{ 'BUTTONS.EDIT' | translate
-            }}</button>
+        <button class="primaryBtn editBtn firstBtn" (click)="prepopulateForm()">
+            {{ 'BUTTONS.EDIT' | translate }}
+        </button>
         @if (user().role === 'manager') {
-        <button class="primaryBtn largeBtn" routerLink="debtors-list">{{ 'BUTTONS.ASSIGNED_DEBTORS' | translate
-            }}</button>
+        <button class="primaryBtn largeBtn" routerLink="debtors-list">
+            {{ 'BUTTONS.ASSIGNED_DEBTORS' | translate }}
+        </button>
         }
     </div>
 </div>
@@ -38,9 +40,12 @@
             <input type="text" name="phone" formControlName="phone">
         </div>
         <div class="button-container">
-            <button type="submit" class="primaryBtn editBtn">{{ 'BUTTONS.SAVE' | translate }}</button>
-            <button type="button" class="primaryBtn editBtn" (click)="changeEditMode()">{{ 'BUTTONS.CANCEL' | translate
-                }}</button>
+            <button type="submit" class="primaryBtn editBtn">
+                {{ 'BUTTONS.SAVE' | translate }}
+            </button>
+            <button type="button" class="primaryBtn editBtn" (click)="changeEditMode()">
+                {{ 'BUTTONS.CANCEL' | translate }}
+            </button>
         </div>
     </form>
 </div>

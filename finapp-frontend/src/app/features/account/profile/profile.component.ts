@@ -67,7 +67,9 @@ export class ProfileComponent implements OnInit {
         this.user().photo
 
       );
-      this.usersService.updateUserInfo(this.user()._id, newEmail, newPhone).subscribe({
+      this.usersService.updateUserInfo(
+        this.user()._id, newEmail, newPhone
+      ).subscribe({
         next: () => {
           this.user.set(newUserInfo);
           this.changeEditMode();

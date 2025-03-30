@@ -21,12 +21,21 @@ export class PdfService {
 
         doc.setFontSize(20);
         const titleY = imgY + imgHeight + 10;
-        doc.text(this.translate.instant('UI.REPORTS.DEL_REP'), doc.internal.pageSize.width / 2, titleY, { align: 'center' });
-
+        doc.text(
+            this.translate.instant('UI.REPORTS.DEL_REP'),
+            doc.internal.pageSize.width / 2,
+            titleY,
+            { align: 'center' }
+        );
 
         doc.setFontSize(10);
         const dateY = titleY + 8;
-        doc.text(`${this.translate.instant('UI.REPORTS.GENERATE_ON')}: ${new Date().toLocaleDateString()}`, doc.internal.pageSize.width / 2, dateY, { align: 'center' });
+        doc.text(
+            `${this.translate.instant('UI.REPORTS.GENERATE_ON')}: ${new Date().toLocaleDateString()}`,
+            doc.internal.pageSize.width / 2,
+            dateY,
+            { align: 'center' }
+        );
 
         const tableStartY = dateY + 15;
 
@@ -44,10 +53,16 @@ export class PdfService {
         const rows = debtors.map((debtor) => [
             debtor.debtorId,
             debtor.debtorName,
-            new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(debtor.installmentValue),
+            new Intl.NumberFormat(
+                'en-US',
+                { style: 'currency', currency: 'USD' }).format(debtor.installmentValue),
             debtor.overdueDays,
-            new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(debtor.lateInterests),
-            new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(debtor.totalInstallmentValue),
+            new Intl.NumberFormat(
+                'en-US',
+                { style: 'currency', currency: 'USD' }).format(debtor.lateInterests),
+            new Intl.NumberFormat(
+                'en-US',
+                { style: 'currency', currency: 'USD' }).format(debtor.totalInstallmentValue),
             debtor.financingStatus,
             debtor.manager
         ]);

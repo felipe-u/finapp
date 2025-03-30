@@ -26,7 +26,9 @@ export class SettingsComponent implements OnInit {
   selectLanguage() {
     if (this.selectedLang) {
       const userId = this.usersService.getUserId();
-      this.usersService.changeUserLang(userId(), this.selectedLang).subscribe({
+      this.usersService.changeUserLang(
+        userId(), this.selectedLang
+      ).subscribe({
         next: () => {
           this.translateService.use(this.selectedLang);
           localStorage.setItem('lang', this.selectedLang);

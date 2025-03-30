@@ -33,11 +33,15 @@ export class UsersComponent implements OnInit {
   }
 
   filterByManagers() {
-    this.managerBtnSelected.set(!this.managerBtnSelected());
+    this.managerBtnSelected.set(
+      !this.managerBtnSelected()
+    );
   }
 
   filterByAssistants() {
-    this.assistantBtnSelected.set(!this.assistantBtnSelected());
+    this.assistantBtnSelected.set(
+      !this.assistantBtnSelected()
+    );
   }
 
   filteredUsers = computed(() => {
@@ -59,15 +63,16 @@ export class UsersComponent implements OnInit {
     if (searchTerm !== '' && hasLetters) {
       this.managerBtnSelected.set(false);
       this.assistantBtnSelected.set(false);
-      this.usersService.getUsersBySearchTerm(searchTerm).subscribe({
-        next: (users) => {
-          this.managers.set(users.managers);
-          this.assistants.set(users.assistants);
-        },
-        error: (error: Error) => {
-          console.error(error.message);
-        }
-      });
+      this.usersService.getUsersBySearchTerm(searchTerm)
+        .subscribe({
+          next: (users) => {
+            this.managers.set(users.managers);
+            this.assistants.set(users.assistants);
+          },
+          error: (error: Error) => {
+            console.error(error.message);
+          }
+        });
     } else {
       console.log('Invalid search term.');
     }

@@ -40,16 +40,17 @@ export class DebtorsModalComponent {
 
   onAddToManager(debtorId: string, action: string) {
     if (confirm('¿Estás seguro de que deseas ' + action + ' este deudor?')) {
-      this.clientsService.assignDebtorToManager(debtorId).subscribe({
-        next: () => {
-          this.updateDebtorsWithoutAssignment();
-          this.updateDebtorsFound();
-          this.updateDebtors.emit();
-        },
-        error: (error: Error) => {
-          console.error(error.message);
-        }
-      });
+      this.clientsService.assignDebtorToManager(debtorId)
+        .subscribe({
+          next: () => {
+            this.updateDebtorsWithoutAssignment();
+            this.updateDebtorsFound();
+            this.updateDebtors.emit();
+          },
+          error: (error: Error) => {
+            console.error(error.message);
+          }
+        });
     }
   }
 
@@ -79,27 +80,29 @@ export class DebtorsModalComponent {
   }
 
   private updateDebtorsFound() {
-    this.clientsService.getAllDebtorsBySearchTerm(this.searchTerm).subscribe({
-      next: (debtors) => {
-        if (debtors.length > 0) {
-          this.showingDebtorsFound = true;
+    this.clientsService.getAllDebtorsBySearchTerm(this.searchTerm)
+      .subscribe({
+        next: (debtors) => {
+          if (debtors.length > 0) {
+            this.showingDebtorsFound = true;
+          }
+          this.debtorsFound.set(debtors);
+        },
+        error: (error: Error) => {
+          console.error(error.message);
         }
-        this.debtorsFound.set(debtors);
-      },
-      error: (error: Error) => {
-        console.error(error.message);
-      }
-    });
+      });
   }
 
   private updateDebtorsWithoutAssignment() {
-    this.clientsService.getDebtorsWithoutAssignment().subscribe({
-      next: (debtors) => {
-        this.debtorsWithoutAssignment.set(debtors);
-      },
-      error: (error: Error) => {
-        console.error(error.message);
-      }
-    });
+    this.clientsService.getDebtorsWithoutAssignment()
+      .subscribe({
+        next: (debtors) => {
+          this.debtorsWithoutAssignment.set(debtors);
+        },
+        error: (error: Error) => {
+          console.error(error.message);
+        }
+      });
   }
 }

@@ -13,15 +13,18 @@
                 <input type="password" id="password" name="password" formControlName="password">
             </div>
             <div class="btn-container">
-                <button type="submit" class="primaryBtn" style="width: 150px;">{{ 'BUTTONS.LOGIN' | translate
-                    }}</button>
+                <button type="submit" class="primaryBtn" style="width: 150px;">
+                    {{ 'BUTTONS.LOGIN' | translate }}
+                </button>
             </div>
             <div class="rem-container">
                 <p><a>{{ 'UI.LOGIN.FORGOT_PASS' | translate }}</a></p>
             </div>
             <div class="a-container">
-                <p>{{ 'UI.LOGIN.NO_ACCOUNT' | translate }} <a routerLink="/auth/register">{{ 'UI.LOGIN.SIGNUP' |
-                        translate }}</a></p>
+                <p>{{ 'UI.LOGIN.NO_ACCOUNT' | translate }} <a routerLink="/auth/register">
+                        {{ 'UI.LOGIN.SIGNUP' | translate }}
+                    </a>
+                </p>
             </div>
         </form>
     </div>
