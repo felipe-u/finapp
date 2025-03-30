@@ -1,0 +1,210 @@
+{
+  "TEST_MESSAGE": "Esto está en español",
+
+  "FIELDS": {
+    "EMAIL": "Email",
+    "PASSWORD": "Password",
+    "NAME": "Name",
+    "ROLE": "Role",
+    "PHONE": "Phone",
+    "CONF_PASSW": "Confirm password",
+    "STATUS": "Status",
+    "ACTION": "Action",
+    "BIRTHDATE": "Birth date",
+    "ADDRESS": "Address",
+    "PROP_ADDRESS": "Property address",
+    "NEIGHBOURHOOD": "Neighbourhood",
+    "DEPARTMENT": "Department",
+    "CITY": "City",
+    "ADD_INFO": "Additional information",
+    "ADMIN": "Admin",
+    "MANAGER": "Manager",
+    "ASSISTANT": "Assistant",
+    "ASSIGNED_TO": "Assgned to",
+    "YES": "Yes",
+    "SUBJECT": "Subject",
+    "MESSAGE": "Message"
+  },
+  "BUTTONS": {
+    "LOGIN": "Login",
+    "SIGNUP": "Sign up",
+    "MANAGERS": "Managers",
+    "ASSISTANTS": "Assistants",
+    "SEARCH": "Search",
+    "EDIT": "Edit",
+    "SAVE": "Save",
+    "CANCEL": "Cancel",
+    "UPDATE": "Update",
+    "CHECK": "Check",
+    "GO_BACK": "Go Back",
+    "GO_HOME": "Go Home",
+    "CLOSE": "Close",
+    "SEND": "Send",
+    "ASSIGNED_DEBTORS": "Assigned Debtors",
+    "ASS_REM_DEBTORS": "Assign / Remove Debtors",
+    "SEARCH_DEBTOR": "Search Debtor",
+    "NO_ASS_DEBTORS": "Debtors without Assignment",
+    "ASSIGN": "Assign",
+    "REASSIGN": "Reassign",
+    "FILTER_BY_STATUS": "Filter by Financing Status",
+    "FILTER": "Filter",
+    "PER_INFO": "Personal Info",
+    "GEO_INFO": "Geographic Info",
+    "COM_INFO": "Commercial Info",
+    "FINANCING": "Financing",
+    "UPLOAD_IMG": "Upload an Image",
+    "CHANGE_PASS": "Change Password",
+    "GENERATE": "Generate",
+    "ACCESS_CONFLUENCE": "Access Confluence",
+    "CONTACT_SUPPORT": "Contact Technical Support"
+  },
+  "UI": {
+    "LOGIN": {
+      "FORGOT_PASS": "Forgot password?",
+      "NO_ACCOUNT": "Doesn't have an account?",
+      "SIGNUP": "Sign up"
+    },
+    "REGISTER": {
+      "TITLE": "Register",
+      "ALREADY_ACCOUNT": "Already have an account?",
+      "LOGIN": "Login"
+    },
+    "HOME": {
+      "NAVBAR": {
+        "HOME": "Home",
+        "CLIENTS": "Clients",
+        "USERS": "Users",
+        "REPORTS": "Reports",
+        "SUPPORT": "Support"
+      },
+      "SIDEPANEL": {
+        "PROFILE": "Profile",
+        "SETTINGS": "Settings",
+        "LOGOUT": "Logout"
+      },
+      "WELCOME": "Welcome to the customer management system",
+      "WELCOME_P": "Please select an option from the menu to begin",
+      "RIGHTS": "All Rights Reserved."
+    },
+    "USERS": {
+      "ASSIGN_DEBTOR": "Assign Debtor",
+      "NO_ASS_DEBTORS": "Debtors without assignment",
+      "ALL_DEBTORS_ASSIGNED": "All debtors are assigned.",
+      "NONE": "No one",
+      "ALREADY_ASSIGNED": "Already assigned"
+    },
+    "CLIENTS": {
+      "FINANCING": {
+        "INITIAL_PAYMENT": "Initial Payment",
+        "FINANCED_AMOUNT": "Financed Amount",
+        "NUM_INST": "Number of Installments",
+        "MONTH_INT": "Monthly Interest",
+        "LATE_INT": "Late Interest",
+        "TOTAL_PAY": "Total to Pay",
+        "INST": "Installment",
+        "DUE_DATE": "Due Date",
+        "INT": "Interest",
+        "GUARANTEE": "Guarantee Fee",
+        "INST_PAID": "Installment Paid?",
+        "INST_VALUE": "Installment Value",
+        "OUTS_VALUE": "Outstanding Value",
+        "OVERDUE_DAYS": "Overdue Days",
+        "TOTAL_VALUE": "Total Value",
+        "BIKE": "Motorcycle",
+        "LIC_PLATE": "License Plate",
+        "MODEL": "Model",
+        "BRAND": "Brand"
+      },
+      "GEO_INFO": {
+        "PROP_IMGS": "Property Images",
+        "ADDRESS": "Address",
+        "PROP_ADDRESS": "Property Address"
+      },
+      "COM_INFO": {
+        "DEBTOR": "Debtor",
+        "CODEBTOR": "Codebtor",
+        "GEN_INFO": "General Information",
+        "JOB_OCC": "Job Occupation",
+        "COMPANY": "Company",
+        "LAB_SEN": "Labor Senority",
+        "INCOME": "Income",
+        "ADD_INCOME": "Additional Income",
+        "EXPENSES": "Expenses",
+        "REFS": "References",
+        "FAM_REF": "Family",
+        "PER_REF": "Personal",
+        "COM_REF": "Commercial"
+      }
+    },
+    "REPORTS": {
+      "SELECT_TYPE": "Please select the type of report you would like to generate",
+      "DEL_REP": "Delinquency Report",
+      "OVERDUE_PERIOD": "Please select the payment overdue period",
+      "DAYS": "days",
+      "REPORT": "Report",
+      "TYPE": "Type",
+      "GAP": "Gap",
+      "NO_DEBTORS": "No debtors found within {{days}} overdue days.",
+      "GENERATE_ON": "Generated on"
+    },
+    "SUPPORT": {
+      "DOC": "All relevant application documentation is available at the following link:",
+      "TECH_SUPPORT": "If you need further assistance, please contact technical support",
+      "TECH_SUPPORT_TITLE": "Technical Support"
+    },
+    "ACCOUNT": {
+      "PROFILE": "Profile",
+      "OLD_PASS": "Please enter your current password",
+      "NEW_PASS": "Please enter you new password",
+      "SETTINGS": "Settings",
+      "LANG": "Application language",
+      "ES": "Spanish",
+      "EN": "English"
+    }
+  },
+  "OTHER_PAGES": {
+    "FORB": "Forbidden",
+    "FORB_MSG": "You don't have permission to access this resource",
+    "NOT_FOUND": "Page Not Found"
+  },
+  "ENUMS": {
+    "ID_TYPE": {
+      "CC": "Citizen ID",
+      "CE": "Foreigner ID",
+      "NIT": "Tax Identification Number"
+    },
+    "STATUS": {
+      "AD": "Up to date",
+      "EM": "Overdue",
+      "CT": "Completed",
+      "CP": "Pre-legal collection",
+      "CJ": "Legal collection"
+    },
+    "REFERENCE": {
+      "PER": "Personal",
+      "FAM": "Family",
+      "COM": "Commercial"
+    },
+    "RELATIONSHIP": {
+      "AMI": "Friend",
+      "CON": "Acquaintance",
+      "COM": "Work colleague",
+      "VEC": "Neighbor",
+      "OTP": "Other",
+      "PAD": "Father",
+      "MAD": "Mother",
+      "CYG": "Spouse",
+      "HER": "Sibling",
+      "PRI": "Cousin",
+      "TIO": "Uncle/Aunt",
+      "ABU": "Grandparent",
+      "NIE": "Grandchild",
+      "OTF": "Other",
+      "CLI": "Client",
+      "PRO": "Supplier",
+      "SOC": "Partner",
+      "ENF": "Financial entity",
+      "OTC": "Other"
+    }
+  }
+}

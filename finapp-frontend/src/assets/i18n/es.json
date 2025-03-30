@@ -1,0 +1,210 @@
+{
+  "TEST_MESSAGE": "Esto está en español",
+
+  "FIELDS": {
+    "EMAIL": "Correo",
+    "PASSWORD": "Contraseña",
+    "NAME": "Nombre",
+    "ROLE": "Rol",
+    "PHONE": "Teléfono",
+    "CONF_PASSW": "Confirmar contraseña",
+    "STATUS": "Estado",
+    "ACTION": "Acción",
+    "BIRTHDATE": "Fecha de nacimiento",
+    "ADDRESS": "Dirección",
+    "PROP_ADDRESS": "Dirección de la vivienda",
+    "NEIGHBOURHOOD": "Barrio",
+    "DEPARTMENT": "Departamento",
+    "CITY": "Ciudad",
+    "ADD_INFO": "Información adicional",
+    "ADMIN": "Administrador",
+    "MANAGER": "Gestor",
+    "ASSISTANT": "Auxiliar",
+    "ASSIGNED_TO": "Asignado a",
+    "YES": "Sí",
+    "SUBJECT": "Asunto",
+    "MESSAGE": "Mensaje"
+  },
+  "BUTTONS": {
+    "LOGIN": "Iniciar sesión",
+    "SIGNUP": "Registrarse",
+    "MANAGERS": "Gestores",
+    "ASSISTANTS": "Auxiliares",
+    "SEARCH": "Buscar",
+    "EDIT": "Editar",
+    "SAVE": "Guardar",
+    "CANCEL": "Cancelar",
+    "UPDATE": "Actualizar",
+    "CHECK": "Revisar",
+    "GO_BACK": "Atrás",
+    "GO_HOME": "Volver al inicio",
+    "CLOSE": "Cerrar",
+    "SEND": "Enviar",
+    "ASSIGNED_DEBTORS": "Deudores Asignados",
+    "ASS_REM_DEBTORS": "Asignar / Remover Deudores",
+    "SEARCH_DEBTOR": "Buscar Deudor",
+    "NO_ASS_DEBTORS": "Deudores sin Asignación",
+    "ASSIGN": "Asignar",
+    "REASSIGN": "Reasignar",
+    "FILTER_BY_STATUS": "Filtar por Estado de Financiación",
+    "FILTER": "Filtrar",
+    "PER_INFO": "Información Personal",
+    "GEO_INFO": "Información Geográfica",
+    "COM_INFO": "Información Comercial",
+    "FINANCING": "Financiación",
+    "UPLOAD_IMG": "Sube una imagen",
+    "CHANGE_PASS": "Cambiar Contraseña",
+    "GENERATE": "Generar",
+    "ACCESS_CONFLUENCE": "Acceder a Confluence",
+    "CONTACT_SUPPORT": "Contactar con Soporte Técnico"
+  },
+  "UI": {
+    "LOGIN": {
+      "FORGOT_PASS": "¿Olvidaste la contraseña?",
+      "NO_ACCOUNT": "¿No tienes cuenta?",
+      "SIGNUP": "Regístrate"
+    },
+    "REGISTER": {
+      "TITLE": "Registro",
+      "ALREADY_ACCOUNT": "¿Ya tienes cuenta?",
+      "LOGIN": "Inicia sesión"
+    },
+    "HOME": {
+      "NAVBAR": {
+        "HOME": "Inicio",
+        "CLIENTS": "Clientes",
+        "USERS": "Usuarios",
+        "REPORTS": "Reportes",
+        "SUPPORT": "Soporte"
+      },
+      "SIDEPANEL": {
+        "PROFILE": "Perfil",
+        "SETTINGS": "Ajustes",
+        "LOGOUT": "Cerrar sesión"
+      },
+      "WELCOME": "Bienvenido al sistema de gestión de clientes",
+      "WELCOME_P": "Por favor selecciona una opción del menú para empezar",
+      "RIGHTS": "Todos los derechos reservados."
+    },
+    "USERS": {
+      "ASSIGN_DEBTOR": "Asignar deudor",
+      "NO_ASS_DEBTORS": "Deudores sin asignación",
+      "ALL_DEBTORS_ASSIGNED": "En este momento todos los deudores están asignados",
+      "NONE": "Nadie",
+      "ALREADY_ASSIGNED": "Ya asignado"
+    },
+    "CLIENTS": {
+      "FINANCING": {
+        "INITIAL_PAYMENT": "Cuota Inicial",
+        "FINANCED_AMOUNT": "Total Financiado",
+        "NUM_INST": "Número de Cuotas",
+        "MONTH_INT": "Interés mensual",
+        "LATE_INT": "Interés mora",
+        "TOTAL_PAY": "Total a Pagar",
+        "INST": "Cuota",
+        "DUE_DATE": "Vencimiento cuota",
+        "INT": "Intereses",
+        "GUARANTEE": "Valor Aval",
+        "INST_PAID": "¿Cuota Cancelada?",
+        "INST_VALUE": "Valor Cuota",
+        "OUTS_VALUE": "Valor debe",
+        "OVERDUE_DAYS": "Días Vencidos",
+        "TOTAL_VALUE": "Valor Total",
+        "BIKE": "Motocicleta",
+        "LIC_PLATE": "Matrícula",
+        "MODEL": "Modelo",
+        "BRAND": "Marca"
+      },
+      "GEO_INFO": {
+        "PROP_IMGS": "Imágenes de la Vivienda",
+        "ADDRESS": "Dirección",
+        "PROP_ADDRESS": "Dirección de la vivienda"
+      },
+      "COM_INFO": {
+        "DEBTOR": "Deudor/a",
+        "CODEBTOR": "Codeudor/a",
+        "GEN_INFO": "Información General",
+        "JOB_OCC": "Ocupación",
+        "COMPANY": "Empresa",
+        "LAB_SEN": "Antigüedad Laboral",
+        "INCOME": "Ingresos",
+        "ADD_INCOME": "Ingresos Adicionales",
+        "EXPENSES": "Egresos",
+        "REFS": "Referencias",
+        "FAM_REF": "Familiares",
+        "PER_REF": "Personales",
+        "COM_REF": "Comerciales"
+      }
+    },
+    "REPORTS": {
+      "SELECT_TYPE": "Por favor selecciona el tipo de reporte que deseas generar",
+      "DEL_REP": "Reporte de Morosidad",
+      "OVERDUE_PERIOD": " Por favor seleccione el periodo de morosidad",
+      "DAYS": "días",
+      "REPORT": "Reporte",
+      "TYPE": "Tipo",
+      "GAP": "Periodo",
+      "NO_DEBTORS": "No se encontraron deudores con {{days}} días de morosidad.",
+      "GENERATE_ON": "Generado el"
+    },
+    "SUPPORT": {
+      "DOC": "Toda la documentación releveante de la aplicación está disponible en el siguiente enlace:",
+      "TECH_SUPPORT": "Si necesitas más ayuda, por favor póngase en contacto con soporte técnico",
+      "TECH_SUPPORT_TITLE": "Soporte Técnico"
+    },
+    "ACCOUNT": {
+      "PROFILE": "Perfil",
+      "OLD_PASS": "Por favor ingresa tu contraseña actual",
+      "NEW_PASS": "Por favor ingresa tu nueva contraseña",
+      "SETTINGS": "Ajustes",
+      "LANG": "Idioma de la aplicación",
+      "ES": "Español",
+      "EN": "Inglés"
+    }
+  },
+  "OTHER_PAGES": {
+    "FORB": "Prohibido",
+    "FORB_MSG": "No tienes los permisos para acceder a este recurso",
+    "NOT_FOUND": "Página no encontrada"
+  },
+  "ENUMS": {
+    "ID_TYPE": {
+      "CC": "Cédula de Ciudadanía",
+      "CE": "Cédula de Extranjería",
+      "NIT": "Número de Identificación Tributaria"
+    },
+    "STATUS": {
+      "AD": "Al día",
+      "EM": "En mora",
+      "CT": "Completada",
+      "CP": "En cobro prejurídico",
+      "CJ": "En cobro jurídico"
+    },
+    "REFERENCE": {
+      "PER": "Personal",
+      "FAM": "Familiar",
+      "COM": "Comercial"
+    },
+    "RELATIONSHIP": {
+      "AMI": "Amigo/a",
+      "CON": "Conocido/a",
+      "COM": "Compañero/a de trabajo",
+      "VEC": "Vecino/a",
+      "OTP": "Otro",
+      "PAD": "Padre",
+      "MAD": "Madre",
+      "CYG": "Cónyuge",
+      "HER": "Hermano/a",
+      "PRI": "Primo/a",
+      "TIO": "Tío/a",
+      "ABU": "Abuelo/a",
+      "NIE": "Nieto/a",
+      "OTF": "Otro",
+      "CLI": "Cliente",
+      "PRO": "Proveedor",
+      "SOC": "Socio/a",
+      "ENF": "Entidad financiera",
+      "OTC": "Otro"
+    }
+  }
+}
