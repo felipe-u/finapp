@@ -1,8 +1,6 @@
 const { User, Manager, Assistant } = require("../models/user");
 const bcrypt = require("bcryptjs");
 
-const mongoDB = require("mongodb");
-
 exports.getAllUsers = async (req, res, next) => {
   if (req.query.searchTerm) {
     exports.getUsersBySearchTerm(req, res, next);
