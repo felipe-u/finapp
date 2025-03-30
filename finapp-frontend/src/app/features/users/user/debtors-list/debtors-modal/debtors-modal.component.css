@@ -136,4 +136,5 @@ dialog {
   border-radius: 50px;
   padding: 4px;
   margin: 10px;
+  width: max-content;
 }
