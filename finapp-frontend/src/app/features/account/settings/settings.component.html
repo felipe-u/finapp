@@ -1,4 +1,15 @@
 <div class="title-container">
-    <h1>Settings</h1>
+    <h1>{{ 'UI.ACCOUNT.SETTINGS' | translate }}</h1>
 </div>
-<div class="container"></div>
+<div class="container">
+    <div class="lang-container">
+        <p>{{ 'UI.ACCOUNT.LANG' | translate }}</p>
+        <select name="lang" id="lang" [(ngModel)]="selectedLang">
+            <option value="es">{{ 'UI.ACCOUNT.ES' | translate }}</option>
+            <option value="en">{{ 'UI.ACCOUNT.EN' | translate }}</option>
+        </select>
+    </div>
+    <div class="btn-container">
+        <button class="primaryBtn" (click)="selectLanguage()">{{ 'BUTTONS.SAVE' | translate }}</button>
+    </div>
+</div>

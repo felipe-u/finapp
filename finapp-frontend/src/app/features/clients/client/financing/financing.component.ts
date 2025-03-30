@@ -2,11 +2,12 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { ClientsService } from '../../../../core/services/clients.service';
 import { Financing } from '../../../../core/models/financing.model';
 import { CurrencyPipe, DatePipe } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-financing',
   standalone: true,
-  imports: [CurrencyPipe, DatePipe],
+  imports: [CurrencyPipe, DatePipe, TranslatePipe],
   templateUrl: './financing.component.html',
   styleUrl: './financing.component.css'
 })

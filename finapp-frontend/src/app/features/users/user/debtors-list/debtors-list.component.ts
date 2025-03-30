@@ -2,11 +2,12 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { DebtorsModalComponent } from "./debtors-modal/debtors-modal.component";
 import { ClientsService } from '../../../../core/services/clients.service';
 import { ActivatedRoute } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-debtors-list',
   standalone: true,
-  imports: [DebtorsModalComponent],
+  imports: [DebtorsModalComponent, TranslatePipe],
   templateUrl: './debtors-list.component.html',
   styleUrl: './debtors-list.component.css'
 })

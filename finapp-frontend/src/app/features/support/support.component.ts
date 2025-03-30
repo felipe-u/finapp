@@ -1,10 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-support',
   standalone: true,
-  imports: [],
+  imports: [TranslatePipe],
   templateUrl: './support.component.html',
   styleUrl: './support.component.css'
 })

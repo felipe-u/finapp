@@ -1,11 +1,12 @@
 import { Component, EventEmitter, inject, Input, Output, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UsersService } from '../../../../core/services/users.service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-password-modal',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, TranslatePipe],
   templateUrl: './password-modal.component.html',
   styleUrl: './password-modal.component.css'
 })

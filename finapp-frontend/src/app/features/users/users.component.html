@@ -1,19 +1,21 @@
 <div class="search-container">
     <div class="filter-options">
-        <button class="filter-btn" [class.active]="managerBtnSelected()" (click)="filterByManagers()">Gestores</button>
-        <button class="filter-btn" [class.active]="assistantBtnSelected()" (click)="filterByAssistants()">Auxiliares</button>
+        <button class="filter-btn" [class.active]="managerBtnSelected()" (click)="filterByManagers()">{{
+            'BUTTONS.MANAGERS' | translate }}</button>
+        <button class="filter-btn" [class.active]="assistantBtnSelected()" (click)="filterByAssistants()">{{
+            'BUTTONS.ASSISTANTS' | translate }}</button>
     </div>
     <div class="search-bar">
         <input type="text" name="search" id="search" [(ngModel)]="searchTerm">
-        <button type="button" class="primaryBtn" (click)="searchUser()">Search</button>
+        <button type="button" class="primaryBtn" (click)="searchUser()">{{ 'BUTTONS.SEARCH' | translate }}</button>
     </div>
 </div>
 <br>
 <div class="users-container">
     <table class="users-table">
         <tr>
-            <th>Name</th>
-            <th>Role</th>
+            <th>{{ 'FIELDS.NAME' | translate }}</th>
+            <th>{{ 'FIELDS.ROLE' | translate }}</th>
         </tr>
         @for (user of filteredUsers(); track user._id) {
         <tr (click)="openUserProfile(user._id)">

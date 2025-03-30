@@ -1,10 +1,11 @@
 import { AfterViewInit, Component, ElementRef, inject, Input, OnChanges, Renderer2, ViewChild } from '@angular/core';
 import { ImagesService } from '../../../../../core/services/images.service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-property-images',
   standalone: true,
-  imports: [],
+  imports: [TranslatePipe],
   templateUrl: './property-images.component.html',
   styleUrl: './property-images.component.css'
 })

@@ -1,9 +1,11 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import * as ExcelJS from 'exceljs';
 import { saveAs } from 'file-saver';
 
 @Injectable({ providedIn: 'root' })
 export class XlsxService {
+    private translate = inject(TranslateService);
 
     async exportToExcel(debtors: any[]) {
         const workbook = new ExcelJS.Workbook();
@@ -11,13 +13,13 @@ export class XlsxService {
 
         worksheet.columns = [
             { header: 'Id', key: 'debtorId', width: 10 },
-            { header: 'Name', key: 'debtorName', width: 20 },
-            { header: 'Installment Value', key: 'installmentValue', width: 20 },
-            { header: 'Overdue Days', key: 'overdueDays', width: 15 },
-            { header: 'Late Interests', key: 'lateInterests', width: 20 },
-            { header: 'Total Installment Value', key: 'totalInstallmentValue', width: 25 },
-            { header: 'Financing Status', key: 'financingStatus', width: 20 },
-            { header: 'Manager', key: 'manager', width: 20 },
+            { header: this.translate.instant('FIELDS.NAME'), key: 'debtorName', width: 20 },
+            { header: this.translate.instant('UI.CLIENTS.FINANCING.INST_VALUE'), key: 'installmentValue', width: 20 },
+            { header: this.translate.instant('UI.CLIENTS.FINANCING.OVERDUE_DAYS'), key: 'overdueDays', width: 15 },
+            { header: this.translate.instant('UI.CLIENTS.FINANCING.LATE_INT'), key: 'lateInterests', width: 20 },
+            { header: this.translate.instant('UI.CLIENTS.FINANCING.TOTAL_VALUE'), key: 'totalInstallmentValue', width: 25 },
+            { header: this.translate.instant('FIELDS.STATUS'), key: 'financingStatus', width: 20 },
+            { header: this.translate.instant('FIELDS.MANAGER'), key: 'manager', width: 20 },
         ];
 
         worksheet.getRow(1).eachCell((cell) => {
@@ -51,8 +53,8 @@ export class XlsxService {
 
         const buffer = await workbook.xlsx.writeBuffer();
         const data = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-        const currentDate = new Date(2025, 2, 23);
-        const formattedDate = `${currentDate.getDate()}-${currentDate.getMonth() + 1}-${currentDate.getFullYear()}`;
+        const date = new Date();
+        const formattedDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
         saveAs(data, `delinquency-report-${formattedDate}.xlsx`);
     }
 }

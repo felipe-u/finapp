@@ -3,11 +3,12 @@ import { UsersService } from '../../../core/services/users.service';
 import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { User } from '../../../core/models/user.model';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-user',
   standalone: true,
-  imports: [RouterLink, ReactiveFormsModule],
+  imports: [RouterLink, ReactiveFormsModule, TranslatePipe],
   templateUrl: './user.component.html',
   styleUrl: './user.component.css'
 })

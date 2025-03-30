@@ -1,11 +1,12 @@
 import { Component, EventEmitter, inject, Input, Output, signal } from '@angular/core';
 import { ClientsService } from '../../../../../core/services/clients.service';
 import { FormsModule } from '@angular/forms';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-debtors-modal',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, TranslatePipe],
   templateUrl: './debtors-modal.component.html',
   styleUrl: './debtors-modal.component.css'
 })
@@ -67,13 +68,15 @@ export class DebtorsModalComponent {
     const hasLetters = /[a-zA-Z]/.test(this.searchTerm);
     const hasNumbers = /\d/.test(this.searchTerm);
     if (hasLetters && hasNumbers) {
-      console.log('El término de búsqueda contiene letras y números.');
+      // console.log('El término de búsqueda contiene letras y números.');
+      console.log('The search term contains letters and numbers');
     } else if (hasLetters || hasNumbers) {
       const searchType = hasLetters ? "name" : "identification";
       console.log(`We're searching by ${searchType}.`);
       this.updateDebtorsFound();
     } else {
-      console.log('El término de búsqueda no contiene ni letras ni números.');
+      // console.log('El término de búsqueda no contiene ni letras ni números.');
+      console.log('The search term contains no letters or numbers');
     }
   }
 

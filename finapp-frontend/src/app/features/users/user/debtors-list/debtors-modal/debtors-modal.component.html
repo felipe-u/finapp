@@ -2,42 +2,48 @@
 <dialog open>
     @if (!showingDebtorsWithoutAssignment && !showingSearchBar) {
     <div class="container">
-        <h1>Asignar deudor</h1>
+        <h1>{{ 'UI.USERS.ASSIGN_DEBTOR' | translate }}</h1>
         <div class="buttons-container">
-            <button class="tertiaryBtn" (click)="showSearchBar()">Buscar deudor</button>
-            <button class="tertiaryBtn" (click)="showDebtorsWithoutAssignent()">Deudores sin asignación</button><br>
+            <button class="tertiaryBtn" (click)="showSearchBar()">{{ 'BUTTONS.SEARCH_DEBTOR' | translate }}</button>
+            <button class="tertiaryBtn" (click)="showDebtorsWithoutAssignent()">{{ 'BUTTONS.NO_ASS_DEBTORS' | translate
+                }}</button><br>
         </div>
     </div>
     }
     @if (showingSearchBar) {
     <div class="search-container">
-        <h2>Buscar deudor</h2>
+        <h2>{{ 'BUTTONS.SEARCH_DEBTOR' | translate }}</h2>
         <div class="search-bar">
             <input type="text" name="search" id="search" [(ngModel)]="searchTerm">
-            <button type="button" class="primaryBtn" (click)="searchClient()">Search</button>
+            <button type="button" class="primaryBtn" (click)="searchClient()">{{ 'BUTTONS.SEARCH' | translate
+                }}</button>
         </div>
         <div class="debtors-container">
             @if (showingDebtorsFound) {
             <table class="debtors-table">
                 <tr>
                     <th>Id</th>
-                    <th>Nombre</th>
-                    <th>Asignado a</th>
-                    <th>Acción</th>
+                    <th>{{ 'FIELDS.NAME' | translate }}</th>
+                    <th>{{ 'FIELDS.ASSIGNED_TO' | translate }}</th>
+                    <th>{{ 'FIELDS.ACTION' | translate }}</th>
                 </tr>
                 @for (debtor of debtorsFound(); track debtor._id) {
                 <tr>
                     <td>{{ debtor.identification.number }}</td>
                     <td>{{ debtor.name }}</td>
                     @if (debtor.manager === null) {
-                    <td>Nadie</td>
-                    <td><button class="secondaryBtn" (click)="onAddToManager(debtor._id, 'asignar')">Asignar</button></td>
+                    <td>{{ 'UI.USERS.NONE' | translate }}</td>
+                    <td><button class="secondaryBtn" (click)="onAddToManager(debtor._id, 'asignar')">{{ 'BUTTONS.ASSIGN'
+                            | translate }}</button>
+                    </td>
                     } @else {
                     <td>{{ debtor.manager.name }}</td>
                     @if (debtor.manager._id === managerId ){
-                    <td><span class="primarySpan">Ya asignado</span></td>
+                    <td><span class="primarySpan">{{ 'UI.USERS.ALREADY_ASSIGNED' | translate }}</span></td>
                     } @else {
-                    <td><button class="secondaryBtn" (click)="onAddToManager(debtor._id, 'reasignar')">Reasignar</button></td>
+                    <td><button class="secondaryBtn" (click)="onAddToManager(debtor._id, 'reasignar')">{{
+                            'BUTTONS.REASSIGN' | translate }}</button>
+                    </td>
                     }
                     }
                 </tr>
@@ -45,37 +51,38 @@
             </table>
             }
             <div class="btn-container">
-                <button class="primaryBtn editBtn" (click)="goToMenu()">Atrás</button>
+                <button class="primaryBtn editBtn" (click)="goToMenu()">{{ 'BUTTONS.GO_BACK' | translate }}</button>
             </div>
         </div>
     </div>
     }
     @if (showingDebtorsWithoutAssignment) {
-    <h2 style="margin-bottom: 40px;">Deudores sin asignación</h2>
+    <h2 style="margin-bottom: 40px;">{{ 'UI.USERS.NO_ASS_DEBTORS' | translate }}</h2>
     <div class="debtors-container">
         @if (debtorsWithoutAssignment().length > 0) {
         <table class="debtors-table">
             <tr>
                 <th>Id</th>
-                <th>Nombre</th>
-                <th>Acción</th>
+                <th>{{ 'FIELDS.NAME' | translate }}</th>
+                <th>{{ 'FIELDS.ACTION' | translate }}</th>
             </tr>
             @for (debtor of debtorsWithoutAssignment(); track debtor._id) {
             <tr>
                 <td>{{ debtor.identification.number }}</td>
                 <td>{{ debtor.name }}</td>
-                <td><button class="secondaryBtn" (click)="onAddToManager(debtor._id, 'asignar')">Asignar</button></td>
+                <td><button class="secondaryBtn" (click)="onAddToManager(debtor._id, 'asignar')">{{ 'BUTTONS.ASSIGN' |
+                        translate }}</button></td>
             </tr>
             }
         </table>
         } @else {
         <div class="debtors-no-found-container">
-            <p>En este momento todos los deudores están asignados.</p>
+            <p>{{ 'UI.USERS.ALL_DEBTORS_ASSIGNED' | translate }}</p>
         </div>
         }
 
         <div class="btn-container">
-            <button class="primaryBtn editBtn" (click)="goToMenu()">Atrás</button>
+            <button class="primaryBtn editBtn" (click)="goToMenu()">{{ 'BUTTONS.GO_BACK' | translate }}</button>
         </div>
     </div>
     }

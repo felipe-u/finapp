@@ -11,22 +11,25 @@
 
     </div>
     <div class="property-container">
-        <h3 class="container-title">Property Images</h3>
+        <h3 class="container-title">{{ 'UI.CLIENTS.GEO_INFO.PROP_IMGS' | translate }}</h3>
         <div class="house-container">
             <app-property-images [editMode]="false" [propertyImagesUrl]="geoInfo().propertyImages" />
         </div>
     </div>
     <div class="address-container">
-        <h3 class="container-title">Dirección</h3>
+        <h3 class="container-title">{{ 'FIELDS.ADDRESS' | translate }}</h3>
         <p>{{geoInfo().address}}</p>
-        <p>Barrio: {{ geoInfo().neighbourhood }}</p>
-        <!-- si no hay nada no se pone  [@if] -->
+        <p>{{ 'FIELDS.NEIGHBOURHOOD' | translate }}: {{ geoInfo().neighbourhood }}</p>
+        @if (geoInfo().sector) {
         <p>Sector: {{ geoInfo().sector }}</p>
-        <p>Municipio: {{ geoInfo().city }}</p>
-        <p>Información adicional: {{ geoInfo().additionalInfo }}</p>
+        }
+        <p>{{ 'FIELDS.CITY' | translate }}: {{ geoInfo().city }}</p>
+        @if (geoInfo().additionalInfo) {
+        <p>{{ 'FIELDS.ADD_INFO' | translate }}: {{ geoInfo().additionalInfo }}</p>
+        }
     </div>
     <div class="button-container">
-        <button class="primaryBtn editBtn" (click)="prepolutaForm()">Editar</button>
+        <button class="primaryBtn editBtn" (click)="prepolutaForm()">{{ 'BUTTONS.EDIT' | translate }}</button>
     </div>
 </div>
 } @else {
@@ -38,21 +41,21 @@
         </google-map>
     </div>
     <div class="property-container">
-        <h3 class="container-title">Property Images</h3>
+        <h3 class="container-title">{{ 'UI.CLIENTS.GEO_INFO.PROP_IMGS' | translate }}</h3>
         <div class="house-container">
             <app-property-images [editMode]="true" [propertyImagesUrl]="geoInfo().propertyImages" />
         </div>
     </div>
     <form class="address-container" [formGroup]="form" (ngSubmit)="onSubmit()">
-        <h3 class="container-title">Dirección</h3>
+        <h3 class="container-title">{{ 'FIELDS.ADDRESS' | translate }}</h3>
         <input type="text" name="latitude" id="latitude" formControlName="latitude" hidden>
         <input type="text" name="longitude" id="longitude" formControlName="longitude" hidden>
         <div class="form-container">
-            <label for="address">Dirección de la vivienda</label>
+            <label for="address">{{ 'FIELDS.PROP_ADDRESS' | translate }}</label>
             <input type="text" name="address" id="address" formControlName="address">
         </div>
         <div class="form-container">
-            <label for="neighbourhood">Barrio</label>
+            <label for="neighbourhood">{{ 'FIELDS.NEIGHBOURHOOD' | translate }}</label>
             <input type="text" name="neighbourhood" id="neighbourhood" formControlName="neighbourhood">
         </div>
         <div class="form-container">
@@ -60,7 +63,7 @@
             <input type="text" name="sector" id="sector" formControlName="sector">
         </div>
         <div class="form-container">
-            <label for="department">Departamento</label>
+            <label for="department">{{ 'FIELDS.DEPARTMENT' | translate }}</label>
             <select name="department" id="department" formControlName="department">
                 @for (dep of departments; track dep) {
                 <option [value]="dep.departamento">{{ dep.departamento }}</option>
@@ -68,7 +71,7 @@
             </select>
         </div>
         <div class="form-container">
-            <label for="municipio">Municipio</label>
+            <label for="municipio">{{ 'FIELDS.CITY' | translate }}</label>
             <select name="municipio" id="municipio" formControlName="city">
                 @for (city of cities; track city) {
                 <option [value]="city">{{ city }}</option>
@@ -76,12 +79,13 @@
             </select>
         </div>
         <div class="form-container">
-            <label for="additionalInfo">Información adicional</label>
+            <label for="additionalInfo">{{ 'FIELDS.ADD_INFO' | translate }}</label>
             <textarea name="additionalInfo" id="additionalInfo" rows="4" formControlName="additionalInfo"></textarea>
         </div>
         <div class="button-container">
-            <button type="submit" class="primaryBtn editBtn">Guardar</button>
-            <button type="button" class="primaryBtn editBtn" (click)="cancel()">Cancelar</button>
+            <button type="submit" class="primaryBtn editBtn">{{ 'BUTTONS.SAVE' | translate }}</button>
+            <button type="button" class="primaryBtn editBtn" (click)="cancel()">{{ 'BUTTONS.CANCEL' | translate
+                }}</button>
         </div>
     </form>
 </div>

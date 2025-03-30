@@ -2,7 +2,7 @@
 <app-password-modal (close)="closePasswordModal()" [userId]="user()._id" />
 }
 <div class="title-container">
-    <h1>Profile</h1>
+    <h1>{{ 'UI.ACCOUNT.PROFILE' | translate }}</h1>
 </div>
 @if (user() === undefined) {
 
@@ -13,11 +13,11 @@
         <img [src]="user().photo === '' ? 'assets/imgs/user.png' : user().photo" alt="User Image">
     </div>
     <div class="info-container">
-        <p>Email: {{ user().email }}</p>
-        <p>Phone: {{ user().phone }}</p>
+        <p>{{ 'FIELDS.EMAIL' | translate }}: {{ user().email }}</p>
+        <p>{{ 'FIELDS.PHONE' | translate }}: {{ user().phone }}</p>
     </div>
     <div class="btn-container">
-        <button class="primaryBtn editBtn" (click)="onPrepopulateForm()">Edit</button>
+        <button class="primaryBtn editBtn" (click)="onPrepopulateForm()">{{ 'BUTTONS.EDIT' | translate }}</button>
     </div>
 </div>
 } @else {
@@ -28,23 +28,23 @@
 <div class="container">
     <div class="img-container editMode" (click)="openProfilePictureModal()">
         <img [src]="user().photo === '' ? 'assets/imgs/user.png' : user().photo" alt="User Image">
-        <p class="editText">Edit</p>
+        <p class="editText">{{ 'BUTTONS.EDIT' | translate }}</p>
     </div>
     <form class="info-container" [formGroup]="form" (ngSubmit)="onSubmit()">
         <div class="input-container">
-            <label for="email">Email</label>
+            <label for="email">{{ 'FIELDS.NAME' | translate }}</label>
             <input type="text" name="email" formControlName="email">
         </div>
         <div class="input-container">
-            <label for="phone">Phone</label>
+            <label for="phone">{{ 'FIELDS.PHONE' | translate }}</label>
             <input type="text" name="phone" formControlName="phone">
         </div>
         <div class="password-btn-container">
-            <button class="primaryBtn largeBtn" type="button" (click)="onChangePassword()">Change password</button>
+            <button class="primaryBtn largeBtn" type="button" (click)="onChangePassword()">{{ 'BUTTONS.CHANGE_PASS' | translate }}</button>
         </div>
         <div class="btn-container">
-            <button type="submit" class="primaryBtn editBtn">Save</button>
-            <button type="button" class="primaryBtn editBtn" (click)="changeEditMode()">Cancel</button>
+            <button type="submit" class="primaryBtn editBtn">{{ 'BUTTONS.SAVE' | translate }}</button>
+            <button type="button" class="primaryBtn editBtn" (click)="changeEditMode()">{{ 'BUTTONS.CANCEL' | translate }}</button>
         </div>
     </form>
 </div>

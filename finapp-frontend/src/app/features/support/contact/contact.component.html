@@ -1,7 +1,7 @@
 <div class="container">
     <aside>
         <div class="support-container">
-            <h1>Technical Support</h1>
+            <h1>{{ 'UI.SUPPORT.TECH_SUPPORT_TITLE' | translate }}</h1>
             <hr>
             <p><strong>Phone:</strong><br>3127751316</p>
             <p><strong>Email:</strong><br>soporte.finapp&#64;gmail.com</p>
@@ -10,19 +10,19 @@
     <main>
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
             <div class="input-container subject-input">
-                <label for="subject">Subject</label>
+                <label for="subject">{{ 'FIELDS.SUBJECT' | translate }}</label>
                 <input type="text" name="subject" id="subject" formControlName="subject">
             </div>
             <div class="input-container message-input">
-                <label for="message">Message</label>
+                <label for="message">{{ 'FIELDS.MESSAGE' | translate }}</label>
                 <textarea name="message" id="message" formControlName="message"></textarea>
             </div>
             <div class="btn-container">
-                <button type="submit" class="primaryBtn mediumBtn">Send</button>
+                <button type="submit" class="primaryBtn mediumBtn">{{ 'BUTTONS.SEND' | translate }}</button>
             </div>
         </form>
     </main>
 </div>
 <div class="btn-container" style="margin: 50px auto 0 auto">
-    <button class="secondaryBtn mediumBtn" (click)="goBack()">Go Back</button>
+    <button class="secondaryBtn mediumBtn" (click)="goBack()">{{ 'BUTTONS.GO_BACK' | translate }}</button>
 </div>

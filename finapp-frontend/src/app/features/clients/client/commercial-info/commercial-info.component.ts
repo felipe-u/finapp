@@ -6,11 +6,12 @@ import { Router } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ReferenceTypeEnum, RelationshipTypeEnum } from '../../../../core/models/enums';
 import { CurrencyPipe } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-commercial-info',
   standalone: true,
-  imports: [ReactiveFormsModule, CurrencyPipe],
+  imports: [ReactiveFormsModule, CurrencyPipe, TranslatePipe],
   templateUrl: './commercial-info.component.html',
   styleUrl: './commercial-info.component.css'
 })

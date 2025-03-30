@@ -4,11 +4,12 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
 import { ClientsService } from '../../../core/services/clients.service';
 import { UsersService } from '../../../core/services/users.service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [RouterLink, ReactiveFormsModule],
+  imports: [RouterLink, ReactiveFormsModule, TranslatePipe],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })

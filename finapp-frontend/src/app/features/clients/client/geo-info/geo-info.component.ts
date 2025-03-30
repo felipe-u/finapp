@@ -5,11 +5,12 @@ import { GoogleMap, MapAdvancedMarker } from '@angular/google-maps';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LocationService } from '../../../../core/services/location.service';
 import { PropertyImagesComponent } from "./property-images/property-images.component";
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-geo-info',
   standalone: true,
-  imports: [GoogleMap, MapAdvancedMarker, ReactiveFormsModule, PropertyImagesComponent],
+  imports: [GoogleMap, MapAdvancedMarker, ReactiveFormsModule, PropertyImagesComponent, TranslatePipe],
   templateUrl: './geo-info.component.html',
   styleUrl: './geo-info.component.css'
 })

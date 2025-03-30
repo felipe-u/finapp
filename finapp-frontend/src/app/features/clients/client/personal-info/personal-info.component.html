@@ -8,12 +8,12 @@
     </div>
     <div class="info-container">
         <p>ID: {{ client().identification.number }} - {{ client().identification.idType }}</p>
-        <p>Correo: {{ personalInfo().email }}</p>
-        <p>Teléfono: {{ personalInfo().phone }}</p>
-        <p>Fecha de nacimiento: {{ personalInfo().birthDate | date:'longDate' }}</p>
+        <p>{{ 'FIELDS.EMAIL' | translate }}: {{ personalInfo().email }}</p>
+        <p>{{ 'FIELDS.PHONE' | translate }}: {{ personalInfo().phone }}</p>
+        <p>{{ 'FIELDS.BIRTHDATE' | translate }}: {{ personalInfo().birthDate | date:'longDate' }}</p>
     </div>
     <div class="button-container">
-        <button class="primaryBtn editBtn" (click)="prepopulateForm()">Editar</button>
+        <button class="primaryBtn editBtn" (click)="prepopulateForm()">{{ 'BUTTONS.EDIT' | translate }}</button>
     </div>
 </div>
 } @else {
@@ -24,7 +24,7 @@
 <div class="container client-container">
     <div class="img-container editMode" (click)="openProfilePictureModal()">
         <img [src]="personalInfo().photo === '' ? 'assets/imgs/user.png' : personalInfo().photo" alt="User Image">
-        <p class="editText">Edit</p>
+        <p class="editText">{{ 'BUTTONS.EDIT' | translate }}</p>
     </div>
     <form class="info-container" [formGroup]="form" (ngSubmit)="onSubmit()">
         <div class="input-container">
@@ -32,20 +32,20 @@
             <input type="text" name="idNumber" formControlName="idNumber">
         </div>
         <div class="input-container">
-            <label for="email">Correo</label>
+            <label for="email">{{ 'FIELDS.EMAIL' | translate }}</label>
             <input type="text" name="email" formControlName="email">
         </div>
         <div class="input-container">
-            <label for="phone">Teléfono</label>
+            <label for="phone">{{ 'FIELDS.PHONE' | translate }}</label>
             <input type="text" name="phone" formControlName="phone">
         </div>
         <div class="input-container">
-            <label for="birthDate">Fecha de nacimiento</label>
+            <label for="birthDate">{{ 'FIELDS.BIRTHDATE' | translate }}</label>
             <input type="date" name="birthDate" formControlName="birthDate">
         </div>
         <div class="button-container">
-            <button type="submit" class="primaryBtn editBtn">Guardar</button>
-            <button type="button" class="primaryBtn editBtn" (click)="changeEditMode()">Cancelar</button>
+            <button type="submit" class="primaryBtn editBtn">{{ 'BUTTONS.SAVE' | translate }}</button>
+            <button type="button" class="primaryBtn editBtn" (click)="changeEditMode()">{{ 'BUTTONS.CANCEL' | translate }}</button>
         </div>
     </form>
 </div>

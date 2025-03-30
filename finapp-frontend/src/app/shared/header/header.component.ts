@@ -3,11 +3,12 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 import { UsersService } from '../../core/services/users.service';
 import { ClientsService } from '../../core/services/clients.service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, TranslatePipe],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })

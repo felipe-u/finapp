@@ -1,5 +1,5 @@
 @if (isModalOpen) {
-<app-debtors-modal (close)="closeDebtorsModal()" (updateDebtors)="updateDebtorsList()" [managerId]="managerId()"/>
+<app-debtors-modal (close)="closeDebtorsModal()" (updateDebtors)="updateDebtorsList()" [managerId]="managerId()" />
 }
 <div class="container">
     <table class="debtors-table">
@@ -14,8 +14,8 @@
         }@else {
         <tr>
             <th>Id</th>
-            <th>Name</th>
-            <th>Status</th>
+            <th>{{ 'FIELDS.NAME' | translate }}</th>
+            <th>{{ 'FIELDS.STATUS' | translate }}</th>
         </tr>
         }
         @for (debtor of debtors(); track debtor._id) {
@@ -39,10 +39,9 @@
     </table>
     <div class="btn-container">
         @if (managingDebtors) {
-        <button class="secondaryBtn" (click)="cancelManage()">Cancelar</button>
-
+        <button class="secondaryBtn" (click)="cancelManage()">{{ 'BUTTONS.CANCEL' | translate }}</button>
         } @else {
-        <button class="secondaryBtn" (click)="manageDebtors()">Asignar / Remover deudores</button>
+        <button class="secondaryBtn" (click)="manageDebtors()">{{ 'BUTTONS.ASS_REM_DEBTORS' | translate }}</button>
         }
     </div>
 </div>

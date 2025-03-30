@@ -8,9 +8,9 @@
             <h2>{{ userRole() }}</h2>
         </div>
         <div class="a-container">
-            <a (click)="goToProfile()">Profile</a><br>
-            <a (click)="goToSettings()">Settings</a>
-            <a (click)="goBack()">Go back</a>
+            <a (click)="goToProfile()">{{ 'UI.ACCOUNT.PROFILE' | translate }}</a><br>
+            <a (click)="goToSettings()">{{ 'UI.ACCOUNT.SETTINGS' | translate }}</a>
+            <a (click)="goBack()">{{ 'BUTTONS.GO_BACK' | translate }}</a>
         </div>
     </aside>
     <main>

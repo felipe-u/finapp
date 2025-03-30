@@ -3,11 +3,12 @@ import { Router } from '@angular/router';
 import { ClientsService } from '../../core/services/clients.service';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { query } from '@angular/animations';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-clients',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule, TranslatePipe],
   templateUrl: './clients.component.html',
   styleUrl: './clients.component.css'
 })
@@ -17,12 +18,19 @@ export class ClientsComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
   debtors = signal<any>([]);
   searchTerm = '';
+  // options = [
+  //   { key: 'AD', name: 'Al dia', selected: true },
+  //   { key: 'EM', name: 'En mora', selected: true },
+  //   { key: 'CT', name: 'Completada', selected: true },
+  //   { key: 'CP', name: 'En cobro prejurídico', selected: true },
+  //   { key: 'CJ', name: 'En cobro jurídico', selected: true },
+  // ];
   options = [
-    { key: 'AD', name: 'Al dia', selected: true },
-    { key: 'EM', name: 'En mora', selected: true },
-    { key: 'CT', name: 'Completada', selected: true },
-    { key: 'CP', name: 'En cobro prejurídico', selected: true },
-    { key: 'CJ', name: 'En cobro jurídico', selected: true },
+    { key: 'AD', name: 'Up to date', selected: true },
+    { key: 'EM', name: 'Overdue', selected: true },
+    { key: 'CT', name: 'Completed', selected: true },
+    { key: 'CP', name: 'Pre-legal collection', selected: true },
+    { key: 'CJ', name: 'Legal collection', selected: true },
   ];
   filterForm = new FormGroup({
     AD: new FormControl(true),
@@ -70,7 +78,8 @@ export class ClientsComponent implements OnInit {
     const hasLetters = /[a-zA-Z]/.test(this.searchTerm);
     const hasNumbers = /\d/.test(this.searchTerm);
     if (hasLetters && hasNumbers) {
-      console.log('El término de búsqueda contiene letras y números.');
+      // console.log('El término de búsqueda contiene letras y números.');
+      console.log('The search term contains letters and numbers');
     } else if (hasLetters || hasNumbers) {
       const searchType = hasLetters ? "name" : "identification";
       console.log(`We're searching by ${searchType}.`);
@@ -83,7 +92,8 @@ export class ClientsComponent implements OnInit {
         }
       });
     } else {
-      console.log('El término de búsqueda no contiene ni letras ni números.');
+      // console.log('El término de búsqueda no contiene ni letras ni números.');
+      console.log('The search term contains no letters or numbers');
     }
   }
 

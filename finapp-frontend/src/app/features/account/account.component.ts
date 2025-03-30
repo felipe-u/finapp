@@ -3,11 +3,12 @@ import { Router, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from "../../shared/header/header.component";
 import { UsersService } from '../../core/services/users.service';
 import { FooterComponent } from "../../shared/footer/footer.component";
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-account',
   standalone: true,
-  imports: [HeaderComponent, RouterOutlet, FooterComponent],
+  imports: [HeaderComponent, RouterOutlet, FooterComponent, TranslatePipe],
   templateUrl: './account.component.html',
   styleUrl: './account.component.css'
 })

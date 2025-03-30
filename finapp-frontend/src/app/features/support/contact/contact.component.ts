@@ -3,11 +3,12 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Email, EmailService } from '../../../core/services/email.service';
 import { UsersService } from '../../../core/services/users.service';
 import { Router } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, TranslatePipe],
   templateUrl: './contact.component.html',
   styleUrl: './contact.component.css'
 })

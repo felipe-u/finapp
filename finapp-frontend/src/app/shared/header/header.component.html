@@ -12,10 +12,10 @@
             <a class="closebtn" (click)="closeSidePanel()">&times;</a>
         </div>
         <hr>
-        <a (click)="goToProfile()">Profile</a>
-        <a (click)="goToSettings()">Settings</a>
+        <a (click)="goToProfile()">{{ 'UI.HOME.SIDEPANEL.PROFILE' | translate }}</a>
+        <a (click)="goToSettings()">{{ 'UI.HOME.SIDEPANEL.SETTINGS' | translate }}</a>
         <hr>
-        <a (click)="onLogout()">Logout</a>
+        <a (click)="onLogout()">{{ 'UI.HOME.SIDEPANEL.LOGOUT' | translate }}</a>
     </div>
     <div class="user">
         <img [src]="userPhoto() === '' ? 'assets/imgs/user.png' : userPhoto()" alt="User" (click)="openSidePanel()">

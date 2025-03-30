@@ -1,19 +1,19 @@
 <div class="container">
     <nav>
-        <a routerLink="/home">Home</a>
+        <a routerLink="/home">{{ 'UI.HOME.NAVBAR.HOME' | translate }}</a>
         @if (userRole() === 'manager') {
         }
         @switch (userRole()) {
         @case ('admin') {
-        <a routerLink="/users">Users</a>
+        <a routerLink="/users">{{ 'UI.HOME.NAVBAR.USERS' | translate }}</a>
         }
         @case ('manager') {
-        <a routerLink="/clients">Clients</a>
+        <a routerLink="/clients">{{ 'UI.HOME.NAVBAR.CLIENTS' | translate }}</a>
         }
         @case ('assistant') {
-        <a routerLink="/reports">Reports</a>
+        <a routerLink="/reports">{{ 'UI.HOME.NAVBAR.REPORTS' | translate }}</a>
         }
         }
-        <a routerLink="/support">Support</a>
+        <a routerLink="/support">{{ 'UI.HOME.NAVBAR.SUPPORT' | translate }}</a>
     </nav>
 </div>

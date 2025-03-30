@@ -21,7 +21,7 @@
     <div class="btn-container">
         <div class="input-container">
             <label for="fileInput" class="fileInputLabel secondaryBtn">
-                Upload an image
+                {{ 'BUTTONS.UPLOAD_IMG' | translate }}
             </label>
             <input type="file" id="fileInput" class="fileInput" style="display: none;"
                 (change)="onFileSelected($event)">

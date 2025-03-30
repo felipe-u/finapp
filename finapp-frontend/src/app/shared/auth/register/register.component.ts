@@ -5,11 +5,12 @@ import { User } from '../../../core/models/user.model';
 import { AuthService } from '../../../core/services/auth.service';
 import { ClientsService } from '../../../core/services/clients.service';
 import { UsersService } from '../../../core/services/users.service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [RouterLink, ReactiveFormsModule],
+  imports: [RouterLink, ReactiveFormsModule, TranslatePipe],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })

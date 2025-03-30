@@ -1,11 +1,12 @@
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { ImagesService } from '../../core/services/images.service';
 import { UsersService } from '../../core/services/users.service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-profile-picture-modal',
   standalone: true,
-  imports: [],
+  imports: [TranslatePipe],
   templateUrl: './profile-picture-modal.component.html',
   styleUrl: './profile-picture-modal.component.css'
 })

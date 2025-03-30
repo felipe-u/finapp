@@ -6,22 +6,22 @@
         } @else if (debtorsInfo().length > 0){
         <div class="container">
             <div class="info-container">
-                <h2>Report</h2>
-                <p>Type: Delinquency report</p>
-                <p>Gap: {{daysGap}} days</p>
+                <h2>{{ 'UI.REPORTS.REPORT' | translate }}</h2>
+                <p>{{ 'UI.REPORTS.TYPE' | translate }}: {{ 'UI.REPORTS.DEL_REP' | translate }}</p>
+                <p>{{ 'UI.REPORTS.GAP' | translate }}: {{daysGap}} {{ 'UI.REPORTS.DAYS' | translate }}</p>
             </div>
             <div class="clients-container">
                 <table class="clients-table">
                     <thead>
                         <tr>
                             <th>Id</th>
-                            <th>Name</th>
-                            <th>Valor de la cuota</th>
-                            <th>Overdue days</th>
-                            <th>Interés mora</th>
-                            <th>Total a pagar</th>
-                            <th>State</th>
-                            <th>Manager</th>
+                            <th>{{ 'FIELDS.NAME' | translate }}</th>
+                            <th>{{ 'UI.CLIENTS.FINANCING.INST_VALUE' | translate }}</th>
+                            <th>{{ 'UI.CLIENTS.FINANCING.OVERDUE_DAYS' | translate }}</th>
+                            <th>{{ 'UI.CLIENTS.FINANCING.LATE_INT' | translate }}</th>
+                            <th>{{ 'UI.CLIENTS.FINANCING.TOTAL_PAY' | translate }}</th>
+                            <th>{{ 'FIELDS.STATUS' | translate }}</th>
+                            <th>{{ 'FIELDS.MANAGER' | translate }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -29,10 +29,10 @@
                         <tr>
                             <td>{{ info.debtorId }}</td>
                             <td>{{ info.debtorName }}</td>
-                            <td>{{ info.installmentValue }}</td>
+                            <td>{{ info.installmentValue | currency }}</td>
                             <td>{{ info.overdueDays }}</td>
-                            <td>{{ info.lateInterests }}</td>
-                            <td>{{ info.totalInstallmentValue }}</td>
+                            <td>{{ info.lateInterests | currency }}</td>
+                            <td>{{ info.totalInstallmentValue | currency }}</td>
                             <td>{{ info.financingStatus }}</td>
                             <td>{{ info.manager }}</td>
                         </tr>
@@ -42,15 +42,15 @@
             </div>
         </div>
         <div class="btn-container">
-            <button class="primaryBtn" (click)="generatePDF()">Generate PDF</button>
-            <button class="primaryBtn" (click)="generateExcel()">Generate Excel</button>
+            <button class="primaryBtn" (click)="generatePDF()">{{ 'BUTTONS.GENERATE' | translate }} PDF</button>
+            <button class="primaryBtn" (click)="generateExcel()">{{ 'BUTTONS.GENERATE' | translate }} Excel</button>
         </div>
         }
         @else {
         <div class="no-debtors-container">
-            <p>No debtors found within {{ daysGap }} overdue days.</p>
+            <p>{{'UI.REPORTS.NO_DEBTORS' | translate:{days: daysGap} }}</p>
             <div class="btn-container">
-                <button class="primaryBtn" (click)="closeModal()">Close</button>
+                <button class="primaryBtn" (click)="closeModal()">{{ 'BUTTONS.CLOSE' }}</button>
             </div>
         </div>
         }

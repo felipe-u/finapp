@@ -5,11 +5,12 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { User } from '../../../core/models/user.model';
 import { PasswordModalComponent } from "./password-modal/password-modal.component";
 import { ProfilePictureModalComponent } from "../../../shared/profile-picture-modal/profile-picture-modal.component";
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [ReactiveFormsModule, PasswordModalComponent, ProfilePictureModalComponent],
+  imports: [ReactiveFormsModule, PasswordModalComponent, ProfilePictureModalComponent, TranslatePipe],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })

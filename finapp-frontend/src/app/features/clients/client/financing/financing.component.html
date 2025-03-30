@@ -4,12 +4,12 @@
 <div class="motorcycle-container">
     <table>
         <tr>
-            <th>Cuota inicial</th>
-            <th>Total financiado</th>
-            <th>Número de cuotas</th>
-            <th>Interés mensual</th>
-            <th>Interés mora</th>
-            <th>Total a pagar</th>
+            <th>{{ 'UI.CLIENTS.FINANCING.INITIAL_PAYMENT' | translate }}</th>
+            <th>{{ 'UI.CLIENTS.FINANCING.FINANCED_AMOUNT' | translate }}</th>
+            <th>{{ 'UI.CLIENTS.FINANCING.NUM_INST' | translate }}</th>
+            <th>{{ 'UI.CLIENTS.FINANCING.MONTH_INT' | translate }}</th>
+            <th>{{ 'UI.CLIENTS.FINANCING.LATE_INT' | translate }}</th>
+            <th>{{ 'UI.CLIENTS.FINANCING.TOTAL_PAY' | translate }}</th>
         </tr>
         <tr>
             <td>{{ financing().initialInstallment | currency:'':'symbol':'1.0-0' }}</td>
@@ -24,17 +24,17 @@
 <div class="financing-container">
     <table>
         <tr>
-            <th>Cuota</th>
-            <th>Vencimiento cuota</th>
+            <th>{{ 'UI.CLIENTS.FINANCING.INST' | translate }}</th>
+            <th>{{ 'UI.CLIENTS.FINANCING.DUE_DATE' | translate }}</th>
             <th>Capital</th>
-            <th>Intereses</th>
-            <th>Valor aval</th>
-            <th>¿Cuota cancelada?</th>
-            <th>Valor cuota</th>
-            <th>Valor debe</th>
-            <th>Dias vencidos</th>
-            <th>Interes mora</th>
-            <th>Total cuota</th>
+            <th>{{ 'UI.CLIENTS.FINANCING.INT' | translate }}</th>
+            <th>{{ 'UI.CLIENTS.FINANCING.GUARANTEE' | translate }}</th>
+            <th>{{ 'UI.CLIENTS.FINANCING.INST_PAID' | translate }}</th>
+            <th>{{ 'UI.CLIENTS.FINANCING.INST_VALUE' | translate }}</th>
+            <th>{{ 'UI.CLIENTS.FINANCING.OUTS_VALUE' | translate }}</th>
+            <th>{{ 'UI.CLIENTS.FINANCING.OVERDUE_DAYS' | translate }}</th>
+            <th>{{ 'UI.CLIENTS.FINANCING.LATE_INT' | translate }}</th>
+            <th>{{ 'UI.CLIENTS.FINANCING.TOTAL_VALUE' | translate }}</th>
         </tr>
         @for (inst of financing().installments; track inst._id) {
         <tr>
@@ -44,7 +44,7 @@
             <td>{{ inst.interest | currency }}</td>
             <td>{{ inst.guaranteeValue | currency }}</td>
             @if (inst.installmentPaid) {
-            <td style="color: #1c7a2d;">Yes</td>
+            <td style="color: #1c7a2d;">{{ 'FIELDS.YES' | translate }}</td>
             } @else {
             <td style="color: #a71d2a;">No</td>
             }
@@ -59,12 +59,15 @@
 </div>
 
 <div class="motorcycle-container info-container">
-    <h3 class="container-title">Motocicleta</h3>
+    <h3 class="container-title">{{ 'UI.CLIENTS.FINANCING.BIKE' | translate }}</h3>
     <table class="motorcycle-info-table">
         <tr>
-            <th>Placa</th>
+            <!-- <th>Placa</th>
             <th>Linea</th>
-            <th>Marca</th>
+            <th>Marca</th> -->
+            <th>{{ 'UI.CLIENTS.FINANCING.LIC_PLATE' | translate }}</th>
+            <th>{{ 'UI.CLIENTS.FINANCING.MODEL' | translate }}</th>
+            <th>{{ 'UI.CLIENTS.FINANCING.BRAND' | translate }}</th>
         </tr>
         <tr>
             <td>{{ financing().motorcycle.licensePlate }}</td>

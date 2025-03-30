@@ -2,11 +2,12 @@ import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { UsersService } from '../../core/services/users.service';
 import { Router } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-users',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, TranslatePipe],
   templateUrl: './users.component.html',
   styleUrl: './users.component.css'
 })
@@ -68,7 +69,8 @@ export class UsersComponent implements OnInit {
         }
       });
     } else {
-      console.log('Término de búsqueda inválido.');
+      // console.log('Término de búsqueda inválido.');
+      console.log('Invalid search term.');
     }
   }
 }
