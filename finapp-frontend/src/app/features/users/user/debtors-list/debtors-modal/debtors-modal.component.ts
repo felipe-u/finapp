@@ -68,14 +68,12 @@ export class DebtorsModalComponent {
     const hasLetters = /[a-zA-Z]/.test(this.searchTerm);
     const hasNumbers = /\d/.test(this.searchTerm);
     if (hasLetters && hasNumbers) {
-      // console.log('El término de búsqueda contiene letras y números.');
       console.log('The search term contains letters and numbers');
     } else if (hasLetters || hasNumbers) {
       const searchType = hasLetters ? "name" : "identification";
       console.log(`We're searching by ${searchType}.`);
       this.updateDebtorsFound();
     } else {
-      // console.log('El término de búsqueda no contiene ni letras ni números.');
       console.log('The search term contains no letters or numbers');
     }
   }

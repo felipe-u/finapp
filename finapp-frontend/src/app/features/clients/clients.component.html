@@ -31,7 +31,7 @@
         <tr (click)="openClientProfile(debtor._id)">
             <td>{{ debtor.identification.number }}</td>
             <td>{{ debtor.name }}</td>
-            <td>{{ debtor.financing.status }}</td>
+            <td>{{ debtor.financing.status | enum:'ENUMS.STATUS' }}</td>
         </tr>
         }
 

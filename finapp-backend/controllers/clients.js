@@ -868,9 +868,6 @@ const getDebtors = (query, res, managerId) => {
       select: "status",
     })
     .then((debtors) => {
-      debtors.map((debtor) => {
-        debtor.financing.status = statusEnum[debtor.financing.status];
-      });
       res.status(200).json({ debtors: debtors });
     })
     .catch((err) => {

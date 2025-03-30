@@ -88,7 +88,7 @@ export class ClientsService {
     }
 
     getClientFinancing() {
-        console.log("Recuperando financiamiento del cliente: ", this.client()._id);
+        console.log("Retrieving client financing: ", this.client()._id);
         return this.httpClient.get<any>(this.url + 'clients/' + this.client()._id + '/financing')
             .pipe(
                 map((resData) => resData.financing)
@@ -97,7 +97,7 @@ export class ClientsService {
     }
 
     getClientPersonalInfo() {
-        console.log("Recuperando información personal del cliente: ", this.client()._id);
+        console.log("Retrieving client personal info: ", this.client()._id);
         return this.httpClient.get<any>(this.url + 'clients/' + this.client()._id + '/personalInfo')
             .pipe(
                 map((resData) => resData.personalInfo)
@@ -105,7 +105,7 @@ export class ClientsService {
     }
 
     editPersonalInfo(updatedPersonalInfo: PersonalInfo, updatedIdNumber: string) {
-        console.log("Editando información del cliente: ", this.client()._id);
+        console.log("Editing client personal info: ", this.client()._id);
         return this.httpClient.post(
             this.url + 'clients/' + this.client()._id + '/personalInfo/edit',
             { newIdNumber: updatedIdNumber, newPersonalInfo: updatedPersonalInfo }
@@ -114,7 +114,7 @@ export class ClientsService {
     }
 
     getClientGeographicInfo() {
-        console.log("Recuperando información geográfica del cliente: ", this.client()._id);
+        console.log("Retrieving client geographic info: ", this.client()._id);
         return this.httpClient.get<any>(this.url + 'clients/' + this.client()._id + '/geoInfo')
             .pipe(
                 map((resData) => resData.geoInfo)
@@ -123,19 +123,19 @@ export class ClientsService {
 
 
     editGeoInfo(updatedGeoInfo: GeoInfo) {
-        console.log("Editando información geográfica del cliente: ", this.client()._id);
+        console.log("Editing client geographic info: ", this.client()._id);
         return this.httpClient.post(
             this.url + 'clients/' + this.client()._id + '/geoInfo/edit', updatedGeoInfo
         )
     }
 
     getClientCommercialInfo() {
-        console.log("Recuperando información comercial del cliente: ", this.client()._id);
+        console.log("Retrieving client commercial info: ", this.client()._id);
         return this.httpClient.get<any>(this.url + 'clients/' + this.client()._id + '/commercialInfo')
     }
 
     editCommercialInfo(updatedCommercialInfo: CommercialInfo, updatedReferences: Reference[]) {
-        console.log("Editando información comercial del cliente: ", this.client()._id);
+        console.log("Editing client commercial info: ", this.client()._id);
         return this.httpClient.post(
             this.url + 'clients/' + this.client()._id + '/commercialInfo/edit',
             { newCommercialInfo: updatedCommercialInfo, newReferences: updatedReferences }

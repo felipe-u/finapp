@@ -69,7 +69,6 @@ export class UsersComponent implements OnInit {
         }
       });
     } else {
-      // console.log('Término de búsqueda inválido.');
       console.log('Invalid search term.');
     }
   }

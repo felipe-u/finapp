@@ -50,7 +50,7 @@
             @for (ref of famReferences(); track ref._id) {
             <tr>
                 <td>{{ ref.name }}</td>
-                <td>{{ ref.relationship }}</td>
+                <td>{{ ref.relationship | enum:'ENUMS.RELATIONSHIP' }}</td>
                 <td>{{ ref.phone }}</td>
             </tr>
             }
@@ -60,7 +60,7 @@
             @for (ref of perReferences(); track ref._id) {
             <tr>
                 <td>{{ ref.name }}</td>
-                <td>{{ ref.relationship }}</td>
+                <td>{{ ref.relationship | enum:'ENUMS.RELATIONSHIP' }}</td>
                 <td>{{ ref.phone }}</td>
             </tr>
             }
@@ -70,7 +70,7 @@
             @for (ref of comReferences(); track ref._id) {
             <tr>
                 <td>{{ ref.name }}</td>
-                <td>{{ ref.relationship }}</td>
+                <td>{{ ref.relationship | enum:'ENUMS.RELATIONSHIP' }}</td>
                 <td>{{ ref.phone }}</td>
             </tr>
             }
