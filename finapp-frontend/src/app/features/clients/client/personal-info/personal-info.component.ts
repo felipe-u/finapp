@@ -4,7 +4,8 @@ import { PersonalInfo } from '../../../../core/models/personalInfo.model';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ProfilePictureModalComponent } from "../../../../shared/profile-picture-modal/profile-picture-modal.component";
 import { DatePipe } from '@angular/common';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { NotiflixService } from '../../../../core/services/notiflix.service';
 
 @Component({
   selector: 'app-personal-info',
@@ -20,6 +21,8 @@ import { TranslatePipe } from '@ngx-translate/core';
 })
 export class PersonalInfoComponent {
   private clientsService = inject(ClientsService);
+  private notiflix = inject(NotiflixService);
+  private translate = inject(TranslateService);
   client = signal<any | undefined>(undefined);
   personalInfo = signal<PersonalInfo>(undefined)
   editMode = false;
@@ -72,27 +75,44 @@ export class PersonalInfoComponent {
   }
 
   onSubmit() {
-    if (confirm("Confirmar cambios")) {
-      const newIdNumber = this.form.value.idNumber;
-      const newEmail = this.form.value.email;
-      const newPhone = this.form.value.phone;
-      const newBirthDate = this.form.value.birthDate;
-      const newBirthDateWithoutTimezoneOffset = this.getDateWithoutTimezoneOffset(newBirthDate);
+    this.notiflix.showConfirm(
+      this.translate.instant('NOTIFLIX.CONFIRM_CHANGES'),
+      this.translate.instant('NOTIFLIX.YOU_SURE_UPD'),
+      () => {
+        const newIdNumber = this.form.value.idNumber;
+        const newEmail = this.form.value.email;
+        const newPhone = this.form.value.phone;
+        const newBirthDate = this.form.value.birthDate;
+        const newBirthDateWithoutTimezoneOffset = this.getDateWithoutTimezoneOffset(newBirthDate);
 
-      const newPersonalInfo = new PersonalInfo(
-        this.personalInfo()._id,
-        newEmail,
-        newPhone,
-        newBirthDateWithoutTimezoneOffset,
-        this.personalInfo().photo
-      );
+        const newPersonalInfo = new PersonalInfo(
+          this.personalInfo()._id,
+          newEmail,
+          newPhone,
+          newBirthDateWithoutTimezoneOffset,
+          this.personalInfo().photo
+        );
 
-      this.clientsService.editPersonalInfo(newPersonalInfo, newIdNumber)
-        .subscribe();
-      this.personalInfo.set(newPersonalInfo);
-      this.client().identification.number = newIdNumber;
-      this.changeEditMode();
-    }
+        this.clientsService.editPersonalInfo(newPersonalInfo, newIdNumber)
+          .subscribe({
+            next: () => {
+              this.personalInfo.set(newPersonalInfo);
+              this.client().identification.number = newIdNumber;
+              this.changeEditMode();
+              this.notiflix.showSuccess(
+                this.translate.instant('NOTIFLIX.UPDATED')
+              );
+            },
+            error: (error: Error) => {
+              console.error(error.message);
+              this.notiflix.showError(
+                this.translate.instant('NOTIFLIX.ERROR')
+              );
+            }
+          });
+      },
+      () => { }
+    );
   }
 
   openProfilePictureModal() {

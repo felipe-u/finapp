@@ -37,7 +37,7 @@
                     <td>{{ debtor.name }}</td>
                     @if (debtor.manager === null) {
                     <td>{{ 'UI.USERS.NONE' | translate }}</td>
-                    <td><button class="secondaryBtn" (click)="onAddToManager(debtor._id, 'asignar')">
+                    <td><button class="secondaryBtn" (click)="onAddToManager(debtor._id, 'ass')">
                             {{ 'BUTTONS.ASSIGN' | translate }}
                         </button>
                     </td>
@@ -48,7 +48,7 @@
                             {{ 'UI.USERS.ALREADY_ASSIGNED' | translate }}
                         </span></td>
                     } @else {
-                    <td><button class="secondaryBtn" (click)="onAddToManager(debtor._id, 'reasignar')">
+                    <td><button class="secondaryBtn" (click)="onAddToManager(debtor._id, 'rea')">
                             {{ 'BUTTONS.REASSIGN' | translate }}
                         </button>
                     </td>
@@ -80,7 +80,7 @@
             <tr>
                 <td>{{ debtor.identification.number }}</td>
                 <td>{{ debtor.name }}</td>
-                <td><button class="secondaryBtn" (click)="onAddToManager(debtor._id, 'asignar')">
+                <td><button class="secondaryBtn" (click)="onAddToManager(debtor._id, 'ass')">
                         {{ 'BUTTONS.ASSIGN' | translate }}
                     </button></td>
             </tr>

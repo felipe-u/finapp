@@ -2,7 +2,8 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { DebtorsModalComponent } from "./debtors-modal/debtors-modal.component";
 import { ClientsService } from '../../../../core/services/clients.service';
 import { ActivatedRoute } from '@angular/router';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { NotiflixService } from '../../../../core/services/notiflix.service';
 
 @Component({
   selector: 'app-debtors-list',
@@ -14,6 +15,8 @@ import { TranslatePipe } from '@ngx-translate/core';
 export class DebtorsListComponent implements OnInit {
   private clientsService = inject(ClientsService);
   private activatedRoute = inject(ActivatedRoute);
+  private notiflix = inject(NotiflixService);
+  private translate = inject(TranslateService);
   managerId = signal<string>('');
   debtors = signal<any>([]);
   managingDebtors = false;
@@ -29,17 +32,30 @@ export class DebtorsListComponent implements OnInit {
   }
 
   onRemoveDebtor(debtorId: string) {
-    if (confirm('Are you sure you want to remove this debtor?')) {
-      this.clientsService.removeDebtorFromManager(debtorId)
-        .subscribe({
-          next: () => {
-            this.updateDebtorsList();
-          },
-          error: (error: Error) => {
-            console.error(error.message);
-          }
-        });
-    }
+    const action = this.translate.instant('NOTIFLIX.REMOVE');
+    const post_action = this.translate.instant('NOTIFLIX.REMOVED');
+    this.notiflix.showConfirm(
+      this.translate.instant('NOTIFLIX.CONFIRM_REM'),
+      this.translate.instant('NOTIFLIX.YOU_SURE_ACTION', { action }),
+      () => {
+        this.clientsService.removeDebtorFromManager(debtorId)
+          .subscribe({
+            next: () => {
+              this.updateDebtorsList();
+              this.notiflix.showSuccess(
+                this.translate.instant('NOTIFLIX.SUCCESS_ACTION', { post_action })
+              )
+            },
+            error: (error: Error) => {
+              console.error(error.message);
+              this.notiflix.showError(
+                this.translate.instant('NOTIFLIX.ERROR')
+              );
+            }
+          });
+      },
+      () => { }
+    );
   }
 
   manageDebtors() {

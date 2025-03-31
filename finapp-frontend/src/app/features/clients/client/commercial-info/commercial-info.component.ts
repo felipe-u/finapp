@@ -6,8 +6,9 @@ import { Router } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ReferenceTypeEnum, RelationshipTypeEnum } from '../../../../core/models/enums';
 import { CurrencyPipe } from '@angular/common';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { EnumPipe } from '../../../../core/pipes/enum.pipe';
+import { NotiflixService } from '../../../../core/services/notiflix.service';
 
 @Component({
   selector: 'app-commercial-info',
@@ -19,8 +20,9 @@ import { EnumPipe } from '../../../../core/pipes/enum.pipe';
 export class CommercialInfoComponent {
   private clientsService = inject(ClientsService);
   private router = inject(Router);
-  private referenceTypeEnum = ReferenceTypeEnum;
   private relationshipTypeEnum = RelationshipTypeEnum;
+  private notiflix = inject(NotiflixService);
+  private translate = inject(TranslateService);
   client = signal<any | undefined>(undefined);
   debtorName = signal<string | undefined>(undefined);
   coDebtorName = signal<string | undefined>(undefined);
@@ -217,97 +219,114 @@ export class CommercialInfoComponent {
   }
 
   onSubmit() {
-    if (confirm("Confirmar cambios")) {
-      const newJobOccupation = this.form.value.commercialInfo.jobOccupation;
-      const newCompany = this.form.value.commercialInfo.company;
-      const newLaborSenority = this.buildJobOccupation(
-        this.form.value.commercialInfo.laborSenority
-      );
-      const newIncome = this.form.value.commercialInfo.income;
-      const newAdditionalIncome = this.form.value.commercialInfo.additionalIncome;
-      const newExpenses = this.form.value.commercialInfo.expenses;
+    this.notiflix.showConfirm(
+      this.translate.instant('NOTIFLIX.CONFIRM_CHANGES'),
+      this.translate.instant('NOTIFLIX.YOU_SURE_UPD'),
+      () => {
+        const newJobOccupation = this.form.value.commercialInfo.jobOccupation;
+        const newCompany = this.form.value.commercialInfo.company;
+        const newLaborSenority = this.buildJobOccupation(
+          this.form.value.commercialInfo.laborSenority
+        );
+        const newIncome = this.form.value.commercialInfo.income;
+        const newAdditionalIncome = this.form.value.commercialInfo.additionalIncome;
+        const newExpenses = this.form.value.commercialInfo.expenses;
 
-      const newCommercialInfo = new CommercialInfo(
-        this.commercialInfo()._id,
-        newJobOccupation,
-        newCompany,
-        newLaborSenority,
-        newIncome,
-        newAdditionalIncome,
-        newExpenses
-      );
+        const newCommercialInfo = new CommercialInfo(
+          this.commercialInfo()._id,
+          newJobOccupation,
+          newCompany,
+          newLaborSenority,
+          newIncome,
+          newAdditionalIncome,
+          newExpenses
+        );
 
-      const newFamRef1 = new Reference(
-        this.famReferences().at(0)._id,
-        this.form.value.references.famRef1.name,
-        null,
-        'FAM' as ReferenceTypeEnum,
-        this.form.value.references.famRef1.phone,
-        this.form.value.references.famRef1.relationship as RelationshipTypeEnum
-      );
+        const newFamRef1 = new Reference(
+          this.famReferences().at(0)._id,
+          this.form.value.references.famRef1.name,
+          null,
+          'FAM' as ReferenceTypeEnum,
+          this.form.value.references.famRef1.phone,
+          this.form.value.references.famRef1.relationship as RelationshipTypeEnum
+        );
 
-      const newFamRef2 = new Reference(
-        this.famReferences().at(1)._id,
-        this.form.value.references.famRef2.name,
-        null,
-        'FAM' as ReferenceTypeEnum,
-        this.form.value.references.famRef2.phone,
-        this.form.value.references.famRef2.relationship as RelationshipTypeEnum
-      );
+        const newFamRef2 = new Reference(
+          this.famReferences().at(1)._id,
+          this.form.value.references.famRef2.name,
+          null,
+          'FAM' as ReferenceTypeEnum,
+          this.form.value.references.famRef2.phone,
+          this.form.value.references.famRef2.relationship as RelationshipTypeEnum
+        );
 
-      const newPerRef1 = new Reference(
-        this.perReferences().at(0)._id,
-        this.form.value.references.perRef1.name,
-        null,
-        'PER' as ReferenceTypeEnum,
-        this.form.value.references.perRef1.phone,
-        this.form.value.references.perRef1.relationship as RelationshipTypeEnum
-      );
+        const newPerRef1 = new Reference(
+          this.perReferences().at(0)._id,
+          this.form.value.references.perRef1.name,
+          null,
+          'PER' as ReferenceTypeEnum,
+          this.form.value.references.perRef1.phone,
+          this.form.value.references.perRef1.relationship as RelationshipTypeEnum
+        );
 
-      const newPerRef2 = new Reference(
-        this.perReferences().at(1)._id,
-        this.form.value.references.perRef2.name,
-        null,
-        'PER' as ReferenceTypeEnum,
-        this.form.value.references.perRef2.phone,
-        this.form.value.references.perRef2.relationship as RelationshipTypeEnum
-      );
+        const newPerRef2 = new Reference(
+          this.perReferences().at(1)._id,
+          this.form.value.references.perRef2.name,
+          null,
+          'PER' as ReferenceTypeEnum,
+          this.form.value.references.perRef2.phone,
+          this.form.value.references.perRef2.relationship as RelationshipTypeEnum
+        );
 
-      const newComRef1 = new Reference(
-        this.comReferences().at(0)._id,
-        this.form.value.references.comRef1.name,
-        null,
-        'COM' as ReferenceTypeEnum,
-        this.form.value.references.comRef1.phone,
-        this.form.value.references.comRef1.relationship as RelationshipTypeEnum
-      );
+        const newComRef1 = new Reference(
+          this.comReferences().at(0)._id,
+          this.form.value.references.comRef1.name,
+          null,
+          'COM' as ReferenceTypeEnum,
+          this.form.value.references.comRef1.phone,
+          this.form.value.references.comRef1.relationship as RelationshipTypeEnum
+        );
 
-      const newComRef2 = new Reference(
-        this.comReferences().at(1)._id,
-        this.form.value.references.comRef2.name,
-        null,
-        'COM' as ReferenceTypeEnum,
-        this.form.value.references.comRef2.phone,
-        this.form.value.references.comRef2.relationship as RelationshipTypeEnum
-      );
+        const newComRef2 = new Reference(
+          this.comReferences().at(1)._id,
+          this.form.value.references.comRef2.name,
+          null,
+          'COM' as ReferenceTypeEnum,
+          this.form.value.references.comRef2.phone,
+          this.form.value.references.comRef2.relationship as RelationshipTypeEnum
+        );
 
-      const newReferences = [
-        newFamRef1,
-        newFamRef2,
-        newPerRef1,
-        newPerRef2,
-        newComRef1,
-        newComRef2
-      ];
-      this.clientsService.editCommercialInfo(
-        newCommercialInfo, newReferences
-      ).subscribe();
-      this.commercialInfo.set(newCommercialInfo);
-      this.famReferences.set([newFamRef1, newFamRef2]);
-      this.perReferences.set([newPerRef1, newPerRef2]);
-      this.comReferences.set([newComRef1, newComRef2]);
-      this.changeEditMode();
-    }
+        const newReferences = [
+          newFamRef1,
+          newFamRef2,
+          newPerRef1,
+          newPerRef2,
+          newComRef1,
+          newComRef2
+        ];
+        this.clientsService.editCommercialInfo(
+          newCommercialInfo, newReferences
+        ).subscribe({
+          next: () => {
+            this.commercialInfo.set(newCommercialInfo);
+            this.famReferences.set([newFamRef1, newFamRef2]);
+            this.perReferences.set([newPerRef1, newPerRef2]);
+            this.comReferences.set([newComRef1, newComRef2]);
+            this.changeEditMode();
+            this.notiflix.showSuccess(
+              this.translate.instant('NOTIFLIX.UPDATED')
+            );
+          },
+          error: (error: Error) => {
+            console.error(error.message);
+            this.notiflix.showError(
+              this.translate.instant('NOTIFLIX.ERROR')
+            );
+          }
+        });
+      },
+      () => { }
+    );
   }
 
   changeEditMode() {

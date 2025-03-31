@@ -162,6 +162,26 @@
       "EN": "English"
     }
   },
+  "NOTIFLIX": {
+    "CONFIRM_CHANGES": "Confirm changes",
+    "CONFIRM_REM": "Confirm removal",
+    "YOU_SURE_UPD": "Are you sure you want to update the data?",
+    "YOU_SURE_ACTION": "Are you sure you want to {{action}} this debtor?",
+    "ASSIGN": "assign",
+    "REASSIGN": "reassign",
+    "REMOVE": "remove",
+    "UPDATED": "Data updated successfully",
+    "REMOVED": "removed",
+    "ASSIGNED": "assigned",
+    "REASSIGNED": "reassigned",
+    "SUCCESS_ACTION": "Debtor {{post_action}}",
+    "ERROR": "An error occurred",
+    "WRONG_PASS": "Wrong password",
+    "PASS_CHANGED": "Password changed successfully",
+    "MAIL_SENT": "Mail sent successfully",
+    "MAIL_ERROR": "Error sending mail",
+    "SELECT_FILE": "Please select a file"
+  },
   "OTHER_PAGES": {
     "FORB": "Forbidden",
     "FORB_MSG": "You don't have permission to access this resource",

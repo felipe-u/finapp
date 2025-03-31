@@ -1,7 +1,8 @@
 import { Component, EventEmitter, inject, Input, Output, signal } from '@angular/core';
 import { ClientsService } from '../../../../../core/services/clients.service';
 import { FormsModule } from '@angular/forms';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { NotiflixService } from '../../../../../core/services/notiflix.service';
 
 @Component({
   selector: 'app-debtors-modal',
@@ -12,6 +13,8 @@ import { TranslatePipe } from '@ngx-translate/core';
 })
 export class DebtorsModalComponent {
   private clientsService = inject(ClientsService);
+  private notiflix = inject(NotiflixService);
+  private translate = inject(TranslateService);
   @Output() close = new EventEmitter<void>();
   @Output() updateDebtors = new EventEmitter<void>();
   @Input() managerId: string;
@@ -39,19 +42,38 @@ export class DebtorsModalComponent {
   }
 
   onAddToManager(debtorId: string, action: string) {
-    if (confirm('¿Estás seguro de que deseas ' + action + ' este deudor?')) {
-      this.clientsService.assignDebtorToManager(debtorId)
-        .subscribe({
-          next: () => {
-            this.updateDebtorsWithoutAssignment();
-            this.updateDebtorsFound();
-            this.updateDebtors.emit();
-          },
-          error: (error: Error) => {
-            console.error(error.message);
-          }
-        });
+    let post_action: string;
+    if (action === 'ass') {
+      post_action = this.translate.instant('NOTIFLIX.ASSIGNED');
+      action = this.translate.instant('NOTIFLIX.ASSIGN');
+    } else if (action === 'rea') {
+      post_action = this.translate.instant('NOTIFLIX.REASSIGNED');
+      action = this.translate.instant('NOTIFLIX.REASSIGN');
     }
+    this.notiflix.showConfirm(
+      action.toUpperCase(),
+      this.translate.instant('NOTIFLIX.YOU_SURE_ACTION', { action }),
+      () => {
+        this.clientsService.assignDebtorToManager(debtorId)
+          .subscribe({
+            next: () => {
+              this.updateDebtorsWithoutAssignment();
+              this.updateDebtorsFound();
+              this.updateDebtors.emit();
+              this.notiflix.showSuccess(
+                this.translate.instant('NOTIFLIX.SUCCESS_ACTION', { post_action })
+              );
+            },
+            error: (error: Error) => {
+              console.error(error.message);
+              this.notiflix.showError(
+                this.translate.instant('NOTIFLIX.ERROR')
+              );
+            }
+          });
+      },
+      () => { }
+    );
   }
 
   showSearchBar() {

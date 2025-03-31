@@ -1,7 +1,8 @@
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UsersService } from '../../../../core/services/users.service';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { NotiflixService } from '../../../../core/services/notiflix.service';
 
 @Component({
   selector: 'app-password-modal',
@@ -12,6 +13,8 @@ import { TranslatePipe } from '@ngx-translate/core';
 })
 export class PasswordModalComponent {
   private usersService = inject(UsersService);
+  private notiflix = inject(NotiflixService);
+  private translate = inject(TranslateService);
   @Output() close = new EventEmitter<void>();
   @Input() userId: string;
   isOldPasswordWrongOrNotEnteredYet = true;
@@ -35,7 +38,9 @@ export class PasswordModalComponent {
         if (isCorrect) {
           this.isOldPasswordWrongOrNotEnteredYet = false;
         } else {
-          alert('Incorrect password');
+          this.notiflix.showError(
+            this.translate.instant('NOTIFLIX_WRONG_PASS')
+          );
         }
       },
       error: (error) => {
@@ -48,7 +53,9 @@ export class PasswordModalComponent {
     const newPassword = this.newPasswordForm.value.newPassword;
     this.usersService.changePassword(this.userId, newPassword).subscribe({
       next: () => {
-        alert('Password changed successfully');
+        this.notiflix.showSuccess(
+          this.translate.instant('NOTIFLIX.PASS_CHANGED')
+        );
         this.closeModal();
       },
       error: (error) => {

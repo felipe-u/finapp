@@ -1,7 +1,8 @@
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { ImagesService } from '../../core/services/images.service';
 import { UsersService } from '../../core/services/users.service';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { NotiflixService } from '../../core/services/notiflix.service';
 
 @Component({
   selector: 'app-profile-picture-modal',
@@ -13,6 +14,8 @@ import { TranslatePipe } from '@ngx-translate/core';
 export class ProfilePictureModalComponent {
   private imagesService = inject(ImagesService);
   private usersService = inject(UsersService);
+  private notiflix = inject(NotiflixService);
+  private translate = inject(TranslateService);
   @Output() close = new EventEmitter<void>();
   @Output() newImageUrl = new EventEmitter<string>();
   @Input() model: string;
@@ -38,8 +41,12 @@ export class ProfilePictureModalComponent {
   }
 
   uploadImage() {
+    console.log("GG")
     if (!this.selectedFile) {
-      alert('Please select a file');
+      console.log("GG 2")
+      this.notiflix.showInfo(
+        this.translate.instant('NOTIFLIX.SELECT_FILE')
+      );
       return;
     }
     this.imagesService.updateImage(this.model, this.modelId)

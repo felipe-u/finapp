@@ -162,6 +162,26 @@
       "EN": "Inglés"
     }
   },
+  "NOTIFLIX": {
+    "CONFIRM_CHANGES": "Confirmar cambios",
+    "CONFIRM_REM": "Confirmar remoción",
+    "YOU_SURE_UPD": "¿Estás seguro de que quieres actualizar los datos?",
+    "YOU_SURE_ACTION": "¿Estás seguro de que quieres {{action}} este deudor?",
+    "ASSIGN": "asignar",
+    "REASSIGN": "reasignar",
+    "REMOVE": "remover",
+    "UPDATED": "Datos actualizados correctamente",
+    "REMOVED": "removido",
+    "ASSIGNED": "asignado",
+    "REASSIGNED": "reasignado",
+    "SUCCESS_ACTION": "Deudor {{post_action}}",
+    "ERROR": "Ocurrió un error",
+    "WRONG_PASS": "Contraseña incorrecta",
+    "PASS_CHANGED": "Contraseña cambiada exitosamente",
+    "MAIL_SENT": "Correo enviado exitosamente",
+    "MAIL_ERROR": "Error al enviar correo",
+    "SELECT_FILE": "Por favor selecciona un archivo"
+  },
   "OTHER_PAGES": {
     "FORB": "Prohibido",
     "FORB_MSG": "No tienes los permisos para acceder a este recurso",

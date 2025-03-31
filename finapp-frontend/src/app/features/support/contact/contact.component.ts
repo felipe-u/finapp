@@ -3,7 +3,8 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Email, EmailService } from '../../../core/services/email.service';
 import { UsersService } from '../../../core/services/users.service';
 import { Router } from '@angular/router';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { NotiflixService } from '../../../core/services/notiflix.service';
 
 @Component({
   selector: 'app-contact',
@@ -15,6 +16,8 @@ import { TranslatePipe } from '@ngx-translate/core';
 export class ContactComponent {
   private emailService = inject(EmailService);
   private usersService = inject(UsersService);
+  private notiflix = inject(NotiflixService);
+  private translate = inject(TranslateService);
   private router = inject(Router);
 
   form = new FormGroup({
@@ -36,10 +39,14 @@ export class ContactComponent {
     this.emailService.sendEmail(email).subscribe({
       next: () => {
         this.form.reset();
-        alert('Email sent successfully');
+        this.notiflix.showSuccess(
+          this.translate.instant('NOTIFLIX.MAIL_SENT')
+        );
       },
       error: () => {
-        alert('Error sending email');
+        this.notiflix.showError(
+          this.translate.instant('NOTIFLIX.MAIL_ERROR')
+        );
       }
     });
   }

@@ -3,7 +3,8 @@ import { UsersService } from '../../../core/services/users.service';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { User } from '../../../core/models/user.model';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { NotiflixService } from '../../../core/services/notiflix.service';
 
 @Component({
   selector: 'app-user',
@@ -15,6 +16,8 @@ import { TranslatePipe } from '@ngx-translate/core';
 export class UserComponent implements OnInit {
   private usersService = inject(UsersService);
   private activatedRoute = inject(ActivatedRoute);
+  private notiflix = inject(NotiflixService);
+  private translate = inject(TranslateService);
   user = signal<any | undefined>(undefined);
   editMode = false;
 
@@ -55,27 +58,36 @@ export class UserComponent implements OnInit {
   }
 
   onSubmit() {
-    if (confirm("Confirmar cambios")) {
-      const newEmail = this.form.value.email;
-      const newPhone = this.form.value.phone;
-      const newUserInfo = new User(
-        this.user()._id,
-        this.user().name,
-        this.user().role,
-        newEmail,
-        this.user().password,
-        newPhone,
-        this.user().language
-      );
-      this.usersService.updateUserInfo(this.user()._id, newEmail, newPhone).subscribe({
-        next: () => {
-          this.user.set(newUserInfo);
-          this.changeEditMode();
-        },
-        error: (error: Error) => {
-          console.error(error.message);
-        }
-      })
-    }
+    this.notiflix.showConfirm(
+      this.translate.instant('NOTIFLIX.CONFIRM_CHANGES'),
+      this.translate.instant('NOTIFLIX.YOU_SURE_UPD'),
+      () => {
+        const newEmail = this.form.value.email;
+        const newPhone = this.form.value.phone;
+        const newUserInfo = new User(
+          this.user()._id,
+          this.user().name,
+          this.user().role,
+          newEmail,
+          this.user().password,
+          newPhone,
+          this.user().language
+        );
+        this.usersService.updateUserInfo(this.user()._id, newEmail, newPhone).subscribe({
+          next: () => {
+            this.user.set(newUserInfo);
+            this.changeEditMode();
+            this.notiflix.showSuccess(
+              this.translate.instant('NOTIFLIX.UPDATED')
+            );
+          },
+          error: (error: Error) => {
+            console.error(error.message);
+            this.notiflix.showError(
+              this.translate.instant('NOTIFLIX.ERROR')
+            );
+          }
+        })
+      }, () => { })
   }
 }

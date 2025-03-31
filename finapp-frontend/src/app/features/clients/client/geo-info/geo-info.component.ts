@@ -5,7 +5,8 @@ import { GoogleMap, MapAdvancedMarker } from '@angular/google-maps';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LocationService } from '../../../../core/services/location.service';
 import { PropertyImagesComponent } from "./property-images/property-images.component";
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { NotiflixService } from '../../../../core/services/notiflix.service';
 
 @Component({
   selector: 'app-geo-info',
@@ -17,6 +18,8 @@ import { TranslatePipe } from '@ngx-translate/core';
 export class GeoInfoComponent {
   private clientsService = inject(ClientsService);
   private locationService = inject(LocationService);
+  private notiflix = inject(NotiflixService);
+  private translate = inject(TranslateService);
   @ViewChild(PropertyImagesComponent) propertyImagesComponent!: PropertyImagesComponent;
   client = signal<any | undefined>(undefined);
   geoInfo = signal<GeoInfo>(undefined);
@@ -114,37 +117,54 @@ export class GeoInfoComponent {
 
   onSubmit() {
     if (this.form.valid) {
-      if (confirm("Confirmar cambios")) {
-        const newAddress = this.form.value.address;
-        const newCity = this.form.value.city;
-        const newDepartment = this.form.value.department;
-        const newNeighbourhood = this.form.value.neighbourhood;
-        const newLatitude = this.form.value.latitude;
-        const newLongitude = this.form.value.longitude;
-        const newGoogleMapsUrl = '';
-        const newPropertyImages = this.propertyImagesComponent.onUpdate();
-        const newSector = this.form.value.sector;
-        const newAdditionalInfo = this.form.value.additionalInfo;
+      this.notiflix.showConfirm(
+        this.translate.instant('NOTIFLIX.CONFIRM_CHANGES'),
+        this.translate.instant('NOTIFLIX.YOU_SURE_UPD'),
+        () => {
+          const newAddress = this.form.value.address;
+          const newCity = this.form.value.city;
+          const newDepartment = this.form.value.department;
+          const newNeighbourhood = this.form.value.neighbourhood;
+          const newLatitude = this.form.value.latitude;
+          const newLongitude = this.form.value.longitude;
+          const newGoogleMapsUrl = '';
+          const newPropertyImages = this.propertyImagesComponent.onUpdate();
+          const newSector = this.form.value.sector;
+          const newAdditionalInfo = this.form.value.additionalInfo;
 
-        const newGeoInfo = new GeoInfo(
-          this.geoInfo()._id,
-          newAddress,
-          newCity,
-          newDepartment,
-          newNeighbourhood,
-          newLatitude,
-          newLongitude,
-          newGoogleMapsUrl,
-          newPropertyImages,
-          newSector,
-          newAdditionalInfo
-        );
+          const newGeoInfo = new GeoInfo(
+            this.geoInfo()._id,
+            newAddress,
+            newCity,
+            newDepartment,
+            newNeighbourhood,
+            newLatitude,
+            newLongitude,
+            newGoogleMapsUrl,
+            newPropertyImages,
+            newSector,
+            newAdditionalInfo
+          );
 
-        this.clientsService.editGeoInfo(newGeoInfo).subscribe();
-        this.geoInfo.set(newGeoInfo);
-        this.changeEditMode();
-        this.propertyImagesComponent.resetArrays();
-      }
+          this.clientsService.editGeoInfo(newGeoInfo).subscribe({
+            next: () => {
+              this.geoInfo.set(newGeoInfo);
+              this.changeEditMode();
+              this.propertyImagesComponent.resetArrays();
+              this.notiflix.showSuccess(
+                this.translate.instant('NOTIFLIX.UPDATED')
+              );
+            },
+            error: (error: Error) => {
+              console.error(error.message);
+              this.notiflix.showError(
+                this.translate.instant('NOTIFLIX.ERROR')
+              );
+            }
+          });
+        },
+        () => { }
+      );
     }
   }
 
