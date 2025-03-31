@@ -76,13 +76,12 @@ export class ProfileComponent implements OnInit {
           this.user().password,
           newPhone,
           this.user().photo
-
         );
         this.usersService.updateUserInfo(
           this.user()._id, newEmail, newPhone
         ).subscribe({
           next: () => {
-            this.user.set(newUserInfo);
+            this.user.set({ ...newUserInfo, photo: this.user().photo });
             this.changeEditMode();
             this.notiflix.showSuccess(
               this.translate.instant('NOTIFLIX.UPDATED')

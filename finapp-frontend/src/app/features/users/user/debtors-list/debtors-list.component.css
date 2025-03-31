@@ -42,12 +42,12 @@
 
 .debtors-table th:nth-child(2),
 .debtors-table td:nth-child(2) {
-  width: 50%;
+  width: 40%;
 }
 
 .debtors-table th:nth-child(3),
 .debtors-table td:nth-child(3) {
-  width: 20%;
+  width: 30%;
 }
 
 #final-row {

@@ -7,7 +7,7 @@
     @if (!isInAccountSettings) {
     <div class="sidepanel" #sidepanel>
         <div class="sidepanel-container">
-            <img [src]="userPhoto() === '' ? 'assets/imgs/user.png' : userPhoto()" alt="User">
+            <img [src]="userPhoto() === '' || userPhoto() === null ? 'assets/imgs/user.png' : userPhoto()" alt="User">
             <p>{{ userName() }}</p>
             <a class="closebtn" (click)="closeSidePanel()">&times;</a>
         </div>
@@ -18,7 +18,8 @@
         <a (click)="onLogout()">{{ 'UI.HOME.SIDEPANEL.LOGOUT' | translate }}</a>
     </div>
     <div class="user">
-        <img [src]="userPhoto() === '' ? 'assets/imgs/user.png' : userPhoto()" alt="User" (click)="openSidePanel()">
+        <img [src]="userPhoto() === '' || userPhoto() === null ? 'assets/imgs/user.png' : userPhoto()" alt="User"
+            (click)="openSidePanel()">
     </div>
     }
 </div>

@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { UsersService } from '../../../core/services/users.service';
+import { NotiflixService } from '../../../core/services/notiflix.service';
 
 @Component({
   selector: 'app-settings',
@@ -13,8 +14,9 @@ import { UsersService } from '../../../core/services/users.service';
 })
 export class SettingsComponent implements OnInit {
   private router = inject(Router);
-  private translateService = inject(TranslateService);
+  private translate = inject(TranslateService);
   private usersService = inject(UsersService);
+  private notiflix = inject(NotiflixService);
   @Input() userId: string;
   selectedLang: string;
 
@@ -25,16 +27,33 @@ export class SettingsComponent implements OnInit {
 
   selectLanguage() {
     if (this.selectedLang) {
-      const userId = this.usersService.getUserId();
-      this.usersService.changeUserLang(
-        userId(), this.selectedLang
-      ).subscribe({
-        next: () => {
-          this.translateService.use(this.selectedLang);
-          localStorage.setItem('lang', this.selectedLang);
-        }
-      })
-
+      this.notiflix.showConfirm(
+        this.translate.instant('NOTIFLIX.CHANGE_LANG'),
+        this.translate.instant('NOTIFLIX.CHANGE_LANG_CONFIRM'),
+        () => {
+          const userId = this.usersService.getUserId();
+          this.usersService.changeUserLang(
+            userId(), this.selectedLang
+          ).subscribe({
+            next: () => {
+              this.translate.use(this.selectedLang);
+              this.notiflix.showLoading();
+              localStorage.setItem('lang', this.selectedLang);
+              this.notiflix.hideLoading();
+              this.notiflix.showSuccess(
+                this.translate.instant('NOTIFLIX.LANG_SUCCESS')
+              );
+            },
+            error: (error: Error) => {
+              console.error(error.message);
+              this.notiflix.showError(
+                this.translate.instant('NOTIFLIX.ERROR')
+              );
+            }
+          })
+        },
+        () => { }
+      )
     }
   }
 

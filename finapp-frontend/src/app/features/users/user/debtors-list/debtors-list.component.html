@@ -29,7 +29,7 @@
                 </button>
             </td>
             } @else {
-            <td>{{ debtor.financing.status }}</td>
+            <td>{{ 'ENUMS.STATUS.' + debtor.financing.status | translate }}</td>
             }
         </tr>
         }
@@ -40,7 +40,7 @@
     <div class="btn-container">
         @if (managingDebtors) {
         <button class="secondaryBtn" (click)="cancelManage()">
-            {{ 'BUTTONS.CANCEL' | translate }}
+            {{ 'BUTTONS.CLOSE' | translate }}
         </button>
         } @else {
         <button class="secondaryBtn" (click)="manageDebtors()">

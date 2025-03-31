@@ -43,4 +43,14 @@ export class NotiflixService {
     showInfo(message: string) {
         Notiflix.Notify.info(message);
     }
+
+    showLoading() {
+        Notiflix.Loading.standard({
+            svgColor: '#601a15'
+        });
+    }
+
+    hideLoading() {
+        Notiflix.Loading.remove();
+    }
 }
