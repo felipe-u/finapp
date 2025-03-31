@@ -1,5 +1,7 @@
-@if (personalInfo()=== undefined) {
-
+@if (personalInfo() === undefined) {
+<div class="loader-container">
+    <span class="loader"></span>
+</div>
 } @else {
 @if (!editMode) {
 <div class="container client-container">

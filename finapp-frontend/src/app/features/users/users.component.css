@@ -73,3 +73,7 @@
   max-width: 156px;
   text-align: center;
 }
+
+#loader-td {
+  text-align: center;
+}

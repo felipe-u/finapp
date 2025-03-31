@@ -21,10 +21,19 @@
             <th>{{ 'FIELDS.NAME' | translate }}</th>
             <th>{{ 'FIELDS.ROLE' | translate }}</th>
         </tr>
+        @if (filteredUsers()) {
         @for (user of filteredUsers(); track user._id) {
         <tr (click)="openUserProfile(user._id)">
             <td>{{ user.name }}</td>
             <td>{{ user.role }}</td>
+        </tr>
+        }
+        }
+        @else {
+        <tr>
+            <td id="loader-td" colspan="2">
+                <span class="loader"></span>
+            </td>
         </tr>
         }
     </table>

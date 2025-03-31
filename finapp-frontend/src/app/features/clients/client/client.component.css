@@ -11,3 +11,8 @@
   width: 270px;
   color: white;
 }
+
+.loader-container {
+  text-align: center;
+  margin-top: 200px;
+}

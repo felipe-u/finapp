@@ -2,7 +2,9 @@
 <div class="dialog-container">
     <dialog open>
         @if (loadingData) {
-        <p>Loading...</p>
+        <div class="loader-container">
+            <span class="loader"></span>
+        </div>
         } @else if (debtorsInfo().length > 0){
         <div class="container">
             <div class="info-container">
@@ -55,7 +57,7 @@
             <p>{{'UI.REPORTS.NO_DEBTORS' | translate:{days: daysGap} }}</p>
             <div class="btn-container">
                 <button class="primaryBtn" (click)="closeModal()">
-                    {{ 'BUTTONS.CLOSE' }}
+                    {{ 'BUTTONS.CLOSE' | translate }}
                 </button>
             </div>
         </div>

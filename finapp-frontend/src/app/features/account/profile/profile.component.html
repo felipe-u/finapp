@@ -5,7 +5,9 @@
     <h1>{{ 'UI.ACCOUNT.PROFILE' | translate }}</h1>
 </div>
 @if (user() === undefined) {
-
+<div class="loader-container">
+    <span class="loader"></span>
+</div>
 } @else {
 @if(!editMode) {
 <div class="container">

@@ -1,5 +1,7 @@
 @if (user() === undefined) {
-
+    <div class="loader-container">
+        <span class="loader"></span>
+    </div>
 } @else {
 <div class="name-container">
     <h3>{{ user().name }}</h3>

@@ -90,3 +90,9 @@
 .password-btn-container {
   margin-top: 20px;
 }
+
+.loader-container {
+  height: 320px;
+  text-align: center;
+  padding-top: 150px;
+}
