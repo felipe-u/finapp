@@ -180,7 +180,10 @@
     "PASS_CHANGED": "Contraseña cambiada exitosamente",
     "MAIL_SENT": "Correo enviado exitosamente",
     "MAIL_ERROR": "Error al enviar correo",
-    "SELECT_FILE": "Por favor selecciona un archivo"
+    "SELECT_FILE": "Por favor selecciona un archivo",
+    "CHANGE_LANG": "Confirmar cambio de idioma",
+    "CHANGE_LANG_CONFIRM": "¿Estás seguro de que quieres cambiar el idioma de la aplicación?",
+    "LANG_SUCCESS": "Idioma cambiado exitosamente"
   },
   "OTHER_PAGES": {
     "FORB": "Prohibido",

@@ -180,7 +180,10 @@
     "PASS_CHANGED": "Password changed successfully",
     "MAIL_SENT": "Mail sent successfully",
     "MAIL_ERROR": "Error sending mail",
-    "SELECT_FILE": "Please select a file"
+    "SELECT_FILE": "Please select a file",
+    "CHANGE_LANG": "Confirm language change",
+    "CHANGE_LANG_CONFIRM": "Are you sure you want to change application language?",
+    "LANG_SUCCESS": "Language changed successfully"
   },
   "OTHER_PAGES": {
     "FORB": "Forbidden",
