@@ -116,6 +116,7 @@ img {
 
 .img-container:hover .deleteText {
   display: block;
+  cursor: pointer;
 }
 
 .column img {
@@ -126,8 +127,7 @@ img {
   transition: 0.3s ease;
 }
 
-.column img:hover,
-.column:hover img {
+.column img:hover {
   filter: brightness(0.4);
   cursor: pointer;
   opacity: 0.3;
@@ -148,11 +148,11 @@ img {
   pointer-events: none;
 }
 
-.column img:hover + .deleteText,
+/* .column img:hover + .deleteText,
 .column:hover .deleteText {
   display: block;
   cursor: pointer;
-}
+} */
 
 @media screen and (max-width: 600px) {
   .column {

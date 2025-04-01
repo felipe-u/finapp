@@ -67,7 +67,8 @@ export class RegisterComponent {
       email,
       password,
       phone,
-      'es'
+      'es',
+      ''
     );
     this.authService.register(newUser).subscribe({
       next: (res) => {
@@ -78,6 +79,9 @@ export class RegisterComponent {
         this.usersService.setUserRole(res.user.role);
         this.usersService.setUserName(res.user.name);
         this.usersService.setUserEmail(res.user.email);
+        this.usersService.setUserPhoto(res.user.photo);
+        this.usersService.setUserLang(res.user.lang);
+        localStorage.setItem('lang', res.user.lang);
 
         this.router.navigateByUrl('home');
       },
