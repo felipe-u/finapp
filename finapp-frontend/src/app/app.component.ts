@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -11,11 +11,12 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class AppComponent {
   private translate = inject(TranslateService);
+  private router = inject(Router);
 
   constructor() {
     this.translate.addLangs(['en', 'es']);
     this.translate.setDefaultLang('es');
-  
+
     const storedLang = localStorage.getItem('lang');
     if (storedLang) {
       this.translate.use(storedLang);
@@ -23,5 +24,9 @@ export class AppComponent {
       const browserLang = this.translate.getBrowserLang();
       this.translate.use(browserLang?.match(/en|es/) ? browserLang : 'es');
     }
+
+    this.router.events.subscribe(() => {
+      window.scrollTo(0, 0);
+    })
   }
 }
