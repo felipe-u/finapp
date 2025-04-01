@@ -36,6 +36,19 @@
   border: 2px solid lightgrey;
 }
 
+.input-container input.ng-invalid.ng-touched,
+.input-container input.ng-invalid.ng-dirty {
+  border: 1px solid red;
+}
+
+.input-container span {
+  display: inline-block;
+  margin-top: 5px;
+  color: #df3c30;
+  text-align: start;
+  width: 100%;
+}
+
 .input-container select {
   width: 257.2px;
   height: 35.2px;

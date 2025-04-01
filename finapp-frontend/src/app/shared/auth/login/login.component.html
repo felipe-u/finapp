@@ -10,10 +10,13 @@
             </div>
             <div class="input-container">
                 <label for="password">{{ 'FIELDS.PASSWORD' | translate }}</label><br>
-                <input type="password" id="password" name="password" formControlName="password">
+                <input type="password" id="password" name="password" formControlName="password"><br>
+                @if(errorMessage !== '') {
+                <span>Incorrect email or password</span>
+                }
             </div>
             <div class="btn-container">
-                <button type="submit" class="primaryBtn" style="width: 150px;">
+                <button type="submit" class="primaryBtn" style="width: 150px;" [disabled]="this.form.invalid">
                     {{ 'BUTTONS.LOGIN' | translate }}
                 </button>
             </div>

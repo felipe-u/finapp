@@ -39,6 +39,13 @@
   border: 2px solid lightgrey;
 }
 
+.input-container span {
+  display: inline-block;
+  margin-top: 40px;
+  font-size: 1em;
+  color: #df3c30;
+}
+
 .btn-container {
   margin-top: 30px;
 }

@@ -29,7 +29,11 @@
             </div>
             <div class="input-container">
                 <label for="confirm-password">{{ 'FIELDS.CONF_PASSW' | translate }}</label><br>
-                <input type="password" id="confirmPassword" name="confirmPassword" formControlName="confirmPassword">
+                <input type="password" id="confirmPassword" name="confirmPassword" formControlName="confirmPassword"
+                    [class.error-border]="form.hasError('passwordMismatch')">
+                @if (form.hasError('passwordMismatch') && form.touched) {
+                <br><span>Las contraseñas no coinciden</span>
+                }
             </div>
             <div class="btn-container">
                 <button type="submit" class="primaryBtn" style="width: 150px;">

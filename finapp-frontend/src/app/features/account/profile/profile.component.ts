@@ -62,6 +62,13 @@ export class ProfileComponent implements OnInit {
   }
 
   onSubmit() {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      this.notiflix.showError(
+        this.translate.instant('NOTIFLIX.ALL_FIELDS_ERROR')
+      );
+      return;
+    }
     this.notiflix.showConfirm(
       this.translate.instant('NOTIFLIX.CONFIRM_CHANGES'),
       this.translate.instant('NOTIFLIX.YOU_SURE_UPD'),

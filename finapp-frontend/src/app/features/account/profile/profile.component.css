@@ -87,6 +87,10 @@
   text-align: center;
 }
 
+.input-container input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+
 .password-btn-container {
   margin-top: 20px;
 }

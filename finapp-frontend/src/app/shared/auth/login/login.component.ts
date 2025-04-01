@@ -18,6 +18,7 @@ export class LoginComponent {
   private clientsService = inject(ClientsService);
   private usersService = inject(UsersService);
   private router = inject(Router);
+  errorMessage = '';
 
   form = new FormGroup({
     email: new FormControl('', {
@@ -30,18 +31,24 @@ export class LoginComponent {
 
   onSubmit() {
     const { email, password } = this.form.value;
-    this.authService.login(email, password).subscribe(res => {
-      if (res.user.role === 'manager') {
-        this.clientsService.setManagerId(res.user._id);
+    this.authService.login(email, password).subscribe({
+      next: (res) => {
+        if (res.user.role === 'manager') {
+          this.clientsService.setManagerId(res.user._id);
+        }
+        this.usersService.setUserId(res.user._id);
+        this.usersService.setUserRole(res.user.role);
+        this.usersService.setUserName(res.user.name);
+        this.usersService.setUserPhoto(res.user.photo);
+        this.usersService.setUserEmail(res.user.email);
+        this.usersService.setUserLang(res.user.lang);
+        this.errorMessage = '';
+        localStorage.setItem('lang', res.user.lang);
+        this.router.navigateByUrl('/home');
+      },
+      error: (err) => {
+        this.errorMessage = err.error.message;
       }
-      this.usersService.setUserId(res.user._id);
-      this.usersService.setUserRole(res.user.role);
-      this.usersService.setUserName(res.user.name);
-      this.usersService.setUserPhoto(res.user.photo);
-      this.usersService.setUserEmail(res.user.email);
-      this.usersService.setUserLang(res.user.lang);
-      localStorage.setItem('lang', res.user.lang);
-      this.router.navigateByUrl('/home');
     })
   }
 }

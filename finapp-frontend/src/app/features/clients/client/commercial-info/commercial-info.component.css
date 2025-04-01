@@ -56,7 +56,6 @@ td {
 
 .editMode .form-container {
   display: flex;
-  /* border: 1px solid blue; */
   margin: 20px auto;
   justify-content: space-between;
   font-size: 1.1em;
@@ -66,6 +65,14 @@ td {
   font-size: 0.8em;
   width: 150px;
   margin-left: 15px;
+}
+
+.form-container input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+
+td input.ng-invalid.ng-touched {
+  border: 1px solid red;
 }
 
 .loader-container {

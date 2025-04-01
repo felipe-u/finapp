@@ -116,56 +116,61 @@ export class GeoInfoComponent {
   }
 
   onSubmit() {
-    if (this.form.valid) {
-      this.notiflix.showConfirm(
-        this.translate.instant('NOTIFLIX.CONFIRM_CHANGES'),
-        this.translate.instant('NOTIFLIX.YOU_SURE_UPD'),
-        () => {
-          const newAddress = this.form.value.address;
-          const newCity = this.form.value.city;
-          const newDepartment = this.form.value.department;
-          const newNeighbourhood = this.form.value.neighbourhood;
-          const newLatitude = this.form.value.latitude;
-          const newLongitude = this.form.value.longitude;
-          const newGoogleMapsUrl = '';
-          const newPropertyImages = this.propertyImagesComponent.onUpdate();
-          const newSector = this.form.value.sector;
-          const newAdditionalInfo = this.form.value.additionalInfo;
-
-          const newGeoInfo = new GeoInfo(
-            this.geoInfo()._id,
-            newAddress,
-            newCity,
-            newDepartment,
-            newNeighbourhood,
-            newLatitude,
-            newLongitude,
-            newGoogleMapsUrl,
-            newPropertyImages,
-            newSector,
-            newAdditionalInfo
-          );
-
-          this.clientsService.editGeoInfo(newGeoInfo).subscribe({
-            next: () => {
-              this.geoInfo.set(newGeoInfo);
-              this.changeEditMode();
-              this.propertyImagesComponent.resetArrays();
-              this.notiflix.showSuccess(
-                this.translate.instant('NOTIFLIX.UPDATED')
-              );
-            },
-            error: (error: Error) => {
-              console.error(error.message);
-              this.notiflix.showError(
-                this.translate.instant('NOTIFLIX.ERROR')
-              );
-            }
-          });
-        },
-        () => { }
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      this.notiflix.showError(
+        this.translate.instant('NOTIFLIX.ALL_FIELDS_ERROR')
       );
+      return;
     }
+    this.notiflix.showConfirm(
+      this.translate.instant('NOTIFLIX.CONFIRM_CHANGES'),
+      this.translate.instant('NOTIFLIX.YOU_SURE_UPD'),
+      () => {
+        const newAddress = this.form.value.address;
+        const newCity = this.form.value.city;
+        const newDepartment = this.form.value.department;
+        const newNeighbourhood = this.form.value.neighbourhood;
+        const newLatitude = this.form.value.latitude;
+        const newLongitude = this.form.value.longitude;
+        const newGoogleMapsUrl = '';
+        const newPropertyImages = this.propertyImagesComponent.onUpdate();
+        const newSector = this.form.value.sector;
+        const newAdditionalInfo = this.form.value.additionalInfo;
+
+        const newGeoInfo = new GeoInfo(
+          this.geoInfo()._id,
+          newAddress,
+          newCity,
+          newDepartment,
+          newNeighbourhood,
+          newLatitude,
+          newLongitude,
+          newGoogleMapsUrl,
+          newPropertyImages,
+          newSector,
+          newAdditionalInfo
+        );
+
+        this.clientsService.editGeoInfo(newGeoInfo).subscribe({
+          next: () => {
+            this.geoInfo.set(newGeoInfo);
+            this.changeEditMode();
+            this.propertyImagesComponent.resetArrays();
+            this.notiflix.showSuccess(
+              this.translate.instant('NOTIFLIX.UPDATED')
+            );
+          },
+          error: (error: Error) => {
+            console.error(error.message);
+            this.notiflix.showError(
+              this.translate.instant('NOTIFLIX.ERROR')
+            );
+          }
+        });
+      },
+      () => { }
+    );
   }
 
   cancel() {

@@ -30,6 +30,13 @@ export class ContactComponent {
   })
 
   onSubmit() {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      this.notiflix.showError(
+        this.translate.instant('NOTIFLIX.MAIL_FORM_ERROR')
+      );
+      return;
+    }
     const from = this.usersService.getUserEmail();
     const subject = this.form.value.subject;
     const body = this.form.value.message;

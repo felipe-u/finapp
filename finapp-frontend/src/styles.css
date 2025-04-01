@@ -37,6 +37,11 @@ body {
   transition: 0.3s ease;
 }
 
+.primaryBtn:disabled {
+  cursor: not-allowed;
+  background-color: var(--primaryDark6);
+}
+
 .secondaryBtn {
   margin: 10px;
   padding: 8px 16px;
