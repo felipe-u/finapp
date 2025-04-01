@@ -45,7 +45,7 @@
   height: 235px;
   width: 0;
   position: absolute;
-  z-index: 1;
+  z-index: 1000;
   top: 71px;
   right: 0;
   background-color: #111;

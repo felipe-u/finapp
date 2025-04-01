@@ -19,7 +19,7 @@
     </div>
     <div class="user">
         <img [src]="userPhoto() === '' || userPhoto() === null ? 'assets/imgs/user.png' : userPhoto()" alt="User"
-            (click)="openSidePanel()">
+            (click)="openSidePanel(); $event.stopPropagation()" >
     </div>
     }
 </div>

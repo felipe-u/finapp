@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, Input, OnInit, signal, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, inject, Input, OnInit, signal, ViewChild } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 import { UsersService } from '../../core/services/users.service';
@@ -17,6 +17,7 @@ export class HeaderComponent implements OnInit {
   private usersService = inject(UsersService);
   private clientsService = inject(ClientsService);
   private router = inject(Router);
+  isSidePanelOpen = false;
   userName = signal<string | null>(null);
   userId = signal<string | null>(null);
   userPhoto = signal<string | null>(null);
@@ -35,10 +36,12 @@ export class HeaderComponent implements OnInit {
 
   openSidePanel() {
     this.sidepanel.nativeElement.setAttribute('style', 'width: 250px');
+    this.isSidePanelOpen = true;
   }
 
   closeSidePanel() {
     this.sidepanel.nativeElement.setAttribute('style', 'width: 0px');
+    this.isSidePanelOpen = false;
   }
 
   goToProfile() {
@@ -55,9 +58,11 @@ export class HeaderComponent implements OnInit {
     this.authService.logout();
   }
 
-  private onDocumentClick(event: MouseEvent) {
-    if (this.sidepanel && !this.sidepanel.nativeElement.contains(event.target)) {
-      this.closeSidePanel();
-    }
+ @HostListener('document:click', ['$event'])
+ onDocumentClick(event: MouseEvent) {
+  const clickedInside = this.sidepanel.nativeElement.contains(event.target);
+  if (!clickedInside && this.isSidePanelOpen) {
+    this.closeSidePanel()
   }
+ }
 }
