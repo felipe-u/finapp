@@ -25,8 +25,10 @@ exports.updateClientPhoto = (req, res, next) => {
         return res.status(200).json({ message: "Photo updated successfully" });
       })
       .catch((err) => {
-        console.log(err);
-        res.status(500).json({ message: "Server error" });
+        res.status(500).json({
+          message: "Server error",
+          error: err.message,
+        });
       });
   });
 };
@@ -45,8 +47,10 @@ exports.updateUserPhoto = (req, res, next) => {
         return res.status(200).json({ message: "Photo updated successfully" });
       })
       .catch((err) => {
-        console.log(err);
-        res.status(500).json({ message: "Server error" });
+        res.status(500).json({
+          message: "Server error",
+          error: err.message,
+        });
       });
   });
 };

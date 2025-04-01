@@ -514,19 +514,43 @@ exports.createClient = async (req, res, next) => {
 exports.showUserInfo = (req, res, next) => {
   const theUser = req.user;
   theUser.name = "Test2";
-  theUser.save();
+  theUser
+    .save()
+    .then(() => {
+      res.status(200).json({ message: "User info shown" });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: "Error fetching user info",
+        error: err.message,
+      });
+    });
 };
 
 exports.getClients = (req, res, next) => {
-  Client.find().then((clients) => {
-    res.status(200).json({ clients: clients });
-  });
+  Client.find()
+    .then((clients) => {
+      res.status(200).json({ clients: clients });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: "Error fetching clients",
+        error: err.message,
+      });
+    });
 };
 
 exports.getClient = (req, res, next) => {
-  Client.findById(req.params.clientId).then((client) => {
-    res.status(200).json({ client });
-  });
+  Client.findById(req.params.clientId)
+    .then((client) => {
+      res.status(200).json({ client });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: "Error fetching client",
+        error: err.message,
+      });
+    });
 };
 
 exports.getClientFinancing = (req, res, next) => {
@@ -539,8 +563,10 @@ exports.getClientFinancing = (req, res, next) => {
       res.status(200).json({ financing: client.financing });
     })
     .catch((err) => {
-      console.error(err);
-      res.status(500).json({ error: "Error fetching financing" });
+      res.status(500).json({
+        message: "Error fetching financing",
+        error: err.message,
+      });
     });
 };
 
@@ -551,8 +577,10 @@ exports.getClientPersonalInfo = (req, res, next) => {
       res.status(200).json({ personalInfo: client.personalInfo });
     })
     .catch((err) => {
-      console.error(err);
-      res.status(500).json({ error: "Error fetching personal info" });
+      res.status(500).json({
+        message: "Error fetching personal info",
+        error: err.message,
+      });
     });
 };
 
@@ -581,8 +609,10 @@ exports.editClientPersonalInfo = (req, res, next) => {
       res.status(200).json({ message: "Client personal info updated" });
     })
     .catch((err) => {
-      console.error(err);
-      res.status(500).json({ error: "Error updating personal info" });
+      res.status(500).json({
+        message: "Error updating personal info",
+        error: err.message,
+      });
     });
 };
 
@@ -593,8 +623,10 @@ exports.getClientGeoInfo = (req, res, next) => {
       res.status(200).json({ geoInfo: client.geoInfo });
     })
     .catch((err) => {
-      console.error(err);
-      res.status(500).json({ error: "Error fetching geo info" });
+      res.status(500).json({
+        message: "Error fetching geo info",
+        error: err.message,
+      });
     });
 };
 
@@ -629,8 +661,10 @@ exports.editClientGeoInfo = (req, res, next) => {
       res.status(200).json({ message: "Client geo info updated" });
     })
     .catch((err) => {
-      console.error(err.message);
-      res.status(500).json({ error: "Error updating geo info" });
+      res.status(500).json({
+        message: "Error updating geo info",
+        error: err.message,
+      });
     });
 };
 
@@ -645,8 +679,10 @@ exports.getClientCommercialInfo = (req, res, next) => {
       });
     })
     .catch((err) => {
-      console.error(err);
-      res.status(500).json({ error: "Error fetching commercial info" });
+      res.status(500).json({
+        message: "Error fetching commercial info",
+        error: err.message,
+      });
     });
 };
 
@@ -675,8 +711,8 @@ exports.editClientCommercialInfo = (req, res, next) => {
         const reference = await Reference.findById(updatedReference._id);
         if (reference) {
           reference.name = updatedReference.name;
-          reference.identification.idType = 'CC';
-          reference.identification.number = '111';
+          reference.identification.idType = "CC";
+          reference.identification.number = "111";
           reference.referenceType = updatedReference.referenceType;
           reference.phone = updatedReference.phone;
           reference.relationship = updatedReference.relationship;
@@ -689,8 +725,10 @@ exports.editClientCommercialInfo = (req, res, next) => {
       res.status(200).json({ message: "Client commercial info updated" });
     })
     .catch((err) => {
-      console.error(err);
-      res.status(500).json({ error: "Error updating commercial info" });
+      res.status(500).json({
+        message: "Error updating commercial info",
+        error: err.message,
+      });
     });
 };
 
@@ -700,8 +738,10 @@ exports.getClientName = (req, res, next) => {
       res.status(200).json({ name: client.name });
     })
     .catch((err) => {
-      console.error(err);
-      res.status(500).json({ error: "Error fetching name" });
+      res.status(500).json({
+        message: "Error fetching name",
+        error: err.message,
+      });
     });
 };
 
@@ -734,8 +774,10 @@ exports.getDebtorsListByStatuses = (req, res, next) => {
       getDebtors({ financing: { $in: financingIds } }, res, managerId);
     })
     .catch((err) => {
-      console.error(err);
-      res.status(500).json({ error: "Error fetching financings" });
+      res.status(500).json({
+        message: "Error fetching financings",
+        error: err.message,
+      });
     });
 };
 
@@ -753,8 +795,10 @@ exports.getAllDebtors = (req, res, next) => {
       res.status(200).json({ debtors: debtors });
     })
     .catch((err) => {
-      console.error(err);
-      res.status(500).json({ error: "Error fetching debtors" });
+      res.status(500).json({
+        message: "Error fetching debtors",
+        error: err.message,
+      });
     });
 };
 
@@ -766,9 +810,17 @@ exports.assigndDebtorToManager = (req, res, next) => {
       return res.status(404).json({ message: "Debtor not found" });
     }
     debtor.manager = managerId;
-    debtor.save().then(() => {
-      res.status(200).json({ message: "Debtor added to manager" });
-    });
+    debtor
+      .save()
+      .then(() => {
+        res.status(200).json({ message: "Debtor added to manager" });
+      })
+      .catch((err) => {
+        res.status(500).json({
+          message: "Error assigning debtor",
+          error: err.message,
+        });
+      });
   });
 };
 
@@ -780,9 +832,17 @@ exports.removeDebtorFromManager = (req, res, next) => {
       return res.status(404).json({ message: "Debtor not found" });
     }
     debtor.manager = null;
-    debtor.save().then(() => {
-      res.status(200).json({ message: "Debtor removed from manager" });
-    });
+    debtor
+      .save()
+      .then(() => {
+        res.status(200).json({ message: "Debtor removed from manager" });
+      })
+      .catch((err) => {
+        res.status(500).json({
+          message: "Error removing debtor",
+          error: err.message,
+        });
+      });
   });
 };
 
@@ -855,8 +915,10 @@ exports.getDebtorsForDelinquencyReport = async (req, res, next) => {
 
     res.status(200).json(result);
   } catch (err) {
-    console.error("Error fetching debtors:", err);
-    res.status(500).json({ error: "Error fetching debtors" });
+    res.status(500).json({
+      message: "Error fetching debtors",
+      error: err.message,
+    });
   }
 };
 
@@ -871,7 +933,8 @@ const getDebtors = (query, res, managerId) => {
       res.status(200).json({ debtors: debtors });
     })
     .catch((err) => {
-      console.error(err);
-      res.status(500).json({ error: "Error fetching debtors" });
+      res.status(500).json({ 
+        message: "Error fetching debtors",
+      error: err.message });
     });
 };
