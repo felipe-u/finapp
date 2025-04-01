@@ -12,7 +12,7 @@
                 <label for="password">{{ 'FIELDS.PASSWORD' | translate }}</label><br>
                 <input type="password" id="password" name="password" formControlName="password"><br>
                 @if(errorMessage !== '') {
-                <span>Incorrect email or password</span>
+                <span>{{ 'UI.LOGIN.WRONG_PASS_OR_EMAIL' | translate }}</span>
                 }
             </div>
             <div class="btn-container">

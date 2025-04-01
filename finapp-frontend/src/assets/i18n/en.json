@@ -62,7 +62,8 @@
     "LOGIN": {
       "FORGOT_PASS": "Forgot password?",
       "NO_ACCOUNT": "Doesn't have an account?",
-      "SIGNUP": "Sign up"
+      "SIGNUP": "Sign up",
+      "WRONG_PASS_OR_EMAIL": "Incorrect email or password"
     },
     "REGISTER": {
       "TITLE": "Register",
