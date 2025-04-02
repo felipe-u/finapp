@@ -1,4 +1,5 @@
 const express = require("express");
+const connectDB = require("./database");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 
@@ -31,16 +32,12 @@ app.use(authRoutes);
 app.use(emailRoutes);
 app.use(imagesRoutes);
 
-mongoose
-  .connect(
-    "mongodb+srv://felipeuv:js2NUZuqo7uTON9J@cluster0.zcixe.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-  )
-  .then(() => {
+module.exports = app;
+
+if (require.main === module) {
+  connectDB().then(() => {
     app.listen(3000, () => {
       console.log("Server is running on port 3000");
     });
-  })
-  .catch((err) => {
-    console.log("Connection error with the database.");
-    console.log(err);
   });
+}
