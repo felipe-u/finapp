@@ -22,11 +22,9 @@ exports.getUsersBySearchTerm = async (req, res, next) => {
   const searchTerm = req.query.searchTerm;
   const query = { name: { $regex: searchTerm, $options: "i" } };
   try {
-    Manager.find(query).then((managers) => {
-      Assistant.find(query).then((assistants) => {
-        res.status(200).json({ managers, assistants });
-      });
-    });
+    const managers = await Manager.find(query);
+    const assistants = await Assistant.find(query);
+    res.status(200).json({ managers, assistants });
   } catch (err) {
     res.status(500).json({
       message: "Server error",
@@ -51,47 +49,26 @@ exports.getUser = async (req, res, next) => {
   }
 };
 
-exports.createUser = (req, res, next) => {
-  const name = req.body.name;
-  const email = req.body.email;
-  const newUser = new User({ name: name, email: email });
-  newUser
-    .save()
-    .then(() => {
-      console.log("user created");
-      return res.status(201).json({ message: "User created successfully!" });
-    })
-    .catch((err) => {
-      res.status(500).json({
-        message: "Server error",
-        error: err.message,
-      });
-    });
-};
-
-exports.updateUser = (req, res, next) => {
+exports.updateUser = async (req, res, next) => {
   const userId = req.body.userId;
   const email = req.body.email;
   const phone = req.body.phone;
-  User.findById(userId).then((user) => {
+  try {
+    const user = await User.findById(userId);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
     user.email = email;
     user.phone = phone;
-    user
-      .save()
-      .then(() => {
-        console.log("user updated");
-        return res.status(200).json({ message: "User updated successfully!" });
-      })
-      .catch((err) => {
-        res.status(500).json({
-          message: "Server error",
-          error: err.message,
-        });
-      });
-  });
+    await user.save();
+    console.log("user updated");
+    return res.status(200).json({ message: "User updated successfully!" });
+  } catch (err) {
+    res.status(500).json({
+      message: "Server error",
+      error: err.message,
+    });
+  }
 };
 
 exports.checkPassword = async (req, res, next) => {
@@ -115,69 +92,45 @@ exports.checkPassword = async (req, res, next) => {
   }
 };
 
-exports.changePassword = (req, res, next) => {
+exports.changePassword = async (req, res, next) => {
   const userId = req.body.userId;
   const newPassword = req.body.newPassword;
-  User.findById(userId)
-    .then((user) => {
-      if (!user) {
-        return res.status(404).json({ message: "User not found" });
-      }
-      const hashedPassword = bcrypt.hashSync(newPassword);
-      user.password = hashedPassword;
-      user
-        .save()
-        .then(() => {
-          console.log("password updated");
-          return res
-            .status(200)
-            .json({ message: "Password changed successfully" });
-        })
-        .catch((err) => {
-          res.status(500).json({
-            message: "Server error",
-            error: err.message,
-          });
-        });
-    })
-    .catch((err) => {
-      res.status(500).json({
-        message: "Server error",
-        error: err.message,
-      });
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    const hashedPassword = bcrypt.hashSync(newPassword);
+    user.password = hashedPassword;
+    await user.save();
+    console.log("password updated");
+    return res.status(200).json({ message: "Password changed successfully" });
+  } catch (err) {
+    res.status(500).json({
+      message: "Server error",
+      error: err.message,
     });
+  }
 };
 
-exports.changeLang = (req, res, next) => {
+exports.changeLang = async (req, res, next) => {
   const userId = req.body.userId;
   const newLang = req.body.newLang;
-  User.findById(userId)
-    .then((user) => {
-      if (!user) {
-        return res.status(404).json({ message: "User not found" });
-      }
-      user.language = newLang;
-      user
-        .save()
-        .then(() => {
-          console.log("Language updated");
-          return res
-            .status(200)
-            .json({ message: "Language changed successfully" });
-        })
-        .catch((err) => {
-          res.status(500).json({
-            message: "Server error",
-            error: err.message,
-          });
-        });
-    })
-    .catch((err) => {
-      res.status(500).json({
-        message: "Server error",
-        error: err.message,
-      });
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    user.language = newLang;
+    await user.save();
+    console.log("Language updated");
+    return res.status(200).json({ message: "Language changed successfully" });
+  } catch (err) {
+    res.status(500).json({
+      message: "Server error",
+      error: err.message,
     });
+  }
 };
 
 // exports.updateFields = async (req, res, next) => {

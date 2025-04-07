@@ -39,7 +39,7 @@ export class PasswordModalComponent {
           this.isOldPasswordWrongOrNotEnteredYet = false;
         } else {
           this.notiflix.showError(
-            this.translate.instant('NOTIFLIX_WRONG_PASS')
+            this.translate.instant('NOTIFLIX.WRONG_PASS')
           );
         }
       },

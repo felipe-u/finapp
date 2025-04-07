@@ -22,7 +22,7 @@ export class HeaderComponent implements OnInit {
   userId = signal<string | null>(null);
   userPhoto = signal<string | null>(null);
 
-  @ViewChild('sidepanel', { static: false }) sidepanel: ElementRef;
+  @ViewChild('sidepanel', { static: false }) sidepanel?: ElementRef;
   @Input() isInAccountSettings: boolean;
 
   ngOnInit(): void {
@@ -58,11 +58,13 @@ export class HeaderComponent implements OnInit {
     this.authService.logout();
   }
 
- @HostListener('document:click', ['$event'])
- onDocumentClick(event: MouseEvent) {
-  const clickedInside = this.sidepanel.nativeElement.contains(event.target);
-  if (!clickedInside && this.isSidePanelOpen) {
-    this.closeSidePanel()
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+    if (!this.isInAccountSettings) {
+      const clickedInside = this.sidepanel.nativeElement.contains(event.target);
+      if (!clickedInside && this.isSidePanelOpen) {
+        this.closeSidePanel()
+      }
+    }
   }
- }
 }

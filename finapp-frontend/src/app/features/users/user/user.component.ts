@@ -77,7 +77,8 @@ export class UserComponent implements OnInit {
           newEmail,
           this.user().password,
           newPhone,
-          this.user().language
+          this.user().language,
+          this.user().photo
         );
         this.usersService.updateUserInfo(this.user()._id, newEmail, newPhone).subscribe({
           next: () => {

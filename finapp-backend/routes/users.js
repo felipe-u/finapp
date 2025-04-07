@@ -8,8 +8,6 @@ router.get("/users", usersController.getUser);
 
 router.get("/users/all", usersController.getAllUsers);
 
-router.post("/create-user", usersController.createUser);
-
 router.put("/user-update", usersController.updateUser);
 
 router.post("/check-password", usersController.checkPassword);
