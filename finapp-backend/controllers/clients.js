@@ -1,9 +1,4 @@
-const PersonalInfo = require("../models/personalInfo");
-const GeoInfo = require("../models/geoInfo");
-const CommercialInfo = require("../models/commercialInfo");
 const Financing = require("../models/financing");
-const Installment = require("../models/installment");
-const Motorcycle = require("../models/motorcycle");
 const Reference = require("../models/reference");
 const { Client, Debtor, Codebtor } = require("../models/client");
 
@@ -17,532 +12,12 @@ const statusEnum = {
   CJ: "En cobro jurídico",
 };
 
-exports.createClient = async (req, res, next) => {
-  console.log("Working Back");
-  try {
-    // CUOTAS
-    const installment1 = new Installment({
-      installmentNumber: 1,
-      dueDate: new Date(2024, 5, 1),
-      capital: 666666.67,
-      interest: 243333.33,
-      guaranteeValue: 87360,
-      installmentPaid: true,
-      installmentValue: 910000,
-      outstandingValue: 10010000,
-      overdueDays: 0,
-      lateInterests: 0,
-      totalInstallmentValue: 910000,
-    });
-    const savedInstallment1 = await installment1.save();
-
-    const installment2 = new Installment({
-      installmentNumber: 2,
-      dueDate: new Date(2024, 6, 1),
-      capital: 666666.67,
-      interest: 243333.33,
-      guaranteeValue: 87360,
-      installmentPaid: true,
-      installmentValue: 910000,
-      outstandingValue: 9100000,
-      overdueDays: 0,
-      lateInterests: 0,
-      totalInstallmentValue: 910000,
-    });
-    const savedInstallment2 = await installment2.save();
-
-    const installment3 = new Installment({
-      installmentNumber: 3,
-      dueDate: new Date(2024, 7, 1),
-      capital: 666666.67,
-      interest: 243333.33,
-      guaranteeValue: 87360,
-      installmentPaid: true,
-      installmentValue: 910000,
-      outstandingValue: 8190000,
-      overdueDays: 0,
-      lateInterests: 0,
-      totalInstallmentValue: 910000,
-    });
-    const savedInstallment3 = await installment3.save();
-
-    const installment4 = new Installment({
-      installmentNumber: 4,
-      dueDate: new Date(2024, 8, 1),
-      capital: 666666.67,
-      interest: 243333.33,
-      guaranteeValue: 87360,
-      installmentPaid: true,
-      installmentValue: 910000,
-      outstandingValue: 7280000,
-      overdueDays: 0,
-      lateInterests: 0,
-      totalInstallmentValue: 910000,
-    });
-    const savedInstallment4 = await installment4.save();
-
-    const installment5 = new Installment({
-      installmentNumber: 5,
-      dueDate: new Date(2024, 9, 1),
-      capital: 666666.67,
-      interest: 243333.33,
-      guaranteeValue: 87360,
-      installmentPaid: true,
-      installmentValue: 910000,
-      outstandingValue: 6370000,
-      overdueDays: 0,
-      lateInterests: 0,
-      totalInstallmentValue: 910000,
-    });
-    const savedInstallment5 = await installment5.save();
-
-    const installment6 = new Installment({
-      installmentNumber: 6,
-      dueDate: new Date(2024, 5, 1),
-      capital: 666666.67,
-      interest: 243333.33,
-      guaranteeValue: 87360,
-      installmentPaid: false,
-      installmentValue: 910000,
-      outstandingValue: 6370000,
-      overdueDays: 0,
-      lateInterests: 0,
-      totalInstallmentValue: 910000,
-    });
-    const savedInstallment6 = await installment6.save();
-
-    const installment7 = new Installment({
-      installmentNumber: 7,
-      dueDate: new Date(2024, 5, 1),
-      capital: 666666.67,
-      interest: 243333.33,
-      guaranteeValue: 87360,
-      installmentPaid: false,
-      installmentValue: 910000,
-      outstandingValue: 6370000,
-      overdueDays: 0,
-      lateInterests: 0,
-      totalInstallmentValue: 910000,
-    });
-    const savedInstallment7 = await installment7.save();
-
-    const installment8 = new Installment({
-      installmentNumber: 8,
-      dueDate: new Date(2024, 5, 1),
-      capital: 666666.67,
-      interest: 243333.33,
-      guaranteeValue: 87360,
-      installmentPaid: false,
-      installmentValue: 910000,
-      outstandingValue: 6370000,
-      overdueDays: 0,
-      lateInterests: 0,
-      totalInstallmentValue: 910000,
-    });
-    const savedInstallment8 = await installment8.save();
-
-    const installment9 = new Installment({
-      installmentNumber: 9,
-      dueDate: new Date(2024, 5, 1),
-      capital: 666666.67,
-      interest: 243333.33,
-      guaranteeValue: 87360,
-      installmentPaid: false,
-      installmentValue: 910000,
-      outstandingValue: 6370000,
-      overdueDays: 0,
-      lateInterests: 0,
-      totalInstallmentValue: 910000,
-    });
-    const savedInstallment9 = await installment9.save();
-
-    const installment10 = new Installment({
-      installmentNumber: 10,
-      dueDate: new Date(2024, 5, 1),
-      capital: 666666.67,
-      interest: 243333.33,
-      guaranteeValue: 87360,
-      installmentPaid: false,
-      installmentValue: 910000,
-      outstandingValue: 6370000,
-      overdueDays: 0,
-      lateInterests: 0,
-      totalInstallmentValue: 910000,
-    });
-    const savedInstallment10 = await installment10.save();
-
-    const installment11 = new Installment({
-      installmentNumber: 11,
-      dueDate: new Date(2024, 5, 1),
-      capital: 666666.67,
-      interest: 243333.33,
-      guaranteeValue: 87360,
-      installmentPaid: false,
-      installmentValue: 910000,
-      outstandingValue: 6370000,
-      overdueDays: 0,
-      lateInterests: 0,
-      totalInstallmentValue: 910000,
-    });
-    const savedInstallment11 = await installment11.save();
-
-    const installment12 = new Installment({
-      installmentNumber: 12,
-      dueDate: new Date(2024, 5, 1),
-      capital: 666666.67,
-      interest: 243333.33,
-      guaranteeValue: 87360,
-      installmentPaid: false,
-      installmentValue: 910000,
-      outstandingValue: 6370000,
-      overdueDays: 0,
-      lateInterests: 0,
-      totalInstallmentValue: 910000,
-    });
-    const savedInstallment12 = await installment12.save();
-
-    // Motocicleta financiación1
-    const motorcycle1 = new Motorcycle({
-      licensePlate: "ANL52F",
-      brand: "Honda",
-      model: "CB 190 R",
-    });
-    const savedMotorcycle1 = await motorcycle1.save();
-
-    // Financiación codeudor1
-    const financing1 = new Financing({
-      status: "AD",
-      motorcycle: savedMotorcycle1,
-      initialInstallment: 1000000,
-      financedAmount: 8000000,
-      numberOfInstallments: 12,
-      totalToPay: 10920000,
-      monthlyInterest: 3.65,
-      lateInterest: 1.8,
-      installments: [
-        savedInstallment1,
-        savedInstallment2,
-        savedInstallment3,
-        savedInstallment4,
-        savedInstallment5,
-        savedInstallment6,
-        savedInstallment7,
-        savedInstallment8,
-        savedInstallment9,
-        savedInstallment10,
-        savedInstallment11,
-        savedInstallment12,
-      ],
-    });
-    const savedFinancing1 = await financing1.save();
-
-    //--------------------------------
-    // Referencia familiar1 codeudor1
-    const reference7 = new Reference({
-      name: "Rocío Valencia",
-      identification: {
-        idType: "CC",
-        number: "845398",
-      },
-      referenceType: "FAM",
-      phone: "3127751316",
-      relationship: "MAD",
-    });
-    const savedReference7 = await reference7.save();
-
-    // Referencia familiar2 codeudor1
-    const reference8 = new Reference({
-      name: "Milton Botero",
-      identification: {
-        idType: "CC",
-        number: "8453999",
-      },
-      referenceType: "FAM",
-      phone: "3225751516",
-      relationship: "PAD",
-    });
-    const savedReference8 = await reference8.save();
-
-    // Referencia personal1 codeudor1
-    const reference9 = new Reference({
-      name: "Tatiana Rosas",
-      identification: {
-        idType: "CC",
-        number: "1536496",
-      },
-      referenceType: "PER",
-      phone: "3127710240",
-      relationship: "AMI",
-    });
-    const savedReference9 = await reference9.save();
-
-    // Referencia personal2 codeudor1
-    const reference10 = new Reference({
-      name: "Juan Rosas",
-      identification: {
-        idType: "CC",
-        number: "1530006",
-      },
-      referenceType: "PER",
-      phone: "3127710241",
-      relationship: "AMI",
-    });
-    const savedReference10 = await reference10.save();
-
-    // Referencia comercial1 codeudor1
-    const reference11 = new Reference({
-      name: "Banco MAR",
-      identification: {
-        idType: "NIT",
-        number: "12345678901",
-      },
-      referenceType: "COM",
-      phone: "3129894545",
-      relationship: "ENF",
-    });
-    const savedReference11 = await reference11.save();
-
-    // Referencia comercial2 codeudor1
-    const reference12 = new Reference({
-      name: "Banco Sur",
-      identification: {
-        idType: "NIT",
-        number: "10548922348",
-      },
-      referenceType: "COM",
-      phone: "312656565",
-      relationship: "ENF",
-    });
-    const savedReference12 = await reference12.save();
-
-    // Info comercial codeudor1
-    const commercialInfo2 = new CommercialInfo({
-      jobOccupation: "Panadera",
-      company: "Bimbo",
-      laborSenority: "5 años",
-      income: 3000000,
-      additionalIncome: 0,
-      expenses: 680000,
-    });
-    const savedCommercialInfo2 = await commercialInfo2.save();
-
-    // Info geográfica codeudor1
-    const geoInfo2 = new GeoInfo({
-      address: "Carrera 9 # 65 - 50",
-      city: "Barranquilla",
-      department: "Atlántico",
-      neighbourhood: "América",
-      additionalInfo: "Piso 2",
-      location: {
-        type: "Point",
-        coordinates: ["20.45666", "45.48625"],
-      },
-    });
-    const savedGeoInfo2 = await geoInfo2.save();
-
-    // Info personal codeudor1
-    const personalInfo2 = new PersonalInfo({
-      email: "melissa@mail.com",
-      phone: "3105595656",
-      birthDate: new Date("2000", "09", "15"),
-    });
-    const savedPersonalInfo2 = await personalInfo2.save();
-
-    // Codeudor1
-    const codebtor1 = new Codebtor({
-      name: "Melissa Botero",
-      role: "codebtor",
-      identification: {
-        idType: "CC",
-        number: "4520556",
-      },
-      personalInfo: savedPersonalInfo2,
-      geoInfo: savedGeoInfo2,
-      commercialInfo: savedCommercialInfo2,
-      financing: savedFinancing1,
-      references: [
-        savedReference7,
-        savedReference8,
-        savedReference9,
-        savedReference10,
-        savedReference11,
-        savedReference12,
-      ],
-    });
-    const savedCodebtor1 = await codebtor1.save();
-
-    //--------------------------------
-    // Referencia familiar1 deudor1
-    const reference1 = new Reference({
-      name: "Pedro Vélez",
-      identification: {
-        idType: "CC",
-        number: "96325",
-      },
-      referenceType: "FAM",
-      phone: "312155777",
-      relationship: "HER",
-    });
-    const savedReference1 = await reference1.save();
-
-    // Referencia familiar2 deudor1
-    const reference2 = new Reference({
-      name: "María Martinez",
-      identification: {
-        idType: "CC",
-        number: "186325",
-      },
-      referenceType: "FAM",
-      phone: "312155777",
-      relationship: "MAD",
-    });
-    const savedReference2 = await reference2.save();
-
-    // Referencia personal1 deudor1
-    const reference3 = new Reference({
-      name: "Camilo Duarte",
-      identification: {
-        idType: "CC",
-        number: "10369777",
-      },
-      referenceType: "PER",
-      phone: "302545656",
-      relationship: "VEC",
-    });
-    const savedReference3 = await reference3.save();
-
-    // Referencia personal2 deudor1
-    const reference4 = new Reference({
-      name: "Juan García",
-      identification: {
-        idType: "CC",
-        number: "10369696",
-      },
-      referenceType: "PER",
-      phone: "302545998",
-      relationship: "AMI",
-    });
-    const savedReference4 = await reference4.save();
-
-    // Referencia comercial1 deudor1
-    const reference5 = new Reference({
-      name: "Cooperativa Palo Alto",
-      identification: {
-        idType: "NIT",
-        number: "98765432111",
-      },
-      referenceType: "COM",
-      phone: "310665650",
-      relationship: "ENF",
-    });
-    const savedReference5 = await reference5.save();
-
-    // Referencia comercial1 deudor1
-    const reference6 = new Reference({
-      name: "BANCO MAR",
-      identification: {
-        idType: "NIT",
-        number: "12345678901",
-      },
-      referenceType: "COM",
-      phone: "3129894545",
-      relationship: "ENF",
-    });
-    const savedReference6 = await reference6.save();
-
-    // Info comercial deudor1
-    const commercialInfo1 = new CommercialInfo({
-      jobOccupation: "Vendedor",
-      company: "Homecenter",
-      laborSenority: "3 años",
-      income: 2000000,
-      additionalIncome: 200000,
-      expenses: 1000000,
-    });
-    const savedCommercialInfo1 = await commercialInfo1.save();
-
-    // Info geográfica deudor1
-    const geoInfo1 = new GeoInfo({
-      address: "Calle 41 # 65 - 52",
-      city: "Barranquilla",
-      department: "Atlántico",
-      neighbourhood: "Miraflores",
-      location: {
-        type: "Point",
-        coordinates: ["4.140338", "2.17403"],
-      },
-    });
-    const savedGeoInfo1 = await geoInfo1.save();
-
-    // Info personal deudor1
-    const personalInfo1 = new PersonalInfo({
-      email: "samuel@mail.com",
-      phone: "3127751311",
-      birthDate: new Date("1990", "11", "23"),
-    });
-    const savedPersonalInfo1 = await personalInfo1.save();
-
-    // Deudor1
-    const debtor1 = new Debtor({
-      name: "Samuel Vélez",
-      identification: {
-        idType: "CC",
-        number: "1036584",
-      },
-      role: "debtor",
-      personalInfo: savedPersonalInfo1,
-      geoInfo: savedGeoInfo1,
-      commercialInfo: savedCommercialInfo1,
-      financing: savedFinancing1,
-      references: [
-        savedReference1,
-        savedReference2,
-        savedReference3,
-        savedReference4,
-        savedReference5,
-        savedReference6,
-      ],
-      codebtor: savedCodebtor1,
-    });
-    const savedDebtor1 = await debtor1.save();
-  } catch (err) {
-    console.error("Error saving documents", err);
-    res.status(500).json({ message: "Error interno del servidor" });
-  }
-};
-
-exports.showUserInfo = (req, res, next) => {
-  const theUser = req.user;
-  theUser.name = "Test2";
-  theUser
-    .save()
-    .then(() => {
-      res.status(200).json({ message: "User info shown" });
-    })
-    .catch((err) => {
-      res.status(500).json({
-        message: "Error fetching user info",
-        error: err.message,
-      });
-    });
-};
-
-exports.getClients = (req, res, next) => {
-  Client.find()
-    .then((clients) => {
-      res.status(200).json({ clients: clients });
-    })
-    .catch((err) => {
-      res.status(500).json({
-        message: "Error fetching clients",
-        error: err.message,
-      });
-    });
-};
-
 exports.getClient = (req, res, next) => {
   Client.findById(req.params.clientId)
     .then((client) => {
+      if (!client) {
+        return res.status(404).json({ message: "Client not found" });
+      }
       res.status(200).json({ client });
     })
     .catch((err) => {
@@ -553,188 +28,184 @@ exports.getClient = (req, res, next) => {
     });
 };
 
-exports.getClientFinancing = (req, res, next) => {
-  Client.findById(req.params.clientId, "financing")
-    .populate({
+exports.getClientFinancing = async (req, res, next) => {
+  try {
+    const client = await Client.findById(req.params.clientId, "financing");
+
+    if (!client) {
+      return res.status(404).json({ message: "Client not found" });
+    }
+
+    await client.populate({
       path: "financing",
       populate: [{ path: "motorcycle" }, { path: "installments" }],
-    })
-    .then((client) => {
-      res.status(200).json({ financing: client.financing });
-    })
-    .catch((err) => {
-      res.status(500).json({
-        message: "Error fetching financing",
-        error: err.message,
-      });
     });
+
+    res.status(200).json({ financing: client.financing });
+  } catch (err) {
+    res.status(500).json({
+      message: "Error fetching financing",
+      error: err.message,
+    });
+  }
 };
 
 exports.getClientPersonalInfo = (req, res, next) => {
   Client.findById(req.params.clientId, "personalInfo")
-    .populate("personalInfo")
-    .then((client) => {
-      res.status(200).json({ personalInfo: client.personalInfo });
-    })
-    .catch((err) => {
-      res.status(500).json({
-        message: "Error fetching personal info",
-        error: err.message,
-      });
-    });
-};
-
-exports.editClientPersonalInfo = (req, res, next) => {
-  const updatedIdNumber = req.body.newIdNumber;
-  const updatedEmail = req.body.newPersonalInfo.email;
-  const updatedPhone = req.body.newPersonalInfo.phone;
-  const updatedBirthDate = req.body.newPersonalInfo.birthDate;
-  const updatedPhoto = req.body.newPersonalInfo.photo;
-
-  Client.findById(req.params.clientId)
-    .populate("personalInfo")
     .then((client) => {
       if (!client) {
         return res.status(404).json({ message: "Client not found" });
       }
-      client.identification.number = updatedIdNumber;
-      client.personalInfo.email = updatedEmail;
-      client.personalInfo.phone = updatedPhone;
-      client.personalInfo.birthDate = updatedBirthDate;
-      client.personalInfo.photo = updatedPhoto;
-
-      return client.personalInfo.save().then(() => client.save());
+      return client.populate("personalInfo");
     })
-    .then(() => {
-      res.status(200).json({ message: "Client personal info updated" });
+    .then((client) => {
+      if (!client) return;
+      res.status(200).json({ personalInfo: client.personalInfo });
     })
     .catch((err) => {
-      res.status(500).json({
-        message: "Error updating personal info",
-        error: err.message,
-      });
+      if (!res.headersSent) {
+        res.status(500).json({
+          message: "Error fetching personal info",
+          error: err?.message || "Unknown error",
+        });
+      }
     });
+};
+
+exports.editClientPersonalInfo = async (req, res, next) => {
+  try {
+    const { newIdNumber, newPersonalInfo } = req.body;
+    const client = await Client.findById(req.params.clientId);
+    if (!client) {
+      return res.status(404).json({ message: "Client not found" });
+    }
+    await client.populate("personalInfo");
+    if (!client.personalInfo) {
+      return res.status(404).json({ message: "Personal info not found" });
+    }
+    client.identification.number = newIdNumber;
+    Object.assign(client.personalInfo, newPersonalInfo);
+    await client.personalInfo.save();
+    await client.save();
+    res.status(200).json({ message: "Client personal info updated" });
+  } catch (err) {
+    res.status(500).json({
+      message: "Error updating personal info",
+      error: err.message || "Unknown error",
+    });
+  }
 };
 
 exports.getClientGeoInfo = (req, res, next) => {
   Client.findById(req.params.clientId, "geoInfo")
-    .populate("geoInfo")
     .then((client) => {
+      if (!client) {
+        return res.status(404).json({ message: "Client not found" });
+      }
+      return client.populate("geoInfo");
+    })
+    .then((client) => {
+      if (!client) return;
       res.status(200).json({ geoInfo: client.geoInfo });
     })
     .catch((err) => {
-      res.status(500).json({
-        message: "Error fetching geo info",
-        error: err.message,
-      });
+      if (!res.headersSent) {
+        res.status(500).json({
+          message: "Error fetching geo info",
+          error: err?.message || "Unknown error",
+        });
+      }
     });
 };
 
-exports.editClientGeoInfo = (req, res, next) => {
-  const updatedAddress = req.body.address;
-  const updatedCity = req.body.city;
-  const updatedDepartment = req.body.department;
-  const updatedNeighbourhood = req.body.neighbourhood;
-  const updatedLatitude = req.body.latitude;
-  const updatedLongitude = req.body.longitude;
-  const updatedGoogleMapsUrl = req.body.googleMapsUrl;
-  const updatedPropertyImages = req.body.propertyImages;
-
-  Client.findById(req.params.clientId)
-    .populate("geoInfo")
-    .then((client) => {
-      if (!client) {
-        return res.status(404).json({ message: "Client not found" });
-      }
-      client.geoInfo.address = updatedAddress;
-      client.geoInfo.city = updatedCity;
-      client.geoInfo.department = updatedDepartment;
-      client.geoInfo.neighbourhood = updatedNeighbourhood;
-      client.geoInfo.latitude = updatedLatitude;
-      client.geoInfo.longitude = updatedLongitude;
-      client.geoInfo.googleMapsUrl = updatedGoogleMapsUrl;
-      client.geoInfo.propertyImages = updatedPropertyImages;
-
-      return client.geoInfo.save().then(() => client.save());
-    })
-    .then(() => {
-      res.status(200).json({ message: "Client geo info updated" });
-    })
-    .catch((err) => {
-      res.status(500).json({
-        message: "Error updating geo info",
-        error: err.message,
-      });
+exports.editClientGeoInfo = async (req, res, next) => {
+  try {
+    const { updatedGeoInfo } = req.body;
+    const client = await Client.findById(req.params.clientId);
+    if (!client) {
+      return res.status(404).json({ message: "Client not found" });
+    }
+    await client.populate("geoInfo");
+    if (!client.geoInfo) {
+      return res.status(404).json({ message: "Geo info not found" });
+    }
+    Object.assign(client.geoInfo, updatedGeoInfo);
+    await client.geoInfo.save();
+    await client.save();
+    res.status(200).json({ message: "Client geo info updated" });
+  } catch (err) {
+    res.status(500).json({
+      message: "Error updating geo info",
+      error: err.message || "Unknown error",
     });
+  }
 };
 
-exports.getClientCommercialInfo = (req, res, next) => {
-  Client.findById(req.params.clientId, "references commercialInfo")
-    .populate("references")
-    .populate("commercialInfo")
-    .then((client) => {
-      res.status(200).json({
-        references: client.references,
-        commercialInfo: client.commercialInfo,
-      });
-    })
-    .catch((err) => {
-      res.status(500).json({
-        message: "Error fetching commercial info",
-        error: err.message,
-      });
+exports.getClientCommercialInfo = async (req, res, next) => {
+  try {
+    const client = await Client.findById(
+      req.params.clientId,
+      "references commercialInfo"
+    );
+    if (!client) {
+      return res.status(404).json({ message: "Client not found" });
+    }
+    await client.populate("references");
+    await client.populate("commercialInfo");
+
+    res.status(200).json({
+      references: client.references,
+      commercialInfo: client.commercialInfo,
     });
+  } catch (err) {
+    res.status(500).json({
+      message: "Error fetching commercial info",
+      error: err.message,
+    });
+  }
 };
 
-exports.editClientCommercialInfo = (req, res, next) => {
-  const updatedJobOccupation = req.body.newCommercialInfo.jobOccupation;
-  const updatedCompany = req.body.newCommercialInfo.company;
-  const updatedLaborSenority = req.body.newCommercialInfo.laborSenority;
-  const updatedIncome = req.body.newCommercialInfo.income;
-  const updatedAdditionalIncome = req.body.newCommercialInfo.additionalIncome;
-  const updatedExpenses = req.body.newCommercialInfo.expenses;
-  const updatedReferences = req.body.newReferences;
-  Client.findById(req.params.clientId)
-    .populate("commercialInfo references")
-    .then(async (client) => {
-      if (!client) {
-        return res.status(404).json({ message: "Client not found" });
-      }
-      client.commercialInfo.jobOccupation = updatedJobOccupation;
-      client.commercialInfo.company = updatedCompany;
-      client.commercialInfo.laborSenority = updatedLaborSenority;
-      client.commercialInfo.income = updatedIncome;
-      client.commercialInfo.additionalIncome = updatedAdditionalIncome;
-      client.commercialInfo.expenses = updatedExpenses;
+exports.editClientCommercialInfo = async (req, res, next) => {
+  try {
+    const { newCommercialInfo, newReferences } = req.body;
+    const client = await Client.findById(req.params.clientId);
+    if (!client) {
+      return res.status(404).json({ message: "Client not found" });
+    }
+    await client.populate("commercialInfo references");
+    if (!client.commercialInfo || !client.references) {
+      return res
+        .status(404)
+        .json({ message: "Commercial info or references not found" });
+    }
+    Object.assign(client.commercialInfo, newCommercialInfo);
 
-      for (const updatedReference of updatedReferences) {
-        const reference = await Reference.findById(updatedReference._id);
-        if (reference) {
-          reference.name = updatedReference.name;
-          reference.identification.idType = "CC";
-          reference.identification.number = "111";
-          reference.referenceType = updatedReference.referenceType;
-          reference.phone = updatedReference.phone;
-          reference.relationship = updatedReference.relationship;
-          await reference.save();
-        }
+    for (const newReference of newReferences) {
+      const reference = await Reference.findById(newReference._id);
+      if (reference) {
+        Object.assign(reference, newReference);
+        reference.identification.idType = "CC";
+        reference.identification.number = "111";
+        await reference.save();
       }
-
-      await client.commercialInfo.save();
-      await client.save();
-      res.status(200).json({ message: "Client commercial info updated" });
-    })
-    .catch((err) => {
-      res.status(500).json({
-        message: "Error updating commercial info",
-        error: err.message,
-      });
+    }
+    await client.commercialInfo.save();
+    await client.save();
+    res.status(200).json({ message: "Client commercial info updated" });
+  } catch (err) {
+    res.status(500).json({
+      message: "Error updating commercial info",
+      error: err.message || "Unknown error",
     });
+  }
 };
 
 exports.getClientName = (req, res, next) => {
   Client.findById(req.params.clientId, "name")
     .then((client) => {
+      if (!client) {
+        return res.status(404).json({ message: "Client not found" });
+      }
       res.status(200).json({ name: client.name });
     })
     .catch((err) => {
@@ -752,102 +223,101 @@ exports.getDebtorsListByManager = (req, res, next) => {
     console.log("Filtering...");
     exports.getDebtorsListByStatuses(req, res, next);
   } else {
-    getDebtors({}, res, req.params.managerId);
+    exports.getDebtors({}, res, req.params.managerId);
   }
 };
 
 exports.getDebtorsListBySearchTerm = (req, res, next) => {
   const searchTerm = req.query.searchTerm;
   const managerId = req.params.managerId;
-  const query = isNaN(searchTerm)
+  const query = isNaN(Number(searchTerm))
     ? { name: { $regex: searchTerm, $options: "i" } }
     : { "identification.number": searchTerm };
-  getDebtors(query, res, managerId);
+  exports.getDebtors(query, res, managerId);
 };
 
-exports.getDebtorsListByStatuses = (req, res, next) => {
-  const statuses = req.query.filter.split(",");
-  const managerId = req.params.managerId;
-  Financing.find({ status: { $in: statuses } })
-    .then((financings) => {
-      const financingIds = financings.map((financing) => financing._id);
-      getDebtors({ financing: { $in: financingIds } }, res, managerId);
-    })
-    .catch((err) => {
-      res.status(500).json({
-        message: "Error fetching financings",
-        error: err.message,
-      });
+exports.getDebtorsListByStatuses = async (req, res, next) => {
+  try {
+    const statuses = req.query.filter.split(",");
+    const managerId = req.params.managerId;
+    const financings = await Financing.find({ status: { $in: statuses } });
+    const financingIds = financings.map((financing) => financing._id);
+    await exports.getDebtors(
+      { financing: { $in: financingIds } },
+      res,
+      managerId
+    );
+  } catch (err) {
+    res.status(500).json({
+      message: "Error fetching financings",
+      error: err.message,
     });
+  }
 };
 
-exports.getAllDebtors = (req, res, next) => {
-  const searchTerm = req.query.searchTerm;
-  const query = isNaN(searchTerm)
-    ? { name: { $regex: searchTerm, $options: "i" } }
-    : { "identification.number": searchTerm };
-  Debtor.find(query, "name identification.number manager")
-    .populate({
+exports.getAllDebtors = async (req, res, next) => {
+  try {
+    const searchTerm = req.query.searchTerm;
+    const query = isNaN(searchTerm)
+      ? { name: { $regex: searchTerm, $options: "i" } }
+      : { "identification.number": searchTerm };
+    const debtors = await Debtor.find(
+      query,
+      "name identification.number manager"
+    );
+    const populatedDebtors = await Debtor.populate(debtors, {
       path: "manager",
       select: "name",
-    })
-    .then((debtors) => {
-      res.status(200).json({ debtors: debtors });
-    })
-    .catch((err) => {
-      res.status(500).json({
-        message: "Error fetching debtors",
-        error: err.message,
-      });
     });
+    console.log(populatedDebtors);
+    res.status(200).json({ debtors: populatedDebtors });
+  } catch (err) {
+    res.status(500).json({
+      message: "Error fetching debtors",
+      error: err.message,
+    });
+  }
 };
 
-exports.assigndDebtorToManager = (req, res, next) => {
+exports.assigndDebtorToManager = async (req, res, next) => {
   const debtorId = req.body.clientId;
   const managerId = req.body.managerId;
-  Debtor.findById(debtorId).then((debtor) => {
+  try {
+    const debtor = await Debtor.findById(debtorId);
     if (!debtor) {
       return res.status(404).json({ message: "Debtor not found" });
     }
     debtor.manager = managerId;
-    debtor
-      .save()
-      .then(() => {
-        res.status(200).json({ message: "Debtor added to manager" });
-      })
-      .catch((err) => {
-        res.status(500).json({
-          message: "Error assigning debtor",
-          error: err.message,
-        });
-      });
-  });
+    await debtor.save();
+    res.status(200).json({ message: "Debtor added to manager" });
+  } catch (err) {
+    res.status(500).json({
+      message: "Error assigning debtor",
+      error: err.message,
+    });
+  }
 };
 
-exports.removeDebtorFromManager = (req, res, next) => {
+exports.removeDebtorFromManager = async (req, res, next) => {
   const debtorId = req.body.clientId;
-  console.log(debtorId);
-  Debtor.findById(debtorId).then((debtor) => {
+  try {
+    const debtor = await Debtor.findById(debtorId);
     if (!debtor) {
       return res.status(404).json({ message: "Debtor not found" });
     }
     debtor.manager = null;
-    debtor
-      .save()
-      .then(() => {
-        res.status(200).json({ message: "Debtor removed from manager" });
-      })
-      .catch((err) => {
-        res.status(500).json({
-          message: "Error removing debtor",
-          error: err.message,
-        });
-      });
-  });
+    await debtor.save();
+    res.status(200).json({ message: "Debtor removed from manager" });
+  } catch (err) {
+    res.status(500).json({
+      message: "Error removing debtor",
+      error: err.message,
+    });
+  }
 };
 
 exports.getDebtorsListWithoutAssignment = (req, res, next) => {
-  getDebtors({}, res, null);
+  exports.getDebtors({}, res, null);
 };
 
 exports.getDebtorsForReport = (req, res, next) => {
@@ -861,6 +331,10 @@ exports.getDebtorsForReport = (req, res, next) => {
 exports.getDebtorsForDelinquencyReport = async (req, res, next) => {
   try {
     const { days } = req.query;
+    const validDays = ["30", "60", "90"];
+    if (!validDays.includes(days)) {
+      return res.status(400).json({ message: "Invalid 'days' parameter" });
+    }
     const debtors = await Debtor.find({})
       .populate({
         path: "financing",
@@ -869,42 +343,37 @@ exports.getDebtorsForDelinquencyReport = async (req, res, next) => {
           model: "Installment",
         },
       })
-      .populate("manager", "name");
+      .populate("manager", "name")
+      .exec();
+
+    const dayRanges = {
+      30: { min: 30, max: 60 },
+      60: { min: 60, max: 90 },
+      90: { min: 90, max: null },
+    };
+    const { min, max } = dayRanges[days];
 
     const result = debtors
       .map((debtor) => {
-        let overdueInstallments;
-        if (days === "30") {
-          overdueInstallments = debtor.financing.installments
-            .filter(
-              (installment) =>
-                installment.overdueDays >= 30 && installment.overdueDays < 60
-            )
-            .sort((a, b) => b.dueDate - a.dueDate);
-        } else if (days === "60") {
-          overdueInstallments = debtor.financing.installments
-            .filter(
-              (installment) =>
-                installment.overdueDays >= 60 && installment.overdueDays < 90
-            )
-            .sort((a, b) => b.dueDate - a.dueDate);
-        } else if (days === "90") {
-          overdueInstallments = debtor.financing.installments
-            .filter((installment) => installment.overdueDays >= 90)
-            .sort((a, b) => b.dueDate - a.dueDate);
-        } else {
-          return null;
-        }
+        const installments = debtor?.financing?.installments;
+        if (!installments || installments.length === 0) return null;
 
-        if (overdueInstallments.length > 0) {
-          const lastOverdueInstallment = overdueInstallments[0];
+        const unpaidInstallments = installments
+          .filter((inst) => !inst.installmentPaid)
+          .sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
+
+        if (unpaidInstallments.length === 0) return null;
+
+        const nextDueInstallment = unpaidInstallments[0];
+        const overdue = nextDueInstallment.overdueDays;
+        if (overdue >= min && (max === null || overdue < max)) {
           return {
             debtorId: debtor.identification.number,
             debtorName: debtor.name,
-            installmentValue: lastOverdueInstallment.installmentValue,
-            overdueDays: lastOverdueInstallment.overdueDays,
-            lateInterests: lastOverdueInstallment.lateInterests,
-            totalInstallmentValue: lastOverdueInstallment.totalInstallmentValue,
+            installmentValue: nextDueInstallment.installmentValue,
+            overdueDays: overdue,
+            lateInterests: nextDueInstallment.lateInterests,
+            totalInstallmentValue: nextDueInstallment.totalInstallmentValue,
             financingStatus: statusEnum[debtor.financing.status],
             manager: debtor.manager ? debtor.manager.name : "-",
           };
@@ -922,19 +391,22 @@ exports.getDebtorsForDelinquencyReport = async (req, res, next) => {
   }
 };
 
-const getDebtors = (query, res, managerId) => {
-  Debtor.find(query, "name identification.number financing")
-    .where({ manager: managerId })
-    .populate({
-      path: "financing",
-      select: "status",
-    })
-    .then((debtors) => {
-      res.status(200).json({ debtors: debtors });
-    })
-    .catch((err) => {
-      res.status(500).json({ 
-        message: "Error fetching debtors",
-      error: err.message });
+exports.getDebtors = async (query, res, managerId) => {
+  try {
+    const debtors = await Debtor.find(
+      query,
+      "name identification.number financing"
+    )
+      .where({ manager: managerId })
+      .populate({
+        path: "financing",
+        select: "status",
+      });
+    res.status(200).json({ debtors: debtors });
+  } catch (err) {
+    res.status(500).json({
+      message: "Error fetching debtors",
+      error: err.message,
     });
+  }
 };

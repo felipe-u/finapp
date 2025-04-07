@@ -9,6 +9,8 @@ const authRoutes = require("./routes/auth");
 const emailRoutes = require("./routes/email");
 const imagesRoutes = require("./routes/images");
 
+require("./models");
+
 const { User, Admin, Manager, Assistant } = require("./models/user");
 
 const app = express();

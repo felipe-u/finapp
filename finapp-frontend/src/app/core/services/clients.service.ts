@@ -127,7 +127,7 @@ export class ClientsService {
     editGeoInfo(updatedGeoInfo: GeoInfo) {
         console.log("Editing client geographic info: ", this.client()._id);
         return this.httpClient.post(
-            this.url + 'clients/' + this.client()._id + '/geoInfo/edit', updatedGeoInfo
+            this.url + 'clients/' + this.client()._id + '/geoInfo/edit', { updatedGeoInfo }
         );
     }
 

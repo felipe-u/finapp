@@ -4,8 +4,6 @@ const router = express.Router();
 
 const clientsController = require("../controllers/clients");
 
-router.post("/test", clientsController.createClient);
-
 router.get("/clients/:clientId", clientsController.getClient);
 
 router.get("/clients/:clientId/financing", clientsController.getClientFinancing);

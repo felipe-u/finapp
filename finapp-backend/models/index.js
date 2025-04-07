@@ -1,0 +1,10 @@
+require("./client");
+require("./commercialInfo");
+require("./financing");
+require("./geoInfo");
+require("./installment");
+require("./personalInfo");
+require("./reference");
+require("./report");
+require("./user");
+require("./motorcycle");
