@@ -1,4 +1,4 @@
-const emailController = require("../../controllers/email");
+const emailController = require("../../../controllers/email");
 const nodemailer = require("nodemailer");
 
 jest.mock("nodemailer");

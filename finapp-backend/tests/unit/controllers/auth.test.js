@@ -1,10 +1,9 @@
-const authController = require("../../controllers/auth");
-const { findOne } = require("../../models/personalInfo");
-const { User, Admin, Manager, Assistant } = require("../../models/user");
+const authController = require("../../../controllers/auth");
+const { User, Admin, Manager, Assistant } = require("../../../models/user");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-jest.mock("../../models/user", () => ({
+jest.mock("../../../models/user", () => ({
   User: { findOne: jest.fn() },
   Admin: jest.fn(),
   Manager: jest.fn(),

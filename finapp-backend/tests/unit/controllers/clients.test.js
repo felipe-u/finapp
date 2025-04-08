@@ -1,20 +1,20 @@
-jest.mock("../../models/client");
-jest.mock("../../models/financing");
-jest.mock("../../models/installment");
-jest.mock("../../models/reference");
+jest.mock("../../../models/client");
+jest.mock("../../../models/financing");
+jest.mock("../../../models/installment");
+jest.mock("../../../models/reference");
 
 const request = require("supertest");
-const app = require("../../app");
+const app = require("../../../app");
 const mongoose = require("mongoose");
 
-const { Client, Debtor, Codebtor } = require("../../models/client");
-const Reference = require("../../models/reference");
-const Financing = require("../../models/financing");
-const motorcycle = require("../../models/motorcycle");
-const personalInfo = require("../../models/personalInfo");
-const commercialInfo = require("../../models/commercialInfo");
-const reference = require("../../models/reference");
-let clientsController = require("../../controllers/clients");
+const { Client, Debtor, Codebtor } = require("../../../models/client");
+const Reference = require("../../../models/reference");
+const Financing = require("../../../models/financing");
+const motorcycle = require("../../../models/motorcycle");
+const personalInfo = require("../../../models/personalInfo");
+const commercialInfo = require("../../../models/commercialInfo");
+const reference = require("../../../models/reference");
+let clientsController = require("../../../controllers/clients");
 
 // GLOBAL MOCKS
 const mockMotorcycle = {
@@ -890,7 +890,7 @@ describe("get debtors list by search term", () => {
 
   beforeEach(() => {
     jest.resetModules();
-    clientsController = require("../../controllers/clients");
+    clientsController = require("../../../controllers/clients");
     req = {
       query: {},
       params: { managerId: "12345" },
@@ -938,14 +938,14 @@ describe("get debtors list by statuses", () => {
 
   beforeEach(() => {
     jest.resetModules();
-    clientsController = require("../../controllers/clients");
+    clientsController = require("../../../controllers/clients");
     req = {
       query: { filter: "AD" },
       params: { managerId: "12345" },
     };
     res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
     next = jest.fn();
-    mockFinancingModel = require("../../models/financing");
+    mockFinancingModel = require("../../../models/financing");
 
     jest.spyOn(clientsController, "getDebtors").mockImplementation(jest.fn());
   });
@@ -1007,7 +1007,7 @@ describe("GET /all-debtors", () => {
   beforeEach(() => {
     jest.resetModules();
     findMock = jest.fn().mockResolvedValue([mockDebtorClient]);
-    jest.mock("../../models/client", () => {
+    jest.mock("../../../models/client", () => {
       return {
         Debtor: {
           find: (findMock = jest.fn().mockResolvedValue([mockDebtorClient])),
@@ -1022,8 +1022,8 @@ describe("GET /all-debtors", () => {
         Codebtor: {},
       };
     });
-    ({ Debtor } = require("../../models/client"));
-    clientsController = require("../../controllers/clients");
+    ({ Debtor } = require("../../../models/client"));
+    clientsController = require("../../../controllers/clients");
     req = { query: {} };
     res = {
       status: jest.fn().mockReturnThis(),
@@ -1084,7 +1084,7 @@ describe("POST /assign-debtor", () => {
   const mockManagerId = new mongoose.Types.ObjectId();
 
   beforeEach(() => {
-    jest.mock("../../models/client", () => ({
+    jest.mock("../../../models/client", () => ({
       Debtor: {
         findById: jest.fn(),
       },
@@ -1102,8 +1102,8 @@ describe("POST /assign-debtor", () => {
       json: jest.fn(),
     };
     next = jest.fn();
-    ({ Debtor } = require("../../models/client"));
-    clientsController = require("../../controllers/clients");
+    ({ Debtor } = require("../../../models/client"));
+    clientsController = require("../../../controllers/clients");
     jest.clearAllMocks();
   });
 
@@ -1163,7 +1163,7 @@ describe("POST /remove-debtor", () => {
   const mockDebtorId = new mongoose.Types.ObjectId();
 
   beforeEach(() => {
-    jest.mock("../../models/client", () => ({
+    jest.mock("../../../models/client", () => ({
       Debtor: {
         findById: jest.fn(),
       },
@@ -1180,8 +1180,8 @@ describe("POST /remove-debtor", () => {
       json: jest.fn(),
     };
     next = jest.fn();
-    ({ Debtor } = require("../../models/client"));
-    clientsController = require("../../controllers/clients");
+    ({ Debtor } = require("../../../models/client"));
+    clientsController = require("../../../controllers/clients");
     jest.clearAllMocks();
   });
 
@@ -1353,15 +1353,15 @@ describe("GET debtors for delinquency report", () => {
 
   beforeEach(() => {
     jest.resetModules();
-    jest.mock("../../models/client", () => ({
+    jest.mock("../../../models/client", () => ({
       Debtor: {
         find: jest.fn().mockReturnThis(),
         populate: jest.fn().mockReturnThis(),
         exec: jest.fn().mockResolvedValue([mockDebtor1, mockDebtor2]),
       },
     }));
-    ({ Debtor } = require("../../models/client"));
-    clientsController = require("../../controllers/clients");
+    ({ Debtor } = require("../../../models/client"));
+    clientsController = require("../../../controllers/clients");
 
     req = { query: {} };
     res = {
@@ -1494,16 +1494,15 @@ describe("get debtors", () => {
 
   beforeEach(() => {
     jest.resetModules();
-    jest.mock("../../models/client", () => ({
+    jest.mock("../../../models/client", () => ({
       Debtor: {
         find: jest.fn().mockReturnThis(),
         where: jest.fn().mockReturnThis(),
         populate: jest.fn().mockResolvedValue([mockDebtor1, mockDebtor2]),
       },
     }));
-    ({ Debtor } = require("../../models/client"));
-    clientsController = require("../../controllers/clients");
-
+    ({ Debtor } = require("../../../models/client"));
+    clientsController = require("../../../controllers/clients");
     res = {
       status: jest.fn().mockReturnThis(),
       json: jest.fn(),

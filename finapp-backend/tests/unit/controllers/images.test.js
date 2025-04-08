@@ -1,6 +1,6 @@
-const imagesController = require("../../controllers/images");
-const PersonalInfo = require("../../models/personalInfo");
-const { User } = require("../../models/user");
+const imagesController = require("../../../controllers/images");
+const PersonalInfo = require("../../../models/personalInfo");
+const { User } = require("../../../models/user");
 const fs = require("fs");
 const path = require("path");
 
@@ -205,7 +205,14 @@ describe("DELETE /delete-image", () => {
 
   it("shoul delete image successfully", async () => {
     req.query.imageUrl = "http://localhost:3000/uploads/test.jpg";
-    const mockPath = path.join(__dirname, "..", "..", "uploads", "test.jpg");
+    const mockPath = path.join(
+      __dirname,
+      "..",
+      "..",
+      "..",
+      "uploads",
+      "test.jpg"
+    );
     fs.promises.access = jest.fn().mockResolvedValue();
     fs.promises.unlink = jest.fn().mockResolvedValue();
 
@@ -231,7 +238,14 @@ describe("DELETE /delete-image", () => {
 
   it("should return 404 if the image does not exist", async () => {
     req.query.imageUrl = "http://localhost:3000/uploads/missing.jpg";
-    const mockPath = path.join(__dirname, "..", "..", "uploads", "missing.jpg");
+    const mockPath = path.join(
+      __dirname,
+      "..",
+      "..",
+      "..",
+      "uploads",
+      "missing.jpg"
+    );
     const error = new Error("Not found");
     error.code = "ENOENT";
     fs.promises.access = jest.fn().mockRejectedValue(error);
@@ -286,7 +300,14 @@ describe("POST /delete-images", () => {
 
     for (const url of req.body.images) {
       const imageName = path.basename(url);
-      const imagePath = path.join(__dirname, "..", "..", "uploads", imageName);
+      const imagePath = path.join(
+        __dirname,
+        "..",
+        "..",
+        "..",
+        "uploads",
+        imageName
+      );
 
       expect(fs.promises.access).toHaveBeenCalledWith(
         imagePath,

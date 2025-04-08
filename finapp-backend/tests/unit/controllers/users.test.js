@@ -1,8 +1,8 @@
-let usersController = require("../../controllers/users");
-const { User, Manager, Assistant } = require("../../models/user");
+let usersController = require("../../../controllers/users");
+const { User, Manager, Assistant } = require("../../../models/user");
 const bcrypt = require("bcryptjs");
 
-jest.mock("../../models/user", () => ({
+jest.mock("../../../models/user", () => ({
   User: {
     find: jest.fn(),
   },
