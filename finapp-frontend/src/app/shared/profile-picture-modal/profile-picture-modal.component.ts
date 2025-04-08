@@ -41,9 +41,7 @@ export class ProfilePictureModalComponent {
   }
 
   uploadImage() {
-    console.log("GG")
     if (!this.selectedFile) {
-      console.log("GG 2")
       this.notiflix.showInfo(
         this.translate.instant('NOTIFLIX.SELECT_FILE')
       );
