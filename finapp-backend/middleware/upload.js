@@ -1,13 +1,15 @@
 const multer = require("multer");
 const path = require("path");
 
+const filename = (req, file, cb) => {
+  cb(null, Date.now() + path.extname(file.originalname));
+};
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "uploads/");
   },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname));
-  },
+  filename: filename,
 });
 
 const fileFilter = (req, file, cb) => {
@@ -21,3 +23,5 @@ const fileFilter = (req, file, cb) => {
 const upload = multer({ storage, fileFilter });
 
 module.exports = upload;
+module.exports._fileFilter = fileFilter;
+module.exports._filename = filename;
