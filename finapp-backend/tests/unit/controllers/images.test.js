@@ -203,7 +203,7 @@ describe("DELETE /delete-image", () => {
     next = jest.fn();
   });
 
-  it("shoul delete image successfully", async () => {
+  it("should delete image successfully", async () => {
     req.query.imageUrl = "http://localhost:3000/uploads/test.jpg";
     const mockPath = path.join(
       __dirname,
@@ -332,7 +332,7 @@ describe("POST /delete-images", () => {
     });
   });
 
-  it("should return 500 fi some images do not exist", async () => {
+  it("should return 500 if some images do not exist", async () => {
     req.body.images = [
       "http://localhost:3000/uploads/image1.jpg",
       "http://localhost:3000/uploads/missing.jpg",
