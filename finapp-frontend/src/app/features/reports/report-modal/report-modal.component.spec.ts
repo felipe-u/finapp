@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ReportModalComponent } from './report-modal.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('ReportModalComponent', () => {
   let component: ReportModalComponent;
@@ -8,10 +10,14 @@ describe('ReportModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ReportModalComponent]
+      imports: [
+        ReportModalComponent,
+        HttpClientTestingModule,
+        TranslateModule.forRoot()
+      ]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(ReportModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

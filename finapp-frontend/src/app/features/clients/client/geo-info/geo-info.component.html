@@ -7,9 +7,11 @@
 @if (!editMode) {
 <div class="container client-container">
     <div class="map-container">
+        @if (isMapAvailable) {
         <google-map mapId="7fb4bf864840c5cf" height="100%" width="100%" [zoom]="zoom()" [center]="center()">
             <map-advanced-marker [position]="{lat: geoInfo().latitude, lng: geoInfo().longitude}" />
         </google-map>
+        }
 
     </div>
     <div class="property-container">
@@ -17,7 +19,9 @@
             {{ 'UI.CLIENTS.GEO_INFO.PROP_IMGS' | translate }}
         </h3>
         <div class="house-container">
+            @if (geoInfo()?.propertyImages) {
             <app-property-images [editMode]="false" [propertyImagesUrl]="geoInfo().propertyImages" />
+            }
         </div>
     </div>
     <div class="address-container">
@@ -43,17 +47,21 @@
 } @else {
 <div class="container client-container">
     <div class="map-container">
+        @if (isMapAvailable) {
         <google-map mapId="7fb4bf864840c5cf" height="100%" width="100%" [zoom]="zoom()" [center]="center()">
             <map-advanced-marker [position]="{lat: geoInfo().latitude, lng: geoInfo().longitude}"
                 [options]="advancedMarkerOptions" (mapDragend)="updateLocation($event)" />
         </google-map>
+        }
     </div>
     <div class="property-container">
         <h3 class="container-title">
             {{ 'UI.CLIENTS.GEO_INFO.PROP_IMGS' | translate }}
         </h3>
         <div class="house-container">
+            @if (geoInfo()?.propertyImages) {
             <app-property-images [editMode]="true" [propertyImagesUrl]="geoInfo().propertyImages" />
+            }
         </div>
     </div>
     <form class="address-container" [formGroup]="form" (ngSubmit)="onSubmit()">

@@ -30,8 +30,10 @@ export class GeoInfoComponent {
   departments;
   cities;
   selectedDeparment = signal<string>('');
+  isMapAvailable;
 
   ngOnInit(): void {
+    this.isMapAvailable = typeof google !== "undefined" && google.maps;
     this.client = this.clientsService.getClient();
     this.clientsService.getClientGeographicInfo().subscribe({
       next: (geoInfo) => {

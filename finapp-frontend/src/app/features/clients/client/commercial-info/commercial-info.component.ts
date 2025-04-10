@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { ClientsService } from '../../../../core/services/clients.service';
 import { CommercialInfo } from '../../../../core/models/commercialInfo.model';
 import { Reference } from '../../../../core/models/reference.model';
@@ -17,7 +17,7 @@ import { NotiflixService } from '../../../../core/services/notiflix.service';
   templateUrl: './commercial-info.component.html',
   styleUrl: './commercial-info.component.css'
 })
-export class CommercialInfoComponent {
+export class CommercialInfoComponent implements OnInit {
   private clientsService = inject(ClientsService);
   private router = inject(Router);
   private relationshipTypeEnum = RelationshipTypeEnum;

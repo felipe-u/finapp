@@ -62,6 +62,7 @@
     </table>
 </div>
 
+@if (financing()?.motorcycle) {
 <div class="motorcycle-container info-container">
     <h3 class="container-title">{{ 'UI.CLIENTS.FINANCING.BIKE' | translate }}</h3>
     <table class="motorcycle-info-table">
@@ -77,4 +78,5 @@
         </tr>
     </table>
 </div>
+}
 }

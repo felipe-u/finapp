@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ProfilePictureModalComponent } from './profile-picture-modal.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('ProfilePictureModalComponent', () => {
   let component: ProfilePictureModalComponent;
@@ -8,10 +10,14 @@ describe('ProfilePictureModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ProfilePictureModalComponent]
+      imports: [
+        ProfilePictureModalComponent,
+        HttpClientTestingModule,
+        TranslateModule.forRoot()
+      ]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(ProfilePictureModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

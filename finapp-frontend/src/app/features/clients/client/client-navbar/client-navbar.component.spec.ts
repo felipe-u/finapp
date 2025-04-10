@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ClientNavbarComponent } from './client-navbar.component';
+import { provideRouter } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('ClientNavbarComponent', () => {
   let component: ClientNavbarComponent;
@@ -8,10 +10,16 @@ describe('ClientNavbarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ClientNavbarComponent]
+      imports: [
+        ClientNavbarComponent,
+        TranslateModule.forRoot()
+      ],
+      providers: [
+        provideRouter([])
+      ]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(ClientNavbarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

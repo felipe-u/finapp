@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DebtorsModalComponent } from './debtors-modal.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('DebtorsModalComponent', () => {
   let component: DebtorsModalComponent;
@@ -8,10 +10,14 @@ describe('DebtorsModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DebtorsModalComponent]
+      imports: [
+        DebtorsModalComponent,
+        HttpClientTestingModule,
+        TranslateModule.forRoot()
+      ]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(DebtorsModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
