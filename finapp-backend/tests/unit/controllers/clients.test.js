@@ -1,20 +1,12 @@
+const mongoose = require("mongoose");
+const { Client } = require("../../../models/client");
+const Reference = require("../../../models/reference");
+let clientsController = require("../../../controllers/clients");
+
 jest.mock("../../../models/client");
 jest.mock("../../../models/financing");
 jest.mock("../../../models/installment");
 jest.mock("../../../models/reference");
-
-const request = require("supertest");
-const app = require("../../../app");
-const mongoose = require("mongoose");
-
-const { Client, Debtor, Codebtor } = require("../../../models/client");
-const Reference = require("../../../models/reference");
-const Financing = require("../../../models/financing");
-const motorcycle = require("../../../models/motorcycle");
-const personalInfo = require("../../../models/personalInfo");
-const commercialInfo = require("../../../models/commercialInfo");
-const reference = require("../../../models/reference");
-let clientsController = require("../../../controllers/clients");
 
 // GLOBAL MOCKS
 const mockMotorcycle = {
@@ -52,780 +44,638 @@ const mockFinancing = {
   installments: [mockInstallment._id],
 };
 
-const mockPersonalInfo = {
-  _id: new mongoose.Types.ObjectId(),
-  photo: "profile.jpg",
-  email: "test@example.com",
-  phone: "310000",
-  birthDate: new Date("2000-01-01"),
-};
+describe("get client", () => {
+  let req, res, next;
 
-const mockGeoInfo = {
-  _id: new mongoose.Types.ObjectId(),
-  address: "Clle 41",
-  city: "Medellin",
-  department: "Antioquia",
-  neighbourhood: "Palmas",
-  latitude: 10,
-  longitude: 50,
-};
+  beforeEach(() => {
+    req = { params: {} };
+    res = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn(),
+    };
+    next = jest.fn();
+  });
 
-const mockCommercialInfo = {
-  _id: new mongoose.Types.ObjectId(),
-  jobOccupation: "Pilot",
-  company: "False Airlines",
-  laborSenority: "2",
-  income: 10000,
-  additionalIncome: 2000,
-  expenses: 4000,
-};
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
 
-const mockRef1 = {
-  _id: new mongoose.Types.ObjectId(),
-  name: "Pedro Vélez",
-  referenceType: "PAD",
-  phone: "312155777",
-  relationship: "FAM",
-  save: jest.fn(),
-};
-
-const mockRef2 = {
-  _id: new mongoose.Types.ObjectId(),
-  name: "Camilo Duarte",
-  referenceType: "VEC",
-  phone: "302545656",
-  relationship: "PER",
-  save: jest.fn(),
-};
-
-const mockRef3 = {
-  _id: new mongoose.Types.ObjectId(),
-  name: "BANCO MAR",
-  referenceType: "ENF",
-  phone: "312155777",
-  relationship: "COM",
-  save: jest.fn(),
-};
-
-mockManager = {
-  _id: new mongoose.Types.ObjectId(),
-  name: "Manager Test",
-  role: "manager",
-  email: "test@test.com",
-};
-
-const mockDebtorClient = {
-  _id: new mongoose.Types.ObjectId(),
-  name: "Juan Test",
-  role: "debtor",
-  financing: mockFinancing._id,
-  personalInfo: mockPersonalInfo._id,
-  geoInfo: mockGeoInfo._id,
-  commercialInfo: mockCommercialInfo._id,
-  references: [mockRef1._id, mockRef2._id, mockRef3._id],
-  manager: mockManager._id,
-};
-
-const mockCodebtorClient = {
-  _id: new mongoose.Types.ObjectId(),
-  role: "debtor",
-};
-
-describe("GET /clients/:clientId", () => {
-  it("should return a debtor client if the ID is valid", async () => {
+  it("should return a client if the ID is valid", async () => {
+    req.params.clientId = "123456";
     const mockClient = {
-      _id: "12345",
+      _id: "123456",
       name: "Juan Pérez",
-      role: "debtor",
-      identification: { idType: "CC", number: "123456789" },
     };
     Client.findById.mockResolvedValue(mockClient);
 
-    const response = await request(app).get("/clients/12345");
+    await clientsController.getClient(req, res, next);
 
-    expect(response.statusCode).toBe(200);
-    expect(response.body.client).toEqual(mockClient);
+    expect(Client.findById).toHaveBeenCalledWith("123456");
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.json).toHaveBeenCalledWith({ client: mockClient });
   });
 
-  it("should return a codebtor client if the ID is valid", async () => {
-    const mockClient = {
-      _id: "67890",
-      name: "Ana García",
-      role: "codebtor",
-      identification: { idType: "CE", number: "987654321" },
-    };
-    Client.findById.mockResolvedValue(mockClient);
+  it("should return 404 if client is not found", async () => {
+    req.params.clientId = "123456";
+    Client.findById.mockResolvedValue(null);
 
-    const response = await request(app).get("/clients/67890");
+    await clientsController.getClient(req, res, next);
 
-    expect(response.statusCode).toBe(200);
-    expect(response.body.client).toEqual(mockClient);
-  });
-
-  it("should return an error if client not found", async () => {
-    Client.findById = jest.fn().mockResolvedValue(null);
-
-    const response = await request(app).get("/clients/0000");
-
-    expect(response.statusCode).toBe(404);
-    expect(response.body.message).toEqual("Client not found");
+    expect(res.status).toHaveBeenCalledWith(404);
+    expect(res.json).toHaveBeenCalledWith({ message: "Client not found" });
   });
 
   it("should return 500 if a database failure occurs", async () => {
+    req.params.clientId = "123456";
     Client.findById.mockRejectedValue(new Error("Database error"));
 
-    const response = await request(app).get("/clients/12345");
+    await clientsController.getClient(req, res, next);
 
-    expect(response.statusCode).toBe(500);
-    expect(response.body.message).toEqual("Error fetching client");
+    expect(res.status).toHaveBeenCalledWith(500);
+    expect(res.json).toHaveBeenCalledWith({
+      message: "Error fetching client",
+      error: "Database error",
+    });
   });
 });
 
-describe("GET /clients/:cliendId/financing", () => {
+describe("get client financing", () => {
+  let req, res, next;
+
   beforeEach(() => {
+    req = {
+      params: {
+        clientId: "123456",
+      },
+    };
+    res = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn(),
+    };
+    next = jest.fn();
+  });
+
+  afterEach(() => {
     jest.clearAllMocks();
+  });
+
+  it("should return client financing if client exists", async () => {
+    const mockFinancing = [{ _id: "f1", motorcycle: {}, installments: [] }];
+    const mockClient = {
+      financing: mockFinancing,
+      populate: jest.fn().mockResolvedValue(),
+    };
+    Client.findById.mockResolvedValue(mockClient);
+
+    await clientsController.getClientFinancing(req, res, next);
+
+    expect(Client.findById).toHaveBeenCalledWith("123456", "financing");
+    expect(mockClient.populate).toHaveBeenCalledWith({
+      path: "financing",
+      populate: [{ path: "motorcycle" }, { path: "installments" }],
+    });
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.json).toHaveBeenCalledWith({ financing: mockFinancing });
   });
 
   it("should return 404 if client is not found", async () => {
     Client.findById.mockResolvedValue(null);
 
-    const res = await request(app).get("/clients/123/financing");
-
-    expect(res.status).toBe(404);
-    expect(res.body.message).toBe("Client not found");
-  });
-
-  it("should return financing info if client exists", async () => {
-    const mockClient = {
-      ...mockDebtorClient,
-      financing: mockFinancing._id,
-      populate: jest.fn().mockImplementation(async function () {
-        this.financing = {
-          ...mockFinancing,
-          motorcycle: mockMotorcycle,
-          installments: [mockInstallment],
-        };
-        return this;
-      }),
-    };
-    Client.findById.mockResolvedValue(mockClient);
-
-    const res = await request(app).get(
-      `/clients/${mockDebtorClient._id}/financing`
-    );
-
-    expect(res.status).toBe(200);
-    expect(res.body.financing).toEqual({
-      _id: mockFinancing._id.toString(),
-      status: mockFinancing.status,
-      motorcycle: {
-        _id: mockMotorcycle._id.toString(),
-        licensePlate: mockMotorcycle.licensePlate,
-        brand: mockMotorcycle.brand,
-        model: mockMotorcycle.model,
-      },
-      initialInstallment: mockFinancing.initialInstallment,
-      financedAmount: mockFinancing.financedAmount,
-      numberOfInstallments: mockFinancing.numberOfInstallments,
-      totalToPay: mockFinancing.totalToPay,
-      monthlyInterest: mockFinancing.monthlyInterest,
-      lateInterest: mockFinancing.lateInterest,
-      installments: [
-        {
-          _id: mockInstallment._id.toString(),
-          installmentNumber: mockInstallment.installmentNumber,
-          dueDate: mockInstallment.dueDate.toISOString(),
-          capital: mockInstallment.capital,
-          interest: mockInstallment.interest,
-          guaranteeValue: mockInstallment.guaranteeValue,
-          installmentPaid: mockInstallment.installmentPaid,
-          installmentValue: mockInstallment.installmentValue,
-          outstandingValue: mockInstallment.outstandingValue,
-          overdueDays: mockInstallment.overdueDays,
-          lateInterests: mockInstallment.lateInterests,
-          totalInstallmentValue: mockInstallment.totalInstallmentValue,
-        },
-      ],
-    });
+    await clientsController.getClientFinancing(req, res, next);
+    expect(res.status).toHaveBeenCalledWith(404);
+    expect(res.json).toHaveBeenCalledWith({ message: "Client not found" });
   });
 
   it("should return 500 if an error occurs", async () => {
-    Client.findById = jest.fn().mockRejectedValue(new Error("Database error"));
+    Client.findById.mockRejectedValue(new Error("Database error"));
 
-    const res = await request(app).get("/clients/12345/financing");
+    await clientsController.getClientFinancing(req, res, next);
 
-    expect(res.status).toBe(500);
-    expect(res.body.message).toBe("Error fetching financing");
+    expect(res.status).toHaveBeenCalledWith(500);
+    expect(res.json).toHaveBeenCalledWith({
+      message: "Error fetching financing",
+      error: "Database error",
+    });
   });
 });
 
-describe("GET /clients/:cliendId/personalInfo", () => {
+describe("get client personal info", () => {
+  const mockClientId = "507f191e810c19729de860ea";
+  let req, res, next, mockClient;
+
+  beforeEach(() => {
+    req = { params: { clientId: mockClientId } };
+    res = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn(),
+      headersSent: false,
+    };
+    next = jest.fn();
+
+    mockClient = {
+      personalInfo: { phone: "3101010", photo: "test.jpg" },
+      populate: jest.fn().mockResolvedValue(),
+    };
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   it("should return personal info if client exists", async () => {
-    Client.findById.mockResolvedValue({
-      ...mockDebtorClient,
-      populate: jest.fn().mockResolvedValue({
-        ...mockDebtorClient,
-        personalInfo: mockPersonalInfo,
-      }),
-    });
+    Client.findById.mockResolvedValue(mockClient);
 
-    const res = await request(app).get(
-      `/clients/${mockDebtorClient._id}/personalInfo`
-    );
+    await clientsController.getClientPersonalInfo(req, res, next);
 
-    expect(res.status).toBe(200);
-    expect(res.body.personalInfo).toEqual({
-      _id: mockPersonalInfo._id.toString(),
-      photo: mockPersonalInfo.photo,
-      email: mockPersonalInfo.email,
-      phone: mockPersonalInfo.phone,
-      birthDate: mockPersonalInfo.birthDate.toISOString(),
+    expect(Client.findById).toHaveBeenCalledWith(mockClientId, "personalInfo");
+    expect(mockClient.populate).toHaveBeenCalledWith("personalInfo");
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.json).toHaveBeenCalledWith({
+      personalInfo: mockClient.personalInfo,
     });
   });
 
   it("should return 404 if client does not exist", async () => {
     Client.findById.mockResolvedValue(null);
 
-    const res = await request(app).get("/clients/0000/personalInfo");
+    await clientsController.getClientPersonalInfo(req, res, next);
 
-    expect(res.status).toBe(404);
-    expect(res.body).toEqual({ message: "Client not found" });
+    expect(res.status).toHaveBeenCalledWith(404);
+    expect(res.json).toHaveBeenCalledWith({ message: "Client not found" });
   });
 
-  it("should return 500 if there is a server error", async () => {
+  it("should return 500 if an error occurs", async () => {
     Client.findById.mockRejectedValue(new Error("Database error"));
 
-    const res = await request(app).get(
-      `/clients/${mockDebtorClient._id}/personalInfo`
-    );
+    await clientsController.getClientPersonalInfo(req, res, next);
 
-    expect(res.status).toBe(500);
-    expect(res.body).toEqual({
+    expect(res.status).toHaveBeenCalledWith(500);
+    expect(res.json).toHaveBeenCalledWith({
       message: "Error fetching personal info",
       error: "Database error",
     });
   });
 });
 
-describe("POST /clients/:clientId/personalInfo/edit", () => {
-  let mockClient;
+describe("edit client personal info", () => {
+  const mockClientId = "507f1f77bcf86cd799439011";
+  const mockReqBody = {
+    newIdNumber: "123456789",
+    newPersonalInfo: {
+      address: "Avenida testing",
+      phone: "3202020",
+    },
+  };
+  let req, res, next, mockClient, mockPersonalInfo;
 
   beforeEach(() => {
-    mockClient = {
-      ...mockDebtorClient,
-      identification: { number: "123456789" },
-      personalInfo: {
-        ...mockPersonalInfo,
-        save: jest.fn().mockResolvedValue(true),
-      },
-      save: jest.fn().mockResolvedValue(true),
-      populate: jest.fn().mockResolvedValue({
-        ...mockDebtorClient,
-        personalInfo: mockPersonalInfo,
-      }),
+    req = {
+      params: { clientId: mockClientId },
+      body: mockReqBody,
+    };
+    res = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn(),
+    };
+    next = jest.fn();
+
+    mockPersonalInfo = {
+      address: "Calle testing",
+      phone: "3101010",
+      save: jest.fn().mockResolvedValue(),
     };
 
+    mockClient = {
+      identification: { number: "0000000" },
+      personalInfo: mockPersonalInfo,
+      populate: jest.fn().mockResolvedValue(),
+      save: jest.fn().mockResolvedValue(),
+    };
+  });
+
+  afterEach(() => {
     jest.clearAllMocks();
   });
 
   it("should uptade personal info if client exists", async () => {
-    const updatedInfo = {
-      email: "updated@example.com",
-      phone: "3200000",
-      birthDate: new Date("1995-01-01").toISOString(),
-    };
     Client.findById.mockResolvedValue(mockClient);
 
-    const res = await request(app)
-      .post(`/clients/${mockClient._id}/personalInfo/edit`)
-      .send({
-        newIdNumber: "987654321",
-        newPersonalInfo: updatedInfo,
-      });
+    await clientsController.editClientPersonalInfo(req, res, next);
 
-    expect(res.status).toBe(200);
-    expect(res.body.message).toBe("Client personal info updated");
-    expect(mockClient.identification.number).toBe("987654321");
-    expect(mockClient.personalInfo.email).toBe(updatedInfo.email);
-    expect(mockClient.personalInfo.phone).toBe(updatedInfo.phone);
-    expect(mockClient.personalInfo.birthDate).toBe(updatedInfo.birthDate);
-    expect(mockClient.personalInfo.save).toHaveBeenCalled();
+    expect(Client.findById).toHaveBeenCalledWith(mockClientId);
+    expect(mockClient.populate).toHaveBeenCalledWith("personalInfo");
+    expect(mockClient.identification.number).toBe(mockReqBody.newIdNumber);
+    expect(mockPersonalInfo.address).toBe(mockReqBody.newPersonalInfo.address);
+    expect(mockPersonalInfo.phone).toBe(mockReqBody.newPersonalInfo.phone);
+    expect(mockPersonalInfo.save).toHaveBeenCalled();
     expect(mockClient.save).toHaveBeenCalled();
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.json).toHaveBeenCalledWith({
+      message: "Client personal info updated",
+    });
   });
 
   it("should return 404 if client is not found", async () => {
-    const updatedInfo = {
-      email: "updated@example.com",
-      phone: "3200000",
-      birthDate: new Date("1995-01-01").toISOString(),
-    };
     Client.findById.mockResolvedValue(null);
 
-    const res = await request(app)
-      .post(`/clients/0000/personalInfo/edit`)
-      .send({
-        newIdNumber: "987654321",
-        newPersonalInfo: updatedInfo,
-      });
+    await clientsController.editClientPersonalInfo(req, res, next);
 
-    expect(res.status).toBe(404);
-    expect(res.body.message).toBe("Client not found");
+    expect(res.status).toHaveBeenCalledWith(404);
+    expect(res.json).toHaveBeenCalledWith({ message: "Client not found" });
   });
 
   it("should return 404 if personal info is not found", async () => {
-    const updatedInfo = {
-      email: "updated@example.com",
-      phone: "3200000",
-      birthDate: new Date("1995-01-01").toISOString(),
-    };
     mockClient.personalInfo = null;
     Client.findById.mockResolvedValue(mockClient);
 
-    const res = await request(app)
-      .post(`/clients/${mockClient._id}/personalInfo/edit`)
-      .send({
-        newIdNumber: "987654321",
-        newPersonalInfo: updatedInfo,
-      });
+    await clientsController.editClientPersonalInfo(req, res, next);
 
-    expect(res.status).toBe(404);
-    expect(res.body.message).toBe("Personal info not found");
+    expect(res.status).toHaveBeenCalledWith(404);
+    expect(res.json).toHaveBeenCalledWith({
+      message: "Personal info not found",
+    });
   });
 
   it("should return 500 if an error occurs", async () => {
-    const updatedInfo = {
-      email: "updated@example.com",
-      phone: "3200000",
-      birthDate: new Date("1995-01-01").toISOString(),
-    };
     Client.findById.mockRejectedValue(new Error("Database error"));
 
-    const res = await request(app)
-      .post(`/clients/${mockClient._id}/personalInfo/edit`)
-      .send({
-        newIdNumber: "987654321",
-        newPersonalInfo: updatedInfo,
-      });
+    await clientsController.editClientPersonalInfo(req, res, next);
 
-    expect(res.status).toBe(500);
-    expect(res.body.message).toBe("Error updating personal info");
-    expect(res.body.error).toBe("Database error");
+    expect(res.status).toHaveBeenCalledWith(500);
+    expect(res.json).toHaveBeenCalledWith({
+      message: "Error updating personal info",
+      error: "Database error",
+    });
   });
 });
 
-describe("GET /clients/:cliendId/geoInfo", () => {
+describe("get client geographic info", () => {
+  const mockClientId = "507f1f77bcf86cd799439011";
+  let req, res, next, mockClient;
+
+  beforeEach(() => {
+    req = {
+      params: { clientId: mockClientId },
+    };
+    res = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn(),
+      headersSent: false,
+    };
+    next = jest.fn();
+
+    mockClient = {
+      geoInfo: { location: "Bogotá", coords: [4.711, -74.0721] },
+      populate: jest.fn().mockResolvedValue(),
+    };
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   it("should return geo info if client exists", async () => {
-    Client.findById.mockResolvedValue({
-      ...mockDebtorClient,
-      populate: jest.fn().mockResolvedValue({
-        ...mockDebtorClient,
-        geoInfo: mockGeoInfo,
-      }),
-    });
+    Client.findById.mockResolvedValue(mockClient);
 
-    const res = await request(app).get(
-      `/clients/${mockDebtorClient._id}/geoInfo`
-    );
+    await clientsController.getClientGeoInfo(req, res, next);
 
-    expect(res.status).toBe(200);
-    expect(res.body.geoInfo).toEqual({
-      _id: mockGeoInfo._id.toString(),
-      address: mockGeoInfo.address,
-      city: mockGeoInfo.city,
-      department: mockGeoInfo.department,
-      neighbourhood: mockGeoInfo.neighbourhood,
-      latitude: mockGeoInfo.latitude,
-      longitude: mockGeoInfo.longitude,
-    });
+    expect(Client.findById).toHaveBeenCalledWith(mockClientId, "geoInfo");
+    expect(mockClient.populate).toHaveBeenCalledWith("geoInfo");
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.json).toHaveBeenCalledWith({ geoInfo: mockClient.geoInfo });
   });
 
   it("should return 404 if client does not exist", async () => {
     Client.findById.mockResolvedValue(null);
 
-    const res = await request(app).get("/clients/0000/geoInfo");
+    await clientsController.getClientGeoInfo(req, res, next);
 
-    expect(res.status).toBe(404);
-    expect(res.body).toEqual({ message: "Client not found" });
+    expect(res.status).toHaveBeenCalledWith(404);
+    expect(res.json).toHaveBeenCalledWith({ message: "Client not found" });
   });
 
-  it("should return 500 if there is a server error", async () => {
+  it("should return 500 if an error occurs", async () => {
     Client.findById.mockRejectedValue(new Error("Database error"));
 
-    const res = await request(app).get(
-      `/clients/${mockDebtorClient._id}/geoInfo`
-    );
+    await clientsController.getClientGeoInfo(req, res, next);
 
-    expect(res.status).toBe(500);
-    expect(res.body).toEqual({
+    expect(res.status).toHaveBeenCalledWith(500);
+    expect(res.json).toHaveBeenCalledWith({
       message: "Error fetching geo info",
       error: "Database error",
     });
   });
 });
 
-describe("POST /clients/:clientId/geoInfo/edit", () => {
-  let mockClient;
+describe("edit client geo info", () => {
+  const mockReq = {
+    params: { clientId: "123456" },
+    body: {
+      updatedGeoInfo: {
+        location: "New City",
+        coordinates: [10.1234, -74.5678],
+      },
+    },
+  };
+
+  const mockRes = {
+    status: jest.fn().mockReturnThis(),
+    json: jest.fn(),
+  };
 
   beforeEach(() => {
-    mockClient = {
-      ...mockDebtorClient,
-      geoInfo: {
-        ...mockGeoInfo,
-        save: jest.fn().mockResolvedValue(true),
-      },
-      save: jest.fn().mockResolvedValue(true),
-      populate: jest.fn().mockResolvedValue({
-        ...mockDebtorClient,
-        geoInfo: mockGeoInfo,
-      }),
-    };
     jest.clearAllMocks();
   });
 
-  it("should update geo info if client exists", async () => {
-    const updatedInfo = {
-      address: "Cra 20",
-      city: "Rionegro",
-      deparment: "Antioquia",
-      neighbourhood: "El Porvenir",
-      latitude: 20,
-      longitude: 70,
+  it("should update and return geo info successfully", async () => {
+    const mockGeoInfo = {
+      location: "Old City",
+      coordinates: [0, 0],
+      save: jest.fn().mockResolvedValue(),
     };
+
+    const mockClient = {
+      geoInfo: mockGeoInfo,
+      populate: jest.fn().mockResolvedValue(),
+      save: jest.fn().mockResolvedValue(),
+    };
+
     Client.findById.mockResolvedValue(mockClient);
 
-    const res = await request(app)
-      .post(`/clients/${mockClient._id}/geoInfo/edit`)
-      .send({
-        updatedGeoInfo: updatedInfo,
-      });
+    await clientsController.editClientGeoInfo(mockReq, mockRes);
 
-    expect(res.status).toBe(200);
-    expect(res.body.message).toBe("Client geo info updated");
-    expect(mockClient.geoInfo.address).toBe(updatedInfo.address);
-    expect(mockClient.geoInfo.city).toBe(updatedInfo.city);
-    expect(mockClient.geoInfo.deparment).toBe(updatedInfo.deparment);
-    expect(mockClient.geoInfo.neighbourhood).toBe(updatedInfo.neighbourhood);
-    expect(mockClient.geoInfo.latitude).toBe(updatedInfo.latitude);
-    expect(mockClient.geoInfo.longitude).toBe(updatedInfo.longitude);
-    expect(mockClient.geoInfo.save).toHaveBeenCalled();
+    expect(Client.findById).toHaveBeenCalledWith("123456");
+    expect(mockClient.populate).toHaveBeenCalledWith("geoInfo");
+    expect(mockGeoInfo.save).toHaveBeenCalled();
     expect(mockClient.save).toHaveBeenCalled();
+    expect(mockGeoInfo).toMatchObject(mockReq.body.updatedGeoInfo);
+
+    expect(mockRes.status).toHaveBeenCalledWith(200);
+    expect(mockRes.json).toHaveBeenCalledWith({
+      message: "Client geo info updated",
+    });
   });
 
   it("should return 404 if client is not found", async () => {
-    const updatedInfo = {
-      address: "Cra 20",
-      city: "Rionegro",
-      deparment: "Antioquia",
-      neighbourhood: "El Porvenir",
-      latitude: 20,
-      longitude: 70,
-    };
     Client.findById.mockResolvedValue(null);
 
-    const res = await request(app).post(`/clients/0000/geoInfo/edit`).send({
-      updatedGeoInfo: updatedInfo,
-    });
+    await clientsController.editClientGeoInfo(mockReq, mockRes);
 
-    expect(res.status).toBe(404);
-    expect(res.body.message).toBe("Client not found");
+    expect(mockRes.status).toHaveBeenCalledWith(404);
+    expect(mockRes.json).toHaveBeenCalledWith({
+      message: "Client not found",
+    });
   });
 
   it("should return 404 if geo info is not found", async () => {
-    const updatedInfo = {
-      address: "Cra 20",
-      city: "Rionegro",
-      deparment: "Antioquia",
-      neighbourhood: "El Porvenir",
-      latitude: 20,
-      longitude: 70,
+    const mockClient = {
+      geoInfo: null,
+      populate: jest.fn().mockResolvedValue(),
+      save: jest.fn(),
     };
-    mockClient.geoInfo = null;
+
     Client.findById.mockResolvedValue(mockClient);
 
-    const res = await request(app)
-      .post(`/clients/${mockClient._id}/geoInfo/edit`)
-      .send({
-        updatedGeoInfo: updatedInfo,
-      });
+    await clientsController.editClientGeoInfo(mockReq, mockRes);
 
-    expect(res.status).toBe(404);
-    expect(res.body.message).toBe("Geo info not found");
+    expect(mockRes.status).toHaveBeenCalledWith(404);
+    expect(mockRes.json).toHaveBeenCalledWith({
+      message: "Geo info not found",
+    });
   });
 
   it("should return 500 if an error occurs", async () => {
-    const updatedInfo = {
-      address: "Cra 20",
-      city: "Rionegro",
-      deparment: "Antioquia",
-      neighbourhood: "El Porvenir",
-      latitude: 20,
-      longitude: 70,
-    };
     Client.findById.mockRejectedValue(new Error("Database error"));
 
-    const res = await request(app)
-      .post(`/clients/${mockClient._id}/geoInfo/edit`)
-      .send({
-        updatedGeoInfo: updatedInfo,
-      });
+    await clientsController.editClientGeoInfo(mockReq, mockRes);
 
-    expect(res.status).toBe(500);
-    expect(res.body.message).toBe("Error updating geo info");
-    expect(res.body.error).toBe("Database error");
+    expect(mockRes.status).toHaveBeenCalledWith(500);
+    expect(mockRes.json).toHaveBeenCalledWith({
+      message: "Error updating geo info",
+      error: "Database error",
+    });
   });
 });
 
-describe("GET /clients/:cliendId/commercialInfo", () => {
-  let mockClient;
+describe("get client commercial info", () => {
+  const mockReq = {
+    params: { clientId: "client123" },
+  };
+
+  const mockRes = {
+    status: jest.fn().mockReturnThis(),
+    json: jest.fn(),
+  };
 
   beforeEach(() => {
-    mockClient = {
-      ...mockDebtorClient,
-      references: [mockRef1, mockRef2, mockRef3],
-      commercialInfo: mockCommercialInfo,
-      populate: jest.fn().mockImplementation(function (field) {
-        if (field === "references") {
-          this.references = [mockRef1, mockRef2, mockRef3];
-        }
-        if (field === "commercialInfo") {
-          this.commercialInfo = mockCommercialInfo;
-        }
-        return this;
-      }),
-    };
     jest.clearAllMocks();
   });
 
-  it("should return commercial info and references if client exists", async () => {
+  it("should return references and commercialInfo", async () => {
+    const mockClient = {
+      references: [{ name: "Ref 1" }],
+      commercialInfo: { company: "Company A" },
+      populate: jest.fn().mockResolvedValue(),
+    };
     Client.findById.mockResolvedValue(mockClient);
 
-    const res = await request(app).get(
-      `/clients/${mockClient._id}/commercialInfo`
-    );
+    await clientsController.getClientCommercialInfo(mockReq, mockRes);
 
-    expect(res.status).toBe(200);
-    expect(res.body).toEqual({
-      references: [
-        {
-          _id: mockRef1._id.toString(),
-          name: mockRef1.name,
-          referenceType: mockRef1.referenceType,
-          phone: mockRef1.phone,
-          relationship: mockRef1.relationship,
-        },
-        {
-          _id: mockRef2._id.toString(),
-          name: mockRef2.name,
-          referenceType: mockRef2.referenceType,
-          phone: mockRef2.phone,
-          relationship: mockRef2.relationship,
-        },
-        {
-          _id: mockRef3._id.toString(),
-          name: mockRef3.name,
-          referenceType: mockRef3.referenceType,
-          phone: mockRef3.phone,
-          relationship: mockRef3.relationship,
-        },
-      ],
-      commercialInfo: {
-        _id: mockCommercialInfo._id.toString(),
-        jobOccupation: mockCommercialInfo.jobOccupation,
-        company: mockCommercialInfo.company,
-        laborSenority: mockCommercialInfo.laborSenority,
-        income: mockCommercialInfo.income,
-        additionalIncome: mockCommercialInfo.additionalIncome,
-        expenses: mockCommercialInfo.expenses,
-      },
-    });
     expect(Client.findById).toHaveBeenCalledWith(
-      mockClient._id.toString(),
+      "client123",
       "references commercialInfo"
     );
     expect(mockClient.populate).toHaveBeenCalledWith("references");
     expect(mockClient.populate).toHaveBeenCalledWith("commercialInfo");
+    expect(mockRes.status).toHaveBeenCalledWith(200);
+    expect(mockRes.json).toHaveBeenCalledWith({
+      references: mockClient.references,
+      commercialInfo: mockClient.commercialInfo,
+    });
   });
 
-  it("should return 404 if client does not exist", async () => {
+  it("should return 404 if client is not found", async () => {
     Client.findById.mockResolvedValue(null);
 
-    const res = await request(app).get("/clients/0000/commercialInfo");
+    await clientsController.getClientCommercialInfo(mockReq, mockRes);
 
-    expect(res.status).toBe(404);
-    expect(res.body).toEqual({ message: "Client not found" });
-    expect(mockClient?.populate).not.toHaveBeenCalled();
+    expect(mockRes.status).toHaveBeenCalledWith(404);
+    expect(mockRes.json).toHaveBeenCalledWith({
+      message: "Client not found",
+    });
+  });
+
+  it("should return 500 if an error occurs", async () => {
+    Client.findById.mockRejectedValue(new Error("Something went wrong"));
+
+    await clientsController.getClientCommercialInfo(mockReq, mockRes);
+
+    expect(mockRes.status).toHaveBeenCalledWith(500);
+    expect(mockRes.json).toHaveBeenCalledWith({
+      message: "Error fetching commercial info",
+      error: "Something went wrong",
+    });
+  });
+});
+
+describe("edit client commercial info", () => {
+  const mockReq = {
+    params: { clientId: "client123" },
+    body: {
+      newCommercialInfo: { company: "Updated Company" },
+      newReferences: [
+        { _id: "ref1", name: "Updated Ref 1" },
+        { _id: "ref2", name: "Updated Ref 2" },
+      ],
+    },
+  };
+
+  const mockRes = {
+    status: jest.fn().mockReturnThis(),
+    json: jest.fn(),
+  };
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it("should update commercial info and references successfully", async () => {
+    const mockClient = {
+      commercialInfo: { company: "Old Company", save: jest.fn() },
+      references: [{ _id: "ref1" }, { _id: "ref2" }],
+      populate: jest.fn().mockResolvedValue(),
+      save: jest.fn(),
+    };
+
+    const mockReference1 = {
+      _id: "ref1",
+      identification: {},
+      save: jest.fn(),
+    };
+
+    const mockReference2 = {
+      _id: "ref2",
+      identification: {},
+      save: jest.fn(),
+    };
+    Client.findById.mockResolvedValue(mockClient);
+    Reference.findById
+      .mockResolvedValueOnce(mockReference1)
+      .mockResolvedValueOnce(mockReference2);
+
+    await clientsController.editClientCommercialInfo(mockReq, mockRes);
+
+    expect(Client.findById).toHaveBeenCalledWith("client123");
+    expect(mockClient.populate).toHaveBeenCalledWith(
+      "commercialInfo references"
+    );
+    expect(mockClient.commercialInfo.company).toBe("Updated Company");
+    expect(mockReference1.name).toBe("Updated Ref 1");
+    expect(mockReference1.identification.idType).toBe("CC");
+    expect(mockReference1.identification.number).toBe("111");
+    expect(mockReference2.name).toBe("Updated Ref 2");
+    expect(mockReference2.identification.idType).toBe("CC");
+    expect(mockReference2.identification.number).toBe("111");
+    expect(mockReference1.save).toHaveBeenCalled();
+    expect(mockReference2.save).toHaveBeenCalled();
+    expect(mockClient.commercialInfo.save).toHaveBeenCalled();
+    expect(mockClient.save).toHaveBeenCalled();
+    expect(mockRes.status).toHaveBeenCalledWith(200);
+    expect(mockRes.json).toHaveBeenCalledWith({
+      message: "Client commercial info updated",
+    });
+  });
+
+  it("should return 404 if client is not found", async () => {
+    Client.findById.mockResolvedValue(null);
+
+    await clientsController.editClientCommercialInfo(mockReq, mockRes);
+
+    expect(mockRes.status).toHaveBeenCalledWith(404);
+    expect(mockRes.json).toHaveBeenCalledWith({
+      message: "Client not found",
+    });
+  });
+
+  it("should return 404 if commercialInfo or references are missing", async () => {
+    const mockClient = {
+      commercialInfo: null,
+      references: null,
+      populate: jest.fn().mockResolvedValue(),
+    };
+    Client.findById.mockResolvedValue(mockClient);
+
+    await clientsController.editClientCommercialInfo(mockReq, mockRes);
+
+    expect(mockRes.status).toHaveBeenCalledWith(404);
+    expect(mockRes.json).toHaveBeenCalledWith({
+      message: "Commercial info or references not found",
+    });
+  });
+
+  it("should return 500 if an error occurs", async () => {
+    Client.findById.mockRejectedValue(new Error("Unexpected error"));
+
+    await clientsController.editClientCommercialInfo(mockReq, mockRes);
+
+    expect(mockRes.status).toHaveBeenCalledWith(500);
+    expect(mockRes.json).toHaveBeenCalledWith({
+      message: "Error updating commercial info",
+      error: "Unexpected error",
+    });
+  });
+});
+
+describe("get client name", () => {
+  const mockReq = {
+    params: { clientId: "client123" },
+  };
+
+  const mockRes = {
+    status: jest.fn().mockReturnThis(),
+    json: jest.fn(),
+  };
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it("should return the client's name if found", async () => {
+    const mockClient = { name: "John Doe" };
+    Client.findById.mockResolvedValue(mockClient);
+
+    await clientsController.getClientName(mockReq, mockRes);
+
+    expect(Client.findById).toHaveBeenCalledWith("client123", "name");
+    expect(mockRes.status).toHaveBeenCalledWith(200);
+    expect(mockRes.json).toHaveBeenCalledWith({ name: "John Doe" });
+  });
+
+  it("should return 404 if client is not found", async () => {
+    Client.findById.mockResolvedValue(null);
+
+    await clientsController.getClientName(mockReq, mockRes);
+
+    expect(mockRes.status).toHaveBeenCalledWith(404);
+    expect(mockRes.json).toHaveBeenCalledWith({
+      message: "Client not found",
+    });
   });
 
   it("should return 500 if an error occurs", async () => {
     Client.findById.mockRejectedValue(new Error("Database error"));
 
-    const res = await request(app).get(
-      `/clients/${mockClient._id}/commercialInfo`
-    );
+    await clientsController.getClientName(mockReq, mockRes);
 
-    expect(res.status).toBe(500);
-    expect(res.body).toEqual({
-      message: "Error fetching commercial info",
+    expect(mockRes.status).toHaveBeenCalledWith(500);
+    expect(mockRes.json).toHaveBeenCalledWith({
+      message: "Error fetching name",
       error: "Database error",
     });
-
-    expect(mockClient?.populate).not.toHaveBeenCalled();
   });
 });
 
-describe("POST /clients/:cliendId/commercialInfo/edit", () => {
-  let mockClient;
-
-  beforeEach(() => {
-    mockClient = {
-      ...mockDebtorClient,
-      commercialInfo: {
-        ...mockCommercialInfo,
-        save: jest.fn().mockResolvedValue(true),
-      },
-      references: [mockRef1, mockRef2, mockRef3],
-      save: jest.fn().mockResolvedValue(true),
-      populate: jest.fn().mockResolvedValue(true),
-    };
-    jest.clearAllMocks();
-    mockRef1.save = jest.fn().mockResolvedValue(true);
-    mockRef2.save = jest.fn().mockResolvedValue(true);
-    mockRef3.save = jest.fn().mockResolvedValue(true);
-  });
-
-  it("should update commercial info and references if client exists", async () => {
-    const updatedCommercialInfo = {
-      jobOccupation: "Software Developer",
-      company: "New Tech Corp",
-      laborSenority: "6",
-      income: 6000,
-      additionalIncome: 1500,
-      expenses: 2500,
-    };
-
-    const updatedReferences = [
-      {
-        _id: mockRef1._id.toString(),
-        name: "Reference 1",
-        referenceType: "FAM",
-        phone: "3009999999",
-        relationship: "HER",
-      },
-      {
-        _id: mockRef2._id.toString(),
-        name: "Reference 2",
-        referenceType: "PER",
-        phone: "3008888888",
-        relationship: "COM",
-      },
-      {
-        _id: mockRef3._id.toString(),
-        name: "Reference 3",
-        referenceType: "COM",
-        phone: "3008888888",
-        relationship: "ENF",
-      },
-    ];
-
-    Client.findById.mockResolvedValue(mockClient);
-    Reference.findById.mockImplementation((id) => {
-      [mockRef1, mockRef2, mockRef3].find((ref) => ref._id.toString() === id);
-    });
-
-    const res = await request(app)
-      .post(`/clients/${mockClient._id}/commercialInfo/edit`)
-      .send({
-        newCommercialInfo: updatedCommercialInfo,
-        newReferences: updatedReferences,
-      });
-
-    expect(res.status).toBe(200);
-    expect(res.body.message).toBe("Client commercial info updated");
-    expect(mockClient.commercialInfo.jobOccupation).toBe(
-      updatedCommercialInfo.jobOccupation
-    );
-    expect(mockClient.commercialInfo.laborSenority).toBe(
-      updatedCommercialInfo.laborSenority
-    );
-    expect(mockClient.commercialInfo.additionalIncome).toBe(
-      updatedCommercialInfo.additionalIncome
-    );
-    expect(mockClient.commercialInfo.save).toHaveBeenCalled();
-  });
-
-  it("should return 404 if commercial info or references are not found", async () => {
-    mockClient.commercialInfo = null;
-    Client.findById.mockResolvedValue(mockClient);
-
-    const res = await request(app)
-      .post(`/clients/${mockClient._id}/commercialInfo/edit`)
-      .send({
-        newCommercialInfo: {},
-        newReferences: [],
-      });
-
-    expect(res.status).toBe(404);
-    expect(res.body.message).toBe("Commercial info or references not found");
-  });
-
-  it("should return 500 if an error occurs", async () => {
-    Client.findById.mockRejectedValue(new Error("Database error"));
-
-    const res = await request(app)
-      .post(`/clients/${mockClient._id}/commercialInfo/edit`)
-      .send({
-        newCommercialInfo: {},
-        newReferences: [],
-      });
-
-    expect(res.status).toBe(500);
-    expect(res.body.message).toBe("Error updating commercial info");
-    expect(res.body.error).toBe("Database error");
-  });
-});
-
-describe("GET /clients/:clientId/name", () => {
-  let mockClient;
-  beforeEach(() => {
-    mockClient = {
-      _id: "12345",
-      name: "Juan Pérez",
-      role: "debtor",
-      identification: { idType: "CC", number: "123456789" },
-    };
-    jest.clearAllMocks();
-  });
-
-  it("should return client name if client exists", async () => {
-    Client.findById.mockResolvedValue(mockClient);
-
-    const res = await request(app).get(`/clients/${mockClient._id}/name`);
-
-    expect(res.status).toBe(200);
-    expect(res.body.name).toEqual(mockClient.name);
-  });
-
-  it("should return 404 if client does not exist", async () => {
-    Client.findById.mockResolvedValue(null);
-
-    const res = await request(app).get("/clients/0000/name");
-
-    expect(res.status).toBe(404);
-    expect(res.body.message).toEqual("Client not found");
-  });
-
-  it("should return 500 if there is a server error", async () => {
-    Client.findById.mockRejectedValue(new Error("Database error"));
-
-    const res = await request(app).get(`/clients/${mockClient._id}/name`);
-
-    expect(res.status).toBe(500);
-    expect(res.body.message).toEqual("Error fetching name");
-    expect(res.body.error).toEqual("Database error");
-  });
-});
-
-describe("GET /debtors-list/:managerId", () => {
+describe("GET debtors list by manager id", () => {
   let req, res, next;
   beforeEach(() => {
     jest.resetAllMocks();

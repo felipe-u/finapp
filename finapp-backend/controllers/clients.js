@@ -12,20 +12,19 @@ const statusEnum = {
   CJ: "En cobro jurídico",
 };
 
-exports.getClient = (req, res, next) => {
-  Client.findById(req.params.clientId)
-    .then((client) => {
-      if (!client) {
-        return res.status(404).json({ message: "Client not found" });
-      }
-      res.status(200).json({ client });
-    })
-    .catch((err) => {
-      res.status(500).json({
-        message: "Error fetching client",
-        error: err.message,
-      });
+exports.getClient = async (req, res, next) => {
+  try {
+    const client = await Client.findById(req.params.clientId);
+    if (!client) {
+      return res.status(404).json({ message: "Client not found" });
+    }
+    res.status(200).json({ client });
+  } catch (err) {
+    res.status(500).json({
+      message: "Error fetching client",
+      error: err.message,
     });
+  }
 };
 
 exports.getClientFinancing = async (req, res, next) => {
@@ -50,26 +49,22 @@ exports.getClientFinancing = async (req, res, next) => {
   }
 };
 
-exports.getClientPersonalInfo = (req, res, next) => {
-  Client.findById(req.params.clientId, "personalInfo")
-    .then((client) => {
-      if (!client) {
-        return res.status(404).json({ message: "Client not found" });
-      }
-      return client.populate("personalInfo");
-    })
-    .then((client) => {
-      if (!client) return;
-      res.status(200).json({ personalInfo: client.personalInfo });
-    })
-    .catch((err) => {
-      if (!res.headersSent) {
-        res.status(500).json({
-          message: "Error fetching personal info",
-          error: err?.message || "Unknown error",
-        });
-      }
-    });
+exports.getClientPersonalInfo = async (req, res, next) => {
+  try {
+    const client = await Client.findById(req.params.clientId, "personalInfo");
+    if (!client) {
+      return res.status(404).json({ message: "Client not found" });
+    }
+    await client.populate("personalInfo");
+    res.status(200).json({ personalInfo: client.personalInfo });
+  } catch (err) {
+    if (!res.headersSent) {
+      res.status(500).json({
+        message: "Error fetching personal info",
+        error: err?.message || "Unknown error",
+      });
+    }
+  }
 };
 
 exports.editClientPersonalInfo = async (req, res, next) => {
@@ -96,26 +91,22 @@ exports.editClientPersonalInfo = async (req, res, next) => {
   }
 };
 
-exports.getClientGeoInfo = (req, res, next) => {
-  Client.findById(req.params.clientId, "geoInfo")
-    .then((client) => {
-      if (!client) {
-        return res.status(404).json({ message: "Client not found" });
-      }
-      return client.populate("geoInfo");
-    })
-    .then((client) => {
-      if (!client) return;
-      res.status(200).json({ geoInfo: client.geoInfo });
-    })
-    .catch((err) => {
-      if (!res.headersSent) {
-        res.status(500).json({
-          message: "Error fetching geo info",
-          error: err?.message || "Unknown error",
-        });
-      }
-    });
+exports.getClientGeoInfo = async (req, res, next) => {
+  try {
+    const client = await Client.findById(req.params.clientId, "geoInfo");
+    if (!client) {
+      return res.status(404).json({ message: "Client not found" });
+    }
+    await client.populate("geoInfo");
+    res.status(200).json({ geoInfo: client.geoInfo });
+  } catch (err) {
+    if (!res.headersSent) {
+      res.status(500).json({
+        message: "Error fetching geo info",
+        error: err?.message || "Unknown error",
+      });
+    }
+  }
 };
 
 exports.editClientGeoInfo = async (req, res, next) => {
@@ -200,20 +191,19 @@ exports.editClientCommercialInfo = async (req, res, next) => {
   }
 };
 
-exports.getClientName = (req, res, next) => {
-  Client.findById(req.params.clientId, "name")
-    .then((client) => {
-      if (!client) {
-        return res.status(404).json({ message: "Client not found" });
-      }
-      res.status(200).json({ name: client.name });
-    })
-    .catch((err) => {
-      res.status(500).json({
-        message: "Error fetching name",
-        error: err.message,
-      });
+exports.getClientName = async (req, res, next) => {
+  try {
+    const client = await Client.findById(req.params.clientId, "name");
+    if (!client) {
+      return res.status(404).json({ message: "Client not found" });
+    }
+    res.status(200).json({ name: client.name });
+  } catch (err) {
+    res.status(500).json({
+      message: "Error fetching name",
+      error: err.message,
     });
+  }
 };
 
 exports.getDebtorsListByManager = (req, res, next) => {
