@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 
 exports.getAllUsers = async (req, res, next) => {
   if (req.query.searchTerm) {
-    exports.getUsersBySearchTerm(req, res, next);
+    return await exports.getUsersBySearchTerm(req, res, next);
   } else {
     try {
       const managers = await Manager.find();
