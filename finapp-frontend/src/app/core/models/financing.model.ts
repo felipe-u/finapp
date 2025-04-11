@@ -12,7 +12,7 @@ export class Financing {
         public numberOfInstallments: number,
         public totalToPay: number,
         public monthlyInterest: number,
-        public lateInteres: number,
+        public lateInterests: number,
         public installments: Installment[]
     ) { }
 }

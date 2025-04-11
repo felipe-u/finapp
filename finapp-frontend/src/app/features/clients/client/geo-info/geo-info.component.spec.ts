@@ -56,4 +56,35 @@ describe('GeoInfoComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should show loader when geoInfo is undefined', () => {
+    spyOn(component, 'geoInfo').and.returnValue(undefined);
+    fixture.detectChanges();
+
+    const loaderEl = fixture.nativeElement.querySelector('.loader-container');
+    expect(loaderEl).toBeTruthy();
+  });
+
+  it('should show address information when geoInfo has data', () => {
+    const mockGeoInfo = {
+      _id: 'mock-id',
+      latitude: 10,
+      longitude: 20,
+      address: '123 Calle Falsa',
+      neighbourhood: 'Centro',
+      city: 'CiudadX',
+      department: 'DF',
+      propertyImages: ['image1.png'],
+      googleMapsUrl: ''
+    };
+
+    spyOn(component, 'geoInfo').and.returnValue(mockGeoInfo);
+    component.editMode = false;
+    fixture.detectChanges();
+
+    const addressText = fixture.nativeElement.textContent;
+    expect(addressText).toContain('123 Calle Falsa');
+    expect(addressText).toContain('Centro');
+    expect(addressText).toContain('CiudadX');
+  });
 });

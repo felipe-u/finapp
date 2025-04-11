@@ -38,4 +38,12 @@ describe('ProfileComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should toggle editMode when changeEditMode is called', () => {
+    expect(component.editMode).toBeFalse();
+    component.changeEditMode();
+    expect(component.editMode).toBeTrue();
+    component.changeEditMode();
+    expect(component.editMode).toBeFalse()
+  })
 });

@@ -31,10 +31,34 @@ describe('CommercialInfoComponent', () => {
 
     fixture = TestBed.createComponent(CommercialInfoComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should show loader if commercialInfo() is undefined', () => {
+    spyOn(component, 'commercialInfo').and.returnValue(undefined);
+    fixture.detectChanges();
+
+    const loader = fixture.nativeElement.querySelector('.loader-container');
+    expect(loader).toBeTruthy();
+  });
+
+  it('should show info table if commercialInfo() retrieve data', () => {
+    spyOn(component, 'commercialInfo').and.returnValue({
+      _id: 'mock-id',
+      jobOccupation: 'Doctor',
+      company: 'TechCorp',
+      laborSenority: '5',
+      income: 2000000,
+      additionalIncome: 500000,
+      expenses: 1000000,
+    });
+    component.editMode = false;
+    fixture.detectChanges();
+
+    const jobOccupation = fixture.nativeElement.querySelector('td:nth-child(2)');
+    expect(jobOccupation?.textContent).toContain('Doctor');
   });
 });

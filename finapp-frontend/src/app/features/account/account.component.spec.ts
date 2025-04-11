@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AccountComponent } from './account.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, Router } from '@angular/router';
 import { UsersService } from '../../core/services/users.service';
 import { Component, Input } from '@angular/core';
 
@@ -51,5 +51,29 @@ describe('AccountComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should navigate to profile on goToProfile()', () => {
+    const router = TestBed.inject(Router);
+    const navigateSpy = spyOn(router, 'navigate');
+    component.userId.set('123');
+    component.goToProfile();
+    expect(navigateSpy).toHaveBeenCalledWith(['account', '123', 'profile']);
+  });
+
+
+  it('should navigate to settings on goToSettings()', () => {
+    const router = TestBed.inject(Router);
+    const navigateSpy = spyOn(router, 'navigate');
+    component.userId.set('123');
+    component.goToSettings();
+    expect(navigateSpy).toHaveBeenCalledWith(['account', '123', 'settings']);
+  });
+
+  it('should navigate to home on goBack()', () => {
+    const router = TestBed.inject(Router);
+    const navigateSpy = spyOn(router, 'navigate');
+    component.goBack();
+    expect(navigateSpy).toHaveBeenCalledWith(['/home']);
   });
 });
