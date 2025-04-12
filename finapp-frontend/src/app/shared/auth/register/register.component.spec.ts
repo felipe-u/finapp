@@ -3,6 +3,7 @@ import { RegisterComponent } from './register.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { provideRouter } from '@angular/router';
+import { of, throwError } from 'rxjs';
 
 describe('RegisterComponent', () => {
   let component: RegisterComponent;
@@ -82,5 +83,72 @@ describe('RegisterComponent', () => {
     });
     component.onSubmit();
     expect(spy).toHaveBeenCalled();
+  });
+
+  it('should handle successful registration and call correct services', () => {
+    const registerSpy = spyOn(component['authService'], 'register').and.returnValue(
+      of({
+        user: {
+          _id: '123',
+          role: 'manager',
+          name: 'Juan',
+          email: 'juan@example.com',
+          photo: '',
+          lang: 'es',
+        }
+      })
+    );
+
+    const setManagerIdSpy = spyOn(component['clientsService'], 'setManagerId');
+    const setUserIdSpy = spyOn(component['usersService'], 'setUserId');
+    const setUserRoleSpy = spyOn(component['usersService'], 'setUserRole');
+    const setUserNameSpy = spyOn(component['usersService'], 'setUserName');
+    const setUserEmailSpy = spyOn(component['usersService'], 'setUserEmail');
+    const setUserPhotoSpy = spyOn(component['usersService'], 'setUserPhoto');
+    const setUserLangSpy = spyOn(component['usersService'], 'setUserLang');
+    const localStorageSetItemSpy = spyOn(localStorage, 'setItem');
+    const routerSpy = spyOn(component['router'], 'navigateByUrl');
+
+    component.form.patchValue({
+      name: 'Juan',
+      role: 'manager',
+      email: 'juan@example.com',
+      phone: '123456789',
+      password: '123456',
+      confirmPassword: '123456'
+    });
+
+    component.onSubmit();
+
+    expect(registerSpy).toHaveBeenCalled();
+    expect(setUserIdSpy).toHaveBeenCalledWith('123');
+    expect(setUserRoleSpy).toHaveBeenCalledWith('manager');
+    expect(setUserNameSpy).toHaveBeenCalledWith('Juan');
+    expect(setUserEmailSpy).toHaveBeenCalledWith('juan@example.com');
+    expect(setUserPhotoSpy).toHaveBeenCalledWith('');
+    expect(setManagerIdSpy).toHaveBeenCalledWith('123');
+    expect(routerSpy).toHaveBeenCalledWith('home');
+  });
+
+  it('should handle registration error and show error notification', () => {
+    const registerSpy = spyOn(component['authService'], 'register').and.returnValue(
+      throwError(() => new Error('Registration failed'))
+    );
+
+    const spyNotiflix = spyOn(component['notiflix'], 'showError');
+
+    component.form.patchValue({
+      name: 'Juan',
+      role: 'manager',
+      email: 'juan@example.com',
+      phone: '123456789',
+      password: '123456',
+      confirmPassword: '123456'
+    });
+
+    component.onSubmit();
+
+    expect(spyNotiflix).toHaveBeenCalled();
+    expect(spyNotiflix).toHaveBeenCalledWith('NOTIFLIX.ERROR');
   });
 });

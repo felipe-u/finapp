@@ -52,4 +52,52 @@ describe('ClientsService', () => {
         expect(req.request.method).toBe('GET');
         req.flush({ debtors: mockDebtors });
     });
+
+    it('should return the client signal', () => {
+        const mockClient = { name: 'Juan', id: '123' };
+        (service as any).client.set(mockClient);
+
+        const client = service.getClient();
+        expect(client()).toEqual(mockClient);
+    });
+
+    it('should fetch a client by ID with findById()', () => {
+        const mockClient = { name: 'Juan', id: '123' };
+
+        service.findById('123').subscribe((client) => {
+            expect(client).toEqual(mockClient);
+        });
+
+        const req = httpMock.expectOne('http://localhost:3000/clients/123');
+        expect(req.request.method).toBe('GET');
+        req.flush({ client: mockClient });
+    });
+
+    it('should fetch client financing with getClientFinancing()', () => {
+        const mockFinancing = { amount: 1000, type: 'loan' };
+        (service as any).client.set({ _id: '123' });
+
+        service.getClientFinancing().subscribe((financing) => {
+            expect(financing).toEqual(mockFinancing);
+        });
+
+        const req = httpMock.expectOne('http://localhost:3000/clients/123/financing');
+        expect(req.request.method).toBe('GET');
+        req.flush({ financing: mockFinancing });
+    });
+
+    it('should fetch debtors by statuses with getDebtorsByStatuses()', () => {
+        const mockDebtors = [{ name: 'Juan' }];
+        (service as any).managerId.set('123');
+
+        service.getDebtorsByStatuses(['active', 'inactive']).subscribe((res) => {
+            expect(res).toEqual(mockDebtors);
+        });
+
+        const req = httpMock.expectOne(
+            r => r.url === 'http://localhost:3000/debtors-list/123' && r.params.get('filter') === 'active,inactive'
+        );
+        expect(req.request.method).toBe('GET');
+        req.flush({ debtors: mockDebtors });
+    });
 });

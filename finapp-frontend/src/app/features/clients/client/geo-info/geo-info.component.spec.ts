@@ -6,6 +6,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Component, NO_ERRORS_SCHEMA, signal } from '@angular/core';
 import { of } from 'rxjs';
 import { ClientsService } from '../../../../core/services/clients.service';
+import { NotiflixService } from '../../../../core/services/notiflix.service';
 
 @Component({
   selector: 'google-map',
@@ -24,6 +25,7 @@ class MockMapAdvancedMarkerComponent { }
 describe('GeoInfoComponent', () => {
   let component: GeoInfoComponent;
   let fixture: ComponentFixture<GeoInfoComponent>;
+  let notiflixServiceMock: jasmine.SpyObj<NotiflixService>;
 
   beforeEach(async () => {
     const mockClient = { _id: "mock-id", name: "Test Client" };
@@ -31,6 +33,8 @@ describe('GeoInfoComponent', () => {
       getClient: () => signal(mockClient),
       getClientGeographicInfo: jasmine.createSpy('getClientGeographicInfo').and.returnValue(of({}))
     }
+    notiflixServiceMock = jasmine.createSpyObj('NotiflixService', ['showError', 'showConfirm', 'showSuccess']);
+
     await TestBed.configureTestingModule({
       imports: [
         GeoInfoComponent,
@@ -42,7 +46,8 @@ describe('GeoInfoComponent', () => {
       declarations: [
       ],
       providers: [
-        { provide: ClientsService, useValue: clientServiceMock }
+        { provide: ClientsService, useValue: clientServiceMock },
+        { provide: NotiflixService, useValue: notiflixServiceMock }
       ],
       schemas: []
     })
@@ -86,5 +91,74 @@ describe('GeoInfoComponent', () => {
     expect(addressText).toContain('123 Calle Falsa');
     expect(addressText).toContain('Centro');
     expect(addressText).toContain('CiudadX');
+  });
+
+  it('should call prepolutaForm when edit button is clicked', () => {
+    spyOn(component, 'prepolutaForm');
+    const button = fixture.nativeElement.querySelector('.editBtn');
+    button.click();
+    expect(component.prepolutaForm).toHaveBeenCalled();
+  });
+
+  it('should prepopulate the form with geo information', () => {
+    // Mockear el servicio que devuelve los departamentos
+    const mockDepartments = [
+      { name: 'Illinois', code: 'IL' },
+      { name: 'California', code: 'CA' },
+      // ... otros departamentos
+    ];
+    spyOn(component, 'geoInfo').and.returnValue({
+      _id: 'mock-id',
+      address: '123 Main St',
+      city: 'Springfield',
+      department: 'Illinois',
+      neighbourhood: 'Downtown',
+      latitude: 10,
+      longitude: 20,
+      sector: 'Sector 1',
+      googleMapsUrl: '',
+      propertyImages: [],
+      additionalInfo: 'Some additional info'
+    });
+
+    component.departments = mockDepartments;
+
+    component.prepolutaForm();
+
+    expect(component.form.value.latitude).toBe(10);
+    expect(component.form.value.longitude).toBe(20);
+    expect(component.form.value.address).toBe('123 Main St');
+    expect(component.form.value.city).toBe('Springfield');
+    expect(component.form.value.department).toBe('Illinois');
+    expect(component.form.value.neighbourhood).toBe('Downtown');
+    expect(component.form.value.sector).toBe('Sector 1');
+    expect(component.form.value.additionalInfo).toBe('Some additional info');
+  });
+
+  it('should show error notification when form is invalid', () => {
+    component.form.controls['address'].setValue('');
+    component.form.markAllAsTouched();
+
+    component.onSubmit();
+
+    expect(notiflixServiceMock.showError).toHaveBeenCalledWith(
+      jasmine.any(String)
+    );
+  });
+
+  it('should update latitude and longitude on map mouse event', () => {
+    const mockEvent = {
+      latLng: {
+        lat: jasmine.createSpy('lat').and.returnValue(10),
+        lng: jasmine.createSpy('lng').and.returnValue(20)
+      },
+      domEvent: {},
+      stop: jasmine.createSpy('stop')
+    } as unknown as google.maps.MapMouseEvent;
+
+    component.updateLocation(mockEvent);
+
+    expect(component.form.value.latitude).toBe(10);
+    expect(component.form.value.longitude).toBe(20);
   });
 });

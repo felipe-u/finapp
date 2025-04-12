@@ -249,8 +249,16 @@ export class CommercialInfoComponent implements OnInit {
           newExpenses
         );
 
+        const famRef1 = this.famReferences()?.at(0);
+        const famRef2 = this.famReferences()?.at(1);
+
+        if (!famRef1 || !famRef2) {
+          this.notiflix.showError('');
+          return;
+        }
+
         const newFamRef1 = new Reference(
-          this.famReferences().at(0)._id,
+          famRef1._id,
           this.form.value.references.famRef1.name,
           null,
           'FAM' as ReferenceTypeEnum,
@@ -259,7 +267,7 @@ export class CommercialInfoComponent implements OnInit {
         );
 
         const newFamRef2 = new Reference(
-          this.famReferences().at(1)._id,
+          famRef2._id,
           this.form.value.references.famRef2.name,
           null,
           'FAM' as ReferenceTypeEnum,
@@ -267,8 +275,16 @@ export class CommercialInfoComponent implements OnInit {
           this.form.value.references.famRef2.relationship as RelationshipTypeEnum
         );
 
+        const perRef1 = this.perReferences()?.at(0);
+        const perRef2 = this.perReferences()?.at(1);
+
+        if (!perRef1 || !perRef2) {
+          this.notiflix.showError('');
+          return;
+        }
+
         const newPerRef1 = new Reference(
-          this.perReferences().at(0)._id,
+          perRef1._id,
           this.form.value.references.perRef1.name,
           null,
           'PER' as ReferenceTypeEnum,
@@ -277,7 +293,7 @@ export class CommercialInfoComponent implements OnInit {
         );
 
         const newPerRef2 = new Reference(
-          this.perReferences().at(1)._id,
+          perRef2._id,
           this.form.value.references.perRef2.name,
           null,
           'PER' as ReferenceTypeEnum,
@@ -285,8 +301,16 @@ export class CommercialInfoComponent implements OnInit {
           this.form.value.references.perRef2.relationship as RelationshipTypeEnum
         );
 
+        const comRef1 = this.comReferences()?.at(0);
+        const comRef2 = this.comReferences()?.at(1);
+
+        if (!comRef1 || !comRef2) {
+          this.notiflix.showError('');
+          return;
+        }
+
         const newComRef1 = new Reference(
-          this.comReferences().at(0)._id,
+          comRef1._id,
           this.form.value.references.comRef1.name,
           null,
           'COM' as ReferenceTypeEnum,
@@ -295,7 +319,7 @@ export class CommercialInfoComponent implements OnInit {
         );
 
         const newComRef2 = new Reference(
-          this.comReferences().at(1)._id,
+          comRef2._id,
           this.form.value.references.comRef2.name,
           null,
           'COM' as ReferenceTypeEnum,
