@@ -1,12 +1,15 @@
+// role.guard.ts
 import { inject } from "@angular/core";
-import { CanActivateFn, Router } from "@angular/router";
+import { CanActivateFn, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
 import { UsersService } from "../services/users.service";
 
-export const RoleGuard: CanActivateFn = (route, state) => {
-    const router = inject(Router);
-    const usersService = inject(UsersService);
+export function roleGuardFn(
+    usersService: UsersService,
+    router: Router,
+    route: ActivatedRouteSnapshot
+): boolean {
     const userRole = usersService.getUserRole();
-    const expectedRole = route.data.expectedRole;
+    const expectedRole = route.data['expectedRole'];
 
     if (userRole() === expectedRole) {
         return true;
@@ -15,3 +18,6 @@ export const RoleGuard: CanActivateFn = (route, state) => {
         return false;
     }
 }
+
+export const RoleGuard: CanActivateFn = (route, state) =>
+    roleGuardFn(inject(UsersService), inject(Router), route);

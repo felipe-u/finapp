@@ -1,11 +1,8 @@
-import { inject } from "@angular/core";
-import { CanActivateFn, Router } from "@angular/router";
-import { AuthService } from "../../core/services/auth.service";
+import { CanActivateFn, Router } from '@angular/router';
+import { inject } from '@angular/core';
+import { AuthService } from '../../core/services/auth.service';
 
-export const authGuard: CanActivateFn = () => {
-    const authService = inject(AuthService);
-    const router = inject(Router);
-
+export function authGuardFn(authService: AuthService, router: Router): boolean {
     if (authService.isAuthenticated()) {
         return true;
     } else {
@@ -14,13 +11,20 @@ export const authGuard: CanActivateFn = () => {
     }
 }
 
-export const authRedirectGuard: CanActivateFn = () => {
-    const authService = inject(AuthService);
-    const router = inject(Router);
+export const authGuard: CanActivateFn = () => authGuardFn(
+    inject(AuthService),
+    inject(Router)
+);
 
+export function authRedirectGuardFn(authService: AuthService, router: Router): boolean {
     if (authService.isAuthenticated()) {
         router.navigateByUrl('/home');
         return false;
     }
     return true;
 }
+
+export const authRedirectGuard: CanActivateFn = () => authRedirectGuardFn(
+    inject(AuthService),
+    inject(Router)
+);
