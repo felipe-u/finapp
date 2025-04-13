@@ -82,8 +82,10 @@ export class RegisterComponent {
         this.usersService.setUserPhoto(res.user.photo);
         this.usersService.setUserLang(res.user.lang);
         localStorage.setItem('lang', res.user.lang);
-
-        this.router.navigateByUrl('home');
+        this.notiflix.showSuccess(
+          this.translate.instant('NOTIFLIX.USER_REGISTERED')
+        );
+        this.authService.logout();
       },
       error: (err) => {
         console.error(err.message);

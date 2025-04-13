@@ -187,7 +187,8 @@
     "LANG_SUCCESS": "Language changed successfully",
     "ALL_FIELDS_ERROR": "Please fill in the fields marked in red",
     "PASS_MUST_MATCH": "Password must match",
-    "MAIL_FORM_ERROR": "Both the subject and the message itself are required"
+    "MAIL_FORM_ERROR": "Both the subject and the message itself are required",
+    "USER_REGISTERED": "User registered successfully"
   },
   "OTHER_PAGES": {
     "FORB": "Forbidden",
