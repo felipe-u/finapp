@@ -58,6 +58,10 @@ const installmentSchema = new Schema({
     type: Number,
     required: true,
   },
+  isSimulated: {
+    type: Boolean,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("Installment", installmentSchema);

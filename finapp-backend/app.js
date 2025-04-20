@@ -8,6 +8,7 @@ const clientsRoutes = require("./routes/clients");
 const authRoutes = require("./routes/auth");
 const emailRoutes = require("./routes/email");
 const imagesRoutes = require("./routes/images");
+const virtualDateRoutes = require("./routes/virtualDate");
 
 require("./models");
 
@@ -33,6 +34,7 @@ app.use(clientsRoutes);
 app.use(authRoutes);
 app.use(emailRoutes);
 app.use(imagesRoutes);
+app.use(virtualDateRoutes);
 
 module.exports = app;
 

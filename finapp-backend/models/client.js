@@ -52,6 +52,10 @@ const clientSchema = new Schema({
       ref: "Reference",
     },
   ],
+  isSimulated: {
+    type: Boolean,
+    required: true,
+  },
 });
 
 const Client = mongoose.model("Client", clientSchema);

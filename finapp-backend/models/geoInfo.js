@@ -27,16 +27,20 @@ const geoInfoSchema = new Schema({
   },
   latitude: {
     type: Number,
-    required: true
+    required: true,
   },
   longitude: {
     type: Number,
-    required: true
+    required: true,
   },
   googleMapsUrl: {
     type: String,
   },
   propertyImages: [String],
+  isSimulated: {
+    type: Boolean,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("GeoInfo", geoInfoSchema);

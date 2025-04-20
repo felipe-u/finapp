@@ -27,6 +27,10 @@ const commercialInfoSchema = new Schema({
     type: Number,
     required: true,
   },
+  isSimulated: {
+    type: Boolean,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("CommercialInfo", commercialInfoSchema);

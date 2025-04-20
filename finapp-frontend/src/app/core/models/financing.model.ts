@@ -13,6 +13,7 @@ export class Financing {
         public totalToPay: number,
         public monthlyInterest: number,
         public lateInterests: number,
-        public installments: Installment[]
+        public installments: Installment[],
+        public isSimulated: boolean
     ) { }
 }

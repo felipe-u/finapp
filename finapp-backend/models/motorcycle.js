@@ -15,6 +15,10 @@ const motorcycleSchema = new Schema({
     type: String,
     required: true,
   },
+  isSimulated: {
+    type: Boolean,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("Motorcycle", motorcycleSchema);

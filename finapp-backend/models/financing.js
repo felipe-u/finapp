@@ -50,6 +50,10 @@ const financingSchema = new Schema({
       ref: "Installment",
     },
   ],
+  isSimulated: {
+    type: Boolean,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("Financing", financingSchema);

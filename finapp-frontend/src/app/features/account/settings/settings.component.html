@@ -2,13 +2,24 @@
     <h1>{{ 'UI.ACCOUNT.SETTINGS' | translate }}</h1>
 </div>
 <div class="container">
-    <div class="lang-container">
+    <div class="div-container">
         <p>{{ 'UI.ACCOUNT.LANG' | translate }}</p>
         <select name="lang" id="lang" [(ngModel)]="selectedLang">
             <option value="es">{{ 'UI.ACCOUNT.ES' | translate }}</option>
             <option value="en">{{ 'UI.ACCOUNT.EN' | translate }}</option>
         </select>
     </div>
+    <hr>
+    <div class="div-container">
+        <p>Fecha virtual</p>
+        <div class="date-container">{{ virtualDate() | date:'dd/MM/yyy' }}</div>
+    </div>
+    <div class="div-container btn">
+        <button class="secondaryBtn" (click)="advanceDate(1)">Avanzar 1 día</button>
+        <button class="secondaryBtn" (click)="advanceDate(7)">Avanzar 1 semana</button>
+        <button class="secondaryBtn" (click)="resetDate()">Reset</button>
+    </div>
+    <hr>
     <div class="btn-container">
         <button class="primaryBtn" (click)="selectLanguage()">
             {{ 'BUTTONS.SAVE' | translate }}

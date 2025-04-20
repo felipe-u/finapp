@@ -16,7 +16,11 @@ const personalInfoSchema = new Schema({
   },
   birthDate: {
     type: Date,
-    required: true
+    required: true,
+  },
+  isSimulated: {
+    type: Boolean,
+    required: true,
   },
 });
 

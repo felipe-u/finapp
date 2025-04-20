@@ -78,6 +78,10 @@ const referenceSchema = new Schema({
         `${props.value} no es una relación permitida para el tipo de referencia seleccionado`,
     },
   },
+  isSimulated: {
+    type: Boolean,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("Reference", referenceSchema);
