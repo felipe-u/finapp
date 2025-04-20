@@ -11,7 +11,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 })
 export class SupportComponent {
   private router = inject(Router);
-  private CONFLUENCE_URL = 'https://www.google.com/';
+  private CONFLUENCE_URL = 'https://felipeuv.atlassian.net/wiki/x/c4AC';
 
   goToConfluence() {
     window.open(this.CONFLUENCE_URL, '_blank');
