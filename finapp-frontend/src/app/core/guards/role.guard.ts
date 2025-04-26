@@ -1,4 +1,3 @@
-// role.guard.ts
 import { inject } from "@angular/core";
 import { CanActivateFn, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
 import { UsersService } from "../services/users.service";
