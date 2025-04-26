@@ -1,9 +1,9 @@
 const { User, Admin, Manager, Assistant } = require("../models/user");
-
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
-const SECRET_KEY = "secretkey123";
+const SECRET_KEY = process.env.SECRET_KEY;
 
 exports.register = async (req, res, next) => {
   const { name, role, email, password: rawPassword, phone } = req.body;

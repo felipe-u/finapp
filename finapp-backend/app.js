@@ -1,6 +1,5 @@
 const express = require("express");
 const connectDB = require("./database");
-const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 
 const usersRoutes = require("./routes/users");
@@ -9,10 +8,10 @@ const authRoutes = require("./routes/auth");
 const emailRoutes = require("./routes/email");
 const imagesRoutes = require("./routes/images");
 const virtualDateRoutes = require("./routes/virtualDate");
-
+require("dotenv").config();
 require("./models");
 
-const { User, Admin, Manager, Assistant } = require("./models/user");
+const PORT = process.env.PORT;
 
 const app = express();
 app.use(bodyParser.json());
@@ -40,8 +39,8 @@ module.exports = app;
 
 if (require.main === module) {
   connectDB().then(() => {
-    app.listen(3000, () => {
-      console.log("Server is running on port 3000");
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
     });
   });
 }

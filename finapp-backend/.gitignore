@@ -1,3 +1,4 @@
+# Node modules
 /node_modules
 
 # Images
@@ -5,3 +6,6 @@
 
 # Testing
 /coverage
+
+# Environment variables
+/.env

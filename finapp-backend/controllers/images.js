@@ -2,13 +2,16 @@ const PersonalInfo = require("../models/personalInfo");
 const { User } = require("../models/user");
 const fs = require("fs");
 const path = require("path");
+require("dotenv").config();
+
+const BASE_URL = process.env.BASE_URL;
 
 exports.uploadImage = async (req, res, next) => {
   try {
     if (!req.file) {
       return res.status(400).json({ message: "No file provided" });
     }
-    const imageUrl = `http://localhost:3000/uploads/${req.file.filename}`;
+    const imageUrl = `${BASE_URL}/uploads/${req.file.filename}`;
     res.status(201).json({ imageUrl: imageUrl });
   } catch (err) {
     res.status(500).json({
