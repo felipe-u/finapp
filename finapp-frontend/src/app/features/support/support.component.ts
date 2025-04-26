@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-support',
@@ -11,7 +12,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 })
 export class SupportComponent {
   private router = inject(Router);
-  private CONFLUENCE_URL = 'https://felipeuv.atlassian.net/wiki/x/c4AC';
+  private CONFLUENCE_URL = environment.CONFLUENCE_URL;
 
   goToConfluence() {
     window.open(this.CONFLUENCE_URL, '_blank');

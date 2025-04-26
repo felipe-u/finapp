@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { tap } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class ImagesService {
     private httpClient = inject(HttpClient);
-    private API_URL = 'http://localhost:3000';
+    private SERVER_URL = environment.SERVER_URL;
     tempImageUrl: string | null = null;
 
     uploadImage(image: File) {
@@ -13,7 +14,7 @@ export class ImagesService {
         formData.append('image', image);
         console.log('Uploading image...');
         return this.httpClient.post<{ imageUrl: string }>(
-            `${this.API_URL}/upload`, formData
+            `${this.SERVER_URL}/upload`, formData
         ).pipe(
             tap((response) => {
                 this.tempImageUrl = response.imageUrl;
@@ -27,27 +28,27 @@ export class ImagesService {
             return;
         }
         return this.httpClient.put(
-            `${this.API_URL}/imgs/${model}`,
+            `${this.SERVER_URL}/imgs/${model}`,
             { modelId: modelId, imageUrl: this.tempImageUrl }
         );
     }
 
     deleteImage(imageUrl: string) {
         return this.httpClient.delete(
-            `${this.API_URL}/delete-image?imageUrl=${encodeURIComponent(imageUrl)}`
+            `${this.SERVER_URL}/delete-image?imageUrl=${encodeURIComponent(imageUrl)}`
         );
     }
 
     deleteTmpImage() {
         if (!this.tempImageUrl) return;
         return this.httpClient.delete(
-            `${this.API_URL}/delete-image?imageUrl=${encodeURIComponent(this.tempImageUrl)}`
+            `${this.SERVER_URL}/delete-image?imageUrl=${encodeURIComponent(this.tempImageUrl)}`
         );
     }
 
     deleteImages(images: string[]) {
         return this.httpClient.post(
-            `${this.API_URL}/delete-images`, { images }
+            `${this.SERVER_URL}/delete-images`, { images }
         ).pipe(
             tap(() => {
                 if (this.tempImageUrl && images.includes(this.tempImageUrl)) {

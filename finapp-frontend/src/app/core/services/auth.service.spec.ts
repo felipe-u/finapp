@@ -2,11 +2,13 @@ import { HttpClientTestingModule, HttpTestingController } from "@angular/common/
 import { AuthService } from "./auth.service"
 import { Router } from "@angular/router";
 import { TestBed } from "@angular/core/testing";
+import { environment } from "../../../environments/environment";
 
 describe('AuthService', () => {
     let service: AuthService;
     let httpMock: HttpTestingController;
     let routerSpy: jasmine.SpyObj<Router>;
+    const SERVER_URL = environment.SERVER_URL;
 
     beforeEach(() => {
         const spy = jasmine.createSpyObj('Router', ['navigateByUrl']);
@@ -42,7 +44,7 @@ describe('AuthService', () => {
 
         service.login('test@example.com', '123456').subscribe();
 
-        const req = httpMock.expectOne('http://localhost:3000/auth/login');
+        const req = httpMock.expectOne(`${SERVER_URL}/auth/login`);
         expect(req.request.method).toBe('POST');
         req.flush(mockResponse);
 
@@ -63,7 +65,7 @@ describe('AuthService', () => {
 
         service.register(mockUser as any).subscribe();
 
-        const req = httpMock.expectOne('http://localhost:3000/auth/register');
+        const req = httpMock.expectOne(`${SERVER_URL}/auth/register`);
         expect(req.request.method).toBe('POST');
         req.flush(mockResponse);
 
@@ -86,7 +88,7 @@ describe('AuthService', () => {
     });
 
     it('should return false if token is expired', () => {
-        const expired = new Date(Date.now() - 1000); // ya pasó
+        const expired = new Date(Date.now() - 1000);
         localStorage.setItem('ACCESS_TOKEN', 'mock-token');
         localStorage.setItem('EXPIRES_IN', expired.toISOString());
 

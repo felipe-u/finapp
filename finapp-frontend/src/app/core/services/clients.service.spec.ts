@@ -1,10 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { ClientsService } from './clients.service';
+import { environment } from '../../../environments/environment';
 
 describe('ClientsService', () => {
     let service: ClientsService;
     let httpMock: HttpTestingController;
+    const SERVER_URL = environment.SERVER_URL;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -33,7 +35,7 @@ describe('ClientsService', () => {
             expect((service as any).debtors()).toEqual(mockDebtors);
         });
 
-        const req = httpMock.expectOne('http://localhost:3000/debtors-list/123');
+        const req = httpMock.expectOne(`${SERVER_URL}/debtors-list/123`);
         expect(req.request.method).toBe('GET');
         req.flush({ debtors: mockDebtors });
     });
@@ -47,7 +49,7 @@ describe('ClientsService', () => {
         });
 
         const req = httpMock.expectOne(
-            r => r.url === 'http://localhost:3000/debtors-list/123' && r.params.get('searchTerm') === 'Pedro'
+            r => r.url === `${SERVER_URL}/debtors-list/123` && r.params.get('searchTerm') === 'Pedro'
         );
         expect(req.request.method).toBe('GET');
         req.flush({ debtors: mockDebtors });
@@ -68,7 +70,7 @@ describe('ClientsService', () => {
             expect(client).toEqual(mockClient);
         });
 
-        const req = httpMock.expectOne('http://localhost:3000/clients/123');
+        const req = httpMock.expectOne(`${SERVER_URL}/clients/123`);
         expect(req.request.method).toBe('GET');
         req.flush({ client: mockClient });
     });
@@ -81,7 +83,7 @@ describe('ClientsService', () => {
             expect(financing).toEqual(mockFinancing);
         });
 
-        const req = httpMock.expectOne('http://localhost:3000/clients/123/financing');
+        const req = httpMock.expectOne(`${SERVER_URL}/clients/123/financing`);
         expect(req.request.method).toBe('GET');
         req.flush({ financing: mockFinancing });
     });
@@ -95,7 +97,7 @@ describe('ClientsService', () => {
         });
 
         const req = httpMock.expectOne(
-            r => r.url === 'http://localhost:3000/debtors-list/123' && r.params.get('filter') === 'active,inactive'
+            r => r.url === `${SERVER_URL}/debtors-list/123` && r.params.get('filter') === 'active,inactive'
         );
         expect(req.request.method).toBe('GET');
         req.flush({ debtors: mockDebtors });

@@ -5,6 +5,7 @@ import { PersonalInfo } from '../models/personalInfo.model';
 import { GeoInfo } from '../models/geoInfo.model';
 import { CommercialInfo } from '../models/commercialInfo.model';
 import { Reference } from '../models/reference.model';
+import { environment } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class ClientsService {
@@ -15,7 +16,7 @@ export class ClientsService {
     private codebtorId = signal<string | undefined>(undefined);
     private debtorId = signal<string | undefined>(undefined);
     private managerId = signal<string | undefined>(undefined);
-    url = 'http://localhost:3000/';
+    private SERVER_URL = environment.SERVER_URL;
 
     constructor() {
         const storedManagerId = localStorage.getItem('managerId');
@@ -41,7 +42,7 @@ export class ClientsService {
     }
 
     findById(clientId: string) {
-        return this.httpClient.get<any>(this.url + 'clients/' + clientId).pipe(
+        return this.httpClient.get<any>(this.SERVER_URL + '/clients/' + clientId).pipe(
             tap({
                 next: (client) => this.client.set(client)
             }),
@@ -90,7 +91,7 @@ export class ClientsService {
     getClientFinancing() {
         console.log("Retrieving client financing: ", this.client()._id);
         return this.httpClient.get<any>(
-            this.url + 'clients/' + this.client()._id + '/financing'
+            this.SERVER_URL + '/clients/' + this.client()._id + '/financing'
         ).pipe(
             map((resData) => resData.financing)
         );
@@ -100,7 +101,7 @@ export class ClientsService {
     getClientPersonalInfo() {
         console.log("Retrieving client personal info: ", this.client()._id);
         return this.httpClient.get<any>(
-            this.url + 'clients/' + this.client()._id + '/personalInfo'
+            this.SERVER_URL + '/clients/' + this.client()._id + '/personalInfo'
         ).pipe(
             map((resData) => resData.personalInfo)
         );
@@ -109,7 +110,7 @@ export class ClientsService {
     editPersonalInfo(updatedPersonalInfo: PersonalInfo, updatedIdNumber: string) {
         console.log("Editing client personal info: ", this.client()._id);
         return this.httpClient.post(
-            this.url + 'clients/' + this.client()._id + '/personalInfo/edit',
+            this.SERVER_URL + '/clients/' + this.client()._id + '/personalInfo/edit',
             { newIdNumber: updatedIdNumber, newPersonalInfo: updatedPersonalInfo }
         );
     }
@@ -117,7 +118,7 @@ export class ClientsService {
     getClientGeographicInfo() {
         console.log("Retrieving client geographic info: ", this.client()._id);
         return this.httpClient.get<any>(
-            this.url + 'clients/' + this.client()._id + '/geoInfo'
+            this.SERVER_URL + '/clients/' + this.client()._id + '/geoInfo'
         ).pipe(
             map((resData) => resData.geoInfo)
         );
@@ -127,21 +128,21 @@ export class ClientsService {
     editGeoInfo(updatedGeoInfo: GeoInfo) {
         console.log("Editing client geographic info: ", this.client()._id);
         return this.httpClient.post(
-            this.url + 'clients/' + this.client()._id + '/geoInfo/edit', { updatedGeoInfo }
+            this.SERVER_URL + '/clients/' + this.client()._id + '/geoInfo/edit', { updatedGeoInfo }
         );
     }
 
     getClientCommercialInfo() {
         console.log("Retrieving client commercial info: ", this.client()._id);
         return this.httpClient.get<any>(
-            this.url + 'clients/' + this.client()._id + '/commercialInfo'
+            this.SERVER_URL + '/clients/' + this.client()._id + '/commercialInfo'
         );
     }
 
     editCommercialInfo(updatedCommercialInfo: CommercialInfo, updatedReferences: Reference[]) {
         console.log("Editing client commercial info: ", this.client()._id);
         return this.httpClient.post(
-            this.url + 'clients/' + this.client()._id + '/commercialInfo/edit',
+            this.SERVER_URL + '/clients/' + this.client()._id + '/commercialInfo/edit',
             { newCommercialInfo: updatedCommercialInfo, newReferences: updatedReferences }
         );
     }
@@ -155,14 +156,14 @@ export class ClientsService {
     }
 
     getClientName(clientId: string) {
-        return this.httpClient.get<any>(this.url + 'clients/' + clientId + '/name')
+        return this.httpClient.get<any>(this.SERVER_URL + '/clients/' + clientId + '/name')
             .pipe(
                 map((resData) => resData.name)
             );
     }
 
     assignDebtorToManager(debtorId: string) {
-        return this.httpClient.post(this.url + 'assign-debtor', {
+        return this.httpClient.post(this.SERVER_URL + '/assign-debtor', {
             clientId: debtorId,
             managerId: this.managerId()
         });
@@ -170,19 +171,19 @@ export class ClientsService {
 
     removeDebtorFromManager(debtorId: string) {
         return this.httpClient.post(
-            this.url + 'remove-debtor/', { clientId: debtorId }
+            this.SERVER_URL + '/remove-debtor/', { clientId: debtorId }
         );
     }
 
     getAllDebtorsBySearchTerm(searchTerm: string) {
         const params = new HttpParams().set('searchTerm', searchTerm);
-        return this.httpClient.get<any>(this.url + 'all-debtors', { params }).pipe(
+        return this.httpClient.get<any>(this.SERVER_URL + '/all-debtors', { params }).pipe(
             map((resData) => resData.debtors)
         );
     }
 
     getDebtorsWithoutAssignment() {
-        return this.httpClient.get<any>(this.url + 'debtors-list-no-assignment').pipe(
+        return this.httpClient.get<any>(this.SERVER_URL + '/debtors-list-no-assignment').pipe(
             map((resData) => resData.debtors)
         );
     }
@@ -191,12 +192,12 @@ export class ClientsService {
         const params = new HttpParams()
             .set('reportType', reportType).append('days', days);
         return this.httpClient.get<any>(
-            this.url + 'debtors-list-report', { params }
+            this.SERVER_URL + '/debtors-list-report', { params }
         );
     }
 
     private fetchDebtors(params?: HttpParams) {
-        const _url = this.url + 'debtors-list/' + this.managerId();
+        const _url = this.SERVER_URL + '/debtors-list/' + this.managerId();
         return this.httpClient.get<any>(_url, { params }).pipe(
             map((resData) => resData.debtors)
         );

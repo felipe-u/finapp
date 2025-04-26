@@ -1,5 +1,9 @@
 const emailController = require("../../../controllers/email");
 const nodemailer = require("nodemailer");
+require("dotenv").config();
+
+const MAIL_USER = process.env.MAIL_USER;
+const MAIL_PASS = process.env.MAIL_PASS;
 
 jest.mock("nodemailer");
 
@@ -31,13 +35,13 @@ describe("POST /send-email", () => {
     expect(nodemailer.createTransport).toHaveBeenCalledWith({
       service: "gmail",
       auth: {
-        user: "soporte.finapp@gmail.com",
-        pass: "amoz cejt vlfg simh",
+        user: MAIL_USER,
+        pass: MAIL_PASS,
       },
     });
     expect(mockSendMail).toHaveBeenCalledWith({
       from: "user@example.com",
-      to: "soporte.finapp@gmail.com",
+      to: MAIL_USER,
       subject: "Test Subject",
       text: "Mensage de: user@example.com\n\nThis is the body",
     });
@@ -58,7 +62,7 @@ describe("POST /send-email", () => {
 
   it("should return 500 if sendMail throws an error", async () => {
     const error = new Error("SMTP Error");
-    mockSendMail.mockRejectedValue(error); // Simulamos un fallo
+    mockSendMail.mockRejectedValue(error);
 
     await emailController.sendEmail(req, res, next);
 

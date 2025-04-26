@@ -1,11 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { map } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class VirtualDateService {
     private httpClient = inject(HttpClient);
-    private apiURL = 'http://localhost:3000/virtual-date/';
+    private SERVER_URL = environment.SERVER_URL;
+    private apiURL = `${this.SERVER_URL}/virtual-date/`;
 
     setDate() {
         return this.httpClient.post(this.apiURL + 'set', {})

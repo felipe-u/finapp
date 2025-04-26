@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '../models/user.model';
+import { environment } from '../../../environments/environment';
 import { tap } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
@@ -10,7 +11,7 @@ export class AuthService {
     private router = inject(Router);
     private token = signal<string | null>(localStorage.getItem('ACCESS_TOKEN'));
     private tokenExpirationTimer: any;
-    SERVER_URL: string = 'http://localhost:3000';
+    private SERVER_URL = environment.SERVER_URL;
 
     isAuthenticated = computed(() => {
         const token = this.token();

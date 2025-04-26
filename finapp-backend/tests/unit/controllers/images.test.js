@@ -3,6 +3,9 @@ const PersonalInfo = require("../../../models/personalInfo");
 const { User } = require("../../../models/user");
 const fs = require("fs");
 const path = require("path");
+require("dotenv").config();
+
+const BASE_URL = process.env.BASE_URL;
 
 describe("POST /upload", () => {
   let req, res, next;
@@ -23,7 +26,7 @@ describe("POST /upload", () => {
 
     expect(res.status).toHaveBeenCalledWith(201);
     expect(res.json).toHaveBeenCalledWith({
-      imageUrl: "http://localhost:3000/uploads/test-image.jpg",
+      imageUrl: `${BASE_URL}/uploads/test-image.jpg`,
     });
   });
 
@@ -204,7 +207,7 @@ describe("DELETE /delete-image", () => {
   });
 
   it("should delete image successfully", async () => {
-    req.query.imageUrl = "http://localhost:3000/uploads/test.jpg";
+    req.query.imageUrl = `${BASE_URL}/uploads/test.jpg`;
     const mockPath = path.join(
       __dirname,
       "..",
@@ -237,7 +240,7 @@ describe("DELETE /delete-image", () => {
   });
 
   it("should return 404 if the image does not exist", async () => {
-    req.query.imageUrl = "http://localhost:3000/uploads/missing.jpg";
+    req.query.imageUrl = `${BASE_URL}/uploads/missing.jpg`;
     const mockPath = path.join(
       __dirname,
       "..",
@@ -260,7 +263,7 @@ describe("DELETE /delete-image", () => {
   });
 
   it("should return 500 if another error occurs", async () => {
-    req.query.imageUrl = "http://localhost:3000/uploads/error.jpg";
+    req.query.imageUrl = `${BASE_URL}/uploads/error.jpg`;
     const mockPath = path.join(__dirname, "..", "..", "uploads", "error.jpg");
     const error = new Error("Unexpected error");
     fs.promises.access = jest.fn().mockResolvedValue();
@@ -290,8 +293,8 @@ describe("POST /delete-images", () => {
 
   it("should delete all images successfully", async () => {
     req.body.images = [
-      "http://localhost:3000/uploads/image1.jpg",
-      "http://localhost:3000/uploads/image2.jpg",
+      `${BASE_URL}/uploads/image1.jpg`,
+      `${BASE_URL}/uploads/image2.jpg`,
     ];
     fs.promises.access = jest.fn().mockResolvedValue();
     fs.promises.unlink = jest.fn().mockResolvedValue();
@@ -334,8 +337,8 @@ describe("POST /delete-images", () => {
 
   it("should return 500 if some images do not exist", async () => {
     req.body.images = [
-      "http://localhost:3000/uploads/image1.jpg",
-      "http://localhost:3000/uploads/missing.jpg",
+      `${BASE_URL}/uploads/image1.jpg`,
+      `${BASE_URL}/uploads/missing.jpg`,
     ];
     const errorENOENT = new Error("Not found");
     errorENOENT.code = "ENOENT";
@@ -350,14 +353,14 @@ describe("POST /delete-images", () => {
     expect(res.status).toHaveBeenCalledWith(500);
     expect(res.json).toHaveBeenCalledWith({
       message: "Some images could not be deleted",
-      errors: ["Image not found: http://localhost:3000/uploads/missing.jpg"],
+      errors: [`Image not found: ${BASE_URL}/uploads/missing.jpg`],
     });
   });
 
   it("should return 500 if some images fail with unknown error", async () => {
     req.body.images = [
-      "http://localhost:3000/uploads/image1.jpg",
-      "http://localhost:3000/uploads/image2.jpg",
+      `${BASE_URL}/uploads/image1.jpg`,
+      `${BASE_URL}/uploads/image2.jpg`,
     ];
     const unknownError = new Error("Permission denied");
     fs.promises.access = jest.fn().mockResolvedValue();
@@ -371,7 +374,7 @@ describe("POST /delete-images", () => {
     expect(res.status).toHaveBeenCalledWith(500);
     expect(res.json).toHaveBeenCalledWith({
       message: "Some images could not be deleted",
-      errors: ["Failed to delete: http://localhost:3000/uploads/image2.jpg"],
+      errors: [`Failed to delete: ${BASE_URL}/uploads/image2.jpg`],
     });
   });
 

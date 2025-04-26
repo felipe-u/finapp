@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { map } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class UsersService {
@@ -13,7 +14,7 @@ export class UsersService {
     private userEmail = signal<string | null>(null);
     private userPhoto = signal<string | null>(null);
     private userLang = signal<string | null>(null);
-    url = 'http://localhost:3000/';
+    private SERVER_URL = environment.SERVER_URL;
 
     constructor() {
         const storedUserId = localStorage.getItem('userId');
@@ -105,12 +106,12 @@ export class UsersService {
     }
 
     getAllUsers() {
-        return this.httpClient.get<any>(this.url + 'users/all')
+        return this.httpClient.get<any>(this.SERVER_URL + '/users/all')
     }
 
     findById(userId: string) {
         const params = new HttpParams().set('userId', userId);
-        return this.httpClient.get<any>(this.url + 'users/', { params: params })
+        return this.httpClient.get<any>(this.SERVER_URL + '/users/', { params: params })
             .pipe(
                 map((resData) => resData.user)
             )
@@ -118,29 +119,29 @@ export class UsersService {
 
     updateUserInfo(userId: string, newEmail: string, newPhone: string) {
         return this.httpClient.put<any>(
-            this.url + 'user-update',
+            this.SERVER_URL + '/user-update',
             { userId: userId, email: newEmail, phone: newPhone }
         )
     }
 
     getUsersBySearchTerm(searchTerm: string) {
         const params = new HttpParams().set('searchTerm', searchTerm);
-        return this.httpClient.get<any>(this.url + 'users/all', { params: params }
+        return this.httpClient.get<any>(this.SERVER_URL + '/users/all', { params: params }
         )
     }
 
     checkUserPassword(userId: string, oldPassword: string) {
-        return this.httpClient.post<any>(this.url + 'check-password',
+        return this.httpClient.post<any>(this.SERVER_URL + '/check-password',
             { userId, oldPassword })
     }
 
     changePassword(userId: string, newPassword: string) {
-        return this.httpClient.post<any>(this.url + 'change-password',
+        return this.httpClient.post<any>(this.SERVER_URL + '/change-password',
             { userId, newPassword })
     }
 
     changeUserLang(userId: string, newLang: string) {
         console.log("userId: " + userId);
-        return this.httpClient.post<any>(this.url + 'change-lang', { userId, newLang })
+        return this.httpClient.post<any>(this.SERVER_URL + '/change-lang', { userId, newLang })
     }
 }

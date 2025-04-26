@@ -2,12 +2,13 @@ import { TestBed } from '@angular/core/testing';
 import { UsersService } from './users.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { of } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 describe('UsersService', () => {
     let service: UsersService;
     let httpMock: HttpTestingController;
     let translateService: TranslateService;
+    const SERVER_URL = environment.SERVER_URL;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -34,7 +35,7 @@ describe('UsersService', () => {
             expect(users).toEqual(mockUsers);
         });
 
-        const req = httpMock.expectOne('http://localhost:3000/users/all');
+        const req = httpMock.expectOne(`${SERVER_URL}/users/all`);
         expect(req.request.method).toBe('GET');
         req.flush(mockUsers);
     });
@@ -46,7 +47,7 @@ describe('UsersService', () => {
             expect(user).toEqual(mockUser);
         });
 
-        const req = httpMock.expectOne('http://localhost:3000/users/?userId=1');
+        const req = httpMock.expectOne(`${SERVER_URL}/users/?userId=1`);
         expect(req.request.method).toBe('GET');
         req.flush({ user: mockUser });
     });
@@ -60,7 +61,7 @@ describe('UsersService', () => {
             expect(response).toBeTruthy();
         });
 
-        const req = httpMock.expectOne('http://localhost:3000/user-update');
+        const req = httpMock.expectOne(`${SERVER_URL}/user-update`);
         expect(req.request.method).toBe('PUT');
         expect(req.request.body).toEqual({ userId, email: newEmail, phone: newPhone });
         req.flush({ success: true });
