@@ -11,7 +11,7 @@ jest.mock("../../models/user", () => ({
   Manager: jest.fn(),
 }));
 
-process.env.JWT_SECRET = "testsecret";
+process.env.SECRET_KEY = "testsecret";
 
 describe("Auth Routes - Integration (mocked DB)", () => {
   afterEach(() => {
