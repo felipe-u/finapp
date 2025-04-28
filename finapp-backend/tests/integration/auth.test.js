@@ -1,5 +1,6 @@
 const request = require("supertest");
 const bcrypt = require("bcryptjs");
+process.env.SECRET_KEY = "testsecret";
 const app = require("../../app");
 const { User, Admin, Manager } = require("../../models/user");
 
@@ -10,8 +11,6 @@ jest.mock("../../models/user", () => ({
   Admin: jest.fn(),
   Manager: jest.fn(),
 }));
-
-process.env.SECRET_KEY = "testsecret";
 
 describe("Auth Routes - Integration (mocked DB)", () => {
   afterEach(() => {
