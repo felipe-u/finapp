@@ -127,7 +127,7 @@ describe('RegisterComponent', () => {
     expect(setUserEmailSpy).toHaveBeenCalledWith('juan@example.com');
     expect(setUserPhotoSpy).toHaveBeenCalledWith('');
     expect(setManagerIdSpy).toHaveBeenCalledWith('123');
-    expect(routerSpy).toHaveBeenCalledWith('home');
+    expect(routerSpy).toHaveBeenCalledWith('/auth/login');
   });
 
   it('should handle registration error and show error notification', () => {

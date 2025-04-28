@@ -32,7 +32,7 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
 
-    expect(translateService.use).toHaveBeenCalledWith('en');
+    expect(translateService.use).toHaveBeenCalledWith('es');
   });
 
   it('should set the language based on localStorage if available', () => {

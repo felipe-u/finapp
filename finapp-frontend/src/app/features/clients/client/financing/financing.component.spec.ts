@@ -50,7 +50,8 @@ describe('FinancingComponent', () => {
       totalToPay: 6000000,
       installments: [],
       status: statusEnum['AD'],
-      motorcycle: null
+      motorcycle: null,
+      isSimulated: false
     });
     fixture.detectChanges();
 
