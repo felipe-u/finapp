@@ -27,12 +27,13 @@ describe('AppComponent', () => {
 
   it('should set the default language to "en" if no language is stored in localStorage', () => {
     spyOn(localStorage, 'getItem').and.returnValue(null);
+    spyOn(translateService, 'getBrowserLang').and.returnValue('en');
     spyOn(translateService, 'use');
 
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
 
-    expect(translateService.use).toHaveBeenCalledWith('es');
+    expect(translateService.use).toHaveBeenCalledWith('en');
   });
 
   it('should set the language based on localStorage if available', () => {

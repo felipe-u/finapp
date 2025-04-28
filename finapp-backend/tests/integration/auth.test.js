@@ -3,7 +3,13 @@ const bcrypt = require("bcryptjs");
 const app = require("../../app");
 const { User, Admin, Manager } = require("../../models/user");
 
-jest.mock("../../models/user");
+jest.mock("../../models/user", () => ({
+  User: {
+    findOne: jest.fn(),
+  },
+  Admin: jest.fn(),
+  Manager: jest.fn(),
+}));
 
 describe("Auth Routes - Integration (mocked DB)", () => {
   afterEach(() => {
@@ -12,6 +18,8 @@ describe("Auth Routes - Integration (mocked DB)", () => {
 
   describe("POST /auth/login", () => {
     it("should login successfully with valid credentials", async () => {
+      const hashedPassword = await bcrypt.hash("Password123", 10);
+
       const mockUser = {
         _id: "mockid123",
         name: "Mock User",
@@ -20,7 +28,7 @@ describe("Auth Routes - Integration (mocked DB)", () => {
         phone: "123456789",
         photo: null,
         language: "en",
-        password: await bcrypt.hash("Password123", 10),
+        password: hashedPassword,
       };
       User.findOne.mockResolvedValue(mockUser);
 
