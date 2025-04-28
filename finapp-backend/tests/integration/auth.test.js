@@ -34,6 +34,8 @@ describe("Auth Routes - Integration (mocked DB)", () => {
       };
       User.findOne.mockResolvedValue(mockUser);
 
+      console.log("🔵 RES BODY LOGIN: ", res.body);
+
       const res = await request(app)
         .post("/auth/login")
         .send({ email: "mock@example.com", password: "Password123" });
@@ -96,6 +98,8 @@ describe("Auth Routes - Integration (mocked DB)", () => {
         password: "AdminPass123",
         phone: "123456789",
       });
+
+      console.log("🔵 RES BODY REGISTER: ", res.body);
 
       expect(res.status).toBe(201);
       expect(res.body.success).toBe(true);
