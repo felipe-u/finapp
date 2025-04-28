@@ -33,11 +33,11 @@ describe("Auth Routes - Integration (mocked DB)", () => {
       };
       User.findOne.mockResolvedValue(mockUser);
 
-      console.log("🔵 RES BODY LOGIN: ", res.body);
-
       const res = await request(app)
         .post("/auth/login")
         .send({ email: "mock@example.com", password: "Password123" });
+
+      console.log("🔵 RES BODY LOGIN: ", res.body);
 
       expect(res.status).toBe(200);
       expect(res.body.success).toBe(true);
