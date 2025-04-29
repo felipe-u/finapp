@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "finapp-frontend/dist/finapp-frontend/**/*",
+      "use": "@vercel/static"
+    }
+  ],
+  "outputDirectory": "dist/finapp-frontend",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
