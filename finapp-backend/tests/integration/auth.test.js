@@ -37,8 +37,6 @@ describe("Auth Routes - Integration (mocked DB)", () => {
         .post("/auth/login")
         .send({ email: "mock@example.com", password: "Password123" });
 
-      console.log("🔵 RES BODY LOGIN: ", res.body);
-
       expect(res.status).toBe(200);
       expect(res.body.success).toBe(true);
       expect(res.body.user.email).toBe("mock@example.com");
@@ -97,8 +95,6 @@ describe("Auth Routes - Integration (mocked DB)", () => {
         password: "AdminPass123",
         phone: "123456789",
       });
-
-      console.log("🔵 RES BODY REGISTER: ", res.body);
 
       expect(res.status).toBe(201);
       expect(res.body.success).toBe(true);

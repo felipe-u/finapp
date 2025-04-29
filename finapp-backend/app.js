@@ -35,11 +35,6 @@ app.use(emailRoutes);
 app.use(imagesRoutes);
 app.use(virtualDateRoutes);
 
-app.use((err, req, res, next) => {
-  console.error("captured error: ", err);
-  res.status(500).json({ sucess: false, message: "Internal Server Error" });
-});
-
 module.exports = app;
 
 if (require.main === module) {
