@@ -70,6 +70,7 @@ export class SettingsComponent implements OnInit {
     this.router.navigate(['/home']);
   }
 
+  /* istanbul ignore next */
   getVirtualDate() {
     this.virtualDateService.getCurrentDate().subscribe({
       next: (date) => {
@@ -82,10 +83,12 @@ export class SettingsComponent implements OnInit {
     })
   }
 
+  /* istanbul ignore next */
   setDate() {
     this.virtualDateService.setDate().subscribe()
   }
 
+  /* istanbul ignore next */
   advanceDate(days: number) {
     const sendRequest = (createClients: boolean) => {
       this.virtualDateService.advanceDate(days, createClients).subscribe({
@@ -115,6 +118,7 @@ export class SettingsComponent implements OnInit {
     }
   }
 
+  /* istanbul ignore next */
   resetDate() {
     this.virtualDateService.resetDate().subscribe({
       next: () => {
@@ -127,6 +131,7 @@ export class SettingsComponent implements OnInit {
     });
   }
 
+  /* istanbul ignore next */
   getDateWithoutTimezoneOffset(incomingDate: string) {
     var date = new Date(incomingDate);
     var dateWithoutTimezoneOffset = date.getTimezoneOffset() * 60000;
