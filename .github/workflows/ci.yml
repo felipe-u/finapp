@@ -65,8 +65,34 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install frontend dependencies
+        run: npm ci
+        working-directory: finapp-frontend
+
+      - name: Generate frontend coverage
+        run: npm run test -- --code-coverage --watch=false --browsers=ChromeHeadless
+        working-directory: finapp-frontend
+
+      - name: Install backend dependencies
+        run: npm ci
+        working-directory: finapp-backend
+
+      - name: Generate backend coverage
+        run: npm run coverage
+        working-directory: finapp-backend
+
       - name: SonarCloud Scan
         uses: SonarSource/sonarqube-scan-action@v5
+        with:
+          args: >
+            -Dsonar.organization=felipe-u
+            -Dsonar.projectKey=felipe-u_finapp
+            -Dsonar.javascript.lcov.reportPaths=finapp-frontend/coverage/lcov.info,finapp-backend/coverage/lcov.info
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
