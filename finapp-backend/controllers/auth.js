@@ -67,6 +67,7 @@ exports.login = async (req, res, next) => {
     const { email, password } = req.body;
 
     if (!email || !validator.isEmail(email)) {
+      // test update
       return res.status(400).json({ message: "Invalid email format" });
     }
 
