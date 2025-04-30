@@ -64,10 +64,10 @@ exports.register = async (req, res, next) => {
 
 exports.login = async (req, res, next) => {
   try {
+    console.log('Initializing login...');
     const { email, password } = req.body;
 
     if (!email || !validator.isEmail(email)) {
-      // test update
       return res.status(400).json({ message: "Invalid email format" });
     }
 
