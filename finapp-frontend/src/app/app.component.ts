@@ -16,9 +16,6 @@ export class AppComponent {
   constructor() {
     this.translate.addLangs(['en', 'es']);
     this.translate.setDefaultLang('es');
-    
-    console.log("Setting default language");
-
     const storedLang = localStorage.getItem('lang');
     if (storedLang) {
       this.translate.use(storedLang);
