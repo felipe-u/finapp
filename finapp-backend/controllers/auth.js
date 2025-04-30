@@ -1,6 +1,7 @@
 const { User, Admin, Manager, Assistant } = require("../models/user");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const validator = require("validator");
 require("dotenv").config();
 
 const SECRET_KEY = process.env.SECRET_KEY;
@@ -65,7 +66,17 @@ exports.login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
-    const user = await User.findOne({ email: email });
+    if (!email || !validator.isEmail(email)) {
+      return res.status(400).json({ message: "Invalid email format" });
+    }
+
+    if (!password || typeof password != "string") {
+      return res.status(400).json({ message: "Invalid password format" });
+    }
+
+    const sanitizedEmail = validator.normalizeEmail(email);
+
+    const user = await User.findOne({ email: sanitizedEmail });
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
