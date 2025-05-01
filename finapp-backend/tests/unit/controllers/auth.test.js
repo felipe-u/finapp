@@ -262,6 +262,36 @@ describe("Login Controller", () => {
     expect(mockJson).toHaveBeenCalledWith({ message: "Invalid password" });
   });
 
+  it("should return 400 if email is invalid", async () => {
+    mockReq = {
+      body: {
+        email: "not-an-email",
+        password: "password123",
+      },
+    };
+
+    await authController.login(mockReq, mockRes, mockNext);
+
+    expect(mockStatus).toHaveBeenCalledWith(400);
+    expect(mockJson).toHaveBeenCalledWith({ message: "Invalid email format" });
+  });
+
+  it("should return 400 if password is missing or not a string", async () => {
+    mockReq = {
+      body: {
+        email: "juan@test.com",
+        password: 12345,
+      },
+    };
+
+    await authController.login(mockReq, mockRes, mockNext);
+
+    expect(mockStatus).toHaveBeenCalledWith(400);
+    expect(mockJson).toHaveBeenCalledWith({
+      message: "Invalid password format",
+    });
+  });
+
   it("should return 500 if an error occurs", async () => {
     mockReq = {
       body: {
