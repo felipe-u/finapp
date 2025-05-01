@@ -30,6 +30,11 @@ describe('GeoInfoComponent', () => {
   let googleMapsServiceSpy: jasmine.SpyObj<GoogleMapsServiceService>;
 
   beforeEach(async () => {
+    (globalThis as any).google = {
+      maps: {
+        importLibrary: () => Promise.resolve()
+      }
+    }
     const mockClient = { _id: "mock-id", name: "Test Client" };
     const clientServiceMock = {
       getClient: () => signal(mockClient),
