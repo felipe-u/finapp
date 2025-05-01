@@ -7,6 +7,7 @@ import { Component, NO_ERRORS_SCHEMA, signal } from '@angular/core';
 import { of } from 'rxjs';
 import { ClientsService } from '../../../../core/services/clients.service';
 import { NotiflixService } from '../../../../core/services/notiflix.service';
+import { GoogleMapsServiceService } from '../../../../core/services/google-maps.service';
 
 @Component({
   selector: 'google-map',
@@ -26,6 +27,7 @@ describe('GeoInfoComponent', () => {
   let component: GeoInfoComponent;
   let fixture: ComponentFixture<GeoInfoComponent>;
   let notiflixServiceMock: jasmine.SpyObj<NotiflixService>;
+  let googleMapsServiceSpy: jasmine.SpyObj<GoogleMapsServiceService>;
 
   beforeEach(async () => {
     const mockClient = { _id: "mock-id", name: "Test Client" };
@@ -34,6 +36,8 @@ describe('GeoInfoComponent', () => {
       getClientGeographicInfo: jasmine.createSpy('getClientGeographicInfo').and.returnValue(of({}))
     }
     notiflixServiceMock = jasmine.createSpyObj('NotiflixService', ['showError', 'showConfirm', 'showSuccess']);
+    googleMapsServiceSpy = jasmine.createSpyObj('GoogleMapsService', ['load']);
+    googleMapsServiceSpy.load.and.returnValue(Promise.resolve());
 
     await TestBed.configureTestingModule({
       imports: [
@@ -47,7 +51,8 @@ describe('GeoInfoComponent', () => {
       ],
       providers: [
         { provide: ClientsService, useValue: clientServiceMock },
-        { provide: NotiflixService, useValue: notiflixServiceMock }
+        { provide: NotiflixService, useValue: notiflixServiceMock },
+        { provide: GoogleMapsServiceService, useValue: googleMapsServiceSpy }
       ],
       schemas: []
     })
@@ -60,6 +65,12 @@ describe('GeoInfoComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should call googleMapsService.load() and set isMapAvailable', async () => {
+    (window as any).google = { maps: {} }
+    await component.ngOnInit();
+    expect(googleMapsServiceSpy.load).toHaveBeenCalled();
   });
 
   it('should show loader when geoInfo is undefined', () => {
@@ -101,7 +112,6 @@ describe('GeoInfoComponent', () => {
   });
 
   it('should prepopulate the form with geo information', () => {
-    // Mockear el servicio que devuelve los departamentos
     const mockDepartments = [
       { name: 'Illinois', code: 'IL' },
       { name: 'California', code: 'CA' },

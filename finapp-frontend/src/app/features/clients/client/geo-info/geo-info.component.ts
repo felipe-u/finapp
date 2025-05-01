@@ -7,6 +7,7 @@ import { LocationService } from '../../../../core/services/location.service';
 import { PropertyImagesComponent } from "./property-images/property-images.component";
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { NotiflixService } from '../../../../core/services/notiflix.service';
+import { GoogleMapsServiceService } from '../../../../core/services/google-maps.service';
 
 @Component({
   selector: 'app-geo-info',
@@ -20,6 +21,7 @@ export class GeoInfoComponent {
   private locationService = inject(LocationService);
   private notiflix = inject(NotiflixService);
   private translate = inject(TranslateService);
+  private googleMapsService = inject(GoogleMapsServiceService)
   @ViewChild(PropertyImagesComponent) propertyImagesComponent!: PropertyImagesComponent;
   client = signal<any | undefined>(undefined);
   geoInfo = signal<GeoInfo>(undefined);
@@ -33,7 +35,11 @@ export class GeoInfoComponent {
   isMapAvailable;
 
   ngOnInit(): void {
-    this.isMapAvailable = typeof google !== "undefined" && google.maps;
+    this.googleMapsService.load().then(() => {
+      this.isMapAvailable = typeof google !== "undefined" && google.maps;
+    }).catch((err) => {
+      console.error('Error loading Google Maps:', err);
+    })
     this.client = this.clientsService.getClient();
     this.clientsService.getClientGeographicInfo().subscribe({
       next: (geoInfo) => {
