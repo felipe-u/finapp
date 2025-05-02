@@ -1,45 +1,57 @@
-const path = require("path");
-const upload = require("../../../middleware/upload");
+const request = require("supertest");
+const app = require("../../../app");
 
-describe("upload middleware", () => {
-  describe("fileFilter", () => {
-    const fileFilter = upload._fileFilter;
+jest.mock("../../../config/cloudinary", () => ({
+  uploader: {
+    upload: jest.fn().mockResolvedValue({
+      secure_url: "https://res.cloudinary.com/fakeurl.jpg",
+      public_id: "images/fakepublicid",
+    }),
+    destroy: jest.fn().mockResolvedValue({ result: "ok" }),
+  },
+}));
 
-    test("should accept image files", () => {
-      const req = {};
-      const file = { mimetype: "image/jpeg" };
-      const cb = jest.fn();
+jest.mock("multer-storage-cloudinary", () => ({
+  CloudinaryStorage: jest.fn().mockImplementation(() => ({})),
+}));
 
-      fileFilter(req, file, cb);
+describe("POST /upload", () => {
+  beforeEach(() => {
+    jest.resetModules();
 
-      expect(cb).toHaveBeenCalledWith(null, true);
-    });
-
-    test("should reject non-image files", () => {
-      const req = {};
-      const file = { mimetype: "application/pdf" };
-      const cb = jest.fn();
-
-      fileFilter(req, file, cb);
-
-      expect(cb).toHaveBeenCalledWith(expect.any(Error), false);
-      expect(cb.mock.calls[0][0].message).toBe("File type not allowed");
+    jest.doMock("multer", () => {
+      return jest.fn(() => ({
+        single: () => (req, res, next) => {
+          req.file = { path: "https://res.cloudinary.com/fakeurl.jpg" };
+          next();
+        },
+      }));
     });
   });
 
-  describe("filename generator", () => {
-    const filename = upload._filename;
+  it("should upload an image and return its file info", async () => {
+    const res = await request(require("../../../app"))
+      .post("/upload")
+      .attach("image", Buffer.from("fake image content"), "test.jpg");
 
-    test("should generate a filename with the correct extension", () => {
-      const req = {};
-      const file = { originalname: "photo.png" };
-      const cb = jest.fn();
+    expect(res.statusCode).toBe(201);
+    expect(res.body).toHaveProperty("imageUrl");
+    expect(typeof res.body.imageUrl).toBe("string");
+  });
 
-      filename(req, file, cb);
-
-      const generatedName = cb.mock.calls[0][1];
-      expect(generatedName.endsWith(".png")).toBe(true);
-      expect(Number.isNaN(Number(generatedName.split(".")[0]))).toBe(false);
+  it("should return 400 if no image is provided", async () => {
+    jest.doMock("multer", () => {
+      return jest.fn(() => ({
+        single: () => (req, res, next) => {
+          req.file = undefined;
+          next();
+        },
+      }));
     });
+
+    const res = await request(require("../../../app")).post("/upload");
+
+    expect(res.statusCode).toBe(400);
+    expect(res.body.message).toBe("No file provided");
   });
 });
