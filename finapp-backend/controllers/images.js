@@ -95,6 +95,7 @@ exports.deleteImages = async (req, res, next) => {
       try {
         await cloudinary.uploader.destroy(publicId);
       } catch (err) {
+        console.error(`Failed to delete ${imageUrl}:`, err.message);
         errors.push(`Failed to delete ${imageUrl}`);
       }
     }
