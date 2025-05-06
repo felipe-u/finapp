@@ -3,6 +3,7 @@ import { FinancingComponent } from "../../features/clients/client/financing/fina
 import { PersonalInfoComponent } from "../../features/clients/client/personal-info/personal-info.component";
 import { GeoInfoComponent } from "../../features/clients/client/geo-info/geo-info.component";
 import { CommercialInfoComponent } from "../../features/clients/client/commercial-info/commercial-info.component";
+import { ROUTE_PATHS } from "../utils/clients.routes.constants";
 
 export const routes: Routes = [
     {
@@ -11,19 +12,19 @@ export const routes: Routes = [
         pathMatch: 'full'
     },
     {
-        path: 'financing',
+        path: ROUTE_PATHS.FINANCING,
         component: FinancingComponent,
     },
     {
-        path: 'personal-info',
+        path: ROUTE_PATHS.PER_INFO,
         component: PersonalInfoComponent
     },
     {
-        path: 'geo-info',
+        path: ROUTE_PATHS.GEO_INFO,
         component: GeoInfoComponent
     },
     {
-        path: 'commercial-info',
+        path: ROUTE_PATHS.COM_INFO,
         component: CommercialInfoComponent
     }
 ]

@@ -4,6 +4,7 @@ const { Client, Debtor } = require("../../models/client");
 const mongoose = require("mongoose");
 const Reference = require("../../models/reference");
 const Financing = require("../../models/financing");
+const ROUTES = require("../../utils/routesPaths");
 
 jest.mock("../../models/client");
 jest.mock("../../models/reference");
@@ -918,7 +919,9 @@ describe("GET /all-debtors", () => {
     Debtor.find.mockResolvedValue(mockDebtors);
     Debtor.populate.mockResolvedValue(mockDebtors);
 
-    const res = await request(app).get(`/all-debtors?searchTerm=${searchTerm}`);
+    const res = await request(app).get(
+      `${ROUTES.CLIENTS.GET_ALL_DEBTORS}?searchTerm=${searchTerm}`
+    );
 
     expect(res.statusCode).toBe(200);
     expect(res.body).toHaveProperty("debtors");
@@ -946,7 +949,9 @@ describe("GET /all-debtors", () => {
     Debtor.find.mockResolvedValue(mockDebtors);
     Debtor.populate.mockResolvedValue(mockDebtors);
 
-    const res = await request(app).get(`/all-debtors?searchTerm=${searchTerm}`);
+    const res = await request(app).get(
+      `${ROUTES.CLIENTS.GET_ALL_DEBTORS}?searchTerm=${searchTerm}`
+    );
 
     expect(res.statusCode).toBe(200);
     expect(res.body.debtors).toEqual(mockDebtors);
@@ -965,7 +970,9 @@ describe("GET /all-debtors", () => {
     const errorMessage = "Database error";
     Debtor.find.mockRejectedValue(new Error(errorMessage));
 
-    const res = await request(app).get(`/all-debtors?searchTerm=${searchTerm}`);
+    const res = await request(app).get(
+      `${ROUTES.CLIENTS.GET_ALL_DEBTORS}?searchTerm=${searchTerm}`
+    );
 
     expect(res.statusCode).toBe(500);
     expect(res.body).toHaveProperty("message", "Error fetching debtors");
@@ -989,7 +996,7 @@ describe("POST /assign-debtor", () => {
     Debtor.findById.mockResolvedValue(mockDebtor);
 
     const res = await request(app)
-      .post("/assign-debtor")
+      .post(ROUTES.CLIENTS.ASS_DEBTOR)
       .send({ clientId: "debtor123", managerId: "manager456" });
 
     expect(res.statusCode).toBe(200);
@@ -1003,7 +1010,7 @@ describe("POST /assign-debtor", () => {
     Debtor.findById.mockResolvedValue(null);
 
     const res = await request(app)
-      .post("/assign-debtor")
+      .post(ROUTES.CLIENTS.ASS_DEBTOR)
       .send({ clientId: "nonexistentId", managerId: "manager456" });
 
     expect(res.statusCode).toBe(404);
@@ -1015,7 +1022,7 @@ describe("POST /assign-debtor", () => {
     Debtor.findById.mockRejectedValue(new Error("DB error"));
 
     const res = await request(app)
-      .post("/assign-debtor")
+      .post(ROUTES.CLIENTS.ASS_DEBTOR)
       .send({ clientId: "debtor123", managerId: "manager456" });
 
     expect(res.statusCode).toBe(500);
@@ -1040,7 +1047,7 @@ describe("POST /remove-debtor", () => {
     Debtor.findById.mockResolvedValue(mockDebtor);
 
     const res = await request(app)
-      .post("/remove-debtor")
+      .post(ROUTES.CLIENTS.REM_DEBTOR)
       .send({ clientId: "debtor123" });
 
     expect(res.statusCode).toBe(200);
@@ -1054,7 +1061,7 @@ describe("POST /remove-debtor", () => {
     Debtor.findById.mockResolvedValue(null);
 
     const res = await request(app)
-      .post("/remove-debtor")
+      .post(ROUTES.CLIENTS.REM_DEBTOR)
       .send({ clientId: "nonexistentId" });
 
     expect(res.statusCode).toBe(404);
@@ -1065,7 +1072,7 @@ describe("POST /remove-debtor", () => {
     Debtor.findById.mockRejectedValue(new Error("DB error"));
 
     const res = await request(app)
-      .post("/remove-debtor")
+      .post(ROUTES.CLIENTS.REM_DEBTOR)
       .send({ clientId: "debtor123" });
 
     expect(res.statusCode).toBe(500);
@@ -1110,7 +1117,7 @@ describe("GET /debtors-list-report", () => {
     });
 
     const res = await request(app)
-      .get("/debtors-list-report")
+      .get(ROUTES.CLIENTS.GET_DEBTORS_REP)
       .query({ reportType: "delinquency-report", days: "30" });
 
     expect(res.statusCode).toBe(200);
@@ -1130,7 +1137,7 @@ describe("GET /debtors-list-report", () => {
 
   it("should return 400 for invalid days parameter", async () => {
     const res = await request(app)
-      .get("/debtors-list-report")
+      .get(ROUTES.CLIENTS.GET_DEBTORS_REP)
       .query({ reportType: "delinquency-report", days: "15" });
 
     expect(res.statusCode).toBe(400);
@@ -1139,7 +1146,7 @@ describe("GET /debtors-list-report", () => {
 
   it("should return 400 for invalid reportType", async () => {
     const res = await request(app)
-      .get("/debtors-list-report")
+      .get(ROUTES.CLIENTS.GET_DEBTORS_REP)
       .query({ reportType: "invalid-type", days: "30" });
 
     expect(res.statusCode).toBe(400);
@@ -1154,7 +1161,7 @@ describe("GET /debtors-list-report", () => {
     });
 
     const res = await request(app)
-      .get("/debtors-list-report")
+      .get(ROUTES.CLIENTS.GET_DEBTORS_REP)
       .query({ reportType: "delinquency-report", days: "30" });
 
     expect(res.statusCode).toBe(500);

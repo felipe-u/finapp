@@ -1,0 +1,46 @@
+module.exports = {
+  AUTH: {
+    REGISTER: "/auth/register",
+    LOGIN: "/auth/login",
+  },
+  CLIENTS: {
+    GET_CLIENT: "/clients/:clientId",
+    GET_CLIENT_FIN: "/clients/:clientId/financing",
+    GET_CLIENT_PER: "/clients/:clientId/personalInfo",
+    EDIT_CLIENT_PER: "/clients/:clientId/personalInfo/edit",
+    GET_CLIENT_GEO: "/clients/:clientId/geoInfo",
+    EDIT_CLIENT_GEO: "/clients/:clientId/geoInfo/edit",
+    GET_CLIENT_COM: "/clients/:clientId/commercialInfo",
+    EDIT_CLIENT_COM: "/clients/:clientId/commercialInfo/edit",
+    GET_CLIENT_NAME: "/clients/:clientId/name",
+    GET_DEBTORS_BY_MAN: "/debtors-list/:managerId",
+    GET_ALL_DEBTORS: "/all-debtors",
+    ASS_DEBTOR: "/assign-debtor",
+    REM_DEBTOR: "/remove-debtor",
+    GET_DEBTORS_WITHOUT_ASS: "/debtors-list-no-assignment",
+    GET_DEBTORS_REP: "/debtors-list-report",
+  },
+  EMAIL: {
+    SEND: "/send-email",
+  },
+  IMAGES: {
+    UPLOAD: "/upload",
+    UPD_CLIENT_PH: "/imgs/personal-info",
+    UPD_USER_PH: "/imgs/user",
+    DELETE: "/delete-image",
+    DELETE_MULT: "/delete-images",
+  },
+  USER: {
+    GET_USER: "/users",
+    GET_ALL_USERS: "/users/all",
+    UPD_USER: "/user-update",
+    CHECK_PASS: "/check-password",
+    CHANGE_PASS: "/change-password",
+    CHANGE_LANG: "/change-lang",
+  },
+  VIRTUAL_DATE: {
+    GET_CURRENT: "/virtual-date/get",
+    ADVANCE: "/virtual-date/advance",
+    RESET: "/virtual-date/reset",
+  },
+};

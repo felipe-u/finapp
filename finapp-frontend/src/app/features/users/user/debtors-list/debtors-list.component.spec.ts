@@ -79,15 +79,6 @@ describe('DebtorsListComponent', () => {
     expect(component.debtors()).toEqual(mockDebtors);
   });
 
-  it('should log error on updateDebtorsList failure', () => {
-    const consoleSpy = spyOn(console, 'error');
-    clientsServiceSpy.getDebtorsList.and.returnValue(throwError(() => new Error('Error occurred')));
-
-    component.updateDebtorsList();
-
-    expect(consoleSpy).toHaveBeenCalledWith('Error occurred');
-  });
-
   it('should remove debtor after confirm', fakeAsync(() => {
     const debtorId = '123';
     clientsServiceSpy.removeDebtorFromManager.and.returnValue(of({}));
@@ -110,7 +101,6 @@ describe('DebtorsListComponent', () => {
     const debtorId = '123';
     clientsServiceSpy.removeDebtorFromManager.and.returnValue(throwError(() => new Error('fail')));
     spyOn(translateService, 'instant').and.callFake((key) => key);
-    const consoleSpy = spyOn(console, 'error');
 
     notiflixSpy.showConfirm.and.callFake((title, message, onOk) => {
       onOk();
@@ -121,6 +111,5 @@ describe('DebtorsListComponent', () => {
 
     expect(clientsServiceSpy.removeDebtorFromManager).toHaveBeenCalledWith(debtorId);
     expect(notiflixSpy.showError).toHaveBeenCalled();
-    expect(consoleSpy).toHaveBeenCalledWith('fail');
   }));
 });

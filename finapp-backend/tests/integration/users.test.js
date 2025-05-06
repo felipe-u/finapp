@@ -2,6 +2,7 @@ const request = require("supertest");
 const bcrypt = require("bcryptjs");
 const app = require("../../app");
 const { User, Manager, Assistant } = require("../../models/user");
+const ROUTES = require("../../utils/routesPaths");
 
 jest.mock("../../models/user", () => ({
   User: {
@@ -31,7 +32,7 @@ describe("GET /users/all", () => {
     Manager.find.mockResolvedValue(mockManagers);
     Assistant.find.mockResolvedValue(mockAssistants);
 
-    const res = await request(app).get("/users/all");
+    const res = await request(app).get(ROUTES.USER.GET_ALL_USERS);
 
     expect(res.statusCode).toBe(200);
     expect(res.body.managers).toEqual(mockManagers);
@@ -62,7 +63,7 @@ describe("GET /users/all", () => {
   it("should return 500 if an error occurs", async () => {
     Manager.find.mockRejectedValue(new Error("DB error"));
 
-    const res = await request(app).get("/users/all");
+    const res = await request(app).get(ROUTES.USER.GET_ALL_USERS);
 
     expect(res.statusCode).toBe(500);
     expect(res.body).toHaveProperty("message", "Server error");
@@ -79,7 +80,7 @@ describe("GET /users", () => {
     const mockUser = { _id: "u1", name: "John Doe" };
     User.findById.mockResolvedValue(mockUser);
 
-    const res = await request(app).get("/users?userId=u1");
+    const res = await request(app).get(`${ROUTES.USER.GET_USER}?userId=u1`);
 
     expect(res.statusCode).toBe(200);
     expect(res.body.user).toEqual(mockUser);
@@ -89,7 +90,7 @@ describe("GET /users", () => {
   it("should return 404 if user not found", async () => {
     User.findById.mockResolvedValue(null);
 
-    const res = await request(app).get("/users?userId=u1");
+    const res = await request(app).get(`${ROUTES.USER.GET_USER}?userId=u1`);
 
     expect(res.statusCode).toBe(404);
     expect(res.body).toHaveProperty("error", "User not found");
@@ -99,7 +100,7 @@ describe("GET /users", () => {
   it("should return 500 if DB error occurs", async () => {
     User.findById.mockRejectedValue(new Error("DB error"));
 
-    const res = await request(app).get("/users?userId=u1");
+    const res = await request(app).get(`${ROUTES.USER.GET_USER}?userId=u1`);
 
     expect(res.statusCode).toBe(500);
     expect(res.body).toHaveProperty("message", "Server error");
@@ -121,7 +122,7 @@ describe("PUT /user-update", () => {
     };
     User.findById.mockResolvedValue(mockUser);
 
-    const res = await request(app).put("/user-update").send({
+    const res = await request(app).put(ROUTES.USER.UPD_USER).send({
       userId: "u1",
       email: "new@example.com",
       phone: "123456",
@@ -138,7 +139,7 @@ describe("PUT /user-update", () => {
   it("should return 404 if user not found", async () => {
     User.findById.mockResolvedValue(null);
 
-    const res = await request(app).put("/user-update").send({
+    const res = await request(app).put(ROUTES.USER.UPD_USER).send({
       userId: "u1",
       email: "new@example.com",
       phone: "123456",
@@ -152,7 +153,7 @@ describe("PUT /user-update", () => {
   it("should return 500 if DB error occurs", async () => {
     User.findById.mockRejectedValue(new Error("DB error"));
 
-    const res = await request(app).put("/user-update").send({
+    const res = await request(app).put(ROUTES.USER.UPD_USER).send({
       userId: "u1",
       email: "new@example.com",
       phone: "123456",
@@ -177,7 +178,7 @@ describe("POST /check-password", () => {
     User.findById.mockResolvedValue(mockUser);
     bcrypt.compare.mockResolvedValue(true);
 
-    const res = await request(app).post("/check-password").send({
+    const res = await request(app).post(ROUTES.USER.CHECK_PASS).send({
       userId: "u1",
       oldPassword: "plaintextPassword",
     });
@@ -199,7 +200,7 @@ describe("POST /check-password", () => {
     User.findById.mockResolvedValue(mockUser);
     bcrypt.compare.mockResolvedValue(false);
 
-    const res = await request(app).post("/check-password").send({
+    const res = await request(app).post(ROUTES.USER.CHECK_PASS).send({
       userId: "u1",
       oldPassword: "wrongPassword",
     });
@@ -216,7 +217,7 @@ describe("POST /check-password", () => {
   it("should return 404 if user not found", async () => {
     User.findById.mockResolvedValue(null);
 
-    const res = await request(app).post("/check-password").send({
+    const res = await request(app).post(ROUTES.USER.CHECK_PASS).send({
       userId: "u1",
       oldPassword: "anyPassword",
     });
@@ -228,7 +229,7 @@ describe("POST /check-password", () => {
   it("should return 500 on server error", async () => {
     User.findById.mockRejectedValue(new Error("DB error"));
 
-    const res = await request(app).post("/check-password").send({
+    const res = await request(app).post(ROUTES.USER.CHECK_PASS).send({
       userId: "u1",
       oldPassword: "anyPassword",
     });
@@ -254,7 +255,7 @@ describe("POST /change-password", () => {
     User.findById.mockResolvedValue(mockUser);
     bcrypt.hashSync.mockReturnValue("newHashedPass");
 
-    const res = await request(app).post("/change-password").send({
+    const res = await request(app).post(ROUTES.USER.CHANGE_PASS).send({
       userId: "u1",
       newPassword: "myNewPass123",
     });
@@ -270,7 +271,7 @@ describe("POST /change-password", () => {
   it("should return 404 if user not found", async () => {
     User.findById.mockResolvedValue(null);
 
-    const res = await request(app).post("/change-password").send({
+    const res = await request(app).post(ROUTES.USER.CHANGE_PASS).send({
       userId: "u1",
       newPassword: "irrelevant",
     });
@@ -282,7 +283,7 @@ describe("POST /change-password", () => {
   it("should return 500 if an error occurs", async () => {
     User.findById.mockRejectedValue(new Error("DB error"));
 
-    const res = await request(app).post("/change-password").send({
+    const res = await request(app).post(ROUTES.USER.CHANGE_PASS).send({
       userId: "u1",
       newPassword: "somePass",
     });
@@ -307,7 +308,7 @@ describe("POST /change-lang", () => {
     };
     User.findById.mockResolvedValue(mockUser);
 
-    const res = await request(app).post("/change-lang").send({
+    const res = await request(app).post(ROUTES.USER.CHANGE_LANG).send({
       userId: "u1",
       newLang: "es",
     });
@@ -322,7 +323,7 @@ describe("POST /change-lang", () => {
   it("should return 404 if user not found", async () => {
     User.findById.mockResolvedValue(null);
 
-    const res = await request(app).post("/change-lang").send({
+    const res = await request(app).post(ROUTES.USER.CHANGE_LANG).send({
       userId: "u1",
       newLang: "fr",
     });
@@ -334,7 +335,7 @@ describe("POST /change-lang", () => {
   it("should return 500 if an error occurs", async () => {
     User.findById.mockRejectedValue(new Error("DB crash"));
 
-    const res = await request(app).post("/change-lang").send({
+    const res = await request(app).post(ROUTES.USER.CHANGE_LANG).send({
       userId: "u1",
       newLang: "de",
     });

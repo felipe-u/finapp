@@ -1,19 +1,18 @@
 const express = require("express");
-
-const router = express.Router();
-
 const usersController = require("../controllers/users");
+const router = express.Router();
+const ROUTES = require("../utils/routesPaths");
 
-router.get("/users", usersController.getUser);
+router.get(ROUTES.USER.GET_USER, usersController.getUser);
 
-router.get("/users/all", usersController.getAllUsers);
+router.get(ROUTES.USER.GET_ALL_USERS, usersController.getAllUsers);
 
-router.put("/user-update", usersController.updateUser);
+router.put(ROUTES.USER.UPD_USER, usersController.updateUser);
 
-router.post("/check-password", usersController.checkPassword);
+router.post(ROUTES.USER.CHECK_PASS, usersController.checkPassword);
 
-router.post("/change-password", usersController.changePassword);
+router.post(ROUTES.USER.CHANGE_PASS, usersController.changePassword);
 
-router.post("/change-lang", usersController.changeLang);
+router.post(ROUTES.USER.CHANGE_LANG, usersController.changeLang);
 
 module.exports = router;

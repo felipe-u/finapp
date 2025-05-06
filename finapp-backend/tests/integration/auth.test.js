@@ -3,6 +3,7 @@ const bcrypt = require("bcryptjs");
 process.env.SECRET_KEY = "testsecret";
 const app = require("../../app");
 const { User, Admin, Manager } = require("../../models/user");
+const ROUTES = require("../../utils/routesPaths");
 
 jest.mock("../../models/user", () => ({
   User: {
@@ -34,7 +35,7 @@ describe("Auth Routes - Integration (mocked DB)", () => {
       User.findOne.mockResolvedValue(mockUser);
 
       const res = await request(app)
-        .post("/auth/login")
+        .post(ROUTES.AUTH.LOGIN)
         .send({ email: "mock@example.com", password: "Password123" });
 
       expect(res.status).toBe(200);
@@ -47,7 +48,7 @@ describe("Auth Routes - Integration (mocked DB)", () => {
       User.findOne.mockResolvedValue(null);
 
       const res = await request(app)
-        .post("/auth/login")
+        .post(ROUTES.AUTH.LOGIN)
         .send({ email: "nouser@example.com", password: "pass" });
 
       expect(res.status).toBe(404);
@@ -61,7 +62,7 @@ describe("Auth Routes - Integration (mocked DB)", () => {
       User.findOne.mockResolvedValue(mockUser);
 
       const res = await request(app)
-        .post("/auth/login")
+        .post(ROUTES.AUTH.LOGIN)
         .send({ email: "mock@example.com", password: "WrongPass" });
 
       expect(res.status).toBe(401);
@@ -88,7 +89,7 @@ describe("Auth Routes - Integration (mocked DB)", () => {
         };
       });
 
-      const res = await request(app).post("/auth/register").send({
+      const res = await request(app).post(ROUTES.AUTH.REGISTER).send({
         name: "Admin User",
         role: "admin",
         email: "admin@example.com",
@@ -102,7 +103,7 @@ describe("Auth Routes - Integration (mocked DB)", () => {
     });
 
     it("should return 400 for invalid role", async () => {
-      const res = await request(app).post("/auth/register").send({
+      const res = await request(app).post(ROUTES.AUTH.REGISTER).send({
         name: "User",
         role: "invalidRole",
         email: "user@example.com",
@@ -126,7 +127,7 @@ describe("Auth Routes - Integration (mocked DB)", () => {
         };
       });
 
-      const res = await request(app).post("/auth/register").send({
+      const res = await request(app).post(ROUTES.AUTH.REGISTER).send({
         name: "Manager",
         role: "manager",
         email: "manager@example.com",

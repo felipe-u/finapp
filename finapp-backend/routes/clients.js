@@ -1,37 +1,36 @@
 const express = require("express");
-
-const router = express.Router();
-
 const clientsController = require("../controllers/clients");
+const router = express.Router();
+const ROUTES = require("../utils/routesPaths");
 
-router.get("/clients/:clientId", clientsController.getClient);
+router.get(ROUTES.CLIENTS.GET_CLIENT, clientsController.getClient);
 
-router.get("/clients/:clientId/financing", clientsController.getClientFinancing);
+router.get(ROUTES.CLIENTS.GET_CLIENT_FIN, clientsController.getClientFinancing);
 
-router.get("/clients/:clientId/personalInfo", clientsController.getClientPersonalInfo);
+router.get(ROUTES.CLIENTS.GET_CLIENT_PER, clientsController.getClientPersonalInfo);
 
-router.post("/clients/:clientId/personalInfo/edit", clientsController.editClientPersonalInfo);
+router.post(ROUTES.CLIENTS.EDIT_CLIENT_PER, clientsController.editClientPersonalInfo);
 
-router.get("/clients/:clientId/geoInfo", clientsController.getClientGeoInfo);
+router.get(ROUTES.CLIENTS.GET_CLIENT_GEO, clientsController.getClientGeoInfo);
 
-router.post("/clients/:clientId/geoInfo/edit", clientsController.editClientGeoInfo);
+router.post(ROUTES.CLIENTS.EDIT_CLIENT_GEO, clientsController.editClientGeoInfo);
 
-router.get("/clients/:clientId/commercialInfo", clientsController.getClientCommercialInfo);
+router.get(ROUTES.CLIENTS.GET_CLIENT_COM, clientsController.getClientCommercialInfo);
 
-router.post("/clients/:clientId/commercialInfo/edit", clientsController.editClientCommercialInfo);
+router.post(ROUTES.CLIENTS.EDIT_CLIENT_COM, clientsController.editClientCommercialInfo);
 
-router.get("/clients/:clientId/name", clientsController.getClientName);
+router.get(ROUTES.CLIENTS.GET_CLIENT_NAME, clientsController.getClientName);
 
-router.get("/debtors-list/:managerId", clientsController.getDebtorsListByManager);
+router.get(ROUTES.CLIENTS.GET_DEBTORS_BY_MAN, clientsController.getDebtorsListByManager);
 
-router.get("/all-debtors", clientsController.getAllDebtors);
+router.get(ROUTES.CLIENTS.GET_ALL_DEBTORS, clientsController.getAllDebtors);
 
-router.post("/assign-debtor", clientsController.assigndDebtorToManager)
+router.post(ROUTES.CLIENTS.ASS_DEBTOR, clientsController.assigndDebtorToManager)
 
-router.post("/remove-debtor", clientsController.removeDebtorFromManager);
+router.post(ROUTES.CLIENTS.REM_DEBTOR, clientsController.removeDebtorFromManager);
 
-router.get("/debtors-list-no-assignment", clientsController.getDebtorsListWithoutAssignment);
+router.get(ROUTES.CLIENTS.GET_DEBTORS_WITHOUT_ASS, clientsController.getDebtorsListWithoutAssignment);
 
-router.get("/debtors-list-report", clientsController.getDebtorsForReport);
+router.get(ROUTES.CLIENTS.GET_DEBTORS_REP, clientsController.getDebtorsForReport);
 
 module.exports = router;

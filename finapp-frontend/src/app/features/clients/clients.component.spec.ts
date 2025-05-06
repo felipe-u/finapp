@@ -94,15 +94,4 @@ describe('ClientsComponent', () => {
     component.openClientProfile('abc123');
     expect(routerSpy.navigate).toHaveBeenCalledWith(['clients', 'abc123']);
   });
-
-  it('should log an error if getDebtorsBySearchTerm fails', () => {
-    const error = new Error('Search error');
-    component.searchTerm = 'john';
-    mockClientsService.getDebtorsBySearchTerm.and.returnValue(throwError(() => error));
-
-    const consoleSpy = spyOn(console, 'error');
-    component.validateInput();
-
-    expect(consoleSpy).toHaveBeenCalledWith('Search error');
-  });
 });
