@@ -7,6 +7,7 @@ import { PasswordModalComponent } from "./password-modal/password-modal.componen
 import { ProfilePictureModalComponent } from "../../../shared/profile-picture-modal/profile-picture-modal.component";
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { NotiflixService } from '../../../core/services/notiflix.service';
+import { LoggingService } from '../../../core/services/logging.service';
 
 @Component({
   selector: 'app-profile',
@@ -25,6 +26,7 @@ export class ProfileComponent implements OnInit {
   private activatedRoute = inject(ActivatedRoute);
   private notiflix = inject(NotiflixService);
   private translate = inject(TranslateService);
+  private loggingService = inject(LoggingService);
   user = signal<any | undefined>(undefined);
   editMode = false;
   isPasswordModalOpen = false;
@@ -44,10 +46,9 @@ export class ProfileComponent implements OnInit {
       this.usersService.findById(params.userId).subscribe({
         next: (user) => {
           this.user.set(user);
-          console.log(user);
         },
         error: (error: Error) => {
-          console.error(error.message);
+          this.loggingService.error(error.message);
         }
       })
     })
@@ -95,7 +96,7 @@ export class ProfileComponent implements OnInit {
             );
           },
           error: (error: Error) => {
-            console.error(error.message);
+            this.loggingService.error(error.message);
             this.notiflix.showError(
               this.translate.instant('NOTIFLIX.ERROR')
             );

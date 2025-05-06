@@ -58,7 +58,6 @@ describe('ReportModalComponent', () => {
   }));
 
   it('should handle error from getDebtorsForReport', fakeAsync(() => {
-    const consoleSpy = spyOn(console, 'error');
     clientsService.getDebtorsForReport.and.returnValue(throwError(() => new Error('error')));
 
     component.reportType = 'test';
@@ -67,7 +66,6 @@ describe('ReportModalComponent', () => {
     tick();
 
     expect(clientsService.getDebtorsForReport).toHaveBeenCalled();
-    expect(consoleSpy).toHaveBeenCalledWith(jasmine.any(Error));
     expect(component.loadingData).toBeFalse();
   }));
 

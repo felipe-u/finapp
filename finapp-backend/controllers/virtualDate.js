@@ -1,4 +1,6 @@
 const { fakerES_MX: faker } = require("@faker-js/faker");
+const logger = require("../utils/logger");
+const logMessages = require("../utils/logMessages");
 const VirtualDate = require("../models/virtualDate");
 const { Debtor, Codebtor } = require("../models/client");
 const PersonalInfo = require("../models/personalInfo");
@@ -16,8 +18,10 @@ exports.setDate = async (req, res, next) => {
       currentDate: initialDate,
     });
     virtualDate.save();
-    console.log("Virtual Date set at 2025/01/01");
-  } catch (err) {}
+    logger.info(logMessages.SET_VIRTUAL_DATE);
+  } catch (err) {
+    logger.error(logMessages.SET_VIRTUAL_DATE_ERROR);
+  }
 };
 
 exports.getCurrentDate = async (req, res, next) => {
@@ -46,11 +50,11 @@ exports.advanceDate = async (req, res, next) => {
       current.setDate(current.getDate() + 1);
       virtualDateSchema.currentDate = current;
       await virtualDateSchema.save();
-      console.log(`Simulated day: ${current.toDateString()}`);
+      logger.info(logMessages.SIM_DATE(current.toDateString()));
 
       if (createClients) {
         await exports.createClientForToday(current);
-        console.log("Simulated client created");
+        logger.info(logMessages.SIM_USER_CREATED);
       }
 
       const simulatedFinancings = await Financing.find({ isSimulated: true })
@@ -98,7 +102,7 @@ exports.advanceDate = async (req, res, next) => {
             await i.save();
           }
           await currentInstallment.save();
-          console.log(`Installment paid`);
+          logger.info(logMessages.INST_PAID);
 
           const hasOverdue = installments.some(
             (i) => !i.installmentPaid && i.overdueDays > 0
@@ -120,7 +124,7 @@ exports.advanceDate = async (req, res, next) => {
             ).toFixed(2)
           );
           await currentInstallment.save();
-          console.log("Installment not paid");
+          logger.info(logMessages.INST_NOT_PAID);
 
           const overdue = currentInstallment.overdueDays;
           if (overdue === 0) financing.status = "AD";
@@ -146,9 +150,9 @@ exports.resetDate = async (req, res, next) => {
       { currentDate: initialDate },
       { upsert: true, new: true }
     );
-    console.log("Virtual date restarted");
+    logger.info(logMessages.VIRTUAL_DATE_RESET);
     await exports.deleteSimulatedData();
-    console.log("Simulated data deleted");
+    logger.info(logMessages.SIM_DATA_DELETED);
     res.status(200).json({ message: "Date restarted" });
   } catch (err) {
     res.status(500).json({ message: "Error restarting virtual date" });
@@ -524,7 +528,7 @@ exports.createClientForToday = async (virtualDate) => {
     });
     const savedNewDebtor = await newDebtor.save();
   } catch (err) {
-    console.error("Error creating client", err);
+    logger.error(logMessages.USER_CREATE_ERROR(err));
   }
 };
 
@@ -542,7 +546,7 @@ exports.deleteSimulatedData = async () => {
       Motorcycle.deleteMany({ isSimulated: true }),
     ]);
   } catch (err) {
-    console.error("Error deleting simulated data...");
+    logger.error(logMessages.SIM_DATA_DELETED_ERROR);
   }
 };
 

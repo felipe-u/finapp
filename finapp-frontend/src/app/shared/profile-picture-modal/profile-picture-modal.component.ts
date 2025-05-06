@@ -3,6 +3,8 @@ import { ImagesService } from '../../core/services/images.service';
 import { UsersService } from '../../core/services/users.service';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { NotiflixService } from '../../core/services/notiflix.service';
+import { LoggingService } from '../../core/services/logging.service';
+import { LogMessages } from '../../core/utils/log-messages';
 
 @Component({
   selector: 'app-profile-picture-modal',
@@ -16,6 +18,7 @@ export class ProfilePictureModalComponent {
   private usersService = inject(UsersService);
   private notiflix = inject(NotiflixService);
   private translate = inject(TranslateService);
+  private loggingService = inject(LoggingService);
   @Output() close = new EventEmitter<void>();
   @Output() newImageUrl = new EventEmitter<string>();
   @Input() model: string;
@@ -34,7 +37,7 @@ export class ProfilePictureModalComponent {
             this.imageUrl = response.imageUrl;
           },
           error: (err) => {
-            console.error(err.message);
+            this.loggingService.error(err.message);
           }
         })
     }
@@ -56,12 +59,11 @@ export class ProfilePictureModalComponent {
               this.usersService.setUserPhoto(this.imagesService.tempImageUrl);
             }
           }
-          console.log('Profile image updated successfully');
           this.closeModal();
           this.exportNewImageUrl();
         },
         error: (err) => {
-          console.error(err.message);
+          this.loggingService.error(err.message);
         }
       })
   }
@@ -86,10 +88,10 @@ export class ProfilePictureModalComponent {
       this.imagesService.deleteImage(this.actualImageUrl)
         .subscribe({
           next: () => {
-            console.log('Image deleted')
+            this.loggingService.log(LogMessages.IMG_DELETED);
           },
           error: (err) => {
-            console.error(err.message);
+            this.loggingService.error(err.message);
           }
         })
     }
@@ -99,10 +101,10 @@ export class ProfilePictureModalComponent {
     if (this.imagesService.tempImageUrl) {
       this.imagesService.deleteTmpImage()?.subscribe({
         next: () => {
-          console.log('Temp image deleted')
+          this.loggingService.log(LogMessages.TMP_IMG_DELETED);
         },
         error: (err) => {
-          console.error(err.message);
+          this.loggingService.error(err.message);
         }
       })
     }

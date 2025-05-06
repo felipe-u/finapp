@@ -2,6 +2,7 @@ import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, RouterOutlet } from '@angular/router';
 import { ClientNavbarComponent } from "./client-navbar/client-navbar.component";
 import { ClientsService } from '../../../core/services/clients.service';
+import { LoggingService } from '../../../core/services/logging.service';
 
 
 @Component({
@@ -15,6 +16,7 @@ export class ClientComponent implements OnInit, OnDestroy {
 
   private activatedRoute = inject(ActivatedRoute);
   private clientsService = inject(ClientsService);
+  private loggingService = inject(LoggingService);
   client = signal<any | undefined>(undefined);
 
   ngOnInit(): void {
@@ -28,7 +30,7 @@ export class ClientComponent implements OnInit, OnDestroy {
           this.clientsService.setClient(client);
         },
         error: (error: Error) => {
-          console.error(error.message);
+          this.loggingService.error(error.message);
         }
       })
     })

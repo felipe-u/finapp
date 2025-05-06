@@ -3,6 +3,7 @@ import { ClientsService } from '../../../../core/services/clients.service';
 import { Financing } from '../../../../core/models/financing.model';
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
+import { LoggingService } from '../../../../core/services/logging.service';
 
 @Component({
   selector: 'app-financing',
@@ -13,6 +14,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 })
 export class FinancingComponent implements OnInit {
   private clientsService = inject(ClientsService);
+  private loggingService = inject(LoggingService);
   client = signal<any | undefined>(undefined);
   financing = signal<Financing>(undefined);
 
@@ -23,7 +25,7 @@ export class FinancingComponent implements OnInit {
         this.financing.set(financing);
       },
       error: (error: Error) => {
-        console.error(error.message);
+        this.loggingService.error(error.message);
       }
     });
   }

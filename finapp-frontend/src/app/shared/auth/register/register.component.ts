@@ -7,6 +7,7 @@ import { ClientsService } from '../../../core/services/clients.service';
 import { UsersService } from '../../../core/services/users.service';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { NotiflixService } from '../../../core/services/notiflix.service';
+import { LoggingService } from '../../../core/services/logging.service';
 
 @Component({
   selector: 'app-register',
@@ -21,7 +22,7 @@ export class RegisterComponent {
   private usersService = inject(UsersService);
   private notiflix = inject(NotiflixService);
   private translate = inject(TranslateService);
-  private router = inject(Router);
+  private loggingService = inject(LoggingService);
 
   form = new FormGroup({
     name: new FormControl('', {
@@ -88,7 +89,7 @@ export class RegisterComponent {
         this.authService.logout();
       },
       error: (err) => {
-        console.error(err.message);
+        this.loggingService.error(err.message);
         this.notiflix.showError(
           this.translate.instant('NOTIFLIX.ERROR')
         );

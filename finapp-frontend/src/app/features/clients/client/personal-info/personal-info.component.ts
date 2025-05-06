@@ -6,6 +6,7 @@ import { ProfilePictureModalComponent } from "../../../../shared/profile-picture
 import { DatePipe } from '@angular/common';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { NotiflixService } from '../../../../core/services/notiflix.service';
+import { LoggingService } from '../../../../core/services/logging.service';
 
 @Component({
   selector: 'app-personal-info',
@@ -23,6 +24,7 @@ export class PersonalInfoComponent {
   private clientsService = inject(ClientsService);
   private notiflix = inject(NotiflixService);
   private translate = inject(TranslateService);
+  private loggingService = inject(LoggingService);
   client = signal<any | undefined>(undefined);
   personalInfo = signal<PersonalInfo>(undefined)
   editMode = false;
@@ -50,10 +52,9 @@ export class PersonalInfoComponent {
         this.personalInfo.set(personalInfo);
         const birthDate = this.getDateWithoutTimezoneOffset(personalInfo.birthDate);
         this.personalInfo().birthDate = birthDate;
-        console.log(personalInfo);
       },
       error: (error: Error) => {
-        console.error(error.message);
+        this.loggingService.error(error.message);
       }
     });
   }
@@ -111,7 +112,7 @@ export class PersonalInfoComponent {
               );
             },
             error: (error: Error) => {
-              console.error(error.message);
+              this.loggingService.error(error.message);
               this.notiflix.showError(
                 this.translate.instant('NOTIFLIX.ERROR')
               );

@@ -1,6 +1,8 @@
 const express = require("express");
 const connectDB = require("./database");
 const bodyParser = require("body-parser");
+const logger = require("./utils/logger");
+const logMessages = require("./utils/logMessages");
 
 const usersRoutes = require("./routes/users");
 const clientsRoutes = require("./routes/clients");
@@ -40,7 +42,7 @@ module.exports = app;
 if (require.main === module) {
   connectDB().then(() => {
     app.listen(PORT, () => {
-      console.log(`Server is running on port ${PORT}`);
+      logger.info(logMessages.SERVER_STARTED(PORT));
     });
   });
 }

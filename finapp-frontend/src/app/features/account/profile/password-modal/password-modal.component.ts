@@ -3,6 +3,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { UsersService } from '../../../../core/services/users.service';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { NotiflixService } from '../../../../core/services/notiflix.service';
+import { LoggingService } from '../../../../core/services/logging.service';
 
 @Component({
   selector: 'app-password-modal',
@@ -15,6 +16,7 @@ export class PasswordModalComponent {
   private usersService = inject(UsersService);
   private notiflix = inject(NotiflixService);
   private translate = inject(TranslateService);
+  private loggingService = inject(LoggingService);
   @Output() close = new EventEmitter<void>();
   @Input() userId: string;
   isOldPasswordWrongOrNotEnteredYet = true;
@@ -44,7 +46,7 @@ export class PasswordModalComponent {
         }
       },
       error: (error) => {
-        console.error(error);
+        this.loggingService.error(error.message);
       }
     })
   }
@@ -59,7 +61,7 @@ export class PasswordModalComponent {
         this.closeModal();
       },
       error: (error) => {
-        console.error(error);
+        this.loggingService.error(error.message);
       }
     })
   }

@@ -4,6 +4,7 @@ import { ClientsService } from '../../../../core/services/clients.service';
 import { ActivatedRoute } from '@angular/router';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { NotiflixService } from '../../../../core/services/notiflix.service';
+import { LoggingService } from '../../../../core/services/logging.service';
 
 @Component({
   selector: 'app-debtors-list',
@@ -17,6 +18,7 @@ export class DebtorsListComponent implements OnInit {
   private activatedRoute = inject(ActivatedRoute);
   private notiflix = inject(NotiflixService);
   private translate = inject(TranslateService);
+  private loggingService = inject(LoggingService);
   managerId = signal<string>('');
   debtors = signal<any>([]);
   managingDebtors = false;
@@ -47,7 +49,7 @@ export class DebtorsListComponent implements OnInit {
               )
             },
             error: (error: Error) => {
-              console.error(error.message);
+              this.loggingService.error(error.message);
               this.notiflix.showError(
                 this.translate.instant('NOTIFLIX.ERROR')
               );
@@ -81,7 +83,7 @@ export class DebtorsListComponent implements OnInit {
         this.debtors.set(debtors);
       },
       error: (error: Error) => {
-        console.error(error.message);
+        this.loggingService.error(error.message);
       }
     });
   }

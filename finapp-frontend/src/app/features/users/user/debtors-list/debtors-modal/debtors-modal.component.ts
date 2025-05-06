@@ -3,6 +3,8 @@ import { ClientsService } from '../../../../../core/services/clients.service';
 import { FormsModule } from '@angular/forms';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { NotiflixService } from '../../../../../core/services/notiflix.service';
+import { LoggingService } from '../../../../../core/services/logging.service';
+import { LogMessages } from '../../../../../core/utils/log-messages';
 
 @Component({
   selector: 'app-debtors-modal',
@@ -15,6 +17,7 @@ export class DebtorsModalComponent {
   private clientsService = inject(ClientsService);
   private notiflix = inject(NotiflixService);
   private translate = inject(TranslateService);
+  private loggingService = inject(LoggingService);
   @Output() close = new EventEmitter<void>();
   @Output() updateDebtors = new EventEmitter<void>();
   @Input() managerId: string;
@@ -65,7 +68,7 @@ export class DebtorsModalComponent {
               );
             },
             error: (error: Error) => {
-              console.error(error.message);
+              this.loggingService.error(error.message);
               this.notiflix.showError(
                 this.translate.instant('NOTIFLIX.ERROR')
               );
@@ -91,13 +94,13 @@ export class DebtorsModalComponent {
     const hasLetters = /[a-zA-Z]/.test(this.searchTerm);
     const hasNumbers = /\d/.test(this.searchTerm);
     if (hasLetters && hasNumbers) {
-      console.log('The search term contains letters and numbers');
+      this.loggingService.log(LogMessages.NUMBERS_AND_LETTERS);
     } else if (hasLetters || hasNumbers) {
       const searchType = hasLetters ? "name" : "identification";
-      console.log(`We're searching by ${searchType}.`);
+      this.loggingService.log(LogMessages.SEARCHING(searchType))
       this.updateDebtorsFound();
     } else {
-      console.log('The search term contains no letters or numbers');
+      this.loggingService.log(LogMessages.NO_NUMBERS_NOR_LETTERS);
     }
   }
 
@@ -111,7 +114,7 @@ export class DebtorsModalComponent {
           this.debtorsFound.set(debtors);
         },
         error: (error: Error) => {
-          console.error(error.message);
+          this.loggingService.error(error.message);
         }
       });
   }
@@ -123,7 +126,7 @@ export class DebtorsModalComponent {
           this.debtorsWithoutAssignment.set(debtors);
         },
         error: (error: Error) => {
-          console.error(error.message);
+          this.loggingService.error(error.message);
         }
       });
   }

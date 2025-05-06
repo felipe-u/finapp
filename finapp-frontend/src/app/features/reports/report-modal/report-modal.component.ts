@@ -4,6 +4,7 @@ import { PdfService } from '../../../core/services/pdf.service';
 import { XlsxService } from '../../../core/services/xlsx.service';
 import { TranslatePipe } from '@ngx-translate/core';
 import { CurrencyPipe } from '@angular/common';
+import { LoggingService } from '../../../core/services/logging.service';
 
 @Component({
   selector: 'app-report-modal',
@@ -16,6 +17,7 @@ export class ReportModalComponent implements OnInit {
   private clientsService = inject(ClientsService);
   private pdfService = inject(PdfService);
   private xlsxService = inject(XlsxService);
+  private loggingService = inject(LoggingService);
   @Output() close = new EventEmitter<void>();
   @Input() reportType: string;
   @Input() daysGap: string;
@@ -32,7 +34,7 @@ export class ReportModalComponent implements OnInit {
         this.loadingData = false;
       },
       error: (error) => {
-        console.error(error);
+        this.loggingService.error(error.message);
         this.loadingData = false;
       }
     })

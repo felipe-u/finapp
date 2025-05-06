@@ -3,6 +3,8 @@ import { FormsModule } from '@angular/forms';
 import { UsersService } from '../../core/services/users.service';
 import { Router } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
+import { LoggingService } from '../../core/services/logging.service';
+import { LogMessages } from '../../core/utils/log-messages';
 
 @Component({
   selector: 'app-users',
@@ -14,6 +16,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 export class UsersComponent implements OnInit {
   private router = inject(Router);
   private usersService = inject(UsersService);
+  private loggingService = inject(LoggingService);
   searchTerm = '';
   managers = signal<any>([]);
   assistants = signal<any>([]);
@@ -27,7 +30,7 @@ export class UsersComponent implements OnInit {
         this.assistants.set(users.assistants);
       },
       error: (error: Error) => {
-        console.error(error.message);
+        this.loggingService.error(error.message);
       }
     });
   }
@@ -70,11 +73,11 @@ export class UsersComponent implements OnInit {
             this.assistants.set(users.assistants);
           },
           error: (error: Error) => {
-            console.error(error.message);
+            this.loggingService.error(error.message);
           }
         });
     } else {
-      console.log('Invalid search term.');
+      this.loggingService.log(LogMessages.INVALID_SEARCH);
     }
   }
 }
