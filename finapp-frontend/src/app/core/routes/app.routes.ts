@@ -19,10 +19,11 @@ import { ProfileComponent } from "../../features/account/profile/profile.compone
 import { ContactComponent } from "../../features/support/contact/contact.component";
 import { routes as ClientRoutes } from "./clients.routes";
 import { routes as AuthRoutes } from "./auth.routes";
+import { ROUTE_PATHS, ROUTE_TITLES } from "../utils/app.routes.constants";
 
 export const routes: Routes = [
     {
-        path: 'auth',
+        path: ROUTE_PATHS.AUTH,
         canActivate: [authRedirectGuard],
         children: AuthRoutes
     },
@@ -37,94 +38,94 @@ export const routes: Routes = [
         canActivate: [authGuard],
         children: [
             {
-                path: 'home',
+                path: ROUTE_PATHS.HOME,
                 component: HomeComponent,
-                title: 'FinApp | Home'
+                title: ROUTE_TITLES.HOME
             },
             {
-                path: 'clients',
+                path: ROUTE_PATHS.CLIENTS,
                 component: ClientsComponent,
                 canActivate: [RoleGuard],
                 data: { expectedRole: 'manager' },
-                title: 'FinApp | Clients',
+                title: ROUTE_TITLES.CLIENTS,
             },
             {
-                path: 'clients/:clientId',
+                path: ROUTE_PATHS.CLIENT_DETAILS,
                 component: ClientComponent,
                 children: ClientRoutes
             },
             {
-                path: 'users',
+                path: ROUTE_PATHS.USERS,
                 component: UsersComponent,
                 canActivate: [RoleGuard],
                 data: { expectedRole: 'admin' },
-                title: 'FinApp | Users'
+                title: ROUTE_TITLES.USERS
             },
             {
-                path: 'users/:userId',
+                path: ROUTE_PATHS.USER_DETAILS,
                 component: UserComponent,
                 canActivate: [RoleGuard],
                 data: { expectedRole: 'admin' },
-                title: 'FinApp | User',
+                title: ROUTE_TITLES.USER,
             },
             {
-                path: 'users/:userId/debtors-list',
+                path: ROUTE_PATHS.DEBTORS_LIST,
                 component: DebtorsListComponent,
                 canActivate: [RoleGuard],
                 data: { expectedRole: 'admin' },
-                title: 'FinApp | Debtors List'
+                title: ROUTE_TITLES.DEBTORS_LIST
             },
             {
-                path: 'reports',
+                path: ROUTE_PATHS.REPORTS,
                 component: ReportsComponent,
                 canActivate: [RoleGuard],
                 data: { expectedRole: 'assistant' },
-                title: 'FinApp | Reports'
+                title: ROUTE_TITLES.REPORTS
             },
             {
-                path: 'support',
+                path: ROUTE_PATHS.SUPPORT,
                 component: SupportComponent,
-                title: 'FinApp | Support'
+                title: ROUTE_TITLES.SUPPORT
             },
             {
-                path: 'support/contact',
+                path: ROUTE_PATHS.SUPPORT_CONTACT,
                 component: ContactComponent,
-                title: 'FinApp | Support'
+                title: ROUTE_TITLES.SUPPORT
             }
         ]
     },
     {
-        path: 'account',
+        path: ROUTE_PATHS.ACCOUNT,
         component: AccountLayoutComponent,
         canActivate: [authGuard],
         children: [
             {
-                path: ':userId',
+                path: ROUTE_PATHS.USER_ID,
                 component: AccountComponent,
-                title: 'Account Settings',
+                title: ROUTE_TITLES.ACCOUNT,
                 children: [
                     {
-                        path: 'profile',
+                        path: ROUTE_PATHS.ACCOUNT_PROFILE,
                         component: ProfileComponent,
-                        title: 'Profile'
+                        title: ROUTE_TITLES.PROFILE
                     },
                     {
-                        path: 'settings',
+                        path: ROUTE_PATHS.ACCOUNT_SETTINGS,
                         component: SettingsComponent,
-                        title: 'Settings'
+                        title: ROUTE_TITLES.SETTINGS
                     }
                 ]
             },
         ]
     },
     {
-        path: 'forbidden',
+        path: ROUTE_PATHS.FORBIDDEN,
         component: ForbiddenComponent,
-        title: '403 | Forbidden'
+        title: ROUTE_TITLES.FORBIDDEN
     },
     {
-        path: '**',
+        path: ROUTE_PATHS.NOT_FOUND,
         component: NotFoundComponent,
-        title: '404 | Not Found'
+        title: ROUTE_TITLES.NOT_FOUND
     }
 ]
