@@ -8,6 +8,8 @@ import { PropertyImagesComponent } from "./property-images/property-images.compo
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { NotiflixService } from '../../../../core/services/notiflix.service';
 import { GoogleMapsServiceService } from '../../../../core/services/google-maps.service';
+import { LoggingService } from '../../../../core/services/logging.service';
+import { LogMessages } from '../../../../core/utils/log-messages';
 
 @Component({
   selector: 'app-geo-info',
@@ -21,7 +23,8 @@ export class GeoInfoComponent {
   private locationService = inject(LocationService);
   private notiflix = inject(NotiflixService);
   private translate = inject(TranslateService);
-  private googleMapsService = inject(GoogleMapsServiceService)
+  private googleMapsService = inject(GoogleMapsServiceService);
+  private loggingService = inject(LoggingService);
   @ViewChild(PropertyImagesComponent) propertyImagesComponent!: PropertyImagesComponent;
   client = signal<any | undefined>(undefined);
   geoInfo = signal<GeoInfo>(undefined);
@@ -38,27 +41,25 @@ export class GeoInfoComponent {
     this.googleMapsService.load().then(() => {
       this.isMapAvailable = typeof google !== "undefined" && google.maps;
     }).catch((err) => {
-      console.error('Error loading Google Maps:', err);
+      this.loggingService.error(LogMessages.ERR_LOADING_MAPS(err));
     })
     this.client = this.clientsService.getClient();
     this.clientsService.getClientGeographicInfo().subscribe({
       next: (geoInfo) => {
         this.geoInfo.set(geoInfo);
         this.center.set({ lat: geoInfo.latitude, lng: geoInfo.longitude })
-        console.log(geoInfo)
       },
       error: (error: Error) => {
-        console.error(error.message);
+        this.loggingService.error(error.message);
       }
     });
 
     this.locationService.getDepartmentsAndCities().subscribe({
       next: (data) => {
         this.departments = data;
-        console.log(data)
       },
       error: (error: Error) => {
-        console.error(error.message);
+        this.loggingService.error(error.message);
       }
     })
 
@@ -170,7 +171,7 @@ export class GeoInfoComponent {
             );
           },
           error: (error: Error) => {
-            console.error(error.message);
+            this.loggingService.error(error.message);
             this.notiflix.showError(
               this.translate.instant('NOTIFLIX.ERROR')
             );

@@ -210,7 +210,6 @@ exports.getDebtorsListByManager = (req, res, next) => {
   if (req.query.searchTerm) {
     exports.getDebtorsListBySearchTerm(req, res, next);
   } else if (req.query.filter) {
-    console.log("Filtering...");
     exports.getDebtorsListByStatuses(req, res, next);
   } else {
     exports.getDebtors({}, res, req.params.managerId);
@@ -259,7 +258,6 @@ exports.getAllDebtors = async (req, res, next) => {
       path: "manager",
       select: "name",
     });
-    console.log(populatedDebtors);
     res.status(200).json({ debtors: populatedDebtors });
   } catch (err) {
     res.status(500).json({

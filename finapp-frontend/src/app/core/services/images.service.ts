@@ -2,17 +2,19 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { LoggingService } from './logging.service';
+import { LogMessages } from '../utils/log-messages';
 
 @Injectable({ providedIn: 'root' })
 export class ImagesService {
     private httpClient = inject(HttpClient);
     private SERVER_URL = environment.SERVER_URL;
+    private loggingService = inject(LoggingService);
     tempImageUrl: string | null = null;
 
     uploadImage(image: File) {
         const formData = new FormData();
         formData.append('image', image);
-        console.log('Uploading image...');
         return this.httpClient.post<{ imageUrl: string }>(
             `${this.SERVER_URL}/upload`, formData
         ).pipe(
@@ -24,7 +26,7 @@ export class ImagesService {
 
     updateImage(model: string, modelId: string) {
         if (!this.tempImageUrl) {
-            console.error('No image to upload');
+            this.loggingService.error(LogMessages.NO_IMG_TO_UPLOAD);
             return;
         }
         return this.httpClient.put(

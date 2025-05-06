@@ -1,8 +1,8 @@
 const PersonalInfo = require("../models/personalInfo");
 const { User } = require("../models/user");
-const fs = require("fs");
-const path = require("path");
 const cloudinary = require("../config/cloudinary");
+const logger = require("../utils/logger");
+const logMessages = require("../utils/logMessages");
 require("dotenv").config();
 
 const BASE_URL = process.env.BASE_URL;
@@ -31,7 +31,6 @@ exports.updateClientPhoto = async (req, res, next) => {
     }
     personalInfo.photo = imageUrl;
     await personalInfo.save();
-    console.log("Photo updated");
     res.status(200).json({ message: "Photo updated successfully" });
   } catch (err) {
     res.status(500).json({
@@ -50,7 +49,6 @@ exports.updateUserPhoto = async (req, res, next) => {
     }
     user.photo = imageUrl;
     await user.save();
-    console.log("Photo updated");
     res.status(200).json({ message: "Photo updated successfully" });
   } catch (err) {
     res.status(500).json({
@@ -69,8 +67,7 @@ exports.deleteImage = async (req, res, next) => {
     }
     const publicId = extractPublicId(imageUrl);
     const result = await cloudinary.uploader.destroy(publicId);
-    console.log("Delete result: ", result);
-
+    logger.info(logMessages.DELETE_RESULT(result));
     res.status(200).json({ message: "Image deleted successfully" });
   } catch (err) {
     res.status(500).json({
@@ -95,8 +92,8 @@ exports.deleteImages = async (req, res, next) => {
       try {
         await cloudinary.uploader.destroy(publicId);
       } catch (err) {
-        console.error(`Failed to delete ${imageUrl}:`, err.message);
-        errors.push(`Failed to delete ${imageUrl}`);
+        logger.error(logMessages.DELETE_FAIL(imageUrl));
+        errors.push(logMessages.DELETE_FAIL(imageUrl));
       }
     }
 

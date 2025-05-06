@@ -141,7 +141,6 @@ export class UsersService {
     }
 
     changeUserLang(userId: string, newLang: string) {
-        console.log("userId: " + userId);
         return this.httpClient.post<any>(this.SERVER_URL + '/change-lang', { userId, newLang })
     }
 }

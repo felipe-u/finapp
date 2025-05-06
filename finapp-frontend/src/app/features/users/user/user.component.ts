@@ -5,6 +5,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { User } from '../../../core/models/user.model';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { NotiflixService } from '../../../core/services/notiflix.service';
+import { LoggingService } from '../../../core/services/logging.service';
 
 @Component({
   selector: 'app-user',
@@ -18,6 +19,7 @@ export class UserComponent implements OnInit {
   private activatedRoute = inject(ActivatedRoute);
   private notiflix = inject(NotiflixService);
   private translate = inject(TranslateService);
+  private loggingService = inject(LoggingService);
   user = signal<any | undefined>(undefined);
   editMode = false;
 
@@ -35,10 +37,9 @@ export class UserComponent implements OnInit {
       this.usersService.findById(params.userId).subscribe({
         next: (user) => {
           this.user.set(user);
-          console.log(user);
         },
         error: (error: Error) => {
-          console.error(error.message);
+          this.loggingService.error(error.message);
         }
       })
     })
@@ -89,7 +90,7 @@ export class UserComponent implements OnInit {
             );
           },
           error: (error: Error) => {
-            console.error(error.message);
+            this.loggingService.error(error.message);
             this.notiflix.showError(
               this.translate.instant('NOTIFLIX.ERROR')
             );

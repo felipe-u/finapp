@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, inject, Input, OnChanges, Renderer2, ViewChild } from '@angular/core';
 import { ImagesService } from '../../../../../core/services/images.service';
 import { TranslatePipe } from '@ngx-translate/core';
+import { LoggingService } from '../../../../../core/services/logging.service';
 
 @Component({
   selector: 'app-property-images',
@@ -12,6 +13,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 export class PropertyImagesComponent implements OnChanges, AfterViewInit {
   private imagesService = inject(ImagesService);
   private renderer = inject(Renderer2);
+  private loggingService = inject(LoggingService);
   @Input() editMode: boolean;
   @Input() propertyImagesUrl: string[] = [];
   @ViewChild('fallback') fallbackElement!: ElementRef;
@@ -79,7 +81,7 @@ export class PropertyImagesComponent implements OnChanges, AfterViewInit {
           this.fillColumns();
         },
         error: (err) => {
-          console.error(err.message);
+          this.loggingService.error(err.message);
         }
       })
     }

@@ -9,6 +9,7 @@ import { CurrencyPipe } from '@angular/common';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { EnumPipe } from '../../../../core/pipes/enum.pipe';
 import { NotiflixService } from '../../../../core/services/notiflix.service';
+import { LoggingService } from '../../../../core/services/logging.service';
 
 @Component({
   selector: 'app-commercial-info',
@@ -23,6 +24,7 @@ export class CommercialInfoComponent implements OnInit {
   private relationshipTypeEnum = RelationshipTypeEnum;
   private notiflix = inject(NotiflixService);
   private translate = inject(TranslateService);
+  private loggingService = inject(LoggingService);
   client = signal<any | undefined>(undefined);
   debtorName = signal<string | undefined>(undefined);
   coDebtorName = signal<string | undefined>(undefined);
@@ -49,10 +51,9 @@ export class CommercialInfoComponent implements OnInit {
           commercialInfo.references.filter(
             (reference) => reference.referenceType === 'COM'
           ));
-        console.log(commercialInfo);
       },
       error: (error) => {
-        console.error(error);
+        this.loggingService.error(error.message);
       }
     });
 
@@ -62,7 +63,7 @@ export class CommercialInfoComponent implements OnInit {
           this.coDebtorName.set(codebtorName);
         },
         error: (error) => {
-          console.error(error);
+          this.loggingService.error(error.message);
         }
       })
     } else if (this.client().role === 'codebtor') {
@@ -71,7 +72,7 @@ export class CommercialInfoComponent implements OnInit {
           this.debtorName.set(debtorName);
         },
         error: (error) => {
-          console.error(error);
+          this.loggingService.error(error.message);
         }
       })
     }
@@ -170,7 +171,6 @@ export class CommercialInfoComponent implements OnInit {
 
   prepopulateForm() {
     this.changeEditMode();
-    console.log(this.famReferences());
     const actualLaborSenority = this.extractYearValue(
       this.commercialInfo().laborSenority);
 
@@ -349,7 +349,7 @@ export class CommercialInfoComponent implements OnInit {
             );
           },
           error: (error: Error) => {
-            console.error(error.message);
+            this.loggingService.error(error.message);
             this.notiflix.showError(
               this.translate.instant('NOTIFLIX.ERROR')
             );

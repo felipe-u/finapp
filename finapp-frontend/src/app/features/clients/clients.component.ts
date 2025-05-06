@@ -4,6 +4,8 @@ import { ClientsService } from '../../core/services/clients.service';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { EnumPipe } from '../../core/pipes/enum.pipe';
+import { LoggingService } from '../../core/services/logging.service';
+import { LogMessages } from '../../core/utils/log-messages';
 
 @Component({
   selector: 'app-clients',
@@ -22,6 +24,7 @@ export class ClientsComponent implements OnInit {
   private clientsService = inject(ClientsService);
   private translate = inject(TranslateService);
   private destroyRef = inject(DestroyRef);
+  private loggingService = inject(LoggingService);
   debtors = signal<any>([]);
   searchTerm = '';
   options = [
@@ -67,7 +70,7 @@ export class ClientsComponent implements OnInit {
 
         },
         error: (error: Error) => {
-          console.error(error.message);
+          this.loggingService.error(error.message);
         }
       })
     this.destroyRef.onDestroy(() => {
@@ -84,7 +87,7 @@ export class ClientsComponent implements OnInit {
           this.debtors.set(debtors);
         },
         error: (error: Error) => {
-          console.error(error.message);
+          this.loggingService.error(error.message);
         }
       });
   }
@@ -101,20 +104,20 @@ export class ClientsComponent implements OnInit {
     const hasLetters = /[a-zA-Z]/.test(this.searchTerm);
     const hasNumbers = /\d/.test(this.searchTerm);
     if (hasLetters && hasNumbers) {
-      console.log('The search term contains letters and numbers');
+      this.loggingService.log(LogMessages.NUMBERS_AND_LETTERS);
     } else if (hasLetters || hasNumbers) {
       const searchType = hasLetters ? "name" : "identification";
-      console.log(`We're searching by ${searchType}.`);
+      this.loggingService.log(LogMessages.SEARCHING(searchType))
       this.clientsService.getDebtorsBySearchTerm(this.searchTerm).subscribe({
         next: (debtors) => {
           this.debtors.set(debtors);
         },
         error: (error: Error) => {
-          console.error(error.message);
+          this.loggingService.error(error.message);
         }
       });
     } else {
-      console.log('The search term contains no letters or numbers');
+      this.loggingService.log(LogMessages.NO_NUMBERS_NOR_LETTERS);
     }
   }
 

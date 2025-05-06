@@ -61,7 +61,6 @@ exports.updateUser = async (req, res, next) => {
     user.email = email;
     user.phone = phone;
     await user.save();
-    console.log("user updated");
     return res.status(200).json({ message: "User updated successfully!" });
   } catch (err) {
     res.status(500).json({
@@ -103,7 +102,6 @@ exports.changePassword = async (req, res, next) => {
     const hashedPassword = bcrypt.hashSync(newPassword);
     user.password = hashedPassword;
     await user.save();
-    console.log("password updated");
     return res.status(200).json({ message: "Password changed successfully" });
   } catch (err) {
     res.status(500).json({
@@ -123,7 +121,6 @@ exports.changeLang = async (req, res, next) => {
     }
     user.language = newLang;
     await user.save();
-    console.log("Language updated");
     return res.status(200).json({ message: "Language changed successfully" });
   } catch (err) {
     res.status(500).json({

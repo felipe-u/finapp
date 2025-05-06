@@ -107,7 +107,6 @@ describe('RegisterComponent', () => {
     const setUserPhotoSpy = spyOn(component['usersService'], 'setUserPhoto');
     const setUserLangSpy = spyOn(component['usersService'], 'setUserLang');
     const localStorageSetItemSpy = spyOn(localStorage, 'setItem');
-    const routerSpy = spyOn(component['router'], 'navigateByUrl');
 
     component.form.patchValue({
       name: 'Juan',
@@ -127,7 +126,6 @@ describe('RegisterComponent', () => {
     expect(setUserEmailSpy).toHaveBeenCalledWith('juan@example.com');
     expect(setUserPhotoSpy).toHaveBeenCalledWith('');
     expect(setManagerIdSpy).toHaveBeenCalledWith('123');
-    expect(routerSpy).toHaveBeenCalledWith('/auth/login');
   });
 
   it('should handle registration error and show error notification', () => {

@@ -89,7 +89,6 @@ export class ClientsService {
     }
 
     getClientFinancing() {
-        console.log("Retrieving client financing: ", this.client()._id);
         return this.httpClient.get<any>(
             this.SERVER_URL + '/clients/' + this.client()._id + '/financing'
         ).pipe(
@@ -99,7 +98,6 @@ export class ClientsService {
     }
 
     getClientPersonalInfo() {
-        console.log("Retrieving client personal info: ", this.client()._id);
         return this.httpClient.get<any>(
             this.SERVER_URL + '/clients/' + this.client()._id + '/personalInfo'
         ).pipe(
@@ -108,7 +106,6 @@ export class ClientsService {
     }
 
     editPersonalInfo(updatedPersonalInfo: PersonalInfo, updatedIdNumber: string) {
-        console.log("Editing client personal info: ", this.client()._id);
         return this.httpClient.post(
             this.SERVER_URL + '/clients/' + this.client()._id + '/personalInfo/edit',
             { newIdNumber: updatedIdNumber, newPersonalInfo: updatedPersonalInfo }
@@ -116,7 +113,6 @@ export class ClientsService {
     }
 
     getClientGeographicInfo() {
-        console.log("Retrieving client geographic info: ", this.client()._id);
         return this.httpClient.get<any>(
             this.SERVER_URL + '/clients/' + this.client()._id + '/geoInfo'
         ).pipe(
@@ -126,21 +122,18 @@ export class ClientsService {
 
 
     editGeoInfo(updatedGeoInfo: GeoInfo) {
-        console.log("Editing client geographic info: ", this.client()._id);
         return this.httpClient.post(
             this.SERVER_URL + '/clients/' + this.client()._id + '/geoInfo/edit', { updatedGeoInfo }
         );
     }
 
     getClientCommercialInfo() {
-        console.log("Retrieving client commercial info: ", this.client()._id);
         return this.httpClient.get<any>(
             this.SERVER_URL + '/clients/' + this.client()._id + '/commercialInfo'
         );
     }
 
     editCommercialInfo(updatedCommercialInfo: CommercialInfo, updatedReferences: Reference[]) {
-        console.log("Editing client commercial info: ", this.client()._id);
         return this.httpClient.post(
             this.SERVER_URL + '/clients/' + this.client()._id + '/commercialInfo/edit',
             { newCommercialInfo: updatedCommercialInfo, newReferences: updatedReferences }

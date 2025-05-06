@@ -6,6 +6,7 @@ import { UsersService } from '../../../core/services/users.service';
 import { NotiflixService } from '../../../core/services/notiflix.service';
 import { VirtualDateService } from '../../../core/services/virtualDate.service';
 import { DatePipe } from '@angular/common';
+import { LoggingService } from '../../../core/services/logging.service';
 
 @Component({
   selector: 'app-settings',
@@ -20,6 +21,7 @@ export class SettingsComponent implements OnInit {
   private usersService = inject(UsersService);
   private notiflix = inject(NotiflixService);
   private virtualDateService = inject(VirtualDateService);
+  private loggingService = inject(LoggingService);
   @Input() userId: string;
   selectedLang: string;
   virtualDate = signal<Date>(null);
@@ -50,7 +52,7 @@ export class SettingsComponent implements OnInit {
               );
             },
             error: (error: Error) => {
-              console.error(error.message);
+              this.loggingService.error(error.message);
               this.notiflix.showError(
                 this.translate.instant('NOTIFLIX.ERROR')
               );
@@ -78,7 +80,7 @@ export class SettingsComponent implements OnInit {
         this.virtualDate.set(vDate);
       },
       error: (err) => {
-        console.error(err);
+        this.loggingService.error(err.message)
       }
     })
   }
@@ -103,7 +105,7 @@ export class SettingsComponent implements OnInit {
               : 'Simulation advanced 7 days'
           );
         },
-        error: (err) => console.error(err)
+        error: (err) => this.loggingService.error(err.message)
       });
     };
 
@@ -126,7 +128,7 @@ export class SettingsComponent implements OnInit {
         this.notiflix.showInfo('Simulation has been reset');
       },
       error: (err) => {
-        console.error(err);
+        this.loggingService.error(err.message)
       }
     });
   }
