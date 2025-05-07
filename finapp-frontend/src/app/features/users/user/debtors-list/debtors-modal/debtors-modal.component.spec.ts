@@ -6,6 +6,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ClientsService } from '../../../../../core/services/clients.service';
 import { NotiflixService } from '../../../../../core/services/notiflix.service';
 import { of } from 'rxjs';
+import { LogMessages } from '../../../../../core/utils/log-messages';
 
 describe('DebtorsModalComponent', () => {
   let component: DebtorsModalComponent;
@@ -46,9 +47,29 @@ describe('DebtorsModalComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should emit close event when onCancel is called', () => {
+    spyOn(component.close, 'emit');
+    component.onCancel();
+    expect(component.close.emit).toHaveBeenCalled();
+  });
+
   it('should show search bar when showSearchBar() is called', () => {
     component.showSearchBar();
     expect(component.showingSearchBar).toBeTrue();
+  });
+
+  it('should reset view states and searchTerm when goToMenu is called', () => {
+    component.showingSearchBar = true;
+    component.showingDebtorsWithoutAssignment = true;
+    component.showingDebtorsFound = true;
+    component.searchTerm = 'test';
+
+    component.goToMenu();
+
+    expect(component.showingSearchBar).toBeFalse();
+    expect(component.showingDebtorsWithoutAssignment).toBeFalse();
+    expect(component.showingDebtorsFound).toBeFalse();
+    expect(component.searchTerm).toBe('');
   });
 
   it('should show debtors without assignment when showDebtorsWithoutAssignent() is called', () => {
@@ -81,5 +102,55 @@ describe('DebtorsModalComponent', () => {
     clientsServiceSpy.getAllDebtorsBySearchTerm.and.returnValue(of([]));
     component.searchClient();
     expect(clientsServiceSpy.getAllDebtorsBySearchTerm).toHaveBeenCalledWith('John');
+  });
+
+  it('should log appropriate message when validateInput is called with letters and numbers', () => {
+    component.searchTerm = 'John123';
+    spyOn(component['loggingService'], 'log');
+
+    component['validateInput']();
+
+    expect(component['loggingService'].log).toHaveBeenCalledWith(LogMessages.NUMBERS_AND_LETTERS);
+  });
+
+  it('should log appropriate message and update debtors found when validateInput is called with letters only', () => {
+    component.searchTerm = 'John';
+    spyOn(component['loggingService'], 'log');
+    spyOn<any>(component, 'updateDebtorsFound');
+
+    component['validateInput']();
+
+    expect(component['loggingService'].log).toHaveBeenCalledWith(LogMessages.SEARCHING('name'));
+    expect(component['updateDebtorsFound']).toHaveBeenCalled();
+  });
+
+  it('should log appropriate message when validateInput is called with no letters or numbers', () => {
+    component.searchTerm = '!!!';
+    spyOn(component['loggingService'], 'log');
+
+    component['validateInput']();
+
+    expect(component['loggingService'].log).toHaveBeenCalledWith(LogMessages.NO_NUMBERS_NOR_LETTERS);
+  });
+
+  it('should update debtorsFound and set showingDebtorsFound to true when updateDebtorsFound is called with results', () => {
+    const fakeDebtors = [{ _id: '1', name: 'Juan' }];
+    clientsServiceSpy.getAllDebtorsBySearchTerm.and.returnValue(of(fakeDebtors));
+
+    component['updateDebtorsFound']();
+
+    expect(clientsServiceSpy.getAllDebtorsBySearchTerm).toHaveBeenCalledWith(component.searchTerm);
+    expect(component.showingDebtorsFound).toBeTrue();
+    expect(component.debtorsFound()).toEqual(fakeDebtors);
+  });
+
+  it('should update debtorsWithoutAssignment when updateDebtorsWithoutAssignment is called', () => {
+    const fakeDebtors = [{ _id: '1', name: 'Juan' }];
+    clientsServiceSpy.getDebtorsWithoutAssignment.and.returnValue(of(fakeDebtors));
+
+    component['updateDebtorsWithoutAssignment']();
+
+    expect(clientsServiceSpy.getDebtorsWithoutAssignment).toHaveBeenCalled();
+    expect(component.debtorsWithoutAssignment()).toEqual(fakeDebtors);
   });
 });

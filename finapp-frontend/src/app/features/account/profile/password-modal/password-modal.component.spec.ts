@@ -45,6 +45,35 @@ describe('PasswordModalComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should mark newPasswordForm as invalid when empty', () => {
+    component['newPasswordForm'].setValue({ newPassword: '' });
+    expect(component['newPasswordForm'].invalid).toBeTrue();
+  });
+
+  it('should mark oldPasswordForm as valid when filled', () => {
+    component['oldPasswordForm'].setValue({ oldPassword: 'validPassword123' });
+    expect(component['oldPasswordForm'].valid).toBeTrue();
+  });
+
+  it('should mark newPasswordForm as valid when filled', () => {
+    component['newPasswordForm'].setValue({ newPassword: 'validPassword123' });
+    expect(component['newPasswordForm'].valid).toBeTrue();
+  });
+
+  it('should update isOldPasswordWrongOrNotEnteredYet to false when checkPassword() succeeds', fakeAsync(() => {
+    component['oldPasswordForm'].setValue({ oldPassword: 'correctPassword' });
+    component.checkPassword();
+    tick();
+
+    expect(component['isOldPasswordWrongOrNotEnteredYet']).toBeFalse();
+  }));
+
+  it('should toggle isOldPasswordWrongOrNotEnteredYet when changeView() is called', () => {
+    const initialValue = component['isOldPasswordWrongOrNotEnteredYet'];
+    component.changeView();
+    expect(component['isOldPasswordWrongOrNotEnteredYet']).toBe(!initialValue);
+  });
+
   it('should display old password form if isOldPasswordWrongOrNotEnteredYet is true', () => {
     const formElement = fixture.debugElement.query(By.css('form'))
     expect(formElement).toBeTruthy();
