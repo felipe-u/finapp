@@ -12,7 +12,7 @@ Lo puedes descargar desde el siguiente enlace: https://nodejs.org/en/download
 
 ## Instalación 
 Clona este repositorio en una carpeta de tu equipo.
-Este proyecto tiene dos carpetas principales, finapp-bacjend (servidor) y finapp-frontend (interfaz gráfica).
+Este proyecto tiene dos carpetas principales, finapp-backend (servidor) y finapp-frontend (interfaz gráfica).
 
 Luego de haber clonado el repositorio, ingresa a la raíz de cada carpeta. <br>
 `cd finapp-backend` <br>
